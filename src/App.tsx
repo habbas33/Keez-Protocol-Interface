@@ -1,26 +1,84 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ProfileProvider } from './context/ProfileContext'
+import { ConnectUpModalContextProvider } from './context/ModalContext'
+import { Main, Vote, Propose, Create, Discover, Faq, AboutUs } from './pages';
+import { Navbar, Footer } from './components';
 
-function App() {
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProfileProvider>
+      <ConnectUpModalContextProvider>
+        <BrowserRouter>
+          <div>
+            <Navbar/>
+            <Routes>
+              <Route path="/"
+                element={
+                  <>
+                    <Main />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+              <Route path="/Create"
+                element={
+                  <>
+                    <Create />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+              <Route path="/Propose"
+                element={
+                  <>
+                    <Propose />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+              <Route path="/Vote"
+                element={
+                  <>
+                    <Vote />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+              <Route path="/Discover"
+                element={
+                  <>
+                    <Discover />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+              <Route path="/Faq"
+                element={
+                  <>
+                    <Faq />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+              <Route path="/AboutUs"
+                element={
+                  <>
+                    <AboutUs />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+            </Routes>
+            <Footer/>
+          </div>
+        </BrowserRouter>
+      </ConnectUpModalContextProvider>
+    </ProfileProvider>
   );
-}
+};
 
 export default App;
