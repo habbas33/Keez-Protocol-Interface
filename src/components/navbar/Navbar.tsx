@@ -3,12 +3,12 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { SiEthereum } from "react-icons/si";
 import { IoDiamond } from "react-icons/io5";
 import { AiOutlineClose, AiOutlineLogin, AiOutlineLogout, AiOutlineDown } from "react-icons/ai";
-import { ProfileContext } from '../context/ProfileContext'
-import { shortenAddress } from "../utils/shortenAddress";
-import { menuItems } from '../constants/menuItems'
+import { ProfileContext } from '../../context/ProfileContext'
+import { shortenAddress } from "../../utils/shortenAddress";
+import { menuItems } from '../../constants/menuItems'
 import NavItems from "./NavItems";
 import { NavLink } from "react-router-dom";
-import { IPFS_GATEWAY } from "../constants/globals";
+import { IPFS_GATEWAY } from "../../constants/globals";
 
 const NavbarItem = ({title}:any, {classProps}:any) => {
   return (
@@ -54,7 +54,7 @@ export default function Navbar() {
           </NavLink>
           
           <ul className="text-white md:flex list-none hidden flex-column justify-between items-center flex-initial">
-            {menuItems.map((menu, index) => {
+            {menuItems.map((menu:any, index:number) => {
               const depthLevel = 0;
               return <NavItems items={menu} key={index} depthLevel={depthLevel} />;
             })}
