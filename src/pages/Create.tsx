@@ -65,7 +65,8 @@ const CreateMasterKey = (props: {handleSubmitCreate:any}) => {
               border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
               text-base font-medium text-white hover:bg-[#ac0537] 
                  sm:w-auto sm:text-sm"
-            onClick={handleSubmitCreate("CreateDAO")}
+            // onClick={handleSubmitCreate("CreateDAO")}
+            onClick={()=>"goto next page"}
           >
             Next
             <MdNavigateNext className="pl-[2px] w-6" color="#fff" fontSize={20}  />
@@ -112,7 +113,8 @@ const CreateDAO = (props: {handleSubmitCreate:any}) => {
               border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
               text-base font-medium text-white hover:bg-[#ac0537] 
                  sm:w-auto sm:text-sm"
-              onClick={handleSubmitCreate("CreateMasterKey")}
+              // onClick={handleSubmitCreate("CreateMasterKey")}
+              onClick={()=>"goto create masterkey"}
             >
             Next
             <MdNavigateNext className="pl-[2px] w-6" color="#fff" fontSize={20}  />
