@@ -1,4 +1,5 @@
 export { default as Navbar } from './navbar/Navbar'
+export { default as FileUploader } from './create/FileUploader'
 export { default as Footer } from './Footer'
 export { default as Welcome } from './Welcome'
 export { default as Trending } from './Trending'

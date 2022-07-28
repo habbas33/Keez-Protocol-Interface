@@ -11,7 +11,7 @@ export default function MultiSelect () {
             name="daoCategories"
             options={daoCategoryItems}
             styles={customStyles}
-            className="basic-multi-select"
+            className="basic-multi-select my-1"
             classNamePrefix="select"
             placeholder={''}
         />

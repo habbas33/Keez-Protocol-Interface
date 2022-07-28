@@ -9,6 +9,7 @@ import { menuItems } from '../../constants/menuItems'
 import NavItems from "./NavItems";
 import { NavLink } from "react-router-dom";
 import { IPFS_GATEWAY } from "../../constants/globals";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const NavbarItem = ({title}:any, {classProps}:any) => {
   return (
@@ -33,11 +34,12 @@ export default function Navbar() {
   const [profileName, setProfileName] = React.useState<string>('');
   const [profileImageUrl, setProfileImageUrl] = React.useState<string>('');
   const { accountAddress, disconnectWallet, connectWallet, profileData } = useContext(ProfileContext);
+  let profileImgUrl =profileData?.value?.LSP3Profile?.profileImage[4]?.url;
 
   useEffect(() => {
     if (!profileData) return;
     const profile = profileData?.value?.LSP3Profile;
-    const profileImgUrl = IPFS_GATEWAY.concat(profile?.profileImage[4]?.url.slice(7));
+    profileImgUrl = IPFS_GATEWAY.concat(profile?.profileImage[4]?.url.slice(7));
     setProfileName(profile?.name);
     setProfileImageUrl(profileImgUrl);
   }, [profileData]);
@@ -82,17 +84,26 @@ export default function Navbar() {
                 onClick={ disconnectWallet }
                 className="flex items-center w-44 justify-center text-white font-bold py-1 px-2 border rounded bg-red border-[#4E4E50] hover:border-[#ac0537]"
               >
-                  <div className="w-7 h-7 rounded-full border-2 border-light flex justify-center items-center">
+                {profileImgUrl ?  (
+                  <>
+                    <div className="w-7 h-7 rounded-full border-2 border-light flex justify-center items-center">
                       <img 
                         className="object-cover rounded-full "
                         src={profileImageUrl}
-                        alt="new"
                       />
-                  </div>
-                  {/* <AiOutlineLogout className="text-white mr-2" /> */}
-                  <p className="text-base px-2 font-semibold">
-                    {profileName}
-                  </p>
+                    </div>
+                    <p className="text-base px-2 font-semibold">
+                      {profileName}
+                    </p>
+                  </>
+                )
+                  :(
+                    <>
+                      <Skeleton style={{ backgroundColor: '#4E4E50' }} animation="wave" variant="circle" width={24} height={24} />
+                      <Skeleton style={{ backgroundColor: '#4E4E50',  borderRadius: "25px", marginLeft:"4px"}}  animation="wave" className="px-2" variant="rect" width={110} height={24} />
+                    </>
+                  )
+                }
               </button>
               )}
             </ul>
