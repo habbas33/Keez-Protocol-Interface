@@ -46,7 +46,7 @@ export const ProfileProvider = ({children}:any) => {
 
       
     const connectWallet = async () => {
-        console.log("connect");
+        // console.log("connect");
         try {
             if (web3){
                 const account = await requestAccount(web3);
@@ -55,6 +55,7 @@ export const ProfileProvider = ({children}:any) => {
                 fetchProfile(account);
             }
         } catch (error) {
+            window.open('https://docs.lukso.tech/guides/browser-extension/install-browser-extension','_blank')?.focus();
             console.log(error);
             throw new Error("No object found")
         }
