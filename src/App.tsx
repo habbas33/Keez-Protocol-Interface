@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ProfileProvider } from './context/ProfileContext'
-import { ConnectUpModalContextProvider } from './context/ModalContext'
+import { CreateDaoContextProvider } from './context/CreateDaoContext'
 import { Main, Vote, Propose, Create, Discover, Faq, AboutUs } from './pages';
 import { Navbar, Footer } from './components';
 
@@ -11,7 +11,7 @@ import { Navbar, Footer } from './components';
 const App: React.FC = () => {
   return (
     <ProfileProvider>
-      <ConnectUpModalContextProvider>
+      {/* <CreateDaoContextProvider> */}
         <BrowserRouter>
           <div>
             <Navbar/>
@@ -27,8 +27,10 @@ const App: React.FC = () => {
               <Route path="/Create"
                 element={
                   <>
-                    <Create />
-                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                    <CreateDaoContextProvider>
+                      <Create />
+                      <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                    </CreateDaoContextProvider>
                   </>
                 }
               />
@@ -76,7 +78,7 @@ const App: React.FC = () => {
             <Footer/>
           </div>
         </BrowserRouter>
-      </ConnectUpModalContextProvider>
+      {/* </CreateDaoContextProvider> */}
     </ProfileProvider>
   );
 };

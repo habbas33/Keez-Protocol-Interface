@@ -4,7 +4,6 @@ import { SiEthereum } from "react-icons/si";
 import { IoDiamond } from "react-icons/io5";
 import { AiOutlineClose, AiOutlineLogin, AiOutlineLogout, AiOutlineDown } from "react-icons/ai";
 import { ProfileContext } from '../../context/ProfileContext'
-import { shortenAddress } from "../../utils/shortenAddress";
 import { menuItems } from '../../constants/menuItems'
 import NavItems from "./NavItems";
 import { NavLink } from "react-router-dom";

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
 import useWeb3 from '../hooks/useWeb3';
 import { requestAccount, getAccountBalance } from '../services/web3';
-
 import { fetchErc725Data } from '../services/erc725';
 
 interface ProfileContextInterface {

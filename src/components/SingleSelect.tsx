@@ -1,18 +1,19 @@
 import React from 'react';
 
 import Select, { StylesConfig } from 'react-select';
+// import { daoCategoryItems } from '../constants/daoCategoryItems';
 
 export default function MultiSelect (props:{handleChange:any, listItems:any, name:string}) {
     const {handleChange, listItems, name} = props;
     
     return (
         <Select
-            defaultValue={[listItems[0], listItems[1]]}
-            isMulti
+            defaultValue={[listItems[0]]}
+            // isMulti
             name={name}
             options={listItems}
             styles={customStyles}
-            className="basic-multi-select my-1"
+            className="my-1"
             classNamePrefix="select"
             placeholder={''}
             onChange={handleChange}
@@ -32,6 +33,7 @@ export interface ColourOption {
     option: (provided:Record<string, unknown>, state:any) => ({
         ...provided,
         backgroundColor: state.isFocused ?'#ff9292':"",
+        color: "black",
         fontSize: "0.875rem",
         lineHeight: "1",
         "&:active": {
