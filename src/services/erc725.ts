@@ -1,5 +1,6 @@
 import { ERC725, ERC725JSONSchema } from '@erc725/erc725.js';
 import erc725schema from '@erc725/erc725.js/schemas/LSP3UniversalProfileMetadata.json';
+import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 
 import Web3 from 'web3';
 import { RPC_URL, IPFS_GATEWAY } from '../constants/globals';

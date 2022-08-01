@@ -29,7 +29,7 @@ const NavItems = ( props: {items: any, depthLevel:number} ) => {
     document.addEventListener("mousedown", handler);
     document.addEventListener("touchstart", handler);
     
-    console.log(dropdown);
+    // console.log(dropdown);
     return () => {
       // Cleanup the event listener
       document.removeEventListener("mousedown", handler);
