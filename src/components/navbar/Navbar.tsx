@@ -14,6 +14,8 @@ import NavItems from "./NavItems";
 import { NavLink } from "react-router-dom";
 import { IPFS_GATEWAY } from "../../constants/globals";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { MenuItem, MenuList, ClickAwayListener, Popper ,Paper, Grow, ListItemIcon ,ListItemText, Divider } from '@material-ui/core';
+import {StyledMenuItem} from '../../styles'
 
 const NavbarItem = ({ title }: any, { classProps }: any) => {
   return (
@@ -51,8 +53,28 @@ export default function Navbar() {
     setProfileImageUrl(profileImgUrl);
   }, [profileData]);
 
+  const handleToggle = () => {
+    setOpen(!open);
+  }
+
+  const handleClose = (event:any) => {
+    setOpen(false);
+  }
+
+  const handleDisconnectWallet = (event:any) => {
+    handleClose(event);
+    navigate('/');
+    disconnectWallet();
+  }
+
+  const handleViewProfile = (event:any) => {
+    handleClose(event);
+    navigate('/Profile');
+    // disconnectWallet();
+  }
+
   return (
-    <nav className="w-full bg-[#1A1A1D] fixed ">
+    <nav className="w-full bg-[#1A1A1D] fixed z-10">
       <div className="px-5 lg:px-20 md:px-20 py-5">
         <div className="flex md:justify-between justify-between items-center">
           <NavLink className="hover:text-[#ac0537]" to={`/`}>
@@ -167,3 +189,6 @@ export default function Navbar() {
     </nav>
   );
 }
+<<<<<<< HEAD
+=======
+
