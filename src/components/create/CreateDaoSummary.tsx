@@ -7,7 +7,7 @@ import { create, IPFSHTTPClient } from "ipfs-http-client";
 import { IPFS_INFURA_URL } from '../../constants/globals';
 import { votingPeriodItems, votingDelayItems } from '../../constants/votingPeriodItems';
 import {AiOutlineUser} from "react-icons/ai";
-import { StyledTooltip } from "../../components";
+import {StyledTooltip} from '../../styles'
 import { fetchErc725Data } from '../../services/erc725';
 
 const CreateDaoSummary = (props: {handleSubmitCreate:any, metalink:string, setMetalink:any}) => {
@@ -41,7 +41,6 @@ const CreateDaoSummary = (props: {handleSubmitCreate:any, metalink:string, setMe
     }
 
     const handleSubmit = async () => {
-        // event.preventDefault();
         setSubmitLoading(true);
         const ipfsHttpClient: IPFSHTTPClient | undefined = createIpfsClient();
 

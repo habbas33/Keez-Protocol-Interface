@@ -6,7 +6,7 @@ const Dropdown = ( props: {submenus:any, dropdown:boolean} ) => {
   const depthLevel = 1;
 
   return (    
-    <ul className={`flex ${dropdown ? "" : "hidden"} absolute shadow shadow-rose-500 text-black bg-white rounded-lg right-[auto] top-[3.5rem] -mx-24 my-1 py-2 z-50`}> 
+    <ul className={`flex ${dropdown ? "" : "hidden"} absolute text-black bg-white rounded-[4px] right-[auto] top-[3.5rem] -mx-16 my-1 py-2 z-50`}> 
       {submenus.map((submenu:any, index:any) => (
         <NavItems items={submenu} key={index} depthLevel={depthLevel} />
       ))}

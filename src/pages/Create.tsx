@@ -1,7 +1,7 @@
 import React, {useContext, useState,useEffect} from 'react'
 import { ConnectProfileModal } from '../modals/';
 import { ProfileContext } from '../context/ProfileContext'
-import { CreateDao, CreateMasterKey, CreateDaoSummary, CreateKeyPermissions, CreateVault, CreateVotingParameters } from "../components";
+import { CreateDao, CreateDaoSummary, CreateKeyPermissions, CreateVault, CreateVotingParameters } from "../components";
 import {createDao as createDaoService} from "../services/createDao"
 
 const Create: React.FC = () => {
@@ -15,10 +15,6 @@ const Create: React.FC = () => {
     // createDaoService(accountAddress);
   }
 
-  // useEffect(() => {
-  //   setCreateForm("CreateDAO")
-  // }, []);
-
   return (
     <div className="min-h-screen">
         { !accountAddress ? (
@@ -29,7 +25,6 @@ const Create: React.FC = () => {
         ):(
           <>
           { (createForm === "CreateDAO") && (<CreateDao handleSubmitCreate={handleSubmitCreate}/>)}
-          {/* { (createForm === "CreateMasterKey") && (<CreateMasterKey handleSubmitCreate={handleSubmitCreate}/>)} */}
           { (createForm === "CreateKeyPermissions") && (<CreateKeyPermissions handleSubmitCreate={handleSubmitCreate}/>)}
           { (createForm === "CreateVault") && (<CreateVault handleSubmitCreate={handleSubmitCreate}/>)}
           { (createForm === "CreateVotingParameters") && (<CreateVotingParameters handleSubmitCreate={handleSubmitCreate}/>)}

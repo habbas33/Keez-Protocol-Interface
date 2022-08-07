@@ -80,14 +80,14 @@ const CreateVotingParameters = (props: {handleSubmitCreate:any}) => {
               Minimum Voting Delay
             </label>
               <div className='w-1/2'>
-                <SingleSelect handleChange={handleMinVotingDelay} name={"MinVotingDelay"} listItems={votingDelayItems}/>
+                <SingleSelect placeholder="Select default number of days" handleChange={handleMinVotingDelay} name={"MinVotingDelay"} listItems={votingDelayItems}/>
               </div>
   
             <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="minVotingPeriod">
               Minimum Voting Period
             </label>
               <div className='w-1/2'>
-                <SingleSelect handleChange={handleMinVotingPeriod} name={"minVotingPeriod"} listItems={votingPeriodItems}/>
+                <SingleSelect  placeholder="Select default number of days" handleChange={handleMinVotingPeriod} name={"minVotingPeriod"} listItems={votingPeriodItems}/>
               </div>
               
   
