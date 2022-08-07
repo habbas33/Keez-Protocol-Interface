@@ -3,19 +3,19 @@ import React from 'react';
 import Select, { StylesConfig } from 'react-select';
 // import { daoCategoryItems } from '../constants/daoCategoryItems';
 
-export default function MultiSelect (props:{handleChange:any, listItems:any, name:string}) {
-    const {handleChange, listItems, name} = props;
+export default function MultiSelect (props:{handleChange:any, listItems:any, name:string, placeholder?:string}) {
+    const {handleChange, listItems, name, placeholder} = props;
     
     return (
         <Select
-            defaultValue={[listItems[0]]}
+            defaultValue={placeholder}
             // isMulti
             name={name}
             options={listItems}
             styles={customStyles}
             className="my-1"
             classNamePrefix="select"
-            placeholder={''}
+            placeholder={placeholder}
             onChange={handleChange}
         />
     );

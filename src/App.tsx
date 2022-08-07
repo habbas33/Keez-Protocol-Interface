@@ -4,7 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ProfileProvider } from './context/ProfileContext'
 import { CreateDaoContextProvider } from './context/CreateDaoContext'
-import { Main, Vote, Propose, Create, Discover, Faq, AboutUs } from './pages';
+import { CreateProposalContextProvider } from './context/CreateProposalContext'
+import { Main, Vote, Governance, Create, Discover, Faq, AboutUs, UserProfile, DaoProfile } from './pages';
 import { Navbar, Footer } from './components';
 
 
@@ -34,12 +35,12 @@ const App: React.FC = () => {
                   </>
                 }
               />
-              <Route path="/Propose"
+              <Route path="/Governance"
                 element={
-                  <>
-                    <Propose />
+                  <CreateProposalContextProvider>
+                    <Governance />
                     <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
-                  </>
+                  </CreateProposalContextProvider>
                 }
               />
               <Route path="/Vote"
@@ -70,6 +71,22 @@ const App: React.FC = () => {
                 element={
                   <>
                     <AboutUs />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+              <Route path="/Profile"
+                element={
+                  <>
+                    <UserProfile />
+                    <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                  </>
+                }
+              />
+              <Route path="/DaoProfile"
+                element={
+                  <>
+                    <DaoProfile />
                     <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
                   </>
                 }

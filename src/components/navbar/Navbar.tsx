@@ -1,14 +1,18 @@
-import React, {useContext, useEffect} from 'react'
-import { HiMenuAlt4 } from "react-icons/hi";
-import { SiEthereum } from "react-icons/si";
+import React, {useContext, useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom';
+import { HiMenuAlt4, HiUser } from "react-icons/hi";
 import { IoDiamond } from "react-icons/io5";
-import { AiOutlineClose, AiOutlineLogin, AiOutlineLogout, AiOutlineDown } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLogin, AiOutlineDown } from "react-icons/ai";
+// import { HiUserCircle } from "react-icons/hi";
+import { GrOrganization, GrSettingsOption, GrLogout, GrUser } from "react-icons/gr";
 import { ProfileContext } from '../../context/ProfileContext'
 import { menuItems } from '../../constants/menuItems'
 import NavItems from "./NavItems";
 import { NavLink } from "react-router-dom";
 import { IPFS_GATEWAY } from "../../constants/globals";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { MenuItem, MenuList, ClickAwayListener, Popper ,Paper, Grow, ListItemIcon ,ListItemText, Divider } from '@material-ui/core';
+import {StyledMenuItem} from '../../styles'
 
 const NavbarItem = ({title}:any, {classProps}:any) => {
   return (
@@ -29,11 +33,15 @@ const NavbarItem = ({title}:any, {classProps}:any) => {
 }
 
 export default function Navbar() {
-  const [toggleMenu, setToggleMenu] = React.useState<boolean>(false);
-  const [profileName, setProfileName] = React.useState<string>('');
-  const [profileImageUrl, setProfileImageUrl] = React.useState<string>('');
+  const [toggleMenu, setToggleMenu] = useState<boolean>(false);
+  const [profileName, setProfileName] = useState<string>('');
+  const [profileImageUrl, setProfileImageUrl] = useState<string>('');
   const { accountAddress, disconnectWallet, connectWallet, profileData } = useContext(ProfileContext);
   let profileImgUrl =profileData?.value?.LSP3Profile?.profileImage[4]?.url;
+
+  const [open, setOpen] = React.useState(false);
+  const anchorEl = React.useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!profileData) return;
@@ -43,8 +51,28 @@ export default function Navbar() {
     setProfileImageUrl(profileImgUrl);
   }, [profileData]);
 
+  const handleToggle = () => {
+    setOpen(!open);
+  }
+
+  const handleClose = (event:any) => {
+    setOpen(false);
+  }
+
+  const handleDisconnectWallet = (event:any) => {
+    handleClose(event);
+    navigate('/');
+    disconnectWallet();
+  }
+
+  const handleViewProfile = (event:any) => {
+    handleClose(event);
+    navigate('/Profile');
+    // disconnectWallet();
+  }
+
   return (
-    <nav className="w-full bg-[#1A1A1D] fixed ">
+    <nav className="w-full bg-[#1A1A1D] fixed z-10">
       <div className="px-5 lg:px-20 md:px-20 py-5">
         <div className="flex md:justify-between justify-between items-center">
           <NavLink className="hover:text-[#ac0537]" to={`/`}>
@@ -62,7 +90,7 @@ export default function Navbar() {
 
           </ul>
           
-          <div className="md:flex flex-initial justify-end items-center">
+          <div className="md:flex flex-initial justify-end items-center ">
             
             <ul className="text-white md:flex hidden list-none flex-row justify-center items-center flex-initial">
               {!accountAddress ? (
@@ -77,29 +105,32 @@ export default function Navbar() {
                   </p>
                 </button>
               ):(
-                <button
-                type="button"
-                // onClick={ ()=>{console.log("open profile menu")} }
-                onClick={ disconnectWallet }
-                className="flex items-center w-44 justify-center text-white font-bold py-1 px-2 border rounded bg-red border-[#4E4E50] hover:border-[#ac0537]"
+                
+              <button
+                ref={anchorEl}
+                aria-owns={open ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+                className="flex items-center w-44 justify-end text-white font-bold py-1 px-2 border rounded bg-red border-transparent "
               >
                 {profileImgUrl ?  (
                   <>
-                    <div className="w-7 h-7 rounded-full border-2 border-light flex justify-center items-center">
-                      <img 
-                        className="object-cover rounded-full "
-                        src={profileImageUrl}
-                      />
-                    </div>
                     <p className="text-base px-2 font-semibold">
                       {profileName}
                     </p>
+                    <div className="w-7 h-7 rounded-full border-2 border-light flex justify-center hover:border-[#ac0537] items-center">
+                      <img 
+                        className="object-cover rounded-full "
+                        src={profileImageUrl}
+                        alt="altimg"
+                      />
+                    </div>
                   </>
                 )
                   :(
                     <>
-                      <Skeleton style={{ backgroundColor: '#4E4E50' }} animation="wave" variant="circle" width={24} height={24} />
                       <Skeleton style={{ backgroundColor: '#4E4E50',  borderRadius: "25px", marginLeft:"4px"}}  animation="wave" className="px-2" variant="rect" width={110} height={24} />
+                      <Skeleton style={{ backgroundColor: '#4E4E50' }} animation="wave" variant="circle" width={24} height={24} />
                     </>
                   )
                 }
@@ -107,7 +138,49 @@ export default function Navbar() {
               )}
             </ul>
           </div>
-
+          
+          <Popper className="z-10" open={open} anchorEl={anchorEl.current} transition placement={"bottom-end"}>
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'right top' }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList >
+                      <MenuItem onClick={handleViewProfile}>
+                        <ListItemIcon style={{ minWidth:'0' ,padding: '0' }}>
+                          <GrUser className={'text-[#000000DE] text-lg'} />
+                        </ListItemIcon>
+                        <ListItemText style={{ padding: '0 8px', margin: '0 ', fontFamily: 'Open Sans' }} inset primary="View Profile" />
+                      </MenuItem>
+                      <Divider light />
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon style={{ minWidth:'0' ,padding: '0' }}>
+                          <GrOrganization className={'text-[#000000DE] text-lg'} />
+                        </ListItemIcon>
+                        <ListItemText style={{ padding: '0 8px', margin: '0 ', fontFamily: 'Open Sans' }} inset primary="My DAOs" />
+                      </MenuItem>
+                      <Divider light />
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon style={{ minWidth:'0' ,padding: '0' }}>
+                          <GrSettingsOption className={'text-[#000000DE] text-lg'} />
+                        </ListItemIcon>
+                        <ListItemText style={{ padding: '0 8px', margin: '0 ', fontFamily: 'Open Sans' }} inset primary="Settings" />
+                      </MenuItem>
+                      <Divider light />
+                      <MenuItem onClick={handleDisconnectWallet}>
+                        <ListItemIcon style={{ minWidth:'0' ,padding: '0' }}>
+                          <GrLogout className={'text-[#000000DE] text-lg'} />
+                        </ListItemIcon>
+                        <ListItemText style={{ padding: '0 8px', margin: '0 ', fontFamily: 'Open Sans' }} inset primary="Logout" />
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
           <div className="flex relative md:hidden">
             {toggleMenu
               ? <AiOutlineClose fontSize={28} className="text-white md:hidden cursor-pointer" onClick={() => setToggleMenu(false)}/>
@@ -135,4 +208,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
 

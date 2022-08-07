@@ -9,18 +9,40 @@
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
+  /* font-family: monospace; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .bg-welcome {
   background-color:#1A1A1D;
-  
+}
+
+.textShadow {
+  text-shadow: 2px 2px 2px #1A1A1D;
 }
 /* $4E4E50 */
 /* $6F2232 */
 /* $950740 */
 /* $C3073F */
+
+
+.flipCardBack:hover {
+  transform: rotateY(180deg);
+}
+
+/* .flipCardFront:hover {
+  transform: rotateY(180deg);
+}
+
+.flipCardFront:not(:hover) {
+  transform: rotateY(0deg);
+} */
+
+.flipCardBack:not(:hover) {
+  transition-delay: 200ms;
+  transform: rotateY(0deg);
+}
 
 ::-webkit-scrollbar {
   width: 14px;

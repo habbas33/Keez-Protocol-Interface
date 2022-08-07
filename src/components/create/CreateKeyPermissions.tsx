@@ -1,7 +1,8 @@
 import React, {useContext, useState,useEffect } from 'react'
 import { MdNavigateNext, } from "react-icons/md";
 import { AiOutlineUserAdd, AiFillDelete, AiOutlineUser, AiFillCheckCircle } from "react-icons/ai";
-import { Input, StyledTooltip } from "../../components";
+import { Input } from "../../components";
+import {StyledTooltip} from '../../styles'
 import {toast} from 'react-toastify';
 import { CreateDaoContext } from '../../context/CreateDaoContext'
 import { shortenAddress } from "../../utils/shortenAddress";
@@ -78,8 +79,6 @@ const CreateKeyPermissions = (props: {handleSubmitCreate:any}) => {
       }
       handleSubmitCreate("CreateVault");
     }
-
-
 
     useEffect(() => {
       window.scrollTo(0, 0)
