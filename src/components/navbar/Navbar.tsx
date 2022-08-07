@@ -18,7 +18,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 const NavbarItem = ({ title }: any, { classProps }: any) => {
   return (
     <li
-      className={`flex items-center mx-10 font-semibold hover:text-[#ac0537] transition duration-300 cursor-pointer ${classProps}`}
+      className={`flex items-center font-semibold hover:text-[#ac0537] transition duration-300 cursor-pointer ${classProps}`}
     >
       {title}
       {title == "Get Started" && (
@@ -131,11 +131,11 @@ export default function Navbar() {
             </ul>
           </div>
 
-          <div className="flex relative md:hidden">
+          <div className="flex z-50 relative md:hidden">
             {toggleMenu ? (
               <AiOutlineClose
                 fontSize={28}
-                className="text-white md:hidden cursor-pointer"
+                className="text-white md:hidden z-50 cursor-pointer"
                 onClick={() => setToggleMenu(false)}
               />
             ) : (
@@ -148,19 +148,15 @@ export default function Navbar() {
 
             {toggleMenu && (
               <ul
-                className="z-10 fixed top-0 -right-2 p-3 w-[70vw] h-screen shadow-2xl md:hidden list-none
-                  flex flex-col justigy-start items-end rounded-md blue-glassmorphism text-white animate-slide-in
+                className="z-10 fixed top-0 bg-slate-700 -right-2 p-3 w-[70vw] h-screen shadow-2xl md:hidden list-none
+                  flex flex-col justify-start items-start gap-3 pt-[50px] rounded-md blue-glassmorphism text-white animate-slide-in
                 "
               >
-                <li className="text-xl w-full my-2">
+                {/* <li className="text-xl w-full my-2">
                   <AiOutlineClose onClick={() => setToggleMenu(false)} />
-                </li>
-                {[].map((item, index) => (
-                  <NavbarItem
-                    key={item + index}
-                    title={item}
-                    classProps="my-2 text-lg"
-                  />
+                </li> */}
+                {["create", "title"].map((item, index: number) => (
+                  <NavbarItem key={index} title={item} classProps="text-lg" />
                 ))}
               </ul>
             )}
