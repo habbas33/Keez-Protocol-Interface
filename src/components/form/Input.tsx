@@ -7,9 +7,19 @@ const Input = (props: {
   size?: string;
   min?: string;
   max?: string;
+  className?: string;
 }) => {
-  const { placeholder, name, type, handleChange, size, min, max, value } =
-    props;
+  const {
+    placeholder,
+    name,
+    type,
+    handleChange,
+    size,
+    min,
+    max,
+    value,
+    className,
+  } = props;
   // const half =true;
   return (
     <input
@@ -22,7 +32,7 @@ const Input = (props: {
       onChange={(e) => handleChange(e, name)}
       className={`my-1 ${
         size ? size : "w-full"
-      } block rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight`}
+      } block rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight ${className}`}
     />
   );
 };
