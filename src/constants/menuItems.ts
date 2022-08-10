@@ -7,12 +7,8 @@ export const menuItems = [
         name: "Create",
       },
       {
-        title: "Propose",
-        name: "Propose",
-      },
-      {
-        title: "Vote",
-        name: "Vote",
+        title: "Governance",
+        name: "Governance",
       },
     ],
   },
