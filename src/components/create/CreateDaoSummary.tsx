@@ -10,7 +10,7 @@ import {
   votingDelayItems,
 } from "../../constants/votingPeriodItems";
 import { AiOutlineUser } from "react-icons/ai";
-import { StyledTooltip } from "../../components";
+import { StyledTooltip } from "../../styles";
 import { fetchErc725Data } from "../../services/erc725";
 
 const CreateDaoSummary = (props: {

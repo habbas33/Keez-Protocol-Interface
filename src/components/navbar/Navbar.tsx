@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { SiEthereum } from "react-icons/si";
 import { IoDiamond } from "react-icons/io5";
@@ -14,8 +15,18 @@ import NavItems from "./NavItems";
 import { NavLink } from "react-router-dom";
 import { IPFS_GATEWAY } from "../../constants/globals";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { MenuItem, MenuList, ClickAwayListener, Popper ,Paper, Grow, ListItemIcon ,ListItemText, Divider } from '@material-ui/core';
-import {StyledMenuItem} from '../../styles'
+import {
+  MenuItem,
+  MenuList,
+  ClickAwayListener,
+  Popper,
+  Paper,
+  Grow,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from "@material-ui/core";
+import { StyledMenuItem } from "../../styles";
 
 const NavbarItem = ({ title }: any, { classProps }: any) => {
   return (
@@ -23,16 +34,15 @@ const NavbarItem = ({ title }: any, { classProps }: any) => {
       className={`flex items-center font-semibold hover:text-[#ac0537] transition duration-300 cursor-pointer ${classProps}`}
     >
       {title}
-      {title == "Get Started" && (
-        <div className="pl-2">
-          <AiOutlineDown fontSize={12} />
-          {/* <div className="flex absolute translate-y-6">
+      <div className="pl-2">
+        <AiOutlineDown fontSize={12} />
+        {/* <div className="flex absolute translate-y-6">
             <a href="#">Create</a>
             <a href="#">Propose</a>
             <a href="#">Vote</a>
+      {title == "Get Started" && (
           </div> */}
-        </div>
-      )}
+      </div>
     </li>
   );
 };
@@ -45,6 +55,10 @@ export default function Navbar() {
     useContext(ProfileContext);
   let profileImgUrl = profileData?.value?.LSP3Profile?.profileImage[4]?.url;
 
+  const [open, setOpen] = React.useState(false);
+  const anchorEl = React.useRef(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (!profileData) return;
     const profile = profileData?.value?.LSP3Profile;
@@ -55,23 +69,23 @@ export default function Navbar() {
 
   const handleToggle = () => {
     setOpen(!open);
-  }
+  };
 
-  const handleClose = (event:any) => {
+  const handleClose = (event: any) => {
     setOpen(false);
-  }
+  };
 
-  const handleDisconnectWallet = (event:any) => {
+  const handleDisconnectWallet = (event: any) => {
     handleClose(event);
-    navigate('/');
+    navigate("/");
     disconnectWallet();
-  }
+  };
 
-  const handleViewProfile = (event:any) => {
+  const handleViewProfile = (event: any) => {
     handleClose(event);
-    navigate('/Profile');
+    navigate("/Profile");
     // disconnectWallet();
-  }
+  };
 
   return (
     <nav className="w-full bg-[#1A1A1D] fixed z-10">
@@ -189,6 +203,3 @@ export default function Navbar() {
     </nav>
   );
 }
-<<<<<<< HEAD
-=======
-

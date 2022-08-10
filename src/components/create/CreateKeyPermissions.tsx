@@ -6,7 +6,8 @@ import {
   AiOutlineUser,
   AiFillCheckCircle,
 } from "react-icons/ai";
-import { Input, StyledTooltip } from "../../components";
+import { Input } from "../../components";
+import { StyledTooltip } from "../../styles";
 import { toast } from "react-toastify";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { shortenAddress } from "../../utils/shortenAddress";
