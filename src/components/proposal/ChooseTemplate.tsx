@@ -50,6 +50,8 @@ const ChooseTemplate = (props: {handleComponent:any}) => {
     useEffect(() => {
         window.scrollTo(0, 0)
       }, [])
+
+
   
     return(
       <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-60">

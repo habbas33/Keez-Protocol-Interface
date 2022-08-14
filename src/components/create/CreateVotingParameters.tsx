@@ -23,18 +23,22 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
 
   toast.configure();
 
-  const handleMinVotingDelay = (selectedOption: string) => {
+  const handleMinVotingDelay = (selectedOption: any) => {
     const selection = votingDelayItems.find(
-      (element) => element.label === selectedOption
+      (element) => element.label === selectedOption.label
     ) || { value: 0, label: "instant" };
-    setMinVotingDelay(selection.value);
+    setMinVotingDelay(selection.value); 
+    console.log(selectedOption);
+    console.log(selection);
   };
 
-  const handleMinVotingPeriod = (selectedOption: string) => {
+  const handleMinVotingPeriod = (selectedOption: any) => {
     const selection = votingPeriodItems.find(
-      (element) => element.label === selectedOption
+      (element) => element.label === selectedOption.label
     ) || { value: 1, label: "24 hrs" };
     setMinVotingPeriod(selection.value);
+    console.log(selectedOption);
+    console.log(selection);
   };
 
   const formSubmitValidations = () => {
@@ -105,7 +109,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
               max="100"
               size="w-1/4"
               className="flex-1"
-              handleChange={(e: any) => setVotingMajority(e.target.value)}
+              handleChange={(e: any) => setVotingMajority(e.target.value)} 
             />
             <p className="px-2">%</p>
           </div>
