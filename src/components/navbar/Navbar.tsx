@@ -32,7 +32,7 @@ import { StyledMenuItem } from "../../styles";
 const NavbarItem = ({ title }: any, { classProps }: any) => {
   return (
     <li
-      className={`flex items-center mx-10 font-semibold hover:text-[#ac0537] transition duration-300 cursor-pointer ${classProps}`}
+      className={`flex items-center font-semibold hover:text-[#ac0537] transition duration-300 cursor-pointer ${classProps}`}
     >
       {title}
       {title == "Get Started" && (
@@ -91,7 +91,7 @@ export default function Navbar() {
 
   return (
     <nav className="w-full bg-[#1A1A1D] fixed z-10">
-      <div className="px-5 lg:px-20 md:px-20 py-5">
+      <div className="px-5 lg:px-20 py-5">
         <div className="flex md:justify-between justify-between items-center">
           <NavLink className="hover:text-[#ac0537]" to={`/`}>
             <div className="flex md:flex flex-initial justify-center items-center">
@@ -100,7 +100,7 @@ export default function Navbar() {
             </div>
           </NavLink>
 
-          <ul className="text-white md:flex list-none hidden flex-column justify-between items-center flex-initial">
+          <ul className="text-white md:flex list-none hidden justify-between items-center">
             {menuItems.map((menu: any, index: number) => {
               const depthLevel = 0;
               return (
@@ -258,11 +258,11 @@ export default function Navbar() {
               </Grow>
             )}
           </Popper>
-          <div className="flex relative md:hidden">
+          <div className="flex z-50 relative md:hidden">
             {toggleMenu ? (
               <AiOutlineClose
                 fontSize={28}
-                className="text-white md:hidden cursor-pointer"
+                className="text-white md:hidden z-50 cursor-pointer"
                 onClick={() => setToggleMenu(false)}
               />
             ) : (
@@ -275,19 +275,33 @@ export default function Navbar() {
 
             {toggleMenu && (
               <ul
-                className="z-10 fixed top-0 -right-2 p-3 w-[70vw] h-screen shadow-2xl md:hidden list-none
-                  flex flex-col justigy-start items-end rounded-md blue-glassmorphism text-white animate-slide-in
+                className="z-10 fixed top-0 bg-slate-900 -right-2 p-3 w-[70vw] h-screen shadow-2xl md:hidden list-none
+                  flex flex-col justify-start items-start gap-3 pt-[50px] rounded-md blue-glassmorphism text-white animate-slide-in
                 "
               >
-                <li className="text-xl w-full my-2">
+                {/* <li className="text-xl w-full my-2">
                   <AiOutlineClose onClick={() => setToggleMenu(false)} />
-                </li>
-                {[].map((item, index) => (
-                  <NavbarItem
-                    key={item + index}
-                    title={item}
-                    classProps="my-2 text-lg"
-                  />
+                </li> */}
+                {[
+                  { name: "Create", title: "Create" },
+                  {
+                    title: "Governance",
+                    name: "Governance",
+                  },
+                  {
+                    title: "Discover",
+                    name: "Discover",
+                  },
+                  {
+                    title: "About Us",
+                    name: "AboutUs",
+                  },
+                  {
+                    title: "FAQ",
+                    name: "FAQ",
+                  },
+                ].map((item, index: number) => (
+                  <NavItems key={index} items={item} depthLevel={0} />
                 ))}
               </ul>
             )}
