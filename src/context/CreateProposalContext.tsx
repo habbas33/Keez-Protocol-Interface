@@ -41,8 +41,8 @@ interface CreateProposalContextInterface {
     setProposer: any;
     proposalType: string;
     setProposalType: any;
-    dao: string;
-    setDao: any;
+    daoCid: string;
+    setDaoCid: any;
 }
 
 export const CreateProposalContext = React.createContext<CreateProposalContextInterface>(
@@ -86,8 +86,8 @@ export const CreateProposalContext = React.createContext<CreateProposalContextIn
         setProposer: () => {},
         proposalType: '',
         setProposalType: () => {},
-        dao: '',
-        setDao: () => {},
+        daoCid: '',
+        setDaoCid: () => {},
     }   
 );
 
@@ -114,7 +114,7 @@ export const CreateProposalContextProvider = ({children}:any) => {
 
     const [proposer, setProposer] = useState<string>('');
     const [proposalType, setProposalType] = useState<string>('');
-    const [dao, setDao] = useState<string>('');
+    const [daoCid, setDaoCid] = useState<string>('');
 
     return (
         <CreateProposalContext.Provider 
@@ -158,8 +158,8 @@ export const CreateProposalContextProvider = ({children}:any) => {
                 
                 proposalType: proposalType,
                 setProposalType: setProposalType,
-                dao: dao,
-                setDao: setDao,
+                daoCid: daoCid,
+                setDaoCid: setDaoCid,
                 }}>
             {children}
         </CreateProposalContext.Provider>

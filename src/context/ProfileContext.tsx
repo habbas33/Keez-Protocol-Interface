@@ -9,6 +9,7 @@ interface ProfileContextInterface {
     connectWallet: any;
     disconnectWallet: any;
     profileData: any;
+    getProfileInfo: any;
 }
 
 export const ProfileContext = React.createContext<ProfileContextInterface>(
@@ -18,6 +19,7 @@ export const ProfileContext = React.createContext<ProfileContextInterface>(
         connectWallet: () => {},
         disconnectWallet: () => {},
         profileData:{},
+        getProfileInfo: () => {},
     }   
 );
 
@@ -78,6 +80,18 @@ export const ProfileProvider = ({children}:any) => {
             console.log('This is not an ERC725 Contract');
         }
       }
+
+    const getProfileInfo = async (account: string) => {
+        try {
+            const data = await fetchErc725Data(account);
+            // setProfileData(data);
+            // console.log("erc725profile = ", data)
+            return data;
+        } catch (error) {
+            console.log('This is not an ERC725 Contract');
+            return [];
+        }
+    }
     
     // Debug
     // fetchProfile(accountAddress).then((profileData) =>
@@ -92,6 +106,7 @@ export const ProfileProvider = ({children}:any) => {
                 accountBalance:accountBalance,
                 disconnectWallet:disconnectWallet,
                 profileData:profileData,
+                getProfileInfo:getProfileInfo,
                 }}>
             {children}
         </ProfileContext.Provider>

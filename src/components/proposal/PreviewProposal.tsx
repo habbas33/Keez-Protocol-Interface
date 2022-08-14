@@ -1,14 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { MdLink, MdShare} from "react-icons/md";
-import { MultiSelect, FileUploader, Input } from "../../components";
 import { CreateProposalContext } from '../../context/CreateProposalContext'
-import { daoCategoryItems } from '../../constants/daoCategoryItems';
-import { votingPeriodItems, votingDelayItems } from '../../constants/votingPeriodItems';
-import { create, IPFSHTTPClient } from "ipfs-http-client";
-import { IPFS_INFURA_URL } from '../../constants/globals';
+import { ProfileContext } from '../../context/ProfileContext'
+// import { create, IPFSHTTPClient } from "ipfs-http-client";
+import { IPFS_DWEB_URL } from '../../constants/globals';
 import {toast} from 'react-toastify';
 import { shortenAddress } from "../../utils/shortenAddress";
-import { SpinnerCircular } from 'spinners-react';
+import { SpinnerCircular } from 'spinners-react'
+import { postJsonToIPFS, postImageToIPFS } from "../../services/web3Storage";
+import { getDaoByCID, postProposal } from "../../services/keezBackend";
 import dayjs from 'dayjs';
 
 const GeneralTemplate = (props: {handleComponent:any}) => {
@@ -29,24 +29,14 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
         proposalType,
         membersOrVault,
         keyPermissions,
-        vaultPermissions 
+        vaultPermissions,
+        daoCid,
         } = useContext(CreateProposalContext);
+    const {accountAddress} = useContext(ProfileContext);
     const [submitLoading, setSubmitLoading] = useState<boolean>(false);
     const [metalink, setMetalink] = useState<string>('');
+    const [daoSelected, setDaoSelected] = useState<any>([]);
 
-    const createIpfsClient = () => {
-        let ipfs: IPFSHTTPClient | undefined;
-        try {
-            ipfs = create({
-            url: "https://ipfs.infura.io:5001/api/v0",
-        
-            });
-        } catch (error) {
-            console.error("IPFS error ", error);
-            ipfs = undefined;
-        }
-        return ipfs;
-    }
     toast.configure();
     const now = dayjs();
     const startDay = now.add(minVotingDelay, 'day');
@@ -54,55 +44,71 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         setSubmitLoading(true);
-        const ipfsHttpClient: IPFSHTTPClient | undefined = createIpfsClient();
-
+        const timestamp = dayjs().valueOf();
         
         try {
-            let ProfileMetadata = {};
+            let ProposalMetadata = {};
             switch(proposalType) {
                 case "Voting":
-                    ProfileMetadata = {"proposalProfile":{'proposalType':proposalType,'proposalName':proposalName,'categories':categories,'description':description},
-                        "votingParameters":{'participationRate':participationRate, 'votingMajority':votingMajority, 'minVotingDelay':minVotingDelay,'minVotingPeriod':minVotingPeriod}
+                    ProposalMetadata = {proposalProfile:{proposalType:proposalType,proposalName:proposalName,categories:categories,description:description,creator: accountAddress},
+                        forDaoDetails:{daoName:daoSelected.daoName, url:daoSelected.url, CID:daoSelected.CID},
+                        proposalDetails:{participationRate:participationRate, votingMajority:votingMajority, minVotingDelay:minVotingDelay,minVotingPeriod:minVotingPeriod},
+                        createdAt: timestamp
                     };
                     break;
                 case "Token Transfer":
-                    ProfileMetadata = {"proposalProfile":{'proposalType':proposalType,'proposalName':proposalName,'categories':categories,'description':description},
-                    "transferParameters":{'selectedVault':selectedVault, 'selectedToken':selectedToken, 'receivingAddress':receivingAddress}
+                    ProposalMetadata = {proposalProfile:{proposalType:proposalType,proposalName:proposalName,categories:categories,description:description,creator: accountAddress},
+                        forDaoDetails:{daoName:daoSelected.daoName, url:daoSelected.url, CID:daoSelected.CID},
+                        proposalDetails:{selectedVault:selectedVault, selectedToken:selectedToken, receivingAddress:receivingAddress},
+                        createdAt: timestamp
                     };
                     break;
                 case "Permission":
                     if (membersOrVault === "Members"){
-                        ProfileMetadata = {"proposalProfile":{'proposalType':proposalType,'proposalName':proposalName,'categories':categories,'description':description},
-                        "Permissions":keyPermissions };
+                        ProposalMetadata = {proposalProfile:{proposalType:proposalType,proposalName:proposalName,categories:categories,description:description,creator: accountAddress},
+                        forDaoDetails:{daoName:daoSelected.daoName, url:daoSelected.url, CID:daoSelected.CID},
+                        proposalDetails:{keyPermissions:keyPermissions},
+                        createdAt: timestamp };
                       } else if (membersOrVault === "Vault"){
-                        ProfileMetadata = {"proposalProfile":{'proposalType':proposalType,'proposalName':proposalName,'categories':categories,'description':description},
-                        "Permission":vaultPermissions };
+                        ProposalMetadata = {proposalProfile:{proposalType:proposalType,proposalName:proposalName,categories:categories,description:description,creator: accountAddress},
+                        forDaoDetails:{daoName:daoSelected.daoName, url:daoSelected.url, CID:daoSelected.CID},
+                        proposalDetails:{vaultPermissions:vaultPermissions},
+                        createdAt: timestamp };
                       }
                     break;
                 case "General":
-                    let path:string = "";
+                    // let path:string = "";
+                    let resultLogoMetadata:any = "";
                     if (coverImageFile) {
-                        const result = await (ipfsHttpClient as IPFSHTTPClient).add(coverImageFile);
-                        path = result.path;
-                        console.log("path",path)
-                        console.log("result.path =",result.path)
+                        resultLogoMetadata = await postImageToIPFS(coverImageFile);
                     }
-                    ProfileMetadata = {"proposalProfile":{'proposalType':proposalType,'proposalName':proposalName,'categories':categories,'description':description, 'proposalCoverImage':{hash:path,url:IPFS_INFURA_URL}},
-                        "votingOptions":votingOptions };
-                        
-                        console.log(ProfileMetadata)
+                    ProposalMetadata = {proposalProfile:{proposalType:proposalType,proposalName:proposalName,categories:categories,description:description,creator: accountAddress},
+                        forDaoDetails:{daoName:daoSelected.daoName, url:daoSelected.url, CID:daoSelected.CID}, 
+                        proposalDetails: {proposalCoverImage:{ hash: resultLogoMetadata.cid, url: IPFS_DWEB_URL }, votingOptions:votingOptions },
+                        createdAt: timestamp };
                     break;
             }
-            console.log(membersOrVault);
-            console.log(ProfileMetadata);
-            const resultProfileMetadata = await (ipfsHttpClient as IPFSHTTPClient).add(JSON.stringify(ProfileMetadata));
+            const resultDaoMetadata = await postJsonToIPFS(ProposalMetadata);//
+            const metalink :string = IPFS_DWEB_URL.concat(resultDaoMetadata.cid)//
+
+            //@ts-ignore
+            ProposalMetadata.proposalProfile['CID'] = resultDaoMetadata.cid; 
+            //@ts-ignore
+            ProposalMetadata.proposalProfile['url'] = IPFS_DWEB_URL; 
+            //@ts-ignore
+            ProposalMetadata.proposalProfile['identifier'] = ""; 
+            
+            console.log("ProposalMetadata = ",JSON.stringify(ProposalMetadata));
+
+            console.log(metalink);
+            setMetalink(metalink);
+            window.open(metalink,'_blank');
+            const result = await postProposal(ProposalMetadata);
             setSubmitLoading(false);
             toast.success("Proposal Created",
                 {position: toast.POSITION.BOTTOM_RIGHT});
-            console.log(IPFS_INFURA_URL.concat(resultProfileMetadata.path));
-            setMetalink(IPFS_INFURA_URL.concat(resultProfileMetadata.path));
-            window.open(IPFS_INFURA_URL.concat(resultProfileMetadata.path),'_blank');
         } catch (err) {
+            console.log(err)
             toast.error("Proposal Creation Unsuccessful",
             {position: toast.POSITION.BOTTOM_RIGHT});
             setSubmitLoading(false);
@@ -128,6 +134,17 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
     }
 
     useEffect(() => {
+        if (daoCid) {
+            const fetchData = async () => {
+              const result = await getDaoByCID(daoCid);
+              console.log("doa selected set", result);
+              setDaoSelected(result);
+            }
+            fetchData();
+        }
+    }, [daoCid])
+
+    useEffect(() => {
         window.scrollTo(0, 0)
       }, [])
  
@@ -137,7 +154,7 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
         <h1 className="text-white text-center text-lg pb-2 font-bold">Preview Proposal</h1>
             <div className="flex flex-col justify-between items-center p-8 bg-black">
                 <div className="flex flex-row w-full justify-between items-center">
-                    <h1 className="text-slate-100 text-sm font-semi">DAO Name</h1>
+                    <h1 className="text-slate-100 text-sm font-semi">{daoSelected.daoName}</h1>
                     <button
                         type="button"
                         onClick={handleEdit}
@@ -161,12 +178,12 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
                             <div className="flex flex-row w-full justify-between items-center">
                                 <div className="flex justify-start items-center">
                                     <h1 className="text-slate-400 text-sm font-normal">Proposed By</h1>
-                                    <h1 className="text-white text-sm font-semibold">{shortenAddress(proposer)}</h1>
+                                    <h1 className="text-white text-sm px-2 font-semibold">{shortenAddress(proposer)}</h1>
                                 </div>
-                                <div className="flex justify-start items-center">
+                                {/* <div className="flex justify-start items-center">
                                     <MdLink className="px-1 w-6" color="#fff" fontSize={20}  />
                                     <MdShare className="px-1 w-6" color="#fff" fontSize={20}  />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <h1 className="text-white h-[250px] pr-1 overflow-y-auto text-sm font-normal">{description}</h1>

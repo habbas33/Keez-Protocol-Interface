@@ -4,3 +4,7 @@ export const IPFS_GATEWAY = "https://2eff.lukso.dev/ipfs/";
 export const DAO_CREATOR_ADDRESS = "0x5a220C0F4e082e9806427d4746260E0d60Ff51D8";
 export const IPFS_HTTP_CLIENT = "https://ipfs.infura.io:5001/api/v0"
 export const IPFS_INFURA_URL = "https://ipfs.infura.io/ipfs/"
+export const IPFS_DWEB_URL = "https://dweb.link/ipfs/"
+export const WEB3_STORAGE_CLIENT = "https://api.web3.storage/upload/"
+export const KEEZ_BACKEND_ENDPOINT = "https://keezdaobackend.herokuapp.com/api/v1/"
+// export const KEEZ_BACKEND_ENDPOINT = "http://127.0.0.1:8000/api/v1/"

@@ -19,6 +19,9 @@ const ProfileDetails = (props: {accountAddress: string}) => {
     const [profileImageAvailable, setProfileImageAvailable] = useState<boolean>(false);
     const [bgImageAvailable, setBgImageAvailable] = useState<boolean>(false);
     const [daoCardView, setDaoCardView] = useState<number>(3);
+    
+    const [daoSelected, setDaoSelected] = useState<number>(0);
+    const [memberDaos, setMemberDaos] = useState<any>([]);
 
     const getUserProfile = async (upAddress:string) => {
       try {
@@ -49,6 +52,10 @@ const ProfileDetails = (props: {accountAddress: string}) => {
         window.scrollTo(0, 0)
     }, [accountAddress])
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const bg_imgfromurl = "url('".concat(backgroundImageUrl).concat("')");
     const state = [
         {
@@ -72,9 +79,9 @@ const ProfileDetails = (props: {accountAddress: string}) => {
                 style={{backgroundImage: bg_imgfromurl, backgroundRepeat:"no-repeat", backgroundSize:"cover"}}>
             </div>
             <div className="mt-[-80px] flex justify-start items-start mx-10 ">
-                <div className="w-40 h-40 rounded-full overflow border-[5px] border-[#1A1A1D] flex justify-center items-center">
+                <div className="w-40 h-40 rounded-full overflow-hidden border-[5px] border-[#1A1A1D] flex justify-center items-center">
                     <img 
-                        className="object-cover bg-[#1A1A1D] rounded-full "
+                        className="object-cover w-40 h-40 bg-[#1A1A1D] rounded-full "
                         src={profileImageUrl}
                         alt="altimg"
                     />
@@ -113,7 +120,7 @@ const ProfileDetails = (props: {accountAddress: string}) => {
                         <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">Social</p>  
                         <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">Investment</p>
                         <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">Fasion</p>
-                        <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">Gaming</p>
+                        <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">DeFi</p>
                     </div>
                     <div className='w-1/3'>
                         <SingleSelect handleChange={(e:string)=>{console.log(e)}} name={"MinVotingDelay"} placeholder={"Select your state"} listItems={state}/>

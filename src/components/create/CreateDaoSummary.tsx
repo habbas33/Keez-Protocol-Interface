@@ -2,9 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { SpinnerCircular } from "spinners-react";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
+import { ProfileContext } from '../../context/ProfileContext'
 import { shortenAddress } from "../../utils/shortenAddress";
-import { create, IPFSHTTPClient } from "ipfs-http-client";
-import { IPFS_INFURA_URL } from "../../constants/globals";
+import { IPFS_DWEB_URL } from "../../constants/globals";
+import { postJsonToIPFS, postImageToIPFS } from "../../services/web3Storage";
+import { postDaoUp } from "../../services/keezBackend";
 import {
   votingPeriodItems,
   votingDelayItems,
@@ -12,6 +14,7 @@ import {
 import { AiOutlineUser } from "react-icons/ai";
 import { StyledTooltip } from "../../styles";
 import { fetchErc725Data } from "../../services/erc725";
+import dayjs from 'dayjs';
 
 const CreateDaoSummary = (props: {
   handleSubmitCreate: any;
@@ -33,37 +36,23 @@ const CreateDaoSummary = (props: {
     minVotingDelay,
     minVotingPeriod,
   } = useContext(CreateDaoContext);
+  const {accountAddress} = useContext(ProfileContext);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
-
-  const createIpfsClient = () => {
-    let ipfs: IPFSHTTPClient | undefined;
-    try {
-      ipfs = create({
-        url: "https://ipfs.infura.io:5001/api/v0",
-      });
-    } catch (error) {
-      console.error("IPFS error ", error);
-      ipfs = undefined;
-    }
-    return ipfs;
-  };
-
+  
   const handleSubmit = async () => {
-    // event.preventDefault();
     setSubmitLoading(true);
-    const ipfsHttpClient: IPFSHTTPClient | undefined = createIpfsClient();
-
+    const timestamp = dayjs().valueOf();
+    console.log(timestamp)
     if (logoImageFile) {
       try {
-        const result = await (ipfsHttpClient as IPFSHTTPClient).add(
-          logoImageFile
-        );
-        const DaoUpMetadata = {
+        const resultLogoMetadata = await postImageToIPFS(logoImageFile);
+        let DaoUpMetadata = {
           daoProfile: {
             daoName: daoName,
-            profileImage: { hash: result.path, url: IPFS_INFURA_URL },
+            profileImage: { hash: resultLogoMetadata.cid, url: IPFS_DWEB_URL },
             categories: categories,
             description: description,
+            creator: accountAddress,
           },
           keyPermissions: keyPermissions,
           vaultDetails: {
@@ -77,17 +66,27 @@ const CreateDaoSummary = (props: {
             minVotingDelay: minVotingDelay,
             minVotingPeriod: minVotingPeriod,
           },
+          createdAt: timestamp,
         };
-        const resultDaoUpMetadata = await (
-          ipfsHttpClient as IPFSHTTPClient
-        ).add(JSON.stringify(DaoUpMetadata));
+        const resultDaoMetadata = await postJsonToIPFS(DaoUpMetadata);
+        const metalink :string = IPFS_DWEB_URL.concat(resultDaoMetadata.cid)
+        
+        //@ts-ignore
+        DaoUpMetadata.daoProfile['CID'] = resultDaoMetadata.cid; 
+        //@ts-ignore
+        DaoUpMetadata.daoProfile['url'] = IPFS_DWEB_URL; 
+        //@ts-ignore
+        DaoUpMetadata.daoProfile['daoUpAddress'] = ""; 
+        console.log(metalink);
+        setMetalink(metalink);
+        window.open(metalink, "_blank");
+        const result = await postDaoUp(DaoUpMetadata);
+        console.log(DaoUpMetadata)
         setSubmitLoading(false);
         toast.success("Dao Profile Created", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
-        console.log(IPFS_INFURA_URL.concat(resultDaoUpMetadata.path));
-        setMetalink(IPFS_INFURA_URL.concat(resultDaoUpMetadata.path));
-        window.open(IPFS_INFURA_URL.concat(resultDaoUpMetadata.path), "_blank");
+
       } catch (err) {
         toast.error("Dao Profile Creation Unsuccessful", {
           position: toast.POSITION.BOTTOM_RIGHT,
@@ -546,3 +545,4 @@ const VotingParametersDetails = (props: {
     </div>
   );
 };
+

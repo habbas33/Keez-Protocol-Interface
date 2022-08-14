@@ -2,59 +2,33 @@ import React, {useEffect, useContext, useState} from "react";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { SingleSelect } from "../../components";
 import { ProfileContext } from '../../context/ProfileContext'
+import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
+import { IPFS_GATEWAY } from "../../constants/globals";
+import Skeleton from "@material-ui/lab/Skeleton";
 
-const Members = (props: {handleComponent: any}) => {
-    const {handleComponent} = props;
-    const { accountAddress, profileData } = useContext(ProfileContext);
-    const [upName, setUpName] = useState<string>('');
-    const state = [
-        {
-            value: "State 1",
-            label: "State 1",
-        },
-        {
-            value: "State 2",
-            label: "State 2",
-        },
-        {
-            value: "State 2",
-            label: "State 2",
-        },
-      ]
-
-    const getUserProfile = async (upAddress:string) => {
-        try {
-            if (profileData.value.LSP3Profile) {
-                const profile = profileData?.value?.LSP3Profile;
-                setUpName(profile?.name);
-            }
-        } catch (error) {
-            setUpName(shortenAddress(upAddress));
-            console.log(upAddress,'This is not an ERC725 Contract');
-        }  
-    }
+const Members = (props: {daoDetail: any}) => {
+    const {daoDetail} = props;
+    const keyPermissionObject = getParsedJsonObj(daoDetail.keyPermissions);
 
     useEffect(() => {
-        if (accountAddress) {
-            getUserProfile(accountAddress);
-        }
         window.scrollTo(0, 0)
     }, [])
     
     const votingList = [0,1,2,3]
     return (
-        <div className="pt-28 text-white min-h-[100vh] w-5/6 flex-column justify-start items-start">
+        <div className="flex-col py-4 justify-start items-start w-full">
             <div className="flex-col justify-start items-start w-full">
-                <p className="text-2xl text-bold text-center">DAO Members</p>
-                <div className='flex justify-end my-2'>
-
+                <div className='flex justify-start items-center'>   
+                    <p className="text-2xl text-bold">{`Members (`}</p>   
+                    <p className="text-2xl text-bold">{keyPermissionObject.length}</p>   
+                    <p className="text-2xl text-bold">{`)`}</p>
                 </div>
-                    {[...votingList].reverse().map((profile, i) => (
-                        <div className='w-full my-4'>
-                            <p key={i} className="text-sm text-normal text-start">Member {i}</p>
-                            <VotingCard key={i} id={i}/>
-                        </div>
+                <div className='flex flex-wrap my-2'>
+                    {keyPermissionObject.map((profile:any, i:any) => (
+                        <ProfileBox key={i} upAddress= {profile.upAddress}/>
                     ))}
+                </div>
+
             </div>
         </div>
 
@@ -63,11 +37,75 @@ const Members = (props: {handleComponent: any}) => {
 
 export default Members;
 
-const VotingCard = (props:{id:number} ) => {
-    const {id } = props;
+const ProfileBox = (props:{upAddress:string} ) => {
+    const {upAddress} = props;
+    const { getProfileInfo } = useContext(ProfileContext);
+    const [upName, setUpName] = useState<string>('');
+    const [profileData, setProfileData] = useState<any>({});
+    const [profileImageUrl, setProfileImageUrl] = useState<string>("");
+
+    const getUserProfile = async (upAddress:string, profile_data: any) => {
+        try {
+            // console.log("erc725profile = ", profile_data);
+            if (profile_data.value.LSP3Profile) {
+                const profile = profile_data?.value?.LSP3Profile;
+                const profileImgUrl = IPFS_GATEWAY.concat(profile?.profileImage[4]?.url.slice(7));
+                setUpName(profile?.name);
+                setProfileImageUrl(profileImgUrl);
+            }
+        } catch (error) {
+            setUpName(shortenAddress(upAddress));
+            console.log(upAddress,'This is not an ERC725 Contract');
+        }  
+    }
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (upAddress) {
+                const profile_data = await getProfileInfo(upAddress);
+                // console.log("erc725profile = ", profile_data);
+                setProfileData(profile_data);
+                getUserProfile(upAddress,profile_data)
+            }
+        }
+        fetchData();
+  }, [upAddress])
 
     return (
-      <div className="bg-[#4b3132] h-40 my-2 flex flex-1 flex-col p-3 rounded-md hover:shadow-2xl">
-      </div>
+        <div  className='min-w-[21%] max-w-[21%] m-4'>
+            <div className="w-full flex flex-col justify-start items-center p-1">
+                {profileImageUrl != "" ? (
+                    <img
+                        className="object-cover w-32 h-32 rounded-full "
+                        src={profileImageUrl}
+                        alt="altimg"
+                    />
+                ):(
+                    <Skeleton
+                    className="w-32"
+                    animation="wave"
+                    variant="circle"
+                    height={128}
+                    />
+                )}
+            </div>
+            {upName != "" ? (
+                <p className="text-lg text-center text-bold">{upName}</p>
+            ):(
+                <div className="w-full flex justify-center items-center p-1">
+                    <Skeleton
+                    className="w-32"
+                    animation="wave"
+                    variant="rect"
+                    height={24}
+                    />
+                </div>
+            )}
+            
+        </div>
     );
   };

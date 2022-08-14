@@ -1,10 +1,11 @@
 import React, {useEffect, useContext, useState} from "react";
 import { shortenAddress } from "../../utils/shortenAddress";
-import { SingleSelect } from "../../components";
 import { ProfileContext } from '../../context/ProfileContext'
+import dayjs from "dayjs";
+import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 
-const About = (props: {handleComponent: any}) => {
-    const {handleComponent} = props;
+const About = (props: {daoDetail:any}) => {
+    const {daoDetail} = props;
     const { accountAddress, profileData } = useContext(ProfileContext);
     const [upName, setUpName] = useState<string>('');
     const state = [
@@ -41,14 +42,56 @@ const About = (props: {handleComponent: any}) => {
         window.scrollTo(0, 0)
     }, [])
     
-    const votingList = [0,1,2,3]
+    console.log(Number(daoDetail.createdAt))
+    const daoCreatedAt = dayjs(Number(daoDetail.createdAt))
+    const vaultObject = getParsedJsonObj(daoDetail.vaultDetails);
+    const categoriesObject = getParsedJsonObj(daoDetail.categories);
+    const votingParametersObject = getParsedJsonObj(daoDetail.votingParameters);
+
     return (
-        <div className="pt-28 text-white min-h-[100vh] w-5/6 flex-column justify-start items-start">
+        <div className="flex-col py-4 justify-start items-start w-full">
             <div className="flex-col justify-start items-start w-full">
-                <p className="text-2xl text-bold text-center">About</p>
-                <div className='flex justify-end my-2'>
-                
+                <p className="text-2xl text-bold">About</p>
+                <div className='flex justify-start items-center mt-4'>
+                    <h1 className="text-slate-100 text-lg font-normal">DAO Created: </h1>
+                    <h1 className="text-lg font-bold px-2">{daoCreatedAt.format('DD MMM YYYY')}</h1>
                 </div>
+                <div className='flex justify-start items-center mt-4'>
+                    <h1 className="text-slate-100 text-lg font-normal">Categories: </h1>
+                    {categoriesObject.map((category:any, i:number) => (
+                        <div key={i} className="rounded-full bg-black ml-2">
+                            <h1 className="text-white text-xs text-center py-1 px-4">{category.label}</h1>
+                        </div>
+                    ))}
+                </div>
+                <div className='flex justify-start items-center mt-4'>
+                    <h1 className="text-slate-100 text-lg font-normal">Vault: </h1>
+                    <h1 className="text-lg font-bold px-2">{vaultObject.vaultName}</h1>
+                </div>
+                <div className='flex flex-col justify-start items-start mt-4'>
+                    <h1 className="text-slate-100 text-lg font-normal">Voting Parameters: </h1>
+                    <div className="flex justify-start items-center mt-1">
+                        <h1 className="text-slate-100 text-sm font-normal">Participation rate:</h1>
+                        <h1 className="text-sm font-bold px-2">{votingParametersObject.participationRate}</h1>
+                    </div>
+                    <div className="flex justify-start items-center mt-1">
+                        <h1 className="text-slate-100 text-sm font-normal">Majority:</h1>
+                        <h1 className="text-sm font-bold px-2">{votingParametersObject.votingMajority}</h1>
+                    </div>
+                    <div className="flex justify-start items-center mt-1">
+                        <h1 className="text-slate-100 text-sm font-normal">Minimum Voting Delay:</h1>
+                        <h1 className="text-sm font-bold px-2">{votingParametersObject.minVotingDelay}</h1>
+                    </div>
+                    <div className="flex justify-start items-center mt-1">
+                        <h1 className="text-slate-100 text-sm font-normal">Minimum Voting Period: </h1>
+                        <h1 className="text-sm font-bold px-2">{votingParametersObject.minVotingPeriod}</h1>
+                    </div>
+                    <div className="flex justify-start items-center mt-1">
+                        <h1 className="text-slate-100 text-sm font-normal">Minimum Execution Delay: </h1>
+                        <h1 className="text-sm font-bold px-2"> -- </h1>
+                    </div>
+                </div>
+
 
             </div>
         </div>
