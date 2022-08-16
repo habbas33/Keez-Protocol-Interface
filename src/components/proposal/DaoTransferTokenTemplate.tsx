@@ -5,6 +5,7 @@ import { CreateProposalContext } from '../../context/CreateProposalContext'
 import { daoCategoryItems } from '../../constants/daoCategoryItems';
 import { votingPeriodItems, votingDelayItems } from '../../constants/votingPeriodItems';
 import {toast} from 'react-toastify';
+import { VALIDATORS } from "../../constants/globals";
 
 const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
     const {handleComponent} = props;
@@ -18,6 +19,8 @@ const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
       setSelectedVault,
       selectedToken,
       setSelectedToken,
+      tokenAmount,
+      setTokenAmount,
       receivingAddress,
       setReceivingAddress,
     } = useContext(CreateProposalContext);
@@ -47,13 +50,15 @@ const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
+      event.preventDefault();
+      if (VALIDATORS) {
         const validationResult = formSubmitValidations();
         if (validationResult !== "success") {
             return toast.error(validationResult,
             {position: toast.POSITION.BOTTOM_RIGHT});
         }
-        handleComponent("PreviewProposal");
+      }
+      handleComponent("PreviewProposal");
     }
 
     const handleSelectVault = (selectedOption:string) => {
@@ -127,7 +132,12 @@ const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
                 <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="minVotingPeriod">
                   Token
                 </label>
-                <SingleSelect handleChange={handleSelectToken} name={"minVotingPeriod"} listItems={[]}/>
+                <SingleSelect handleChange={handleSelectToken} name={"minVotingPeriod"} listItems={["LYX"]}/>
+
+                <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="receiving Address">
+                  Token Amount
+                </label>
+                <Input value={tokenAmount.toString()} name="token_amount" type="text" handleChange={(e:any) => setTokenAmount(e.target.value)} />
 
                 <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="receiving Address">
                   Receiving Address

@@ -9,6 +9,7 @@ import { shortenAddress } from "../../utils/shortenAddress";
 import { SpinnerCircular } from 'spinners-react'
 import { postJsonToIPFS, postImageToIPFS } from "../../services/web3Storage";
 import { getDaoByCID, postProposal } from "../../services/keezBackend";
+import { votingDelayItems } from '../../constants/votingPeriodItems';
 import dayjs from 'dayjs';
 
 const GeneralTemplate = (props: {handleComponent:any}) => {
@@ -21,9 +22,11 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
         votingMajority,
         selectedVault,
         selectedToken,
+        tokenAmount,
         receivingAddress,
         minVotingDelay,
         minVotingPeriod,
+        minExecutionDelay,
         votingOptions,
         proposer,
         proposalType,
@@ -52,14 +55,14 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
                 case "Voting":
                     ProposalMetadata = {proposalProfile:{proposalType:proposalType,proposalName:proposalName,categories:categories,description:description,creator: accountAddress},
                         forDaoDetails:{daoName:daoSelected.daoName, url:daoSelected.url, CID:daoSelected.CID},
-                        proposalDetails:{participationRate:participationRate, votingMajority:votingMajority, minVotingDelay:minVotingDelay,minVotingPeriod:minVotingPeriod},
+                        proposalDetails:{participationRate:participationRate, votingMajority:votingMajority, minVotingDelay:minVotingDelay,minVotingPeriod:minVotingPeriod,minExecutionDelay:minExecutionDelay},
                         createdAt: timestamp
                     };
                     break;
                 case "Token Transfer":
                     ProposalMetadata = {proposalProfile:{proposalType:proposalType,proposalName:proposalName,categories:categories,description:description,creator: accountAddress},
                         forDaoDetails:{daoName:daoSelected.daoName, url:daoSelected.url, CID:daoSelected.CID},
-                        proposalDetails:{selectedVault:selectedVault, selectedToken:selectedToken, receivingAddress:receivingAddress},
+                        proposalDetails:{selectedVault:selectedVault, selectedToken:selectedToken, tokenAmount:tokenAmount, receivingAddress:receivingAddress},
                         createdAt: timestamp
                     };
                     break;
@@ -137,7 +140,7 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
         if (daoCid) {
             const fetchData = async () => {
               const result = await getDaoByCID(daoCid);
-              console.log("doa selected set", result);
+            //   console.log("doa selected set", result);
               setDaoSelected(result);
             }
             fetchData();
@@ -186,32 +189,45 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
                                 </div> */}
                             </div>
                         </div>
-                        <h1 className="text-white h-[250px] pr-1 overflow-y-auto text-sm font-normal">{description}</h1>
-                    </div>
-                    <div className="flex flex-col justify-between space-y-4 items-start p-4 bg-white rounded-md text-black">
-                        <h1 className="text-sm font-bold">Information</h1>
-                        <div className="flex flex-col justify-start items-start">
-                            <div className="flex justify-start items-center">
-                                <h1 className="text-sm font-normal">Proposal Type:</h1>
-                                <h1 className="text-sm font-semibold px-2">{proposalType}</h1>
-                            </div>
-                            <div className="flex justify-start items-center">
-                                <h1 className="text-sm font-normal">Voting System:</h1>
-                                <h1 className="text-sm font-semibold px-2">Single Choice</h1>
-                            </div>
-                        </div>
-                       
-                        <div className="flex flex-col justify-start items-start">
-                            <div className="flex justify-start items-center">
-                                <h1 className="text-sm font-normal">Voting Starts on:</h1>
-                                <h1 className="text-sm font-semibold px-2">{startDay.format('YYYY-MM-DD HH:mm')}</h1>
-                            </div>
-                            <div className="flex justify-start items-center">
-                                <h1 className="text-sm font-normal">Voting Ends on:</h1>
-                                <h1 className="text-sm font-semibold px-2">{endDay.format('YYYY-MM-DD HH:mm a')}</h1>
-                            </div>
-                        </div>
+                        <div className="flex flex-col h-full w-full justify-between items-start">
+                            <h1 className="text-white pb-3 text-xs font-normal break-words">{description}</h1>
+                            <div className="flex flex-col w-full justify-between space-y-4 items-start p-2 bg-white rounded-md text-black">
+                                <h1 className="text-sm text-center font-bold">Proposal Details</h1>
+    
+                                {proposalType === "Voting" && <VotingDetails/>}
+                                {proposalType === "Token Transfer" && <TokenTransferDetails/>}
+                                {proposalType === "Permission" && <PermissionDetails/>}
+                                {proposalType === "General" && <GeneralDetails/>}
 
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-between space-y-4 items-between p-4 bg-white rounded-md text-black">
+                        <div className="flex flex-col justify-between space-y-4 items-start">
+                            <h1 className="text-sm font-bold">Information</h1>
+                            <div className="flex flex-col justify-start items-start">
+                                <div className="flex justify-start items-center">
+                                    <h1 className="text-sm font-normal">Proposal Type:</h1>
+                                    <h1 className="text-sm font-semibold px-2">{proposalType}</h1>
+                                </div>
+                                <div className="flex justify-start items-center">
+                                    <h1 className="text-sm font-normal">Voting System:</h1>
+                                    <h1 className="text-sm font-semibold px-2">Single Choice</h1>
+                                </div>
+                            </div>
+                        
+                            <div className="flex flex-col justify-start items-start">
+                                <div className="flex justify-start items-center">
+                                    <h1 className="text-sm font-normal">Voting Starts on:</h1>
+                                    <h1 className="text-sm font-semibold px-2">{startDay.format('YYYY-MM-DD HH:mm')}</h1>
+                                </div>
+                                <div className="flex justify-start items-center">
+                                    <h1 className="text-sm font-normal">Voting Ends on:</h1>
+                                    <h1 className="text-sm font-semibold px-2">{endDay.format('YYYY-MM-DD HH:mm a')}</h1>
+                                </div>
+                            </div>
+                        </div>
                         <div className="flex flex-col w-full text-center space-y-1 justify-center items-center text-center">
                             <h1 className="text-sm font-bold">VOTE</h1>
                             <div className="flex justify-start items-center w-28 bg-blue-800 rounded-full">
@@ -229,16 +245,6 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
             </div>
 
             <div className="flex justify-end items-center">
-                {/* <button
-                    type="submit"
-                    className="flex justify-center rounded-md item-center mb-10 mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                        text-base font-medium text-white hover:bg-[#ac0537] 
-                        sm:w-auto sm:text-sm"
-                    >
-                    <p> Submit</p>
-                </button> */}
-
                 {!submitLoading ? (
                 <button
                     type="submit"
@@ -268,3 +274,162 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
 export default GeneralTemplate;
 
 
+const VotingDetails = () => {
+    const { 
+        participationRate,
+        votingMajority,
+        minVotingDelay,
+        minVotingPeriod,
+        minExecutionDelay,
+        } = useContext(CreateProposalContext);
+    const votingDelay = votingDelayItems.find(element => element.value === minVotingDelay.toString()) || { value:0 , label:'instant' };
+    const votingPeriod = votingDelayItems.find(element => element.value === minVotingPeriod.toString()) || { value:1 , label:'24 hrs' };
+    const executionDelay = votingDelayItems.find(element => element.value === minExecutionDelay.toString()) || { value:0 , label:'instant' };
+    return (
+        <div className="flex flex-col justify-start items-start">
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Participation Rate:</h1>
+                <h1 className="text-sm font-semibold px-2">{participationRate}%</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Majority:</h1>
+                <h1 className="text-sm font-semibold px-2">{votingMajority}%</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Min. Voting Delay:</h1>
+                <h1 className="text-sm font-semibold px-2">{votingDelay.label}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Min. Voting Period:</h1>
+                <h1 className="text-sm font-semibold px-2">{votingPeriod.label}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Min. Execution Delay:</h1>
+                <h1 className="text-sm font-semibold px-2">{executionDelay.label}</h1>
+            </div>
+        </div>
+    );
+  };
+
+  const GeneralDetails = (props:{} ) => {
+    // const {id, daoSelected, handleDaoSelection, daoDetail } = props;  
+    const { proposalName,
+        categories,
+        coverImageFile,
+        description,
+        participationRate,
+        votingMajority,
+        selectedVault,
+        selectedToken,
+        receivingAddress,
+        minVotingDelay,
+        minVotingPeriod,
+        votingOptions,
+        proposer,
+        proposalType,
+        membersOrVault,
+        keyPermissions,
+        vaultPermissions,
+        daoCid,
+        } = useContext(CreateProposalContext);
+    return (
+        <div className="flex flex-col justify-start items-start">
+            {/* <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Proposal Type:</h1>
+                <h1 className="text-sm font-semibold px-2"></h1>
+            </div> */}
+            <div className="flex flex-col justify-start items-start">
+                <h1 className="text-sm font-normal">Voting Options:</h1>
+                {votingOptions.map((value,index) => (
+
+                <h1 key={index} className="text-sm font-semibold px-4">{value}</h1>
+                )
+                )}
+            </div>
+        </div>
+    );
+  };
+
+  const TokenTransferDetails = (props:{} ) => {
+    // const {id, daoSelected, handleDaoSelection, daoDetail } = props;  
+    const {
+        selectedVault,
+        selectedToken,
+        receivingAddress,
+        tokenAmount,
+        } = useContext(CreateProposalContext);
+    return (
+        <div className="flex flex-col justify-start items-start">
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Receiving Vault:</h1>
+                <h1 className="text-sm font-semibold px-2">{selectedVault}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Token Type:</h1>
+                <h1 className="text-sm font-semibold px-2">{selectedToken}LYX</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Number of Tokens:</h1>
+                <h1 className="text-sm font-semibold px-2">{tokenAmount}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Receiving Address:</h1>
+                <h1 className="text-sm font-semibold px-2">{shortenAddress(receivingAddress)}</h1>
+            </div>
+        </div>
+    );
+  };
+
+  const PermissionDetails = (props:{} ) => {
+    // const {id, daoSelected, handleDaoSelection, daoDetail } = props;  
+    const { proposalName,
+        categories,
+        coverImageFile,
+        description,
+        participationRate,
+        votingMajority,
+        selectedVault,
+        selectedToken,
+        receivingAddress,
+        minVotingDelay,
+        minVotingPeriod,
+        votingOptions,
+        proposer,
+        proposalType,
+        membersOrVault,
+        keyPermissions,
+        vaultPermissions,
+        daoCid,
+        } = useContext(CreateProposalContext);
+        console.log(keyPermissions.keyPermissions.masterKey)
+    return (
+        <div className="flex flex-col justify-start items-start">
+            <div className="flex justify-start items-center">
+                <h1 className="text-sm font-normal">Address:{shortenAddress(keyPermissions.upAddress)}</h1>
+                <h1 className="text-sm font-semibold px-2"></h1>
+            </div>
+            
+            <h1 className="text-sm font-normal">New Permissions</h1>
+            <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Vote:</h1>
+                <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.vote?"true":"false"}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Propose:</h1>
+                <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.propose?"true":"false"}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Send Delegate:</h1>
+                <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.sendDelegate?"true":"false"}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Receive Delegate:</h1>
+                <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.receiveDelegate?"true":"false"}</h1>
+            </div>
+            {/* <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Voting System:</h1>
+                <h1 className="text-xs font-semibold px-2">Single Choice</h1>
+            </div> */}
+        </div>
+    );
+  };

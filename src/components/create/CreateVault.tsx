@@ -6,6 +6,7 @@ import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { keyPermissionInterface } from "./CreateKeyPermissions";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { fetchErc725Data } from "../../services/erc725";
+import { VALIDATORS } from "../../constants/globals";
 
 const CreateVault = (props: { handleSubmitCreate: any }) => {
   const { handleSubmitCreate } = props;
@@ -58,11 +59,13 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    const validationResult = formSubmitValidations();
-    if (validationResult !== "success") {
-      return toast.error(validationResult, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+    if (VALIDATORS) {
+      const validationResult = formSubmitValidations();
+      if (validationResult !== "success") {
+        return toast.error(validationResult, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
     }
     handleSubmitCreate("CreateVotingParameters");
   };
@@ -71,7 +74,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] md:px-[20%] px-5">
+    <div className="bg-welcome md:px-[20%] px-5">
       <h1 className="text-white text-sm py-2">Step 3</h1>
       <h1 className="text-white text-lg font-bold">Create your Vault</h1>
       <form onSubmit={handleSubmit}>

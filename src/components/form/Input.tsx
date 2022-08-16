@@ -7,6 +7,7 @@ const Input = (props: {
   size?: string;
   min?: string;
   max?: string;
+  maxLength?: number;
   className?: string;
 }) => {
   const {
@@ -17,6 +18,7 @@ const Input = (props: {
     size,
     min,
     max,
+    maxLength,
     value,
     className,
   } = props;
@@ -29,6 +31,7 @@ const Input = (props: {
       step="0.1"
       min={min}
       max={max}
+      maxLength={maxLength}
       onChange={(e) => handleChange(e, name)}
       className={`my-1 ${
         size ? size : "w-full"

@@ -7,6 +7,7 @@ import {
   votingPeriodItems,
   votingDelayItems,
 } from "../../constants/votingPeriodItems";
+import { VALIDATORS } from "../../constants/globals";
 
 const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
   const { handleSubmitCreate } = props;
@@ -19,6 +20,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
     setVotingMajority,
     setMinVotingDelay,
     setMinVotingPeriod,
+    setMinExecutionDelay,
   } = useContext(CreateDaoContext);
 
   toast.configure();
@@ -28,8 +30,8 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
       (element) => element.label === selectedOption.label
     ) || { value: 0, label: "instant" };
     setMinVotingDelay(selection.value); 
-    console.log(selectedOption);
-    console.log(selection);
+    // console.log(selectedOption);
+    // console.log(selection);
   };
 
   const handleMinVotingPeriod = (selectedOption: any) => {
@@ -37,8 +39,17 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
       (element) => element.label === selectedOption.label
     ) || { value: 1, label: "24 hrs" };
     setMinVotingPeriod(selection.value);
-    console.log(selectedOption);
-    console.log(selection);
+    // console.log(selectedOption);
+    // console.log(selection);
+  };
+
+  const handleMinExecutionDelay = (selectedOption: any) => {
+    const selection = votingDelayItems.find(
+      (element) => element.label === selectedOption.label
+    ) || { value: 0, label: "instant" };
+    setMinExecutionDelay(selection.value);
+    // console.log(selectedOption);
+    // console.log(selection);
   };
 
   const formSubmitValidations = () => {
@@ -53,11 +64,13 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    const validationResult = formSubmitValidations();
-    if (validationResult !== "success") {
-      return toast.error(validationResult, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+    if (VALIDATORS) {
+      const validationResult = formSubmitValidations();
+      if (validationResult !== "success") {
+        return toast.error(validationResult, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
     }
     handleSubmitCreate("CreateDaoSummary");
   };
@@ -67,7 +80,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
   }, []);
 
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[20%]">
+    <div className="bg-welcome w-full px-5 md:px-[20%]">
       <h1 className="text-white text-sm py-2">Step 4</h1>
       <h1 className="text-white text-lg font-bold">
         Create your Default Voting Parameters
@@ -139,6 +152,20 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
               handleChange={handleMinVotingPeriod}
               name={"minVotingPeriod"}
               listItems={votingPeriodItems}
+            />
+          </div>
+
+          <label
+            className="block pt-4 text-slate-400 text-sm font-normal"
+            htmlFor="minVotingPeriod"
+          >
+            Minimum Execution Delay
+          </label>
+          <div className="w-1/2">
+            <SingleSelect
+              handleChange={handleMinExecutionDelay}
+              name={"minExecutionDelay"}
+              listItems={votingDelayItems}
             />
           </div>
 

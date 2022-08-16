@@ -35,6 +35,7 @@ const CreateDaoSummary = (props: {
     votingMajority,
     minVotingDelay,
     minVotingPeriod,
+    minExecutionDelay,
   } = useContext(CreateDaoContext);
   const {accountAddress} = useContext(ProfileContext);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
@@ -46,6 +47,7 @@ const CreateDaoSummary = (props: {
     if (logoImageFile) {
       try {
         const resultLogoMetadata = await postImageToIPFS(logoImageFile);
+        console.log("resultLogoMetadata",resultLogoMetadata)
         let DaoUpMetadata = {
           daoProfile: {
             daoName: daoName,
@@ -65,6 +67,7 @@ const CreateDaoSummary = (props: {
             votingMajority: votingMajority,
             minVotingDelay: minVotingDelay,
             minVotingPeriod: minVotingPeriod,
+            minExecutionDelay: minExecutionDelay,
           },
           createdAt: timestamp,
         };
@@ -81,7 +84,7 @@ const CreateDaoSummary = (props: {
         setMetalink(metalink);
         window.open(metalink, "_blank");
         const result = await postDaoUp(DaoUpMetadata);
-        console.log(DaoUpMetadata)
+        console.log("DaoUpMetadata",DaoUpMetadata)
         setSubmitLoading(false);
         toast.success("Dao Profile Created", {
           position: toast.POSITION.BOTTOM_RIGHT,
@@ -101,9 +104,9 @@ const CreateDaoSummary = (props: {
   }, []);
 
   return (
-    <div className="bg-welcome pt-28 min-h-[100vh] w-full px-5">
+    <div className="bg-welcome w-full md:px-[20%] px-5">
       <h1 className="text-white text-center text-lg font-bold">DAO Summary</h1>
-      <div className="flex-column my-6 justify-center items-center mx-auto w-[90%] md:w-3/4 rounded-md order border border-slate-400">
+      <div className="flex-column my-6 justify-center items-center mx-auto w-[90%] rounded-md order border border-slate-400">
         <div className="flex flex-col md:flex-row flex-wrap justify-center h-1/2">
           <div className="md:w-1/2  ">
             <DaoDetails
@@ -136,12 +139,13 @@ const CreateDaoSummary = (props: {
               votingMajority={votingMajority}
               minVotingDelay={minVotingDelay}
               minVotingPeriod={minVotingPeriod}
+              minExecutionDelay={minExecutionDelay}
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
         </div>
       </div>
-      <div className="w-[90%] md:w-3/4">
+      <div className="w-[90%] mx-auto">
         {!submitLoading ? (
           <button
             type="submit"
@@ -247,31 +251,39 @@ const KeyPermissionDetails = (props: {
   const { keyPermissions, handleSubmitCreate } = props;
   const [upNameDict, setUpNameDict] = useState(() => new Map<string, string>());
   const permissions: string[] = [
-    "Master Key",
-    "HR Key",
     "Vote",
     "Propose",
+    "Execute",
+    "Register Votes",
+    "Add Permission",
+    "Remove Permission",
     "Send Delegate",
     "Receive Delegate",
   ];
   let permissionDict: any = {
-    "Master Key": [],
-    "HR Key": [],
-    Vote: [],
-    Propose: [],
+    "Vote": [],
+    "Propose": [],
+    "Execute": [],
+    "Register Votes": [],
+    "Add Permission": [],
+    "Remove Permission": [],
     "Send Delegate": [],
     "Receive Delegate": [],
   };
 
   Object.keys(keyPermissions).forEach((item) => {
-    keyPermissions[item].keyPermissions.masterKey &&
-      permissionDict["Master Key"].push(keyPermissions[item].upAddress);
-    keyPermissions[item].keyPermissions.hrKey &&
-      permissionDict["HR Key"].push(keyPermissions[item].upAddress);
     keyPermissions[item].keyPermissions.vote &&
       permissionDict["Vote"].push(keyPermissions[item].upAddress);
     keyPermissions[item].keyPermissions.propose &&
       permissionDict["Propose"].push(keyPermissions[item].upAddress);
+    keyPermissions[item].keyPermissions.execute &&
+      permissionDict["Execute"].push(keyPermissions[item].upAddress);
+    keyPermissions[item].keyPermissions.registerVotes &&
+      permissionDict["Register Votes"].push(keyPermissions[item].upAddress);
+    keyPermissions[item].keyPermissions.addPermission &&
+      permissionDict["Add Permission"].push(keyPermissions[item].upAddress);
+    keyPermissions[item].keyPermissions.removePermission &&
+      permissionDict["Remove Permission"].push(keyPermissions[item].upAddress);
     keyPermissions[item].keyPermissions.sendDelegate &&
       permissionDict["Send Delegate"].push(keyPermissions[item].upAddress);
     keyPermissions[item].keyPermissions.receiveDelegate &&
@@ -457,11 +469,12 @@ const VaultDetails = (props: {
           <h1 className="text-slate-400 text-xs font-normal">
             Multisig Allowances
           </h1>
-          {daoMembers.map((item: string, index: number) => (
-            <h1 key={index} className="text-white text-xs font-normal">
-              {shortenAddress(item)}
-            </h1>
-          ))}
+          {daoMembers.map((item, index) => (
+                <DaoMembers
+                  key={index}
+                  upAddress={item}
+                />
+              ))}
         </div>
         <div className="flex-column justify-between items-center w-1/2">
           <h1 className="text-slate-400 text-xs font-normal">Majority</h1>
@@ -472,11 +485,40 @@ const VaultDetails = (props: {
   );
 };
 
+const DaoMembers = (props: {
+  upAddress: string;
+}) => {
+  const { upAddress } = props;
+  const [upName, setUpName] = useState<string>("");
+
+  const getUpName = async (upAddress: string) => {
+    try {
+      const profileData: any = await fetchErc725Data(upAddress);
+      if (profileData.value.LSP3Profile) {
+        const name = profileData?.value?.LSP3Profile?.name;
+        setUpName(name);
+      }
+    } catch (error) {
+      setUpName(shortenAddress(upAddress));
+      console.log(upAddress, "This is not an ERC725 Contract");
+    }
+  };
+
+  useEffect(() => {
+    getUpName(upAddress);
+  }, []);
+
+  return (
+        <h1 className="text-white text-sm">{upName}</h1>
+  );
+};
+
 const VotingParametersDetails = (props: {
   participationRate: number;
   votingMajority: number;
   minVotingDelay: number;
   minVotingPeriod: number;
+  minExecutionDelay:number;
   handleSubmitCreate: any;
 }) => {
   const {
@@ -484,6 +526,7 @@ const VotingParametersDetails = (props: {
     votingMajority,
     minVotingDelay,
     minVotingPeriod,
+    minExecutionDelay,
     handleSubmitCreate,
   } = props;
   const votingPeriod = votingPeriodItems.find(
@@ -491,6 +534,9 @@ const VotingParametersDetails = (props: {
   );
   const votingDelay = votingDelayItems.find(
     (element) => element.value === minVotingDelay.toString()
+  );
+  const executionDelay = votingDelayItems.find(
+    (element) => element.value === minExecutionDelay.toString()
   );
 
   return (
@@ -527,7 +573,7 @@ const VotingParametersDetails = (props: {
           </h1>
         </div>
       </div>
-
+      {/* minExecutionDelay */}
       <div className="flex justify-between px-2 pt-2">
         <div className="flex-column justify-between items-center w-1/2">
           <h1 className="text-slate-400 text-xs font-normal">Majority</h1>
@@ -535,10 +581,20 @@ const VotingParametersDetails = (props: {
         </div>
         <div className="flex-column justify-between items-center w-1/2">
           <h1 className="text-slate-400 text-xs font-normal">
-            Min. Voting Priod
+            Min. Voting Period
           </h1>
           <h1 className="text-white text-2xl font-bold">
             {votingPeriod ? votingPeriod.label : ""}
+          </h1>
+        </div>
+      </div>
+      <div className="flex justify-end px-2 pt-2">
+        <div className="flex-column justify-between items-center w-1/2">
+          <h1 className="text-slate-400 text-xs font-normal">
+            Min. Execution Delay
+          </h1>
+          <h1 className="text-white text-2xl font-bold">
+            {executionDelay ? executionDelay.label : ""}
           </h1>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { SingleSelect } from "../components";
 import { getAllDaos } from "../services/keezBackend";
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import Skeleton from "@material-ui/lab/Skeleton";
+import ReactCardFlip from "react-card-flip";
 
 const Discover: React.FC = () => {
   const state = [
@@ -82,12 +83,10 @@ const DaoCard = (props:{id:number, daoDetail:any} ) => {
   const {id, daoDetail } = props;  
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const handleMouseOver = async () => {
-    await delay(200);
     setIsHovering(true);
   };
 
   const handleMouseOut = async () => {
-    // await delay(300);
     setIsHovering(false);
   };
 
@@ -98,18 +97,24 @@ const DaoCard = (props:{id:number, daoDetail:any} ) => {
   const memberStr = keyPermissionObject.length >1 ? "Members":"Member";
 
   return (
-    <div className="min-w-[21%] max-w-[21%] h-60 flex flex-1 flex-col m-5 rounded-md">
-      <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="h-full w-full">
-        <div className={`${isHovering?"bg-[#b8a5a6]":"bg-[#a44523]"} h-full w-full flipCardBack ease-in cursor-pointer duration-300`}>
-          <div className="flex flex-col justify-end items-center h-full flipCardBack">
-            
-          { isHovering ? (
-              <div className="flex w-full flex-col justify-between items-center h-full flipCardBack p-5">
+    <div className="min-w-[21%] max-w-[21%] flex flex-1 flex-col m-5 rounded-md">
+      <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className=" w-full">
+          <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
+            <div className="flex w-full flex-col bg-[#a44523] justify-between items-start h-60 p-5">
+                <div className="p-1 min-w-[35%] rounded-full bg-black self-end">
+                  <h1 className="text-white text-xs text-center px-1">{categoriesObject[0].label}</h1>
+                </div>
+                <div className="flex w-full flex-col justify-end items-start h-full ">
+                  <h1 className="text-black text-lg font-bold py-1">{daoDetail.daoName}</h1>
+                  <h1 className="text-black text-xs font-bold ">{keyPermissionObject.length} {memberStr}</h1>
+                </div>
+              </div>
+              <div className="flex w-full flex-col bg-[#b8a5a6] justify-between items-center h-60  p-5">
                 <div className="flex w-full flex-col justify-start items-center h-full ">
                     <h1 className="text-black text-lg font-bold">{daoDetail.daoName}</h1>
                     <h1 className="text-black text-xs py-1">{daoDetail.description}</h1>
                 </div>
-                <div className="flex flex-col justify-end items-center h-full flipCardBack">
+                <div className="flex flex-col justify-end items-center h-full ">
                   <button
                     type="button"
                     
@@ -121,26 +126,9 @@ const DaoCard = (props:{id:number, daoDetail:any} ) => {
                 </div>
               </div>
               
-              ):(
-                <div className="flex w-full flex-col justify-between items-start h-full flipCardBack p-5">
-                  <div className="p-1 min-w-[35%] rounded-full bg-black self-end">
-                    <h1 className="text-white text-xs text-center px-1">{categoriesObject[0].label}</h1>
-                  </div>
-                  <div className="flex w-full flex-col justify-end items-start h-full ">
-                    <h1 className="text-black text-lg font-bold py-1">{daoDetail.daoName}</h1>
-                    <h1 className="text-black text-xs font-bold ">{keyPermissionObject.length} {memberStr}</h1>
-                  </div>
-                </div>
-                )
-            }
-          </div>
-        </div>
-        
+
+            </ReactCardFlip>
       </div>
     </div>
   );
 };
-
-const delay = (ms:number) => new Promise(
-  resolve => setTimeout(resolve, ms)
-);

@@ -5,6 +5,7 @@ import { CreateProposalContext } from '../../context/CreateProposalContext'
 import { daoCategoryItems } from '../../constants/daoCategoryItems';
 import { votingPeriodItems, votingDelayItems } from '../../constants/votingPeriodItems';
 import {toast} from 'react-toastify';
+import { VALIDATORS } from "../../constants/globals";
 
 const VotingTemplate = (props: {handleComponent:any}) => {
     const {handleComponent} = props;
@@ -22,6 +23,7 @@ const VotingTemplate = (props: {handleComponent:any}) => {
       setMinVotingDelay,
       minVotingPeriod,
       setMinVotingPeriod,
+      setMinExecutionDelay,
       } = useContext(CreateProposalContext);
 
     toast.configure();
@@ -51,10 +53,12 @@ const VotingTemplate = (props: {handleComponent:any}) => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const validationResult = formSubmitValidations();
-        if (validationResult !== "success") {
-            return toast.error(validationResult,
-            {position: toast.POSITION.BOTTOM_RIGHT});
+        if (VALIDATORS) {
+          const validationResult = formSubmitValidations();
+          if (validationResult !== "success") {
+              return toast.error(validationResult,
+              {position: toast.POSITION.BOTTOM_RIGHT});
+          }
         }
         handleComponent("PreviewProposal");
     }
@@ -72,6 +76,12 @@ const VotingTemplate = (props: {handleComponent:any}) => {
       console.log(selection);
     }
     
+    const handleMinExecutionDelay = (selectedOption:any) => {
+      const selection = votingDelayItems.find(element => element.label === selectedOption.label) || { value:0 , label:'instant' };
+      setMinExecutionDelay(selection.value);
+      console.log(selection);
+    }
+
     const handleBack = async (event: React.FormEvent) => {
         event.preventDefault();
         handleComponent("ChooseTemplate");
@@ -153,6 +163,13 @@ const VotingTemplate = (props: {handleComponent:any}) => {
                 </label>
                 <div className='w-1/2'>
                   <SingleSelect handleChange={handleMinVotingPeriod} name={"minVotingPeriod"} listItems={votingPeriodItems}/>
+                </div>
+
+                <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="minExecutionDelay">
+                  Minimum Execution Delay
+                </label>
+                <div className='w-1/2'>
+                  <SingleSelect handleChange={handleMinExecutionDelay} name={"minExecutionDelay"} listItems={votingDelayItems}/>
                 </div>
 
               </div>

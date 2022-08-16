@@ -5,6 +5,7 @@ import { CreateProposalContext } from '../../context/CreateProposalContext'
 import { daoCategoryItems } from '../../constants/daoCategoryItems';
 import { votingPeriodItems, votingDelayItems } from '../../constants/votingPeriodItems';
 import {toast} from 'react-toastify';
+import { VALIDATORS } from "../../constants/globals";
 
 const GeneralTemplate = (props: {handleComponent:any}) => {
     const {handleComponent} = props;
@@ -49,13 +50,15 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
+      event.preventDefault();
+      if (VALIDATORS) {
         const validationResult = formSubmitValidations();
         if (validationResult !== "success") {
             return toast.error(validationResult,
             {position: toast.POSITION.BOTTOM_RIGHT});
         }
-        handleComponent("PreviewProposal");
+      }
+      handleComponent("PreviewProposal");
     }
 
      
@@ -164,12 +167,21 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
                         <Input name="votingOption" placeholder={option} type="text" handleChange={(event:any) => handleOptionsChange(event, index)} />
                       </div>
                       { index === votingOptions.length -1 ?
-                      <div onClick={handleAddOption} className="rounded-full mx-2 bg-[#C3073F] cursor-pointer active:bg-red-700 hover:bg-[#ac0537]">
-                        <MdAdd className="w-6 h-6 p-0.5" color="#fff"/>
+                      <div className="flex justify-between items-center">
+                        <div onClick={() => handleRemoveOption(index)} className="rounded-full mx-2 bg-[#C3073F] cursor-pointer active:bg-red-700 hover:bg-[#ac0537]">
+                          <MdRemove className="w-6 h-6 p-0.5" color="#fff"/>
+                        </div>
+                        <div onClick={handleAddOption} className="rounded-full bg-[#C3073F] cursor-pointer active:bg-red-700 hover:bg-[#ac0537]">
+                          <MdAdd className="w-6 h-6 p-0.5" color="#fff"/>
+                        </div>
                       </div>
                       :
-                      <div onClick={() => handleRemoveOption(index)} className="rounded-full mx-2 bg-[#C3073F] cursor-pointer active:bg-red-700 hover:bg-[#ac0537]">
-                        <MdRemove className="w-6 h-6 p-0.5" color="#fff"/>
+                      <div className="flex justify-between items-center">
+                        <div onClick={() => handleRemoveOption(index)} className="rounded-full mx-2 bg-[#C3073F] cursor-pointer active:bg-red-700 hover:bg-[#ac0537]">
+                          <MdRemove className="w-6 h-6 p-0.5" color="#fff"/>
+                        </div>                        
+                        <div onClick={handleAddOption} className="rounded-full w-6 h-6 p-0.5 ">
+                        </div>
                       </div>
                       }
                     </div>

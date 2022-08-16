@@ -50,7 +50,7 @@ const NavItems = ( props: {items: any, depthLevel:number} ) => {
       ref={ref}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`flex items-center ${depthLevel > 0 ? "mx-5":"mx-10"} font-semibold cursor-pointer `}
+      className={`flex items-center ${depthLevel > 0 ? "mx-5":"lg:mx-10 mx-3"} font-semibold cursor-pointer `}
     >
       {items.submenu ? (
         <>
