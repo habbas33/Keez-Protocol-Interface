@@ -59,7 +59,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
 
   const daos = [0, 1, 2, 3];
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-60">
+    <div className="bg-welcome pt-28  min-h-[100vh] w-full md:px-[10%] mx-auto px-5 ">
       <h1 className="text-white text-sm py-2">Step 1</h1>
       <h1 className="text-white text-lg font-bold">
         Choose a DAO to create a proposal for
@@ -74,7 +74,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
           </label>
 
           {memberDaos.length != [] ? (
-            <div className="flex flex-wrap py-3">
+            <div className="flex flex-wrap gap-3 py-3">
               {[...memberDaos].reverse().map((daoDetail, i) => (
                 <DaoCard
                   key={i}
@@ -153,50 +153,21 @@ const DaoCard = (props: {
   // //   }
   // // }, [daoSelected])
 
-  // return (
-  //   <div onClick={(event) => handleDaoSelection(event,id,daoDetail.CID)}
-  //   className={`min-w-[21%] max-w-[21%] h-60 flex flex-1 flex-col m-5  ${daoSelected === id ?"outline outline-offset-2 outline-1 outline-green-500":""}`}>
-  //     <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="h-full w-full">
-  //       <div className={`${isHovering?"bg-[#b8a5a6]":"bg-[#a44523]"} h-full w-full flipCardBack ease-in cursor-pointer duration-300`}>
-  //       { isHovering ? (
-  //           <div className="flex w-full flex-col justify-between items-center h-full flipCardBack p-5">
-  //             <div className="flex w-full flex-col justify-start items-center h-full ">
-  //                 <h1 className="text-black text-lg font-bold">{daoDetail.daoName}</h1>
-  //                 <h1 className="text-black text-xs py-1">{daoDetail.description}</h1>
-  //             </div>
-  //             <div className="flex flex-col justify-end items-center h-full flipCardBack">
-  //               <button
-  //                 type="button"
-
-  //                 onClick={ ()=> navigate('/DaoProfile', {state:{daoDetail:daoDetail}}) }
-  //                 className="flex flex-row items-center w-20 justify-center text-white text-xs font-bold py-2 rounded bg-[#C3073F] hover:bg-[#ac0537]"
-  //               >
-  //                 View DAO
-  //               </button>
-  //             </div>
-  //           </div>
-
-  //           ):(
-  //             <div className="flex w-full flex-col justify-between items-start h-full flipCardBack p-5">
-  //               <div className="p-1 min-w-[35%] rounded-full bg-black self-end">
-  //                 <h1 className="text-white text-xs text-center px-1">{categoriesObject[0].label}</h1>
-  //               </div>
-  //               <div className="flex w-full flex-col justify-end items-start h-full ">
-  //                 <h1 className="text-black text-lg font-bold py-1">{daoDetail.daoName}</h1>
-  //                 <h1 className="text-black text-xs font-bold ">{keyPermissionObject.length} {memberStr}</h1>
-  //               </div>
-  //             </div>
-  //             )
-  //         }
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
   return (
-    <div onMouseEnter={handleMouseOver}>
-      hello
-      <ReactCardFlip isFlipped={isHovering} flipDirection="vertical">
-        <div className="flex w-full flex-col justify-between items-start h-full p-5">
+    <div
+      className={`w-full md:w-[30%] relative  `}
+      onClick={(event) => handleDaoSelection(event, id, daoDetail.CID)}
+      onMouseLeave={handleMouseOut}
+      onMouseEnter={handleMouseOver}
+    >
+      <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
+        <div
+          className={`flex w-full flex-col bg-[#a44523] justify-between items-start h-[200px] p-5 ${
+            daoSelected === id
+              ? "outline outline-offset-2 outline-1 outline-green-500"
+              : ""
+          }`}
+        >
           {" "}
           <div className="p-1 min-w-[35%] rounded-full bg-black self-end">
             {" "}
@@ -215,7 +186,13 @@ const DaoCard = (props: {
           </div>{" "}
         </div>
 
-        <div className="flex w-full flex-col justify-between items-center h-full p-5">
+        <div
+          className={`flex w-full flex-col bg-[#b8a5a6] justify-between items-center h-[200px] p-5 ${
+            daoSelected === id
+              ? "outline outline-offset-2 outline-1 outline-green-500"
+              : ""
+          }`}
+        >
           <div className="flex w-full flex-col justify-start items-center h-full ">
             <h1 className="text-black text-lg font-bold">
               {daoDetail.daoName}
