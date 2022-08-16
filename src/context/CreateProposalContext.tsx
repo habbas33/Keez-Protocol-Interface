@@ -15,11 +15,15 @@ interface CreateProposalContextInterface {
     setMinVotingDelay: any;
     minVotingPeriod: number;
     setMinVotingPeriod: any;
+    minExecutionDelay: number;
+    setMinExecutionDelay: any;
 
     selectedVault: string;
     setSelectedVault: any;
     selectedToken: string;
     setSelectedToken: any;
+    tokenAmount: number;
+    setTokenAmount: any;
     receivingAddress: string;
     setReceivingAddress: any;
 
@@ -61,11 +65,15 @@ export const CreateProposalContext = React.createContext<CreateProposalContextIn
         setMinVotingDelay: () => {},
         minVotingPeriod: 1,
         setMinVotingPeriod: () => {},
+        minExecutionDelay: 0,
+        setMinExecutionDelay: () => {},
 
         selectedVault: '',
         setSelectedVault: () => {},
         selectedToken: '',
         setSelectedToken: () => {},
+        tokenAmount: 0,
+        setTokenAmount: () => {},
         receivingAddress: '',
         setReceivingAddress: () => {},
 
@@ -99,9 +107,11 @@ export const CreateProposalContextProvider = ({children}:any) => {
     const [votingMajority, setVotingMajority] = useState<number>(0);
     const [minVotingDelay, setMinVotingDelay] = useState<number>(0);
     const [minVotingPeriod, setMinVotingPeriod] = useState<number>(1);
+    const [minExecutionDelay, setMinExecutionDelay] = useState<number>(0);
     
     const [selectedVault, setSelectedVault] = useState<string>('');
     const [selectedToken, setSelectedToken] = useState<string>('');
+    const [tokenAmount, setTokenAmount] = useState<number>(0);
     const [receivingAddress, setReceivingAddress] = useState<string>('');
 
     const [coverImageFile, setCoverImageFile] = useState<File>();
@@ -125,6 +135,7 @@ export const CreateProposalContextProvider = ({children}:any) => {
                 participationRate:participationRate,
                 votingMajority:votingMajority,
                 minVotingDelay:minVotingDelay,
+                minExecutionDelay:minExecutionDelay,
                 minVotingPeriod:minVotingPeriod,
                 setProposalName: setProposalName, 
                 setCategories: setCategories ,
@@ -133,12 +144,15 @@ export const CreateProposalContextProvider = ({children}:any) => {
                 setVotingMajority:setVotingMajority,
                 setMinVotingDelay:setMinVotingDelay,
                 setMinVotingPeriod:setMinVotingPeriod,
+                setMinExecutionDelay:setMinExecutionDelay,
 
                 selectedVault: selectedVault, 
                 selectedToken: selectedToken, 
+                tokenAmount:tokenAmount,
                 receivingAddress: receivingAddress,
                 setSelectedVault: setSelectedVault, 
                 setSelectedToken: setSelectedToken, 
+                setTokenAmount:setTokenAmount,
                 setReceivingAddress:setReceivingAddress,
                 
                 coverImageFile: coverImageFile, 

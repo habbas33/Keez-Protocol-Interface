@@ -7,7 +7,8 @@ const ChooseTemplate = (props: {handleComponent:any}) => {
     const {handleComponent} = props;
     const { 
         setProposer,
-        setProposalType
+        setProposalType,
+        daoCid,
         } = useContext(CreateProposalContext);
   
     const {accountAddress} = useContext(ProfileContext);
@@ -15,6 +16,7 @@ const ChooseTemplate = (props: {handleComponent:any}) => {
  
     const handleSubmit = async (event: React.FormEvent, templateId:number) => {
         event.preventDefault();
+        // console.log(daoCid);
 
         setProposer(accountAddress);
         switch(templateId) {

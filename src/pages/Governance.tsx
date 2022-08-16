@@ -1,17 +1,38 @@
 import React, {useContext, useState,useEffect} from 'react'
+import { useNavigate, useLocation } from "react-router-dom";
 import { ConnectProfileModal } from '../modals';
+import { CreateProposalContext } from '../context/CreateProposalContext'
 import { ProfileContext } from '../context/ProfileContext'
 import { ChooseDao, ChooseTemplate, GeneralTemplate, VotingTemplate, PermissionTemplate, DaoTransferTokenTemplate, PreviewProposal } from "../components/proposal";
 
+type LocationProps = {
+  state: {
+    component: string;
+    CID:string;
+  };
+};
+
 const Governance: React.FC = () => {
+  const location = useLocation() as unknown as LocationProps;
   const { accountAddress } = useContext(ProfileContext);
+  const { setDaoCid } = useContext(CreateProposalContext);
   const [formComponent, setFormComponent] = useState<string>('ChooseDao');
   const [metalink, setMetalink] = useState<string>('');
-  
+  const component = location.state?.component;
+  const CID = location.state?.CID;
+
   const handleComponent = (NextForm:string) => {
     console.log(NextForm);
     setFormComponent(NextForm);
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    if (component) {
+      setFormComponent(component);
+      setDaoCid(CID);
+    }
+  }, [])
 
   return (
     <div className="min-h-screen">

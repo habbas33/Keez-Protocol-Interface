@@ -12,20 +12,22 @@ import { toast } from "react-toastify";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { fetchErc725Data } from "../../services/erc725";
+import { VALIDATORS } from "../../constants/globals";
 
 const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
   const { handleSubmitCreate } = props;
   const { keyPermissions, setKeyPermissions } = useContext(CreateDaoContext);
   const [upAddress, setUpAddress] = useState<string>("");
-  const [masterKeyPermission, setMasterKeyPermission] =
-    useState<boolean>(false);
-  const [hrKeyPermission, setHrKeyPermission] = useState<boolean>(false);
+  const [executePermission, setExecutePermission] = useState<boolean>(false);
+  const [registerVotesPermission, setRegisterVotesPermission] = useState<boolean>(false);
   const [votePermission, setVotePermission] = useState<boolean>(false);
   const [proposePermission, setProposePermission] = useState<boolean>(false);
   const [sendDelegatePermission, setSendDelegatePermission] =
     useState<boolean>(false);
   const [receiveDelegatePermission, setReceiveDelegatePermission] =
     useState<boolean>(false);
+  const [addPermission, setAddPermission] = useState<boolean>(false);
+  const [removePermission, setRemovePermission] = useState<boolean>(false);
 
   const handleAddKeyPermission = (event: any) => {
     event.preventDefault();
@@ -40,10 +42,12 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
       {
         upAddress: upAddress,
         keyPermissions: {
-          masterKey: masterKeyPermission,
-          hrKey: hrKeyPermission,
           vote: votePermission,
           propose: proposePermission,
+          execute: executePermission,
+          registerVotes: registerVotesPermission,
+          addPermission: addPermission,
+          removePermission: removePermission,
           sendDelegate: sendDelegatePermission,
           receiveDelegate: receiveDelegatePermission,
         },
@@ -72,10 +76,12 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
       return "Invalid Address";
     }
     if (
-      !masterKeyPermission &&
-      !hrKeyPermission &&
+      !executePermission &&
+      !registerVotesPermission &&
       !votePermission &&
       !proposePermission &&
+      !addPermission &&
+      !removePermission &&
       !sendDelegatePermission &&
       !receiveDelegatePermission
     ) {
@@ -101,11 +107,13 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    const validationResult = formSubmitValidations();
-    if (validationResult !== "success") {
-      return toast.error(validationResult, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+    if (VALIDATORS) {
+      const validationResult = formSubmitValidations();
+      if (validationResult !== "success") {
+        return toast.error(validationResult, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
     }
     handleSubmitCreate("CreateVault");
   };
@@ -115,7 +123,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
   }, []);
 
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-60">
+    <div className="bg-welcome w-full px-5 md:px-[20%]">
       <h1 className="text-white text-sm py-2">Step 2</h1>
       <h1 className="text-white text-lg font-bold">
         Create your Key Permissions
@@ -155,34 +163,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
             >
               Key Permissions
             </label>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="masterKey"
-                onClick={(e: any) => setMasterKeyPermission(e.target.checked)}
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
-              />
-              <label
-                htmlFor="masterKey"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Master Key
-              </label>
-            </div>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="hrKey"
-                onClick={(e: any) => setHrKeyPermission(e.target.checked)}
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
-              />
-              <label
-                htmlFor="hrKey"
-                className="px-2 text-white text-sm font-medium"
-              >
-                HR Key
-              </label>
-            </div>
+
             <div className="flex items-center my-3">
               <input
                 type="checkbox"
@@ -209,6 +190,62 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 className="px-2 text-white text-sm font-medium"
               >
                 Propose
+              </label>
+            </div>
+            <div className="flex items-center my-3">
+              <input
+                type="checkbox"
+                name="execute"
+                onClick={(e: any) => setExecutePermission(e.target.checked)}
+                className="accent-[#C3073F] focus:accent-[#ac0537]"
+              />
+              <label
+                htmlFor="execute"
+                className="px-2 text-white text-sm font-medium"
+              >
+                Execute
+              </label>
+            </div>
+            <div className="flex items-center my-3">
+              <input
+                type="checkbox"
+                name="registerVotes"
+                onClick={(e: any) => setRegisterVotesPermission(e.target.checked)}
+                className="accent-[#C3073F] focus:accent-[#ac0537]"
+              />
+              <label
+                htmlFor="registerVotes"
+                className="px-2 text-white text-sm font-medium"
+              >
+                Register Votes
+              </label>
+            </div>
+            <div className="flex items-center my-3">
+              <input
+                type="checkbox"
+                name="add"
+                onClick={(e: any) => setAddPermission(e.target.checked)}
+                className="accent-[#C3073F] focus:accent-[#ac0537]"
+              />
+              <label
+                htmlFor="add"
+                className="px-2 text-white text-sm font-medium"
+              >
+                Add Permission
+              </label>
+            </div>
+            <div className="flex items-center my-3">
+              <input
+                type="checkbox"
+                name="remove"
+                onClick={(e: any) => setRemovePermission(e.target.checked)}
+                className="accent-[#C3073F] focus:accent-[#ac0537]"
+              />
+              <label
+                htmlFor="remove"
+                className="px-2 text-white text-sm font-medium"
+              >
+                Remove Permission
               </label>
             </div>
             <div className="flex items-center my-3">
@@ -283,10 +320,12 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
 export default CreateKeyPermissions;
 
 export interface keyPermissionInterface {
-  masterKey: boolean;
-  hrKey: boolean;
+  execute: boolean;
+  registerVotes: boolean;
   vote: boolean;
   propose: boolean;
+  addPermission: boolean;
+  removePermission: boolean;
   sendDelegate: boolean;
   receiveDelegate: boolean;
 }
@@ -353,39 +392,7 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
         Permissions
       </h1>
       <div>
-        <div className="flex flex-row items-center py-[2px]">
-          {keyPermissions.masterKey ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
-          ) : (
-            <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
-          )}
-          <h1
-            className={`${
-              keyPermissions.masterKey
-                ? "text-[#08b35d] font-bold"
-                : "text-[#1A1A1D] font-light"
-            } text-xs px-1 `}
-          >
-            Master Key
-          </h1>
-        </div>
-
-        <div className="flex flex-row items-center py-[2px]">
-          {keyPermissions.hrKey ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
-          ) : (
-            <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
-          )}
-          <h1
-            className={`${
-              keyPermissions.hrKey
-                ? "text-[#08b35d] font-bold"
-                : "text-[#1A1A1D] font-light"
-            } text-xs px-1 `}
-          >
-            HR Key
-          </h1>
-        </div>
+     
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.vote ? (
@@ -418,6 +425,74 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
             } text-xs px-1`}
           >
             Propose
+          </h1>
+        </div>
+
+        <div className="flex flex-row items-center py-[2px]">
+          {keyPermissions.execute ? (
+            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+          ) : (
+            <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
+          )}
+          <h1
+            className={`${
+              keyPermissions.execute
+                ? "text-[#08b35d] font-bold"
+                : "text-[#1A1A1D] font-light"
+            } text-xs px-1 `}
+          >
+            Execute
+          </h1>
+        </div>
+
+        <div className="flex flex-row items-center py-[2px]">
+          {keyPermissions.registerVotes ? (
+            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+          ) : (
+            <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
+          )}
+          <h1
+            className={`${
+              keyPermissions.registerVotes
+                ? "text-[#08b35d] font-bold"
+                : "text-[#1A1A1D] font-light"
+            } text-xs px-1 `}
+          >
+            Register Votes
+          </h1>
+        </div>
+
+        <div className="flex flex-row items-center py-[2px]">
+          {keyPermissions.addPermission ? (
+            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+          ) : (
+            <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
+          )}
+          <h1
+            className={`${
+              keyPermissions.addPermission
+                ? "text-[#08b35d] font-bold"
+                : "text-[#1A1A1D] font-light"
+            } text-xs px-1 `}
+          >
+            Add Permission
+          </h1>
+        </div>
+
+        <div className="flex flex-row items-center py-[2px]">
+          {keyPermissions.removePermission ? (
+            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+          ) : (
+            <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
+          )}
+          <h1
+            className={`${
+              keyPermissions.removePermission
+                ? "text-[#08b35d] font-bold"
+                : "text-[#1A1A1D] font-light"
+            } text-xs px-1 `}
+          >
+            Remove Permission
           </h1>
         </div>
 

@@ -6,8 +6,9 @@ export default function MultiSelect(props: {
   handleChange: any;
   listItems: any;
   name: string;
+  categories?:any;
 }) {
-  const { handleChange, listItems, name } = props;
+  const { handleChange, listItems, name, categories } = props;
 
   return (
     <Select
@@ -18,6 +19,7 @@ export default function MultiSelect(props: {
       styles={customStyles}
       className="basic-multi-select z-0 my-1"
       classNamePrefix="select"
+      isOptionDisabled={() => categories ? categories.length >= 3:false}
       placeholder={""}
       onChange={handleChange}
     />

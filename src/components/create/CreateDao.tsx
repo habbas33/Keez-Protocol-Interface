@@ -4,6 +4,7 @@ import { MultiSelect, FileUploader, Input } from "../../components";
 import { toast } from "react-toastify";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { daoCategoryItems } from "../../constants/daoCategoryItems";
+import { VALIDATORS } from "../../constants/globals";
 
 const CreateDao = (props: { handleSubmitCreate: any }) => {
   const { handleSubmitCreate } = props;
@@ -46,11 +47,13 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const validationResult = formSubmitValidations();
-    if (validationResult !== "success") {
-      return toast.error(validationResult, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+    if (VALIDATORS) {
+      const validationResult = formSubmitValidations();
+      if (validationResult !== "success") {
+        return toast.error(validationResult, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
     }
     handleSubmitCreate("CreateKeyPermissions");
   };
@@ -60,7 +63,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
   }, []);
 
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-60">
+    <div className="bg-welcome w-full px-5 md:px-[20%]">
       <h1 className="text-white text-sm py-2">Step 1</h1>
       <h1 className="text-white text-lg font-bold">Create your DAO</h1>
       <form onSubmit={handleSubmit}>
@@ -75,6 +78,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             value={daoName}
             name="dao_name"
             type="text"
+            maxLength={50}
             handleChange={(e: any) => setDaoName(e.target.value)}
           />
 
@@ -99,8 +103,10 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
           <MultiSelect
             handleChange={handleCategoriesChange}
             listItems={daoCategoryItems}
+            categories={categories}
             name={"daoCategories"}
           />
+          <p className="text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Maximum three categories in following order [Primary, Secondary, Tertiary]</p>
 
           <label
             className="block pt-4 text-slate-400 text-sm font-normal"
