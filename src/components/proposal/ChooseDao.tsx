@@ -24,7 +24,7 @@ const ChooseDao = (props: {handleComponent:any}) => {
     const handleDaoSelection = async (event: React.FormEvent, id:number,CID:string) => {
       event.preventDefault();
       setDaoSelected(id);
-      // console.log("set dao cid", CID)
+      console.log("set dao cid", CID)
       // console.log("set dao id", id)
       setDaoCid(CID)
     }
@@ -49,7 +49,7 @@ const ChooseDao = (props: {handleComponent:any}) => {
 
   useEffect(() => {
       if (memberDaos.length!=[]) {
-        setDaoCid(memberDaos[0].CID)
+        setDaoCid(memberDaos[memberDaos.length-1].CID)
       }
   }, [memberDaos])
 

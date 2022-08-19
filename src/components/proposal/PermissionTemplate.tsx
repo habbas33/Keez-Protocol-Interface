@@ -6,6 +6,8 @@ import { daoCategoryItems } from '../../constants/daoCategoryItems';
 import Switch from '@material-ui/core/Switch';
 import {toast} from 'react-toastify';
 import { VALIDATORS } from "../../constants/globals";
+import { getDaoByCID } from "../../services/keezBackend";
+import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 
 const PermissionsTemplate = (props: {handleComponent:any}) => {
     const {handleComponent} = props;
@@ -20,16 +22,21 @@ const PermissionsTemplate = (props: {handleComponent:any}) => {
       keyPermissions,
       vaultPermissions,
       membersOrVault,
-      setMembersOrVault
+      setMembersOrVault,
+      daoCid
     } = useContext(CreateProposalContext);
 
-    const [masterKeyPermission, setMasterKeyPermission] = useState<boolean>(false);
-    const [hrKeyPermission, setHrKeyPermission] = useState<boolean>(false);
+    const [executePermission, setExecutePermission] = useState<boolean>(false);
+    const [registerVotesPermission, setRegisterVotesPermission] = useState<boolean>(false);
+    const [addPermission, setAddPermission] = useState<boolean>(false);
+    const [removePermission, setRemovePermission] = useState<boolean>(false);
     const [votePermission, setVotePermission] = useState<boolean>(false);
     const [proposePermission, setProposePermission] = useState<boolean>(false);
     const [sendDelegatePermission, setSendDelegatePermission] = useState<boolean>(false);
     const [receiveDelegatePermission, setReceiveDelegatePermission] = useState<boolean>(false);
+    const [memberAddress, setMemberAddress] = useState<string>("");
     const [addOrRevoke, setAddOrRevoke] = useState<string>("Add"); // true -> Add / false -> revoke
+    const [daoSelected, setDaoSelected] = useState<any>([]);
 
     toast.configure();
 
@@ -61,7 +68,7 @@ const PermissionsTemplate = (props: {handleComponent:any}) => {
         }
       }
         // if (membersOrVault === "Members"){
-          setKeyPermissions({upAddress:"", keyPermissions:{masterKey:masterKeyPermission, hrKey:hrKeyPermission, vote:votePermission, propose:proposePermission, sendDelegate:sendDelegatePermission, receiveDelegate:receiveDelegatePermission}});
+          setKeyPermissions({upAddress:memberAddress, keyPermissions:{vote:votePermission, propose:proposePermission, execute:executePermission, registerVotes: registerVotesPermission, addPermission: addPermission, removePermission:removePermission, sendDelegate:sendDelegatePermission, receiveDelegate:receiveDelegatePermission}});
         // } else if (membersOrVault === "Vault"){
         //   setVaultPermissions({vaultAddress:"", action:addOrRevoke});
         // }
@@ -81,25 +88,70 @@ const PermissionsTemplate = (props: {handleComponent:any}) => {
     const handleCategoriesChange = (selectedOption:any) => {
         setCategories(selectedOption );
     }
-    const handleMasterKeyChange = () => {
-      console.log(masterKeyPermission);
-      setMasterKeyPermission(!masterKeyPermission);
-  }
-
-    const onChangeAddOrRevoke = (event: any) => {
-      console.log(event.target.value);
-      setAddOrRevoke(event.target.value)
+    
+    const handleMemberChange = (selectedOption:any) => {
+      const selection = membersList.find((element:any) => element.label === selectedOption.label);
+      if (selection)
+        setMemberAddress(selection.label);
     }
 
-    const onChangeMembersOrVault = (event: any) => {
-      console.log(event.target.value);
-      setMembersOrVault(event.target.value)
-    }
+  //   const handleMasterKeyChange = () => {
+  //     console.log(masterKeyPermission);
+  //     setMasterKeyPermission(!masterKeyPermission);
+  // }
+
+    // const onChangeAddOrRevoke = (event: any) => {
+    //   console.log(event.target.value);
+    //   setAddOrRevoke(event.target.value)
+    // }
+
+    // const onChangeMembersOrVault = (event: any) => {
+    //   console.log(event.target.value);
+    //   setMembersOrVault(event.target.value)
+    // }
 
     useEffect(() => {
         window.scrollTo(0, 0)
       }, [])
  
+    useEffect(() => {
+      if (daoCid) {
+        
+          const fetchData = async () => {
+            const result = await getDaoByCID(daoCid);
+            console.log("doa selected set", result);
+            setDaoSelected(result);
+            
+          }
+          fetchData();
+      }
+    }, [])
+
+    useEffect(() => {
+      for(var i=0; i<permissionsObject.length; i++) {
+        if (permissionsObject[i].upAddress == memberAddress ){
+          setVotePermission(permissionsObject[i].keyPermissions.vote === "True")
+          setProposePermission(permissionsObject[i].keyPermissions.propose === "True")
+          setSendDelegatePermission(permissionsObject[i].keyPermissions.sendDelegate === "True")
+          setReceiveDelegatePermission(permissionsObject[i].keyPermissions.receiveDelegate === "True")
+          setRegisterVotesPermission(permissionsObject[i].keyPermissions?.registerVotes === "True")
+          setAddPermission(permissionsObject[i].keyPermissions?.addPermission === "True")
+          setRemovePermission(permissionsObject[i].keyPermissions?.removePermission === "True")
+          setExecutePermission(permissionsObject[i].keyPermissions?.execute === "True")
+        }
+      }
+    console.log("member changes");
+    console.log(permissionsObject);
+    }, [memberAddress])
+
+    const permissionsObject = daoSelected.length!=""? getParsedJsonObj(daoSelected.keyPermissions):"";
+    // console.log(JSON.stringify(permissionsObject));
+    const membersList:any = [];
+
+    Object.keys(permissionsObject).forEach(function(key, index) {
+      membersList[key] = {"value":permissionsObject[key].upAddress, "label":permissionsObject[key].upAddress}
+    });
+
     toast.configure();
     return(
       <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-60">
@@ -138,41 +190,11 @@ const PermissionsTemplate = (props: {handleComponent:any}) => {
                   Description
                 </label>
                 <textarea className="my-1 h-28 w-full rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight" value={description} name="description" onChange={(e:any) => setDescription(e.target.value)} />
-              
-                {/* <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="minVotingPeriod">
-                  UP or Vault?
-                </label>
-                <div onChange={onChangeMembersOrVault} className="flex justify-between items-center">
-                  <div className="flex justify-start items-center w-1/2">
-                    <input checked={membersOrVault === "Members"} type="radio" value="Members" name="membersOrVault" className="accent-[#C3073F] focus:accent-[#ac0537]"/>
-                    <label htmlFor="Members" className="block text-white text-sm px-2 font-normal">Dao Members</label>
-                  </div>
-                  
-                  <div className="flex justify-start items-center w-1/2">
-                    <input checked={membersOrVault === "Vault"} value="Vault" type="radio" name="membersOrVault" className="accent-[#C3073F] focus:accent-[#ac0537]"/>
-                    <label htmlFor="Vault" className="block text-white text-sm px-2 font-normal">Vault</label>
-                  </div>
-                </div> */}
-
-                {/* <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="minVotingPeriod">
-                  Add or Revoke?
-                </label>
-                <div onChange={onChangeAddOrRevoke} className="flex justify-between items-center">
-                  <div className="flex justify-start items-center w-1/2">
-                    <input checked={addOrRevoke === "Add"} type="radio" value="Add" name="addOrRevoke" className="accent-[#C3073F] focus:accent-[#ac0537]"/>
-                    <label htmlFor="add" className="block text-white text-sm px-2 font-normal">Add</label>
-                  </div>
-                  
-                  <div className="flex justify-start items-center w-1/2">
-                    <input checked={addOrRevoke === "Revoke"} value="Revoke" type="radio" name="addOrRevoke" className="accent-[#C3073F] focus:accent-[#ac0537]"/>
-                    <label htmlFor="revoke" className="block text-white text-sm px-2 font-normal">Revoke</label>
-                  </div>
-                </div> */}
-
+                            
                 <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="minVotingPeriod">
                   Choose {membersOrVault === "Members" ? "Address" : "Vault"} from List
                 </label>
-                <SingleSelect handleChange={() => console.log("handleSelectAddress")} name={"address"} listItems={[]}/>
+                <SingleSelect handleChange={handleMemberChange} name={"address"} listItems={membersList}/>
 
                 
 
@@ -182,20 +204,7 @@ const PermissionsTemplate = (props: {handleComponent:any}) => {
                     Choose Permissions to Add/Revoke:
                   </label>
                   <div className="grid gap-x-4 gap-y-0 grid-cols-2 text-white">
-                    {/* <div className="flex items-center my-3">
-                    <Switch
-                      checked={masterKeyPermission}
-                      onChange={(e:any) => setMasterKeyPermission(!masterKeyPermission)}
-                      name="maskerkey"
-                      inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    />
-                       <input type="checkbox" name="masterKey" onClick ={(e:any) => setMasterKeyPermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/> 
-                      <label htmlFor="masterKey" className="px-2 text-white text-sm font-medium">Master Key</label>
-                    </div>
-                    <div className="flex items-center my-3">
-                        <input type="checkbox" name="hrKey" onClick ={(e:any) => setHrKeyPermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/>
-                        <label htmlFor="hrKey" className="px-2 text-white text-sm font-medium">HR Key</label>
-                    </div> */}
+
                     <div className="flex items-center my-3">
                         {/* <input type="checkbox" name="vote" onClick ={(e:any) => setVotePermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/> */}
                         <Switch
@@ -215,6 +224,46 @@ const PermissionsTemplate = (props: {handleComponent:any}) => {
                           inputProps={{ 'aria-label': 'secondary checkbox' }}
                         />
                         <label htmlFor="propose" className="px-2 text-white text-sm font-medium">Propose</label>
+                    </div>
+                    <div className="flex items-center my-3">
+                        {/* <input type="checkbox" name="receiveDelegate" onClick ={(e:any) => setReceiveDelegatePermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/> */}
+                        <Switch
+                          checked={executePermission}
+                          onChange={(e:any) => setExecutePermission(!executePermission)}
+                          name="executePermission"
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                        <label htmlFor="execute" className="px-2 text-white text-sm font-medium">Execute</label>
+                    </div>
+                    <div className="flex items-center my-3">
+                        {/* <input type="checkbox" name="receiveDelegate" onClick ={(e:any) => setReceiveDelegatePermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/> */}
+                        <Switch
+                          checked={registerVotesPermission}
+                          onChange={(e:any) => setRegisterVotesPermission(!registerVotesPermission)}
+                          name="registerVotesPermission"
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                        <label htmlFor="registerVotes" className="px-2 text-white text-sm font-medium">RegisterVotes</label>
+                    </div>
+                    <div className="flex items-center my-3">
+                        {/* <input type="checkbox" name="receiveDelegate" onClick ={(e:any) => setReceiveDelegatePermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/> */}
+                        <Switch
+                          checked={addPermission}
+                          onChange={(e:any) => setAddPermission(!addPermission)}
+                          name="addPermission"
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                        <label htmlFor="add" className="px-2 text-white text-sm font-medium">Add</label>
+                    </div>
+                    <div className="flex items-center my-3">
+                        {/* <input type="checkbox" name="receiveDelegate" onClick ={(e:any) => setReceiveDelegatePermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/> */}
+                        <Switch
+                          checked={removePermission}
+                          onChange={(e:any) => setRemovePermission(!removePermission)}
+                          name="removePermission"
+                          inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                        <label htmlFor="remove" className="px-2 text-white text-sm font-medium">Remove</label>
                     </div>
                     <div className="flex items-center my-3">
                         {/* <input type="checkbox" name="sendDeligate" onClick ={(e:any) => setSendDelegatePermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/> */}

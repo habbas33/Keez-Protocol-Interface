@@ -32,7 +32,7 @@ interface CreateProposalContextInterface {
     votingOptions: string[];
     setVotingOptions: any;
 
-    keyPermissions: {upAddress:string, action: string, keyPermissions:{masterKey:boolean, hrKey:boolean, vote:boolean, propose:boolean, sendDelegate:boolean, receiveDelegate:boolean}};
+    keyPermissions: {upAddress:string, action: string, keyPermissions:{vote:boolean, propose:boolean, execute:boolean, addPermission:boolean, removePermission:boolean, registerVotes:boolean, sendDelegate:boolean, receiveDelegate:boolean}};
     setKeyPermissions: any;
 
     vaultPermissions: {vaultAddress:string, action: string};
@@ -83,7 +83,7 @@ export const CreateProposalContext = React.createContext<CreateProposalContextIn
         votingOptions: [],
         setVotingOptions: () => {},
 
-        keyPermissions: {upAddress:"", action: "", keyPermissions:{masterKey:false, hrKey:false, vote:false, propose:false, sendDelegate:false, receiveDelegate:false}},
+        keyPermissions: {upAddress:"", action: "", keyPermissions:{vote:false, propose:false, execute:false, addPermission:false, removePermission:false, registerVotes:false, sendDelegate:false, receiveDelegate:false}},
         setKeyPermissions: () => {},
         vaultPermissions: {vaultAddress:"", action:""},
         setVaultPermissions: () => {},
@@ -117,8 +117,8 @@ export const CreateProposalContextProvider = ({children}:any) => {
     const [coverImageFile, setCoverImageFile] = useState<File>();
     const [votingOptions, setVotingOptions] = useState<string[]>(['For','Against', 'Abstain']);
 
-    const [keyPermissions, setKeyPermissions] = useState<{upAddress:string, action:string, keyPermissions:{masterKey:boolean, hrKey:boolean, vote:boolean, propose:boolean, sendDelegate:boolean, receiveDelegate:boolean}}>
-            ( {upAddress:"", action: "", keyPermissions:{masterKey:false, hrKey:false, vote:false, propose:false, sendDelegate:false, receiveDelegate:false}});
+    const [keyPermissions, setKeyPermissions] = useState<{upAddress:string, action:string, keyPermissions:{vote:boolean, propose:boolean, execute:boolean, addPermission:boolean, removePermission:boolean, registerVotes:boolean, sendDelegate:boolean, receiveDelegate:boolean}}>
+            ( {upAddress:"", action: "", keyPermissions:{vote:false, propose:false, execute:false, addPermission:false, removePermission:false, registerVotes:false, sendDelegate:false, receiveDelegate:false}});
     const [vaultPermissions, setVaultPermissions] = useState<{vaultAddress:string, action:string}>({vaultAddress:"", action:""});
     const [membersOrVault, setMembersOrVault] = useState<string>("Members"); 
 

@@ -11,6 +11,7 @@ import { postJsonToIPFS, postImageToIPFS } from "../../services/web3Storage";
 import { getDaoByCID, postProposal } from "../../services/keezBackend";
 import { votingDelayItems } from '../../constants/votingPeriodItems';
 import dayjs from 'dayjs';
+import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 
 const GeneralTemplate = (props: {handleComponent:any}) => {
     const {handleComponent} = props;
@@ -42,8 +43,17 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
 
     toast.configure();
     const now = dayjs();
-    const startDay = now.add(minVotingDelay, 'day');
-    const endDay = startDay.add(minVotingPeriod, 'day');
+    const votingParametersObject = daoSelected.length!=""? getParsedJsonObj(daoSelected.votingParameters):"";
+    
+    const min_voting_delay = votingParametersObject.minVotingDelay;
+    const min_voting_period = votingParametersObject.minVotingPeriod;
+    const min_execution_delay = votingParametersObject.minExecutionDelay;
+    // console.log(votingParametersObject)
+    // console.log("min_voting_period",min_voting_period)
+    // console.log("min_voting_period+min_execution_delay",Number(min_voting_period)+Number(min_execution_delay))
+    const startDay = now.add(min_voting_delay, 'day');
+    const endDay = startDay.add(min_voting_period, 'day');
+    const executionDay = startDay.add(min_execution_delay?Number(min_voting_period)+Number(min_execution_delay):min_voting_period, 'day');
 
     const handleSubmit = async (event: React.FormEvent) => {
         setSubmitLoading(true);
@@ -224,7 +234,11 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
                                 </div>
                                 <div className="flex justify-start items-center">
                                     <h1 className="text-sm font-normal">Voting Ends on:</h1>
-                                    <h1 className="text-sm font-semibold px-2">{endDay.format('YYYY-MM-DD HH:mm a')}</h1>
+                                    <h1 className="text-sm font-semibold px-2">{endDay.format('YYYY-MM-DD HH:mm')}</h1>
+                                </div>
+                                <div className="flex justify-start items-center">
+                                    <h1 className="text-sm font-normal">Proposal Executes on:</h1>
+                                    <h1 className="text-sm font-semibold px-2">{executionDay.format('YYYY-MM-DD HH:mm')}</h1>
                                 </div>
                             </div>
                         </div>
@@ -313,24 +327,8 @@ const VotingDetails = () => {
 
   const GeneralDetails = (props:{} ) => {
     // const {id, daoSelected, handleDaoSelection, daoDetail } = props;  
-    const { proposalName,
-        categories,
-        coverImageFile,
-        description,
-        participationRate,
-        votingMajority,
-        selectedVault,
-        selectedToken,
-        receivingAddress,
-        minVotingDelay,
-        minVotingPeriod,
+    const { 
         votingOptions,
-        proposer,
-        proposalType,
-        membersOrVault,
-        keyPermissions,
-        vaultPermissions,
-        daoCid,
         } = useContext(CreateProposalContext);
     return (
         <div className="flex flex-col justify-start items-start">
@@ -366,7 +364,7 @@ const VotingDetails = () => {
             </div>
             <div className="flex justify-start items-center">
                 <h1 className="text-sm font-normal">Token Type:</h1>
-                <h1 className="text-sm font-semibold px-2">{selectedToken}LYX</h1>
+                <h1 className="text-sm font-semibold px-2">{selectedToken}</h1>
             </div>
             <div className="flex justify-start items-center">
                 <h1 className="text-sm font-normal">Number of Tokens:</h1>
@@ -382,26 +380,10 @@ const VotingDetails = () => {
 
   const PermissionDetails = (props:{} ) => {
     // const {id, daoSelected, handleDaoSelection, daoDetail } = props;  
-    const { proposalName,
-        categories,
-        coverImageFile,
-        description,
-        participationRate,
-        votingMajority,
-        selectedVault,
-        selectedToken,
-        receivingAddress,
-        minVotingDelay,
-        minVotingPeriod,
-        votingOptions,
-        proposer,
-        proposalType,
-        membersOrVault,
+    const {
         keyPermissions,
-        vaultPermissions,
-        daoCid,
         } = useContext(CreateProposalContext);
-        console.log(keyPermissions.keyPermissions.masterKey)
+        // console.log(keyPermissions.keyPermissions.masterKey)
     return (
         <div className="flex flex-col justify-start items-start">
             <div className="flex justify-start items-center">
@@ -419,6 +401,24 @@ const VotingDetails = () => {
                 <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.propose?"true":"false"}</h1>
             </div>
             <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Execute:</h1>
+                <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.execute?"true":"false"}</h1>
+            </div>
+
+            <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Register:</h1>
+                <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.registerVotes?"true":"false"}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Add Permission:</h1>
+                <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.addPermission?"true":"false"}</h1>
+            </div>
+            <div className="flex justify-start items-center">
+                <h1 className="text-xs font-normal">Remove Permission:</h1>
+                <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.removePermission?"true":"false"}</h1>
+            </div>
+
+            <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Send Delegate:</h1>
                 <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.sendDelegate?"true":"false"}</h1>
             </div>
@@ -426,10 +426,6 @@ const VotingDetails = () => {
                 <h1 className="text-xs font-normal">Receive Delegate:</h1>
                 <h1 className="text-xs font-semibold px-2">{keyPermissions.keyPermissions.receiveDelegate?"true":"false"}</h1>
             </div>
-            {/* <div className="flex justify-start items-center">
-                <h1 className="text-xs font-normal">Voting System:</h1>
-                <h1 className="text-xs font-semibold px-2">Single Choice</h1>
-            </div> */}
         </div>
     );
   };

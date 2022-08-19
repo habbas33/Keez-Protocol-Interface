@@ -33,6 +33,12 @@ const Create: React.FC = () => {
     // createDaoService(accountAddress);
   }
 
+  
+  const handleDeploy = () => {
+    console.log("creat");
+    // createDaoService(accountAddress);
+  }
+
   const handleReview = (NextForm:string) => {
     //@ts-ignore
     if (allStepsValidated || steps[NextForm]<activeStep){
@@ -77,6 +83,16 @@ const Create: React.FC = () => {
             { (createForm === "CreateVault") && (<CreateVault handleSubmitCreate={handleSubmitCreate}/>)}
             { (createForm === "CreateVotingParameters") && (<CreateVotingParameters handleSubmitCreate={handleSubmitCreate}/>)}
             { (createForm === "CreateDaoSummary") && (<CreateDaoSummary handleSubmitCreate={handleSubmitCreate} metalink={metalink} setMetalink={setMetalink}/>)}
+           
+                      {/* <button
+                      onClick={handleDeploy}
+                      type="button"
+                      className="flex justify-center rounded-md item-center 
+                                  border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
+                                  text-base font-medium text-white  ml-auto"
+                    >
+                      deploy
+                    </button> */}
           </div>
         )}
     </div>
