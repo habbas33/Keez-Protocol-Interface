@@ -4,8 +4,10 @@ import { MultiSelect, SingleSelect, Input } from "../../components";
 import { CreateProposalContext } from '../../context/CreateProposalContext'
 import { daoCategoryItems } from '../../constants/daoCategoryItems';
 import { votingPeriodItems, votingDelayItems } from '../../constants/votingPeriodItems';
+import { getDaoByCID } from "../../services/keezBackend";
 import {toast} from 'react-toastify';
 import { VALIDATORS } from "../../constants/globals";
+import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 
 const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
     const {handleComponent} = props;
@@ -23,7 +25,9 @@ const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
       setTokenAmount,
       receivingAddress,
       setReceivingAddress,
+      daoCid,
     } = useContext(CreateProposalContext);
+    const [daoSelected, setDaoSelected] = useState<any>([]);
 
     toast.configure();
 
@@ -61,14 +65,15 @@ const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
       handleComponent("PreviewProposal");
     }
 
-    const handleSelectVault = (selectedOption:string) => {
-      // const selection = votingDelayItems.find(element => element.label === selectedOption) || { value:0 , label:'instant' };
-      setSelectedVault("0");
+    const handleSelectVault = (selectedOption:any) => {
+      const selection = vaultlist.find(element => element.label === selectedOption.label);
+      if (selection)
+        setSelectedVault(selection.label);
     }
 
-    const handleSelectToken = (selectedOption:string) => {
-      // const selection = votingPeriodItems.find(element => element.label === selectedOption) || { value:1 , label:'24 hrs' };
-      setSelectedToken("0");
+    const handleSelectToken = (selectedOption:any) => {
+      const selection = [{ value: "lyx", label: "LYX" }].find(element => element.label === selectedOption.label) || { value:0 , label:'none' };
+      setSelectedToken(selection.label);
     }
     
     const handleBack = async (event: React.FormEvent) => {
@@ -85,8 +90,22 @@ const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
         window.scrollTo(0, 0)
       }, [])
   
+    useEffect(() => {
+      if (daoCid) {
+        
+          const fetchData = async () => {
+            const result = await getDaoByCID(daoCid);
+            console.log("doa selected set", result);
+            setDaoSelected(result);
+          }
+          fetchData();
+      }
+    }, [])
     toast.configure();
-
+// console.log(daoSelected.vaultDetails)
+    const vaultObject = daoSelected.length!=""? getParsedJsonObj(daoSelected.vaultDetails):"";
+// console.log(JSON.stringify(vaultObject.vaultName,null,4));
+    const vaultlist = [{ value: vaultObject.vaultName, label: vaultObject.vaultName }];
     return(
       <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-60">
         <form onSubmit={(event) => handleSubmit(event)}>
@@ -127,17 +146,17 @@ const DaoTransferTokenTemplate = (props: {handleComponent:any}) => {
                 <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="minVotingPeriod">
                   Vault
                 </label>
-                <SingleSelect handleChange={handleSelectVault} name={"minVotingPeriod"} listItems={[]}/>
+                <SingleSelect handleChange={handleSelectVault} name={"vault"} listItems={vaultlist}/>
 
                 <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="minVotingPeriod">
                   Token
                 </label>
-                <SingleSelect handleChange={handleSelectToken} name={"minVotingPeriod"} listItems={["LYX"]}/>
+                <SingleSelect handleChange={handleSelectToken} name={"token"} listItems={[{ value: "lyx", label: "LYX" }]}/>
 
                 <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="receiving Address">
                   Token Amount
                 </label>
-                <Input value={tokenAmount.toString()} name="token_amount" type="text" handleChange={(e:any) => setTokenAmount(e.target.value)} />
+                <Input value={tokenAmount.toString()} name="token_amount" type="number" handleChange={(e:any) => setTokenAmount(e.target.value)} />
 
                 <label className="block pt-4 text-slate-400 text-sm font-normal" htmlFor="receiving Address">
                   Receiving Address

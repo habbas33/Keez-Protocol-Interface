@@ -63,7 +63,7 @@ const Discover: React.FC = () => {
                   <Skeleton
                     key={i}
                     animation="wave"
-                    className="m-5 min-w-[21%] max-w-[21%] rounded-md"
+                    className="m-5 w-[100%] md:min-w-[21%] md:max-w-[21%] rounded-md"
                     variant="rect"
                     height={240}
                   />
@@ -97,7 +97,7 @@ const DaoCard = (props:{id:number, daoDetail:any} ) => {
   const memberStr = keyPermissionObject.length >1 ? "Members":"Member";
 
   return (
-    <div className="min-w-[21%] max-w-[21%] flex flex-1 flex-col m-5 rounded-md">
+    <div className="min-w-[100%] md:min-w-[21%] md:max-w-[21%] flex flex-1 flex-col m-5 rounded-md">
       <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className=" w-full">
           <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
             <div className="flex w-full flex-col bg-[#a44523] justify-between items-start h-60 p-5">
