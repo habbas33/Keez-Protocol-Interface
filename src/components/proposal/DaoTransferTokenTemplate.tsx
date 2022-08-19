@@ -3,7 +3,6 @@ import { MdNavigateNext, MdOutlineNavigateBefore} from "react-icons/md";
 import { MultiSelect, SingleSelect, Input } from "../../components";
 import { CreateProposalContext } from '../../context/CreateProposalContext'
 import { daoCategoryItems } from '../../constants/daoCategoryItems';
-import { votingPeriodItems, votingDelayItems } from '../../constants/votingPeriodItems';
 import { getDaoByCID } from "../../services/keezBackend";
 import {toast} from 'react-toastify';
 import { VALIDATORS } from "../../constants/globals";
