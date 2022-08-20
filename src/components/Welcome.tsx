@@ -1,25 +1,39 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import { toast } from "react-toastify";
+import {daoDeployTest,daoReadTest} from "../services/daoDeployTest"
 
 const Welcome = () => {
   const { accountAddress, connectWallet } = useContext(ProfileContext);
+
+
+  const handleDeploy = () => {
+    console.log("deploy");
+    daoDeployTest();
+  }
+
+  const handleRead = () => {
+    console.log("read dao");
+    daoReadTest();
+  }
+
   return (
     <div className="flex pt-32 justify-center items-center px-5 lg:px-20 md:px-20 ">
       <div className="flex-column w-[90%]">
         <div className="flex flex-col md:flex-row gap-4 flex-initial justify-between py-0">
           <div className="flex-column md:w-1/2 text-white">
             <h1 className="text-4xl md:text-5xl text-white py-2 font-extrabold">
-              Create, propose & vote within the LUKSO ecosystem
+              Deploy and Read UP
             </h1>
             <div className="text-justify">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              nec elit vehicula, rutrum elit a, luctus nunc. Nullam pharetra ut
-              est vitae consectetur. Integer molestie tincidunt mollis. Sed
-              vitae ipsum nec diam venenatis vestibulum.
+              <p>1- connect wallet</p> 
+              <p>2- fund your up controller/ browser extension</p> 
+              <p>3- First click deploy </p> 
+              <p>4- copy the universalProfile address from console to the daoReadTest in "services / daoDeployTest.ts" file save the file</p>
+              <p>5- click on Read UP</p>
             </div>
             <div className="flex flex-wrap gap-4 flex-row py-10 ">
-              <button onClick={connectWallet}>
+              {/* <button onClick={connectWallet}>
                 <h3 className="flex items-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]">
                   CONNECT UP!
                 </h3>
@@ -27,6 +41,16 @@ const Welcome = () => {
               <button onClick={() => console.log("DISCOVER DAOS")}>
                 <h3 className="flex tems-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]">
                   DISCOVER DAOs
+                </h3>
+              </button> */}
+              <button onClick={handleDeploy}>
+                <h3 className="flex tems-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]">
+                  Deploy 
+                </h3>
+              </button>
+              <button onClick={handleRead}>
+                <h3 className="flex tems-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]">
+                  Read UP
                 </h3>
               </button>
             </div>

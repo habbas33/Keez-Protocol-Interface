@@ -14,6 +14,7 @@ import {
 import { AiOutlineUser } from "react-icons/ai";
 import { StyledTooltip } from "../../styles";
 import { fetchErc725Data } from "../../services/erc725";
+import {createDao as createDaoService} from "../../services/createDao"
 import dayjs from 'dayjs';
 
 const CreateDaoSummary = (props: {
@@ -74,17 +75,35 @@ const CreateDaoSummary = (props: {
         const resultDaoMetadata = await postJsonToIPFS(DaoUpMetadata);
         const metalink :string = IPFS_DWEB_URL.concat(resultDaoMetadata.cid)
         
+ 
+        console.log(metalink);
+        setMetalink(metalink);
+        // window.open(metalink, "_blank");
+        
+        
+        const { 
+          universalReceiverDelegateUP,
+          universalProfile,
+          vault,
+          keyManager,
+          daoPermissions,
+          daoDelegates } = await createDaoService(DaoUpMetadata,metalink);
+
         //@ts-ignore
         DaoUpMetadata.daoProfile['CID'] = resultDaoMetadata.cid; 
         //@ts-ignore
         DaoUpMetadata.daoProfile['url'] = IPFS_DWEB_URL; 
         //@ts-ignore
-        DaoUpMetadata.daoProfile['daoUpAddress'] = ""; 
-        console.log(metalink);
-        setMetalink(metalink);
-        window.open(metalink, "_blank");
-        const result = await postDaoUp(DaoUpMetadata);
-        console.log("DaoUpMetadata",DaoUpMetadata)
+        DaoUpMetadata.daoProfile['daoUpAddress'] = {
+          universalReceiverDelegateUP: universalReceiverDelegateUP.address,
+          universalProfile: universalProfile.address,
+          vault: vault,
+          keyManager: keyManager.address,
+          daoPermissions: daoPermissions.address,
+          daoDelegates: daoDelegates.address,
+        };
+        // const result = await postDaoUp(DaoUpMetadata);
+        console.log(DaoUpMetadata)
         setSubmitLoading(false);
         toast.success("Dao Profile Created", {
           position: toast.POSITION.BOTTOM_RIGHT,

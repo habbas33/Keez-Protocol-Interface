@@ -2,7 +2,7 @@ import React, {useContext, useState,useEffect} from 'react'
 import { ConnectProfileModal } from '../modals/';
 import { ProfileContext } from '../context/ProfileContext'
 import { CreateDao, CreateDaoSummary, CreateKeyPermissions, CreateVault, CreateVotingParameters } from "../components";
-import {createDao as createDaoService} from "../services/createDao"
+import {createDao as createDaoService, testDao} from "../services/createDao"
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -21,7 +21,7 @@ const Create: React.FC = () => {
   const [metalink, setMetalink] = useState<string>('');
   const [allStepsValidated, setAllStepsValidated] = useState<boolean>(false);
 
-  const handleSubmitCreate = (NextForm:string) => {
+  const handleSubmitCreate = (NextForm:string,DaoUpMetadata?:any) => {
 
     setCreateForm(NextForm);
     //@ts-ignore
@@ -30,14 +30,19 @@ const Create: React.FC = () => {
       setAllStepsValidated(true)
     }
     // setActiveStep();
-    // createDaoService(accountAddress);
+    // if (NextForm==="DaoCreated"){
+    //   if(DaoUpMetadata){
+    //     console.log("DaoUpMetadata -> ",DaoUpMetadata)
+    //     createDaoService(DaoUpMetadata);
+    //   }
+    // }
   }
 
   
-  const handleDeploy = () => {
-    console.log("creat");
-    // createDaoService(accountAddress);
-  }
+  // const handleDeploy = () => {
+  //   console.log("creat");
+  //   testDao();
+  // }
 
   const handleReview = (NextForm:string) => {
     //@ts-ignore
@@ -55,6 +60,15 @@ const Create: React.FC = () => {
         <div className="bg-welcome flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
           <ConnectProfileModal/>
             <h1 className="text-white">Connect your user profile</h1>
+            {/* <button
+                      onClick={handleDeploy}
+                      type="button"
+                      className="flex justify-center rounded-md item-center 
+                                  border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
+                                  text-base font-medium text-white  ml-auto"
+                    >
+                      deploy
+                    </button> */}
         </div>
         
         ):(
