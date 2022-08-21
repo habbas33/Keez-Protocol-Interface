@@ -9,16 +9,12 @@ import ReactCardFlip from "react-card-flip";
 const Discover: React.FC = () => {
   const state = [
     {
-        value: "State 1",
-        label: "State 1",
+        value: "Active",
+        label: "Active",
     },
     {
-        value: "State 2",
-        label: "State 2",
-    },
-    {
-        value: "State 2",
-        label: "State 2",
+        value: "Closed",
+        label: "Closed",
     },
   ]
   

@@ -10,6 +10,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import { MdCheck } from "react-icons/md";
 import StepConnector from '@material-ui/core/StepConnector';
 import { StepIconProps } from '@material-ui/core/StepIcon';
+import { DeployDaoContext } from '../context/DeployDaoContext'
+import { CreateDaoModal } from '../modals'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
 
 const steps= {"CreateDAO":0,"CreateKeyPermissions":1,"CreateVault":2,"CreateVotingParameters":3,"CreateDaoSummary":4}
@@ -20,6 +22,7 @@ const Create: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [metalink, setMetalink] = useState<string>('');
   const [allStepsValidated, setAllStepsValidated] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleSubmitCreate = (NextForm:string,DaoUpMetadata?:any) => {
 
@@ -39,10 +42,11 @@ const Create: React.FC = () => {
   }
 
   
-  // const handleDeploy = () => {
-  //   console.log("creat");
-  //   testDao();
-  // }
+  const handleDeploy = () => {
+    console.log("creat");
+    setShowModal(true);
+    // deployUniversalReceiverDelegateUP();
+  }
 
   const handleReview = (NextForm:string) => {
     //@ts-ignore
@@ -56,6 +60,7 @@ const Create: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+        {showModal && <CreateDaoModal showModal={showModal} setShowModal={setShowModal}/>}
         { !accountAddress ? (
         <div className="bg-welcome flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
           <ConnectProfileModal/>

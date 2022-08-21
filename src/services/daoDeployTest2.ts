@@ -8,76 +8,57 @@ import DaoDelegatesJSON from '../contracts/artifacts/contracts/Dao/DaoDelegates.
 import DaoProposalsJSON from '../contracts/artifacts/contracts/Dao/DaoProposals.sol/DaoProposals.json';
 import { ethers } from "ethers";
 
-export const providerTest = async () => {
-    const RPC_ENDPOINT = "https://rpc.l16.lukso.network";
-    const provider = new ethers.providers.JsonRpcProvider(RPC_ENDPOINT);
-    // const provider = new ethers.providers.Web3Provider(window.ethereum)
-    console.log("provider",provider);
+const RPC_ENDPOINT = "https://rpc.l16.lukso.network";
+const provider = new ethers.providers.JsonRpcProvider(RPC_ENDPOINT);
 
-    const signer = provider.getSigner();
-    console.log("sighner",signer); 
-    try {
-        const owner = await signer.getAddress();
-        console.log("owner",owner); 
-    } catch (error) {
-        console.log(error)
-    }
-}
+const PRIVATE_KEY = '0x0e9845dd4781fd697320f65a8dfc071424893b23786420576a6360463a69e436'; // add the private key of your EOA here (created in Step 1)
+const myEOA = new ethers.Wallet(PRIVATE_KEY, provider);
 
 export const daoDeployTest = async () => {
+    // const provider = new ethers.providers.Web3Provider(window.ethereum)
+    // console.log("provider",provider);
 
-const RPC_ENDPOINT = "https://rpc.l16.lukso.network";
-const providerx = new ethers.providers.JsonRpcProvider(RPC_ENDPOINT);
-const provider = new ethers.providers.Web3Provider(window.ethereum)
-    console.log("provider",provider);
+    // const signer = provider.getSigner();
+    // const owner = await signer.getAddress();
+    // console.log("signer",signer); 
 
-    // const accountsRequest: string[] = await provider.send(
-    //     'eth_requestAccounts',
-    //     [],
-    //   );
-    // console.log(accountsRequest);
-
-    const signer = provider.getSigner();
-    const owner = "0x2aaddE1ff0d029f792FaBFE531F57f1C1856Ae1D";
-    console.log("signer",signer); 
-
-    const UniversalReceiverDelegateUP  = new ethers.ContractFactory(UniversalReceiverDelegateUPJSON.abi, UniversalReceiverDelegateUPJSON.bytecode, signer);
+    const UniversalReceiverDelegateUP  = new ethers.ContractFactory(UniversalReceiverDelegateUPJSON.abi, UniversalReceiverDelegateUPJSON.bytecode, myEOA);
     const universalReceiverDelegateUP  = await UniversalReceiverDelegateUP.deploy();
     await universalReceiverDelegateUP.deployTransaction.wait();
     console.log("universalReceiverDelegateUP"," is deployed",universalReceiverDelegateUP.address); 
-    const check = await providerx.getCode(universalReceiverDelegateUP.address)
-    console.log("getcode = ", check);
-    // const UniversalReceiverDelegateVault  = new ethers.ContractFactory(UniversalReceiverDelegateVaultJSON.abi, UniversalReceiverDelegateVaultJSON.bytecode, signer);
+
+
+    // const UniversalReceiverDelegateVault  = new ethers.ContractFactory(UniversalReceiverDelegateVaultJSON.abi, UniversalReceiverDelegateVaultJSON.bytecode, myEOA);
     // const universalReceiverDelegateVault  = await UniversalReceiverDelegateVault.deploy();
     // await universalReceiverDelegateVault.deployTransaction.wait();
     // console.log("universalReceiverDelegateVault"," is deployed",universalReceiverDelegateVault.address); 
 
-    const UniversalProfile  = new ethers.ContractFactory(UniversalProfileJSON.abi, UniversalProfileJSON.bytecode, signer);
-    const universalProfile  = await UniversalProfile.deploy(owner,universalReceiverDelegateUP.address);
+    const UniversalProfile  = new ethers.ContractFactory(UniversalProfileJSON.abi, UniversalProfileJSON.bytecode, myEOA);
+    const universalProfile  = await UniversalProfile.deploy(myEOA.address,universalReceiverDelegateUP.address);
     await universalProfile.deployTransaction.wait();
     console.log("universalProfile"," is deployed",universalProfile.address); 
 
-    // const Vault  = new ethers.ContractFactory(VaultJSON.abi, VaultJSON.bytecode, signer);
-    // const vault  = await Vault.deploy(owner,universalReceiverDelegateVault.address);
+    // const Vault  = new ethers.ContractFactory(VaultJSON.abi, VaultJSON.bytecode, myEOA);
+    // const vault  = await Vault.deploy(myEOA.address,universalReceiverDelegateVault.address);
     // await vault.deployTransaction.wait();
     // console.log("vault"," is deployed",vault.address); 
 
-    const KeyManager  = new ethers.ContractFactory(KeyManagerJSON.abi, KeyManagerJSON.bytecode, signer);
+    const KeyManager  = new ethers.ContractFactory(KeyManagerJSON.abi, KeyManagerJSON.bytecode, myEOA);
     const keyManager  = await KeyManager.deploy(universalProfile.address);
     await keyManager.deployTransaction.wait();
     console.log("keyManager"," is deployed",keyManager.address); 
 
-    // const DaoPermissions  = new ethers.ContractFactory(DaoPermissionsJSON.abi, DaoPermissionsJSON.bytecode, signer);
+    // const DaoPermissions  = new ethers.ContractFactory(DaoPermissionsJSON.abi, DaoPermissionsJSON.bytecode, myEOA);
     // const daoPermissions  = await DaoPermissions.deploy(universalProfile.address, keyManager.address);
     // await daoPermissions.deployTransaction.wait();
     // console.log("daoPermissions"," is deployed",daoPermissions.address); 
 
-    // const DaoDelegates  = new ethers.ContractFactory(DaoDelegatesJSON.abi, DaoDelegatesJSON.bytecode, signer);
+    // const DaoDelegates  = new ethers.ContractFactory(DaoDelegatesJSON.abi, DaoDelegatesJSON.bytecode, myEOA);
     // const daoDelegates  = await DaoDelegates.deploy(universalProfile.address, keyManager.address);
     // await daoDelegates.deployTransaction.wait();
     // console.log("daoDelegates"," is deployed",daoDelegates.address); 
 
-    // const DaoProposals  = new ethers.ContractFactory(DaoProposalsJSON.abi, DaoProposalsJSON.bytecode, signer);
+    // const DaoProposals  = new ethers.ContractFactory(DaoProposalsJSON.abi, DaoProposalsJSON.bytecode, myEOA);
     // const daoProposals  = await DaoProposals.deploy(universalProfile.address, keyManager.address);
     // await daoProposals.deployTransaction.wait();
     // console.log("daoProposals"," is deployed",daoProposals.address); 
@@ -87,7 +68,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum)
     console.log("daos loaded");
     // Initialize the dao with new members.
     try {
-        await universalProfile.connect(signer).setDaoData(
+        await universalProfile.connect(myEOA).setDaoData(
             ethers.utils.hexlify(ethers.utils.toUtf8Bytes("https://somelink.com/")),
             ethers.utils.hexZeroPad(ethers.utils.hexValue(50), 32),//voting parameters
             ethers.utils.hexZeroPad(ethers.utils.hexValue(50), 32),//
@@ -95,7 +76,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum)
             ethers.utils.hexZeroPad(ethers.utils.hexValue(60), 32),
             ethers.utils.hexZeroPad(ethers.utils.hexValue(60), 32),
             [
-              owner,
+                myEOA.address,
               "0xD068de153Da11d1635efA93E6872E09d3a26b219",
               "0xCE49C5CD51B9a664a731bad461d2901F73B86ccb"
             ],
@@ -146,35 +127,37 @@ const provider = new ethers.providers.Web3Provider(window.ethereum)
     } catch (error) {
         console.log(error)
     } 
-    const vault = new ethers.Contract("0x5BF732ECCB219666d5B1AF91df13269E859428F9", VaultJSON.abi, signer);
-    // const keyManager = new ethers.Contract("0xF9bB27367b9F25C8744DcdE01E28DB5b3701AaC1", KeyManagerJSON.abi, signer);
-    const daoPermissions = new ethers.Contract("0x039f2baAbDCA3E5A66b11b7fF9d45B458bbe29D1", DaoPermissionsJSON.abi, signer);
-    const daoDelegates = new ethers.Contract("0x0a3C73AB9DD7431fc8cb7BE1E76b21C2EEa4b679", DaoDelegatesJSON.abi, signer);
-    const daoProposals = new ethers.Contract("0xb9572A8B3838f8Ce787591C18bEe054567a7885f", DaoProposalsJSON.abi, signer);
-    return {
-        universalReceiverDelegateUP,
-        universalProfile,
-        vault,
-        keyManager,
-        daoPermissions,
-        daoDelegates,
-        daoProposals,
-      };
+    // const vault = new ethers.Contract("0x5BF732ECCB219666d5B1AF91df13269E859428F9", VaultJSON.abi, signer);
+    // // const keyManager = new ethers.Contract("0xF9bB27367b9F25C8744DcdE01E28DB5b3701AaC1", KeyManagerJSON.abi, signer);
+    // const daoPermissions = new ethers.Contract("0x039f2baAbDCA3E5A66b11b7fF9d45B458bbe29D1", DaoPermissionsJSON.abi, signer);
+    // const daoDelegates = new ethers.Contract("0x0a3C73AB9DD7431fc8cb7BE1E76b21C2EEa4b679", DaoDelegatesJSON.abi, signer);
+    // const daoProposals = new ethers.Contract("0xb9572A8B3838f8Ce787591C18bEe054567a7885f", DaoProposalsJSON.abi, signer);
+    // return {
+    //     universalReceiverDelegateUP,
+    //     universalProfile,
+    //     vault,
+    //     keyManager,
+    //     daoPermissions,
+    //     daoDelegates,
+    //     daoProposals,
+    //   };
 }
 
 export const daoReadTest = async () => {
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    console.log("provider",provider);
+    // const provider = new ethers.providers.Web3Provider(window.ethereum)
+    // console.log("provider",provider);
 
 
-    const signer = provider.getSigner();
-    console.log("signer",signer.getAddress()); 
-    console.log("signeraddress",await signer.getChainId()); 
+    // const signer = provider.getSigner();
+    // console.log("signer",signer.getAddress()); 
+    // console.log("signeraddress",await signer.getChainId()); 
     
     // const universalReceiverDelegateUP = new ethers.Contract("0x26Be0700a45eB157B746781c78a0acf63691bE15", UniversalReceiverDelegateUPJSON.abi, signer); 
     // const universalReceiverDelegateVault = new ethers.Contract("0xaeDf8489Ceda262AC180214d5C994C4265272E7b", UniversalReceiverDelegateVaultJSON.abi, signer);
-    const universalProfile = new ethers.Contract("0x390aAf74B416617Ff80aF598Fe113E8B3a88A7c4", UniversalProfileJSON.abi, signer);
+    const universalProfile = new ethers.Contract("0x9d16ddDD1eb8beA1D29b8f26E737d9673F710897", UniversalProfileJSON.abi, myEOA);
+    const check = await provider.getCode("0xaeDf8489Ceda262AC180214d5C994C4265272E7b")
+    console.log("getcode = ", check);
     // const vault = new ethers.Contract("0x5BF732ECCB219666d5B1AF91df13269E859428F9", VaultJSON.abi, signer);
     // const keyManager = new ethers.Contract("0xF9bB27367b9F25C8744DcdE01E28DB5b3701AaC1", KeyManagerJSON.abi, signer);
     // const daoPermissions = new ethers.Contract("0x039f2baAbDCA3E5A66b11b7fF9d45B458bbe29D1", DaoPermissionsJSON.abi, signer);
