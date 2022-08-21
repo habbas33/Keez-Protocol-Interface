@@ -3,14 +3,14 @@ import useWeb3 from '../hooks/useWeb3';
 import { requestAccount, getAccountBalance } from '../services/web3';
 import { fetchErc725Data } from '../services/erc725';
 
-import UniversalReceiverDelegateUPJSON from '../contracts/artifacts/contracts/deps/UniversalReceiverDelegateUP.sol/UniversalReceiverDelegateUP.json';
-import UniversalReceiverDelegateVaultJSON from '../contracts/artifacts/contracts/deps/UniversalReceiverDelegateVault.sol/UniversalReceiverDelegateVault.json';
-import UniversalProfileJSON from '../contracts/artifacts/contracts/deps/UniversalProfile.sol/UniversalProfile.json';
-import VaultJSON from '../contracts/artifacts/contracts/deps/Vault.sol/Vault.json';
-import KeyManagerJSON from '../contracts/artifacts/contracts/deps/KeyManager.sol/KeyManager.json';
-import DaoPermissionsJSON from '../contracts/artifacts/contracts/Dao/DaoPermissions.sol/DaoPermissions.json';
-import DaoDelegatesJSON from '../contracts/artifacts/contracts/Dao/DaoDelegates.sol/DaoDelegates.json';
-import DaoProposalsJSON from '../contracts/artifacts/contracts/Dao/DaoProposals.sol/DaoProposals.json';
+import UniversalReceiverDelegateUPJSON from '../keezContracts/deps/UniversalReceiverDelegateUP.sol/UniversalReceiverDelegateUP.json';
+import UniversalReceiverDelegateVaultJSON from '../keezContracts/deps/UniversalReceiverDelegateVault.sol/UniversalReceiverDelegateVault.json';
+import UniversalProfileJSON from '../keezContracts/deps/UniversalProfile.sol/UniversalProfile.json';
+import VaultJSON from '../keezContracts/deps/Vault.sol/Vault.json';
+import KeyManagerJSON from '../keezContracts/deps/KeyManager.sol/KeyManager.json';
+import DaoPermissionsJSON from '../keezContracts/Dao/DaoPermissions.sol/DaoPermissions.json';
+import DaoDelegatesJSON from '../keezContracts/Dao/DaoDelegates.sol/DaoDelegates.json';
+import DaoProposalsJSON from '../keezContracts/Dao/DaoProposals.sol/DaoProposals.json';
 
 import { ethers } from "ethers";
 
