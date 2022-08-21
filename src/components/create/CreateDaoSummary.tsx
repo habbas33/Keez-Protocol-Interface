@@ -14,7 +14,7 @@ import {
 import { AiOutlineUser } from "react-icons/ai";
 import { StyledTooltip } from "../../styles";
 import { fetchErc725Data } from "../../services/erc725";
-import {createDao as createDaoService} from "../../services/createDao"
+// import {createDao as createDaoService} from "../../services/createDao"
 import dayjs from 'dayjs';
 
 const CreateDaoSummary = (props: {
