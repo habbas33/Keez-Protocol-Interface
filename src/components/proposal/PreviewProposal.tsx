@@ -42,15 +42,13 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
     const [daoSelected, setDaoSelected] = useState<any>([]);
 
     toast.configure();
-    const now = dayjs();
     const votingParametersObject = daoSelected.length!=""? getParsedJsonObj(daoSelected.votingParameters):"";
     
     const min_voting_delay = votingParametersObject.minVotingDelay;
     const min_voting_period = votingParametersObject.minVotingPeriod;
     const min_execution_delay = votingParametersObject.minExecutionDelay;
-    // console.log(votingParametersObject)
-    // console.log("min_voting_period",min_voting_period)
-    // console.log("min_voting_period+min_execution_delay",Number(min_voting_period)+Number(min_execution_delay))
+    
+    const now = dayjs();
     const startDay = now.add(min_voting_delay, 'day');
     const endDay = startDay.add(min_voting_period, 'day');
     const executionDay = startDay.add(min_execution_delay?Number(min_voting_period)+Number(min_execution_delay):min_voting_period, 'day');
@@ -180,7 +178,7 @@ const GeneralTemplate = (props: {handleComponent:any}) => {
                     </button>
                 </div>
                 
-                <div className="grid gap-x-6 gap-y-0 grid-cols-2 w-full text-white py-2">
+                <div className="grid gap-x-6 gap-y-0 md:grid-cols-2 grid-cols-1 w-full text-white py-2">
                     <div className="flex flex-col space-y-2 justify-start items-start">
                         <h1 className="text-white text-md font-semibold">{proposalName}</h1>
                         

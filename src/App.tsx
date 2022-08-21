@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ProfileProvider } from './context/ProfileContext'
 import { CreateDaoContextProvider } from './context/CreateDaoContext'
 import { CreateProposalContextProvider } from './context/CreateProposalContext'
+import { DeployDaoProvider } from './context/DeployDaoContext'
 import { Main, Vote, Governance, Create, Discover, Faq, AboutUs, UserProfile, DaoProfile } from './pages';
 import { Navbar, Footer } from './components';
 
@@ -29,8 +30,11 @@ const App: React.FC = () => {
                 element={
                   <>
                     <CreateDaoContextProvider>
-                      <Create />
-                      <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                      <DeployDaoProvider>
+                        <Create />
+                        <ToastContainer pauseOnFocusLoss newestOnTop autoClose={10000} />
+                        
+                    </DeployDaoProvider>
                     </CreateDaoContextProvider>
                   </>
                 }

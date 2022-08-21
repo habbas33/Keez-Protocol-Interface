@@ -2,8 +2,11 @@ import React, {useEffect, useState, useContext} from "react";
 import { ProfileContext } from '../../context/ProfileContext'
 import { SingleSelect } from "../../components";
 import { getProposalsByDaoCid } from "../../services/keezBackend";
+import { ProposalVotingModal } from "../../modals";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
+import { getDaoByCID } from "../../services/keezBackend";
+import dayjs from 'dayjs';
 
 
 const Proposals = (props: {daoDetail:any}) => {
@@ -27,16 +30,16 @@ const Proposals = (props: {daoDetail:any}) => {
     // const bg_imgfromurl = "url('".concat(backgroundImageUrl).concat("')");
     const state = [
         {
-            value: "State 1",
-            label: "State 1",
+            value: "Active",
+            label: "Active",
         },
         {
-            value: "State 2",
-            label: "State 2",
+            value: "Closed",
+            label: "Closed",
         },
         {
-            value: "State 2",
-            label: "State 2",
+            value: "Pending",
+            label: "Pending",
         },
       ]
     
@@ -82,18 +85,54 @@ export default Proposals;
 
 const ProposalCard = (props:{id:number, cardView:number, proposal:any} ) => {
     const {id, cardView, proposal} = props;
-    const cardWidth:string = cardView === 2 ? "min-w-[40%]" : "min-w-[30%]";
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [daoSelected, setDaoSelected] = useState<any>([]);
+
+    // const cardWidth:string = cardView === 2 ? "min-w-[40%]" : "min-w-[30%]";
 
     const daoDetailsObject = getParsedJsonObj(proposal.forDaoDetails);
 
+    useEffect(() => {
+        if (daoDetailsObject) {
+            const fetchData = async () => {
+              const result = await getDaoByCID(daoDetailsObject.CID);
+              setDaoSelected(result);
+            }
+            fetchData();
+        }
+    }, [daoDetailsObject])
+
+    const createdAt = dayjs(Number(proposal.createdAt));
+    const votingParametersObject = daoSelected.length!=""?getParsedJsonObj(daoSelected.votingParameters):"";
+    const min_voting_delay = votingParametersObject.minVotingDelay;
+    const min_voting_period = votingParametersObject.minVotingPeriod;
+    const min_execution_delay = votingParametersObject.minExecutionDelay;
+    const startDay = createdAt.add(min_voting_delay, 'day');
+    const endDay = startDay.add(min_voting_period, 'day');
+    const executionDay = startDay.add(min_execution_delay?Number(min_voting_period)+Number(min_execution_delay):min_voting_period, 'day');
+    const proposalStatus = startDay > dayjs() ? "Pending" 
+        : startDay <= dayjs() && endDay >= dayjs() ? "Active"
+        : "Closed"
     return (
-    <div className="min-w-[30.5%] max-w-[30.5%] h-60 flex flex-1 flex-col m-4 rounded-md bg-[#b8a5a6]">
+    <div onClick={()=> setShowModal(true)} className="min-w-[30.5%] max-w-[30.5%] h-60 flex flex-1 flex-col cursor-pointer m-4 rounded-md bg-[#b8a5a6]">
         <div className="flex w-full flex-col justify-start items-start h-full p-5">
             <div className="flex justify-between items-center w-full">
                 <h1 className="text-gray-800 font-bold">{daoDetailsObject.daoName}</h1>
-                <div className="p-1 min-w-[35%] rounded-full bg-green-700 self-end">
-                    <h1 className="text-white text-xs text-center px-1">Active</h1>
-                </div>
+                {proposalStatus === "Active" &&
+                    <div className="flex justify-start items-center bg-green-800 rounded-full">
+                        <h1 className="text-slate-100 text-xs font-normal py-1 px-2">Active</h1>
+                    </div>
+                }
+                {proposalStatus === "Closed" &&
+                    <div className="flex justify-start items-center bg-red-800 rounded-full">
+                        <h1 className="text-slate-100 text-xs font-normal py-1 px-2">Closed</h1>
+                    </div>
+                }
+                {proposalStatus === "Pending" &&
+                    <div className="flex justify-start items-center bg-yellow-800 rounded-full">
+                        <h1 className="text-slate-100 text-xs font-normal py-1 px-2">Pending</h1>
+                    </div>
+                }
             </div>
             
             <div className="flex w-full flex-col justify-start items-center h-full ">
@@ -101,6 +140,7 @@ const ProposalCard = (props:{id:number, cardView:number, proposal:any} ) => {
                 <h1 className="text-black text-xs py-1">{proposal.description}</h1>
             </div>
         </div>
+        {showModal && <ProposalVotingModal showModal={showModal} setShowModal={setShowModal} proposal={proposal} daoSelected={daoSelected}/>}
 
     </div>
     //   <div className={`bg-[#4b3132] ${cardWidth} h-80 my-2 flex flex-1 flex-col mx-3 p-3 rounded-md hover:shadow-2xl`}>

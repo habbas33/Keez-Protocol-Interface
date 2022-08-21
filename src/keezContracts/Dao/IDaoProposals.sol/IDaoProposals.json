@@ -1,0 +1,187 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IDaoProposals",
+  "sourceName": "contracts/Dao/IDaoProposals.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes10",
+          "name": "proposalSignature",
+          "type": "bytes10"
+        }
+      ],
+      "name": "ProposalCannotBeExecuted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes10",
+          "name": "proposalSignature",
+          "type": "bytes10"
+        }
+      ],
+      "name": "ProposalCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes10",
+          "name": "proposalSignature",
+          "type": "bytes10"
+        }
+      ],
+      "name": "ProposalExecuted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes10",
+          "name": "proposalSignature",
+          "type": "bytes10"
+        }
+      ],
+      "name": "VotesRegistered",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_title",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_metadataLink",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_votingDelay",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_votingPeriod",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_executionDelay",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "_payloads",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_choices",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_choicesPerVote",
+          "type": "bytes32"
+        }
+      ],
+      "name": "createProposal",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes10",
+          "name": "proposalSignature",
+          "type": "bytes10"
+        }
+      ],
+      "name": "executeProposal",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_signer",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes10",
+          "name": "_proposalSignature",
+          "type": "bytes10"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_choicesBitArray",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getProposalHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_hash",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes10",
+          "name": "_proposalSignature",
+          "type": "bytes10"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "_signatures",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_signers",
+          "type": "address[]"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "_choicesBitArray",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "registerVotes",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
