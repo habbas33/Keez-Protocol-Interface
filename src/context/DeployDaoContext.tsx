@@ -23,6 +23,12 @@ interface DeployDaoContextInterface {
     deployDaoPermissions: any,
     deployDaoDelegates: any,
     deployDaoProposals: any,
+    
+    setDaoUpData: any,
+    setGiveOwnerPermissionToChangeOwner:any,
+    setControllerPermissionsForDao:any,
+    upTransferOwnership: any,
+    keyManagerClaimOwnership: any,
 }
 
 export const DeployDaoContext = React.createContext<DeployDaoContextInterface>(
@@ -35,6 +41,12 @@ export const DeployDaoContext = React.createContext<DeployDaoContextInterface>(
         deployDaoPermissions: () => {},
         deployDaoDelegates: () => {},
         deployDaoProposals: () => {},
+        
+        setDaoUpData: () => {},
+        setGiveOwnerPermissionToChangeOwner: () => {},
+        setControllerPermissionsForDao: () => {},
+        upTransferOwnership: () => {},
+        keyManagerClaimOwnership: () => {},
     }   
 );
 
@@ -182,6 +194,88 @@ export const DeployDaoProvider = ({children}:any) => {
         }
     }
 
+    const setDaoUpData = async (DaoUpMetadata: any, metalink:string) => {
+        try {
+            console.log("DaoUpMetadata",JSON.stringify(DaoUpMetadata))
+            console.log("metalink",JSON.stringify(metalink))
+            const votingParameters = DaoUpMetadata.votingParameters;
+        
+            let addressArray = []
+            let permissionArray = []
+            for (let i=0; i<DaoUpMetadata.keyPermissions.length; i++) {
+                const upAddress=DaoUpMetadata.keyPermissions[i].upAddress;
+                const permissions=DaoUpMetadata.keyPermissions[i].keyPermissions;
+                
+                addressArray.push(upAddress)
+                const permissionbyte = (permissions.registerVotes<<7) +(permissions.removePermission<<6) +(permissions.addPermission<<5) +(permissions.receiveDelegate<<4) +(permissions.sendDelegate<<3) 
+                    +(permissions.execute<<2) +(permissions.propose<<1) + permissions.vote; 
+                permissionArray.push(ethers.utils.hexZeroPad(ethers.utils.hexValue(permissionbyte), 32))
+            }
+            console.log(addressArray)
+            console.log(permissionArray)
+            // const result = {transactionHash:"hash"}
+            const result = await universalProfileState.connect(signer).setDaoData(
+                ethers.utils.hexlify(ethers.utils.toUtf8Bytes(metalink)),
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.votingMajority)), 32),
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.participationRate)), 32),
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minimumVotingDelay)*24*3600), 32),
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minVotingPeriod)*24*3600), 32),
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minExecutionDelay)*24*3600), 32),
+                addressArray,
+                permissionArray
+            );
+            return result.transactionHash
+        } catch (error) {
+            console.log(error);
+            return "Stopped"
+        }
+    }
+
+    const setGiveOwnerPermissionToChangeOwner = async () => {
+        try {
+            const result = await universalProfileState.giveOwnerPermissionToChangeOwner();
+            return result.transactionHash
+        } catch (error) {
+            console.log(error);
+            return "Stopped"
+        }
+    }
+
+    const setControllerPermissionsForDao = async () => {
+        try {
+            const result = await universalProfileState.setControllerPermissionsForDao(
+                  daoPermissionsState.address,
+                  daoDelegatesState.address,
+                  daoProposalsState.address
+                );
+            return result.transactionHash
+        } catch (error) {
+            console.log(error);
+            return "Stopped"
+        }
+    }
+
+    const upTransferOwnership = async () => {
+        try {
+            const result = await universalProfileState.transferOwnership(keyManagerState.address);
+            return result.transactionHash
+        } catch (error) {
+            console.log(error);
+            return "Stopped"
+        }
+    }
+
+    const keyManagerClaimOwnership = async () => {
+        try {
+            let ABI = ["function claimOwnership()"];
+            let iface = new ethers.utils.Interface(ABI);
+            const result = await keyManagerState.execute(iface.encodeFunctionData("claimOwnership"));
+            return result.transactionHash
+        } catch (error) {
+            console.log(error);
+            return "Stopped"
+        }
+    }
     return (
         <DeployDaoContext.Provider 
             value={{
@@ -193,6 +287,11 @@ export const DeployDaoProvider = ({children}:any) => {
                 deployDaoPermissions:deployDaoPermissions,
                 deployDaoDelegates:deployDaoDelegates,
                 deployDaoProposals:deployDaoProposals,
+                setDaoUpData:setDaoUpData,
+                setGiveOwnerPermissionToChangeOwner:setGiveOwnerPermissionToChangeOwner,
+                setControllerPermissionsForDao:setControllerPermissionsForDao,
+                upTransferOwnership:upTransferOwnership,
+                keyManagerClaimOwnership:keyManagerClaimOwnership,
                 }}>
             {children}
         </DeployDaoContext.Provider>

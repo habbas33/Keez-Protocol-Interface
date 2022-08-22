@@ -246,7 +246,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
 
   toast.configure();
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[10%]">
+    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
       <h1 className="text-white text-center text-lg pb-2 font-bold">
         Preview Proposal
       </h1>

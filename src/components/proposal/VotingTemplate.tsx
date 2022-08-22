@@ -109,7 +109,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
   toast.configure();
 
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[10%]">
+    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="flex justify-between items-center">
           <h1 className="text-white text-lg font-bold">Create your Proposal</h1>
@@ -132,8 +132,8 @@ const VotingTemplate = (props: { handleComponent: any }) => {
         <p className="block text-slate-400 text-center py-2 text-md font-semibold">
           Voting Parameters Template
         </p>
-        <div className="flex flex-col justify-center items-center py-2 md:px-32">
-          <div className="w-full md:w-3/4">
+        <div className="flex flex-col justify-center items-center py-2">
+          <div className="w-full md:w-3/5">
             <label
               className="block text-slate-400 text-sm font-normal"
               htmlFor="proposalName"

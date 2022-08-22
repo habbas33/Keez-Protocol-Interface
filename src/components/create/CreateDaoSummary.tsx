@@ -21,8 +21,9 @@ const CreateDaoSummary = (props: {
   handleSubmitCreate: any;
   metalink: string;
   setMetalink: any;
+  handleDeployDao: any;
 }) => {
-  const { handleSubmitCreate, metalink, setMetalink } = props;
+  const { handleSubmitCreate, metalink, setMetalink, handleDeployDao } = props;
   const {
     daoName,
     logoImageFile,
@@ -88,7 +89,7 @@ const CreateDaoSummary = (props: {
         //   keyManager,
         //   daoPermissions,
         //   daoDelegates } = await createDaoService(DaoUpMetadata,metalink);
-
+        handleDeployDao(DaoUpMetadata,metalink)
         //@ts-ignore
         DaoUpMetadata.daoProfile['CID'] = resultDaoMetadata.cid; 
         //@ts-ignore
@@ -102,7 +103,7 @@ const CreateDaoSummary = (props: {
         //   daoPermissions: daoPermissions.address,
         //   daoDelegates: daoDelegates.address,
         // };
-        const result = await postDaoUp(DaoUpMetadata);
+        // const result = await postDaoUp(DaoUpMetadata);
         console.log(DaoUpMetadata)
         setSubmitLoading(false);
         toast.success("Dao Profile Created", {

@@ -117,7 +117,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
 
   toast.configure();
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-60">
+    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
       {/* <h1 className="text-white text-sm py-2">Step 1</h1> */}
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="flex justify-between items-center">
@@ -142,7 +142,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
           General Template
         </p>
         <div className="flex flex-col justify-center items-center py-2">
-          <div className=" w-full md:w-3/4">
+          <div className=" w-full md:w-3/5">
             <label
               className="block text-slate-400 text-sm font-normal"
               htmlFor="proposalName"

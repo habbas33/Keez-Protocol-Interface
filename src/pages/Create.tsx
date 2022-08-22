@@ -23,25 +23,32 @@ const Create: React.FC = () => {
   const [metalink, setMetalink] = useState<string>('');
   const [allStepsValidated, setAllStepsValidated] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [daoUpMetadata, setDaoUpMetadata] = useState<any>([]);
 
   const handleSubmitCreate = (NextForm:string,DaoUpMetadata?:any) => {
 
     setCreateForm(NextForm);
     //@ts-ignore
     setActiveStep(steps[NextForm]);
+    setDaoUpMetadata(DaoUpMetadata);
     if (NextForm==="CreateDaoSummary"){
       setAllStepsValidated(true)
     }
     // setActiveStep();
-    // if (NextForm==="DaoCreated"){
-    //   if(DaoUpMetadata){
-    //     console.log("DaoUpMetadata -> ",DaoUpMetadata)
-    //     createDaoService(DaoUpMetadata);
-    //   }
-    // }
+    if (NextForm==="DaoCreated"){
+      if(DaoUpMetadata){
+        setShowModal(true);
+      }
+    }
   }
 
-  
+  const handleDeployDao = (DaoUpMetadata?:any) => {
+    setDaoUpMetadata(DaoUpMetadata);
+      if(DaoUpMetadata){
+        setShowModal(true);
+      }
+  }
+
   const handleDeploy = () => {
     console.log("creat");
     setShowModal(true);
@@ -60,7 +67,7 @@ const Create: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-        {showModal && <CreateDaoModal showModal={showModal} setShowModal={setShowModal}/>}
+        {showModal && <CreateDaoModal showModal={showModal} setShowModal={setShowModal} daoUpMetadata={daoUpMetadata} metalink={metalink}/>}
         { !accountAddress ? (
         <div className="bg-welcome flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
           <ConnectProfileModal/>
@@ -101,17 +108,17 @@ const Create: React.FC = () => {
             { (createForm === "CreateKeyPermissions") && (<CreateKeyPermissions handleSubmitCreate={handleSubmitCreate}/>)}
             { (createForm === "CreateVault") && (<CreateVault handleSubmitCreate={handleSubmitCreate}/>)}
             { (createForm === "CreateVotingParameters") && (<CreateVotingParameters handleSubmitCreate={handleSubmitCreate}/>)}
-            { (createForm === "CreateDaoSummary") && (<CreateDaoSummary handleSubmitCreate={handleSubmitCreate} metalink={metalink} setMetalink={setMetalink}/>)}
+            { (createForm === "CreateDaoSummary") && (<CreateDaoSummary handleSubmitCreate={handleSubmitCreate} handleDeployDao={handleDeployDao} metalink={metalink} setMetalink={setMetalink}/>)}
            
-                      {/* <button
-                      onClick={handleDeploy}
-                      type="button"
-                      className="flex justify-center rounded-md item-center 
-                                  border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                                  text-base font-medium text-white  ml-auto"
-                    >
-                      deploy
-                    </button> */}
+                {/* <button
+                onClick={handleDeploy}
+                type="button"
+                className="flex justify-center rounded-md item-center 
+                            border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
+                            text-base font-medium text-white  ml-auto"
+              >
+                deploy
+              </button> */}
           </div>
         )}
     </div>
