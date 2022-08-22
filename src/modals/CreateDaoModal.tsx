@@ -6,9 +6,9 @@ import { ProfileContext } from '../context/ProfileContext'
 import { DeployDaoContext } from '../context/DeployDaoContext'
 import { SpinnerCircular } from 'spinners-react'
 
-export default function CreateDaoModal(props:{setShowModal:any, showModal:boolean}) {
-  const { setShowModal, showModal } = props;
-  const { connectWallet } = useContext(ProfileContext);
+export default function CreateDaoModal(props:{setShowModal:any, showModal:boolean, daoUpMetadata:any, metalink:string}) {
+  const { setShowModal, showModal, daoUpMetadata, metalink } = props;
+  // const { connectWallet } = useContext(ProfileContext);
   const { deployUniversalReceiverDelegateUP,
         deployUniversalReceiverDelegateVault,
         deployUniversalProfile,
@@ -16,7 +16,12 @@ export default function CreateDaoModal(props:{setShowModal:any, showModal:boolea
         deployKeyManager,
         deployDaoPermissions,
         deployDaoDelegates,
-        deployDaoProposals
+        deployDaoProposals,
+        setDaoUpData,
+        setGiveOwnerPermissionToChangeOwner,
+        setControllerPermissionsForDao,
+        upTransferOwnership,
+        keyManagerClaimOwnership,
         } = useContext(DeployDaoContext);
   const [open, setOpen] = useState<boolean>(true);  
   const [loading, setLoading] = useState<boolean>(false);  
@@ -47,23 +52,6 @@ export default function CreateDaoModal(props:{setShowModal:any, showModal:boolea
     let txHashArray = hashArray;
     let txhash
     setLoading(true);
-    // if (step === 0) {
-    //   txhash = await deployUniversalReceiverDelegateUP();
-    // } else if (step === 1) {
-    //   txhash = await deployUniversalReceiverDelegateVault();
-    // } else if (step === 2) {
-    //   txhash = await deployUniversalProfile();
-    // } else if (step === 3) {
-    //   txhash = await deployVault();
-    // } else if (step === 4) {
-    //   txhash = await deployKeyManager();
-    // } else if (step === 5) {
-    //   txhash = await deployDaoPermissions();
-    // } else if (step === 6) {
-    //   txhash = await deployDaoDelegates();
-    // } else if (step === 7) {
-    //   txhash = await deployDaoProposals();
-    // }
     switch (step) {
       case 0:
         txhash = await deployUniversalReceiverDelegateUP();
@@ -89,8 +77,24 @@ export default function CreateDaoModal(props:{setShowModal:any, showModal:boolea
       case 7:
         txhash = await deployDaoProposals();
         break;
+      case 8:
+        txhash = await setDaoUpData(daoUpMetadata,metalink);
+        break;
+      case 9:
+        txhash = await setGiveOwnerPermissionToChangeOwner();
+        break;
+      case 10:
+        txhash = await setControllerPermissionsForDao();
+        break;
+      case 11:
+        txhash = await upTransferOwnership();
+        break;
+      case 12:
+        txhash = await keyManagerClaimOwnership();
+        break;
     }
 
+    // txhash = await setDaoUpData(daoUpMetadata,metalink);
     if (txhash != "Stopped") {
       txHashArray.push(txhash)
       setHashArray(txHashArray)
@@ -323,6 +327,110 @@ export default function CreateDaoModal(props:{setShowModal:any, showModal:boolea
                         )}
                       </div>
 
+                      <div className="flex justify-between items-center  px-2 pb-4 sm:flex justify-center">
+                        <p className="text-sm text-white-500">setDaoUpData</p>
+                        {step < 9 ? (
+                          <button type="button" onClick={handleDeploy}
+                          className={`flex justify-center rounded-md item-center min-w-[66px]
+                          border border-transparent shadow-sm px-2 py-1 bg-[#C3073F]
+                            text-sm font-medium text-white ${step === 8 ? "hover:bg-[#ac0537]":"opacity-50 cursor-default"} 
+                            sm:ml-3 sm:w-auto sm:text-sm`}
+                          >
+                          {loading && step === 8 
+                            ? <SpinnerCircular size={20} thickness={200} speed={118} color="rgba(153, 153, 153, 1)" secondaryColor="rgba(172, 5, 55, 1)" /> 
+                            : "Deploy"} 
+                        </button>
+                        ):(                          
+                        <div className="flex justify-center items-center">
+                          <p className="text-sm text-green-500 px-1">Completed</p>
+                          <HiExternalLink fontSize={16} className="text-green-500 hover:text-green-400 cursor-pointer" onClick={() => gotoExplorer(8)}/>
+                        </div>
+                        )}
+                      </div>
+
+                      <div className="flex justify-between items-center  px-2 pb-4 sm:flex justify-center">
+                        <p className="text-sm text-white-500">setGiveOwnerPermissionToChangeOwner</p>
+                        {step < 10 ? (
+                          <button type="button" onClick={handleDeploy}
+                          className={`flex justify-center rounded-md item-center min-w-[66px]
+                          border border-transparent shadow-sm px-2 py-1 bg-[#C3073F]
+                            text-sm font-medium text-white ${step === 9 ? "hover:bg-[#ac0537]":"opacity-50 cursor-default"} 
+                            sm:ml-3 sm:w-auto sm:text-sm`}
+                          >
+                          {loading && step === 9 
+                            ? <SpinnerCircular size={20} thickness={200} speed={118} color="rgba(153, 153, 153, 1)" secondaryColor="rgba(172, 5, 55, 1)" /> 
+                            : "Deploy"} 
+                        </button>
+                        ):(                          
+                        <div className="flex justify-center items-center">
+                          <p className="text-sm text-green-500 px-1">Completed</p>
+                          <HiExternalLink fontSize={16} className="text-green-500 hover:text-green-400 cursor-pointer" onClick={() => gotoExplorer(9)}/>
+                        </div>
+                        )}
+                      </div>
+
+                      <div className="flex justify-between items-center  px-2 pb-4 sm:flex justify-center">
+                        <p className="text-sm text-white-500">setControllerPermissionsForDao</p>
+                        {step < 11 ? (
+                          <button type="button" onClick={handleDeploy}
+                          className={`flex justify-center rounded-md item-center min-w-[66px]
+                          border border-transparent shadow-sm px-2 py-1 bg-[#C3073F]
+                            text-sm font-medium text-white ${step === 10 ? "hover:bg-[#ac0537]":"opacity-50 cursor-default"} 
+                            sm:ml-3 sm:w-auto sm:text-sm`}
+                          >
+                          {loading && step === 10 
+                            ? <SpinnerCircular size={20} thickness={200} speed={118} color="rgba(153, 153, 153, 1)" secondaryColor="rgba(172, 5, 55, 1)" /> 
+                            : "Deploy"} 
+                        </button>
+                        ):(                          
+                        <div className="flex justify-center items-center">
+                          <p className="text-sm text-green-500 px-1">Completed</p>
+                          <HiExternalLink fontSize={16} className="text-green-500 hover:text-green-400 cursor-pointer" onClick={() => gotoExplorer(10)}/>
+                        </div>
+                        )}
+                      </div>
+
+                      <div className="flex justify-between items-center  px-2 pb-4 sm:flex justify-center">
+                        <p className="text-sm text-white-500">upTransferOwnership</p>
+                        {step < 12 ? (
+                          <button type="button" onClick={handleDeploy}
+                          className={`flex justify-center rounded-md item-center min-w-[66px]
+                          border border-transparent shadow-sm px-2 py-1 bg-[#C3073F]
+                            text-sm font-medium text-white ${step === 11 ? "hover:bg-[#ac0537]":"opacity-50 cursor-default"} 
+                            sm:ml-3 sm:w-auto sm:text-sm`}
+                          >
+                          {loading && step === 11 
+                            ? <SpinnerCircular size={20} thickness={200} speed={118} color="rgba(153, 153, 153, 1)" secondaryColor="rgba(172, 5, 55, 1)" /> 
+                            : "Deploy"} 
+                        </button>
+                        ):(                          
+                        <div className="flex justify-center items-center">
+                          <p className="text-sm text-green-500 px-1">Completed</p>
+                          <HiExternalLink fontSize={16} className="text-green-500 hover:text-green-400 cursor-pointer" onClick={() => gotoExplorer(11)}/>
+                        </div>
+                        )}
+                      </div>
+
+                      <div className="flex justify-between items-center  px-2 pb-4 sm:flex justify-center">
+                        <p className="text-sm text-white-500">keyManagerClaimOwnership</p>
+                        {step < 13 ? (
+                          <button type="button" onClick={handleDeploy}
+                          className={`flex justify-center rounded-md item-center min-w-[66px]
+                          border border-transparent shadow-sm px-2 py-1 bg-[#C3073F]
+                            text-sm font-medium text-white ${step === 12 ? "hover:bg-[#ac0537]":"opacity-50 cursor-default"} 
+                            sm:ml-3 sm:w-auto sm:text-sm`}
+                          >
+                          {loading && step === 12 
+                            ? <SpinnerCircular size={20} thickness={200} speed={118} color="rgba(153, 153, 153, 1)" secondaryColor="rgba(172, 5, 55, 1)" /> 
+                            : "Deploy"} 
+                        </button>
+                        ):(                          
+                        <div className="flex justify-center items-center">
+                          <p className="text-sm text-green-500 px-1">Completed</p>
+                          <HiExternalLink fontSize={16} className="text-green-500 hover:text-green-400 cursor-pointer" onClick={() => gotoExplorer(12)}/>
+                        </div>
+                        )}
+                      </div>
                     </div>
                    
                   </div>

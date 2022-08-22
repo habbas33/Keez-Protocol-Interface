@@ -59,7 +59,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
 
   const daos = [0, 1, 2, 3];
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[10%]">
+    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
       <h1 className="text-white text-sm py-2">Step 1</h1>
       <h1 className="text-white text-lg font-bold">
         Choose a DAO to create a proposal for
@@ -74,7 +74,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
           </label>
 
           {memberDaos.length != [] ? (
-            <div className="flex flex-wrap py-3">
+            <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
               {[...memberDaos].reverse().map((daoDetail, i) => (
                 <DaoCard
                   key={i}
@@ -86,12 +86,12 @@ const ChooseDao = (props: { handleComponent: any }) => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-wrap py-3">
+            <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
               {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
                 <Skeleton
                   key={i}
                   animation="wave"
-                  className="m-5 min-w-[20%] max-w-[21%] rounded-md"
+                  className="w-full rounded-md"
                   variant="rect"
                   height={240}
                 />
@@ -146,14 +146,14 @@ const DaoCard = (props: {
 
   return (
     <div
-      className={`w-full md:w-[30%] relative  `}
+      className={`w-full relative`}
       onClick={(event) => handleDaoSelection(event, id, daoDetail.CID)}
       onMouseLeave={handleMouseOut}
       onMouseEnter={handleMouseOver}
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div
-          className={`flex w-full flex-col bg-[#a44523] justify-between items-start h-[200px] p-5 ${
+          className={`flex w-full flex-col bg-[#a44523] justify-between items-start h-[250px] p-5 ${
             daoSelected === id
               ? "outline outline-offset-2 outline-1 outline-green-500"
               : ""
@@ -178,7 +178,7 @@ const DaoCard = (props: {
         </div>
 
         <div
-          className={`flex w-full flex-col bg-[#b8a5a6] justify-between items-center h-[200px] p-5 ${
+          className={`flex w-full flex-col bg-[#b8a5a6] justify-between items-center h-[250px] p-5 ${
             daoSelected === id
               ? "outline outline-offset-2 outline-1 outline-green-500"
               : ""

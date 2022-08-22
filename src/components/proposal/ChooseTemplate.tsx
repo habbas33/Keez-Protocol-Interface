@@ -55,7 +55,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
   }, []);
 
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[10%]">
+    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
       <h1 className="text-white text-sm py-2">Step 1</h1>
       <form onSubmit={(event) => handleSubmit(event, templateSelected)}>
         <div className="py-2 ">
@@ -86,7 +86,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
           >
             You have permission to create proposals for the following DAOs
           </label>
-          <div className="grid gap-4 md:grid-cols-2 text-white mx-20">
+          <div className="grid gap-4 md:grid-cols-2 text-white mx-5 md:mx-20">
             <div
               onClick={(event) => handleTemplateSelection(event, 0)}
               className={`flex-col justify-start p-6 cursor-pointer items-center bg-[#292d46] ${

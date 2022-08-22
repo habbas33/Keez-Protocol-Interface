@@ -63,18 +63,18 @@ const Discover: React.FC = () => {
               </div>
             </div>
             {allDaos.length != [] ? (
-              <div className="flex flex-wrap gap-4 py-3">
+              <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
                 {[...allDaos].reverse().map((daoDetail, i) => (
                   <DaoCard key={i} id={i} daoDetail={daoDetail} />
                 ))}
               </div>
             ) : (
-              <div className="flex flex-wrap ">
+              <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
                 {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
                   <Skeleton
                     key={i}
                     animation="wave"
-                    className="m-5 min-w-[21%] max-w-[21%] rounded-md"
+                    className="w-full rounded-md"
                     variant="rect"
                     height={240}
                   />
@@ -112,7 +112,7 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
     <div
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      className=" w-[100%] md:w-[30%]"
+      className=" w-full"
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div className="flex w-full h-[250px] flex-col  bg-[#a44523] justify-between items-start h-full p-5">
