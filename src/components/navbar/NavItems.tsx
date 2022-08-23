@@ -6,7 +6,7 @@ const Dropdown = ( props: {submenus:any, dropdown:boolean} ) => {
   const depthLevel = 1;
 
   return (    
-    <ul className={`flex ${dropdown ? "" : "hidden"} absolute text-black bg-white rounded-[4px] right-[auto] top-[3.5rem] -mx-16 my-1 py-2 z-50`}> 
+    <ul className={`flex ${dropdown ? "" : "hidden"} absolute text-white bg-[#8168ff] rounded-[4px] right-[auto] top-[3.5rem] -mx-16 my-1 py-2 z-50`}> 
       {submenus.map((submenu:any, index:any) => (
         <NavItems items={submenu} key={index} depthLevel={depthLevel} />
       ))}
@@ -59,7 +59,7 @@ const NavItems = ( props: {items: any, depthLevel:number} ) => {
             aria-haspopup="menu"
             aria-expanded={dropdown ? "true" : "false"}
             onClick={() => setDropdown((prev) => !prev)}
-            className="hover:text-[#ac0537] py-2"
+            className="hover:text-[#6341ff] py-2"
           >
             {items.title}{" "}
             {depthLevel > 0 ? <span>&raquo;</span> : <span className="arrow" />}
@@ -71,7 +71,7 @@ const NavItems = ( props: {items: any, depthLevel:number} ) => {
         </>
       ) : (
         // <NavLink className="hover:text-[#ac0537]" to={`/${items.name}`}>{items.title}</NavLink>
-        <NavLink className="hover:text-[#ac0537]" to={`/${items.name}`}>{items.title}</NavLink>
+        <NavLink className="hover:text-[#6341ff]" to={`/${items.name}`}>{items.title}</NavLink>
       )}
     </li>
   );

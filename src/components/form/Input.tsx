@@ -35,7 +35,7 @@ const Input = (props: {
       onChange={(e) => handleChange(e, name)}
       className={`my-1 ${
         size ? size : "w-full"
-      } block rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight ${className}`}
+      } block rounded-lg p-2 outline-none  text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight ${className}`}
     />
   );
 };

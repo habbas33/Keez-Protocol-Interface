@@ -85,8 +85,8 @@ const Create: React.FC = () => {
         
         ):(
           <div className="bg-welcome min-h-[100vh] pt-24 w-full px-5">
-            <div className="w-[80%] mx-auto">
-              <Stepper style={{backgroundColor:'#1A1A1D'}} activeStep={allStepsValidated?4:activeStep} alternativeLabel connector={<QontoConnector />}>
+            <div className="w-[80%] mx-auto bg-welcome">
+              <Stepper style={{backgroundColor:'#8168ff'}} activeStep={allStepsValidated?4:activeStep} alternativeLabel connector={<QontoConnector />}>
                   <Step>
                     <StepLabel onClick={()=>handleReview("CreateDAO")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==0?"text-[#22c55e]":"text-white"} font-semibold text-xs ${allStepsValidated || activeStep > 0?"hover:text-[#ac0537] cursor-pointer":""} `}>Create Dao</p></StepLabel>
                   </Step>

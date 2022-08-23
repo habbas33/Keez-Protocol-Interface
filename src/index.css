@@ -16,6 +16,14 @@ body {
 
 .bg-welcome {
   background-color:#1A1A1D;
+  background-image: url("assets/Logos/Background.jpg");
+  height: auto;
+  width: 100%;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
+
+
 }
 
 .textShadow {

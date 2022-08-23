@@ -126,8 +126,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             type="button"
             onClick={(event) => handleBack(event)}
             className="flex justify-center rounded-md item-center 
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                        text-base font-medium text-white hover:bg-[#ac0537] 
+                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                        text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
           >
             <MdOutlineNavigateBefore
@@ -138,13 +138,13 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             <p className="-translate-x-1.5">Back</p>
           </button>
         </div>
-        <p className="block text-slate-400 text-center py-2 text-md font-semibold">
+        <p className="block text-white text-center py-2 text-md font-semibold">
           General Template
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className=" w-full md:w-3/5">
             <label
-              className="block text-slate-400 text-sm font-normal"
+              className="block text-white text-sm font-normal"
               htmlFor="proposalName"
             >
               Proposal Title
@@ -157,7 +157,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="daoLogo"
             >
               Upload a Cover Photo [optional]
@@ -171,7 +171,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="categories"
             >
               Categories
@@ -183,7 +183,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="description"
             >
               Description
@@ -196,14 +196,14 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-semibold"
+              className="block pt-4 text-white text-sm font-semibold"
               htmlFor="votinOptions"
             >
               Voting Options
             </label>
             {votingOptions.map((option, index) => (
               <div key={index}>
-                <label className="block pt-4 text-slate-400 text-sm font-normal">
+                <label className="block pt-4 text-white text-sm font-normal">
                   Option {index + 1}
                 </label>
                 <div className="flex justify-between items-center">
@@ -224,13 +224,13 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                     <div className="flex justify-between items-center">
                       <div
                         onClick={() => handleRemoveOption(index)}
-                        className="rounded-full mx-2 bg-[#C3073F] cursor-pointer active:bg-red-700 hover:bg-[#ac0537]"
+                        className="rounded-full mx-2 bg-[#6341ff] cursor-pointer active:bg-[#8168ff] hover:bg-[#8168ff] align-center"
                       >
                         <MdRemove className="w-6 h-6 p-0.5" color="#fff" />
                       </div>
                       <div
                         onClick={handleAddOption}
-                        className="rounded-full bg-[#C3073F] cursor-pointer active:bg-red-700 hover:bg-[#ac0537]"
+                        className="rounded-full mx-2 bg-[#6341ff] cursor-pointer active:bg-[#8168ff] hover:bg-[#8168ff]"
                       >
                         <MdAdd className="w-6 h-6 p-0.5" color="#fff" />
                       </div>
@@ -239,7 +239,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                     <div className="flex justify-between items-center">
                       <div
                         onClick={() => handleRemoveOption(index)}
-                        className="rounded-full mx-2 bg-[#C3073F] cursor-pointer active:bg-red-700 hover:bg-[#ac0537]"
+                        className="rounded-full mx-2 bg-[#6341ff] cursor-pointer active:bg-[#8168ff] hover:bg-[#8168ff]"
                       >
                         <MdRemove className="w-6 h-6 p-0.5" color="#fff" />
                       </div>
@@ -259,8 +259,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
           <button
             type="submit"
             className="flex justify-center rounded-md item-center mb-10 mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                        text-base font-medium text-white hover:bg-[#ac0537] 
+                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                        text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
           >
             <p className="translate-x-1.5">Next</p>

@@ -42,7 +42,7 @@ export interface ColourOption {
       }),
     control: (provided: Record<string, unknown>, state: any) => ({
         ...provided,
-        borderRadius: "0.125rem",
+        borderRadius: "0.5rem",
         border: state.isFocused ? "2px solid #F87171" : "2px solid #999999",
         boxShadow: "none",
         lineHeight: "1.25",

@@ -126,9 +126,9 @@ const CreateDaoSummary = (props: {
   return (
     <div className="bg-welcome w-full md:px-[20%] px-5">
       <h1 className="text-white text-center text-lg font-bold">DAO Summary</h1>
-      <div className="flex-column my-6 justify-center items-center mx-auto w-[90%] rounded-md order border border-slate-400">
+      <div className="flex-column my-6 justify-center items-center mx-auto w-[90%] rounded-lg order border border-slate-400">
         <div className="flex flex-col md:flex-row flex-wrap justify-center h-1/2">
-          <div className="md:w-1/2  ">
+          <div className="md:w-1/2 bg-black rounded-tl-lg ">
             <DaoDetails
               daoName={daoName}
               logoImageFile={logoImageFile}
@@ -137,14 +137,14 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-          <div className="md:w-1/2 border-t md:border-t-0 md:border-l border-solid border-slate-400">
+          <div className="md:w-1/2 border-t md:border-t-0 md:border-l border-solid bg-black rounded-tr-lg border-slate-400">
             <KeyPermissionDetails
               keyPermissions={keyPermissions}
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-center h-1/2 border-t border-solid border-slate-400">
+        <div className="flex flex-col md:flex-row justify-center h-1/2 border-t bg-black rounded-bl-lg border-solid border-slate-400">
           <div className="md:w-1/2  ">
             <VaultDetails
               vaultName={vaultName}
@@ -153,7 +153,7 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-          <div className="md:w-1/2 border-t md:border-t-0 md:border-l border-solid border-slate-400">
+          <div className="md:w-1/2 border-t md:border-t-0 md:border-l border-solid bg-black rounded-br-lg border-slate-400">
             <VotingParametersDetails
               participationRate={participationRate}
               votingMajority={votingMajority}
@@ -171,8 +171,8 @@ const CreateDaoSummary = (props: {
             type="submit"
             onClick={handleSubmit}
             className="flex justify-center rounded-md item-center
-                    border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                    text-base font-medium text-white hover:bg-[#ac0537] 
+                    border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                    text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm ml-auto"
           >
             Submit
@@ -226,8 +226,8 @@ const DaoDetails = (props: {
           type="button"
           onClick={() => handleSubmitCreate("CreateDAO")}
           className="flex justify-center rounded-md item-center ml-auto 
-                border border-transparent shadow-sm px-3 py-1 bg-[#C3073F]
-                text-base font-medium text-white hover:bg-[#ac0537] 
+                border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
+                text-base font-medium text-white hover:bg-[#8168ff] 
                     w-auto text-sm"
         >
           Edit
@@ -339,8 +339,8 @@ const KeyPermissionDetails = (props: {
           type="button"
           onClick={() => handleSubmitCreate("CreateKeyPermissions")}
           className="flex justify-center rounded-md item-center ml-auto 
-                    border border-transparent shadow-sm px-3 py-1 bg-[#C3073F]
-                    text-base font-medium text-white hover:bg-[#ac0537] 
+                    border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
+                    text-base font-medium text-white hover:bg-[#8168ff] 
                         w-auto text-sm"
         >
           Edit
@@ -470,8 +470,8 @@ const VaultDetails = (props: {
           type="button"
           onClick={() => handleSubmitCreate("CreateVault")}
           className="flex justify-center rounded-md item-center ml-auto 
-                    border border-transparent shadow-sm px-3 py-1 bg-[#C3073F]
-                    text-base font-medium text-white hover:bg-[#ac0537] 
+                    border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
+                    text-base font-medium text-white hover:bg-[#8168ff] 
                         w-auto text-sm"
         >
           Edit
@@ -567,8 +567,8 @@ const VotingParametersDetails = (props: {
           type="button"
           onClick={() => handleSubmitCreate("CreateVotingParameters")}
           className="flex justify-center rounded-md item-center ml-auto 
-                    border border-transparent shadow-sm px-3 py-1 bg-[#C3073F]
-                    text-base font-medium text-white hover:bg-[#ac0537] 
+                    border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
+                    text-base font-medium text-white hover:bg-[#8168ff] 
                         w-auto text-sm"
         >
           Edit

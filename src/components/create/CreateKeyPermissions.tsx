@@ -133,7 +133,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
         <form onSubmit={handleSubmit} className="w-3/5">
           <div className="md:pl-32 py-4">
             <label
-              className="block text-slate-400 text-sm font-normal"
+              className="block text-white text-sm font-normal"
               htmlFor="keyTitle"
             >
               UP Address
@@ -149,8 +149,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 type="button"
                 onClick={handleAddKeyPermission}
                 className="flex justify-center rounded-full items-center 
-                    border border-transparent shadow-sm px-2 mx-2 py-2 bg-[#C3073F]
-                    text-base font-medium text-white hover:bg-[#ac0537] 
+                    border border-transparent shadow-sm px-2 mx-2 py-2 bg-[#6341ff]
+                    text-base font-medium text-white hover:bg-[#8168ff] 
                       sm:w-auto sm:text-sm"
               >
                 <AiOutlineUserAdd className="w-6" color="#fff" fontSize={21} />
@@ -158,7 +158,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
             </div>
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="categories"
             >
               Key Permissions
@@ -169,7 +169,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 type="checkbox"
                 name="vote"
                 onClick={(e: any) => setVotePermission(e.target.checked)}
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
+                className="accent-[#6341ff] focus:accent-[#6341ff]"
               />
               <label
                 htmlFor="vote"
@@ -183,7 +183,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 type="checkbox"
                 name="propose"
                 onClick={(e: any) => setProposePermission(e.target.checked)}
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
+                className="accent-[#6341ff] focus:accent-[#6341ff]"
               />
               <label
                 htmlFor="propose"
@@ -197,7 +197,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 type="checkbox"
                 name="execute"
                 onClick={(e: any) => setExecutePermission(e.target.checked)}
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
+                className="accent-[#6341ff] focus:accent-[#6341ff]"
               />
               <label
                 htmlFor="execute"
@@ -211,7 +211,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 type="checkbox"
                 name="registerVotes"
                 onClick={(e: any) => setRegisterVotesPermission(e.target.checked)}
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
+                className="accent-[#6341ff] focus:accent-[#6341ff]"
               />
               <label
                 htmlFor="registerVotes"
@@ -225,7 +225,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 type="checkbox"
                 name="add"
                 onClick={(e: any) => setAddPermission(e.target.checked)}
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
+                className="accent-[#6341ff] focus:accent-[#6341ff]"
               />
               <label
                 htmlFor="add"
@@ -239,7 +239,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 type="checkbox"
                 name="remove"
                 onClick={(e: any) => setRemovePermission(e.target.checked)}
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
+                className="accent-[#6341ff] focus:accent-[#6341ff]"
               />
               <label
                 htmlFor="remove"
@@ -255,7 +255,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 onClick={(e: any) =>
                   setSendDelegatePermission(e.target.checked)
                 }
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
+                className="accent-[#6341ff] focus:accent-[#6341ff]"
               />
               <label
                 htmlFor="sendDeligate"
@@ -271,7 +271,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 onClick={(e: any) =>
                   setReceiveDelegatePermission(e.target.checked)
                 }
-                className="accent-[#C3073F] focus:accent-[#ac0537]"
+                className="accent-[#6341ff] focus:accent-[#6341ff]"
               />
               <label
                 htmlFor="receiveDelegate"
@@ -282,9 +282,9 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
             </div>
             <button
               type="submit"
-              className="flex justify-center rounded-md item-center mt-[16px]
-                  border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                  text-base font-medium text-white hover:bg-[#ac0537] 
+              className="flex justify-center rounded-full item-center mt-[16px]
+                  border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                  text-base font-medium text-white hover:bg-[#8168ff] 
                     sm:w-auto sm:text-sm"
             >
               Next

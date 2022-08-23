@@ -80,7 +80,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
       <form onSubmit={handleSubmit}>
         <div className="py-4 md:w-[60%] ml-10">
           <label
-            className="block text-slate-400 text-sm font-normal"
+            className="block text-white text-sm font-normal"
             htmlFor="vaultName"
           >
             Vault Name
@@ -91,12 +91,12 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
             type="text"
             handleChange={(e: any) => setVaultName(e.target.value)}
           />
-          <label className="block pt-4 text-slate-300 text-sm font-medium">
+          <label className="block pt-4 text-white text-sm font-medium">
             Choose the DAO member(s) that you would like to give multisig
             permissions to:
           </label>
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="categories"
           >
             DAO Members
@@ -117,7 +117,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
           )}
 
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="majority"
           >
             Majority (recommended 50% +)
@@ -136,9 +136,9 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
           </div>
           <button
             type="submit"
-            className="flex justify-center rounded-md item-center mt-[16px]
-                border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                text-base font-medium text-white hover:bg-[#ac0537] 
+            className="flex justify-center rounded-full item-center mt-[16px]
+                border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                text-base font-medium text-white hover:bg-[#8168ff] 
                    sm:w-auto sm:text-sm"
           >
             Next
@@ -182,14 +182,14 @@ const DaoMembers = (props: {
   }, []);
 
   return (
-    <div className="flex justify-between items-center p-1 hover:bg-[#1A1A1D] hover:rounded-lg">
+    <div className="flex justify-between items-center p-1 hover:bg-[#8168ff] hover:rounded-lg">
       <div className="flex justify-between items-center">
         <input
           type="checkbox"
           onClick={(event: any) =>
             handleDaoMemberToggle(event, upAddress, event.target.checked)
           }
-          className="accent-[#C3073F] focus:accent-[#ac0537]"
+          className="accent-[#6341ff] focus:accent-[#6341ff]"
         />
         <h1 className="text-white px-2 text-sm">{upName}</h1>
       </div>

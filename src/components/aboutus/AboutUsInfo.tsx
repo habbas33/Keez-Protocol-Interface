@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import imageToAdd1 from "../components/ProfilePictures/cloneX.png";
+import imageToAdd1 from "../../assets/Logos/KP_BW_trans_crop-Recovered.png";
 
 const AboutUsInfo = () => {
   return (
@@ -13,14 +13,14 @@ const AboutUsInfo = () => {
         </div>
         <div className="flex gap-3 flex-initial items-center flex-wrap justify-between py-10">
           <div
-            className="bg-[#3f413f] md:flex-1  h-80
+            className="bg-transparent md:flex-1  h-40
                     2xl:min-w-[550px]
                     2xl:max-w-[600px]
                     w-[100%]
                     flex-col p-3 rounded-md hover:shadow-2xl"
           >
             <div className="flex justify-center items-center">
-              <img className="object-cover " />
+              <img className="object-cover" src={imageToAdd1}/>
             </div>
           </div>
           <div className="flex-column w-[100%] md:flex-1 text-white">
@@ -38,12 +38,12 @@ const AboutUsInfo = () => {
             </div>
             <div className="flex flex-wrap gap-3 flex-row py-10 ">
               <button>
-                <h3 className="flex items-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                <h3 className="flex items-center w-44 justify-center text-white font-bold py-2 px-2 border-2 border-white rounded-full bg-transparent">
                   KEEZ WEBSITE
                 </h3>
               </button>
               <button>
-                <h3 className="flex tems-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+                <h3 className="flex tems-center w-44 justify-center text-[#8168ff] font-bold py-2 px-2 rounded-full bg-white">
                   KEEZ DISCORD
                 </h3>
               </button>
