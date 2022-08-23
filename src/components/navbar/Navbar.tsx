@@ -1,3 +1,4 @@
+import imageToAdd1 from "../../assets/Logos/KP_BW_trans_crop-Recovered.png";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiMenuAlt4, HiUser } from "react-icons/hi";
@@ -32,7 +33,7 @@ import { StyledMenuItem } from "../../styles";
 const NavbarItem = ({ title }: any, { classProps }: any) => {
   return (
     <li
-      className={`flex items-center font-semibold hover:text-[#ac0537] transition duration-300 cursor-pointer ${classProps}`}
+      className={`flex items-center font-semibold hover:text-[#6341ff] transition duration-300 cursor-pointer ${classProps}`}
     >
       {title}
       {title == "Get Started" && (
@@ -90,13 +91,16 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-[#1A1A1D] fixed z-10">
+    <nav className="w-full bg-welcome fixed z-10">
       <div className="px-5 lg:px-20 py-5">
         <div className="flex md:justify-between justify-between items-center">
-          <NavLink className="hover:text-[#ac0537]" to={`/`}>
+          <NavLink className="hover:text-[#6341ff]" to={`/`}>
             <div className="flex md:flex flex-initial justify-center items-center">
-              <IoDiamond fontSize={30} color="#ac0537" />
-              <h1 className="text-3xl text-white font-extrabold px-2">KEEZ</h1>
+            <img
+          className="object-center max-w-full h-14 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
+          src={imageToAdd1}
+        />
+              {/* <h1 className="text-3xl text-white font-extrabold px-2">KEEZ</h1> */}
             </div>
           </NavLink>
 
@@ -115,7 +119,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={connectWallet}
-                  className="flex flex-row items-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]"
+                  className="flex flex-row items-center w-44 justify-center text-white font-bold py-2 px-2 rounded-full bg-[#6341ff] hover:bg-[#8168ff]"
                 >
                   <AiOutlineLogin className="text-white mr-2" />
                   <p className="text-white text-base font-semibold">
@@ -135,7 +139,7 @@ export default function Navbar() {
                       <p className="text-base px-2 font-semibold">
                         {profileName}
                       </p>
-                      <div className="w-7 h-7 rounded-full border-2 border-light flex justify-center hover:border-[#ac0537] items-center">
+                      <div className="w-7 h-7 rounded-full border-2 border-light flex justify-center hover:border-[#6341ff] items-center">
                         <img
                           className="object-cover rounded-full "
                           src={profileImageUrl}

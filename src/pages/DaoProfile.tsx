@@ -70,7 +70,7 @@ const DaoProfile = () => {
                     <p className="h-20 px-2 pt-2">{daoDetail.description}</p>
                 </div>
                 {isMember &&
-                <div onClick={handleCreateProposal} className="flex self-end ml-auto justify-center items-center rounded-full bg-[#C3073F] cursor-pointer hover:bg-[#ac0537] px-2 py-0.5">
+                <div onClick={handleCreateProposal} className="flex self-end ml-auto justify-center items-center rounded-full bg-[#6341ff] cursor-pointer hover:bg-[#8168ff] px-2 py-0.5">
                   <MdCreate className="w-4" fontSize={16}  />
                   <p className="text-sm p-1">Create Proposal</p>
                 </div>

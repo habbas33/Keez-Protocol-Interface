@@ -6,7 +6,9 @@ const Main: React.FC = () => {
     <div className="min-h-screen">
       <div className="bg-welcome">
         <Welcome/>
+        <div className='bg-black'>
         <Trending/>
+        </div>
       </div>
     </div>
   );

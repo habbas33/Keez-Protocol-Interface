@@ -20,12 +20,12 @@ const Welcome = () => {
             </div>
             <div className="flex flex-wrap gap-4 flex-row py-10 ">
               <button onClick={connectWallet}>
-                <h3 className="flex items-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]">
+                <h3 className="flex items-center w-44 justify-center text-[#6341ff] font-bold py-2 px-2 rounded-full border-2 border-white bg-white hover:bg-[#8168ff]">
                   CONNECT UP!
                 </h3>
               </button>
               <button onClick={() => console.log("DISCOVER DAOS")}>
-                <h3 className="flex tems-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]">
+                <h3 className="flex tems-center w-44 justify-center text-white font-bold py-2 px-2 border-2 border-white rounded-full bg-transparent hover:bg-[#8168ff]">
                   DISCOVER DAOs
                 </h3>
               </button>
@@ -33,13 +33,13 @@ const Welcome = () => {
           </div>
 
           <div
-            className="bg-[#3f413f] w-1/2  h-80 py-2
+            className="bg-transparent w-1/2  h-80 py-2
                     2xl:min-w-[550px]
                     2xl:max-w-[600px]
                     sm:min-w-[270px]
                     sm:max-w-[300px]
                     min-w-full
-                    flex-col p-3 rounded-md hover:shadow-2xl"
+                    flex-col p-3 rounded-md"
           ></div>
         </div>
         <div className="flex w-full items-end h-[0.1px] bg-zinc-800 " />

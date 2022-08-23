@@ -117,8 +117,8 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             type="button"
             onClick={(event) => handleBack(event)}
             className="flex justify-center rounded-md item-center 
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                        text-base font-medium text-white hover:bg-[#ac0537] 
+                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                        text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
           >
             <MdOutlineNavigateBefore
@@ -129,13 +129,13 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             <p className="-translate-x-1.5">Back</p>
           </button>
         </div>
-        <p className="block text-slate-400 text-center py-2 text-md font-semibold">
+        <p className="block text-white text-center py-2 text-md font-semibold">
           Voting Parameters Template
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className="w-full md:w-3/5">
             <label
-              className="block text-slate-400 text-sm font-normal"
+              className="block text-white text-sm font-normal"
               htmlFor="proposalName"
             >
               Proposal Title
@@ -148,7 +148,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="categories"
             >
               Categories
@@ -160,7 +160,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="description"
             >
               Description
@@ -173,12 +173,12 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block text-slate-400 text-sm font-normal"
+              className="block text-white text-sm font-normal"
               htmlFor="participationRate"
             >
               Participation rate
             </label>
-            <div className="flex items-center text-slate-400 text-sm font-normal">
+            <div className="flex items-center text-white text-sm font-normal">
               <Input
                 value={participationRate.toString()}
                 name="participation"
@@ -192,12 +192,12 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             </div>
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="votingMajority"
             >
               Majority
             </label>
-            <div className="flex items-center text-slate-400 text-sm font-normal">
+            <div className="flex items-center text-white text-sm font-normal">
               <Input
                 value={votingMajority.toString()}
                 name="majority"
@@ -211,7 +211,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             </div>
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="MinVotingDelay"
             >
               Minimum Voting Delay
@@ -225,7 +225,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             </div>
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="minVotingPeriod"
             >
               Minimum Voting Period
@@ -239,7 +239,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             </div>
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="minExecutionDelay"
             >
               Minimum Execution Delay
@@ -258,8 +258,8 @@ const VotingTemplate = (props: { handleComponent: any }) => {
           <button
             type="submit"
             className="flex justify-center rounded-md item-center mb-10 mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                        text-base font-medium text-white hover:bg-[#ac0537] 
+                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                        text-base font-medium text-white hover:bg-[#8186ff] 
                         sm:w-auto sm:text-sm"
           >
             <p className="translate-x-1.5">Next</p>

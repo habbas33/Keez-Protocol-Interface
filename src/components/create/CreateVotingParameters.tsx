@@ -88,12 +88,12 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
       <form onSubmit={handleSubmit}>
         <div className="md:px-[10%] py-4">
           <label
-            className="block text-slate-400 text-sm font-normal"
+            className="block text-white text-sm font-normal"
             htmlFor="participationRate"
           >
             Participation rate
           </label>
-          <div className="flex items-center text-slate-400 text-sm font-normal">
+          <div className="flex items-center text-white text-sm font-normal">
             <Input
               value={participationRate.toString()}
               name="participation"
@@ -108,12 +108,12 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           </div>
 
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="votingMajority"
           >
             Majority
           </label>
-          <div className="flex items-center text-slate-400 text-sm font-normal">
+          <div className="flex items-center text-white text-sm font-normal">
             <Input
               value={votingMajority.toString()}
               name="majority"
@@ -128,7 +128,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           </div>
 
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="MinVotingDelay"
           >
             Minimum Voting Delay
@@ -142,7 +142,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           </div>
 
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="minVotingPeriod"
           >
             Minimum Voting Period
@@ -156,7 +156,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           </div>
 
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="minVotingPeriod"
           >
             Minimum Execution Delay
@@ -171,9 +171,9 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
 
           <button
             type="submit"
-            className="flex justify-center rounded-md item-center mt-[16px]
-                border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                text-base font-medium text-white hover:bg-[#ac0537] 
+            className="flex justify-center rounded-full item-center mt-[16px]
+                border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                text-base font-medium text-white hover:bg-[#8168ff] 
                    sm:w-auto sm:text-sm"
           >
             Next

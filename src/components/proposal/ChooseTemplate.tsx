@@ -67,8 +67,8 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
               type="button"
               onClick={(event) => handleBack(event)}
               className="flex justify-center rounded-md item-center 
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                        text-base font-medium text-white hover:bg-[#ac0537] 
+                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                        text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
             >
               <MdOutlineNavigateBefore
@@ -161,8 +161,8 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
             <button
               type="submit"
               className="flex justify-center rounded-md item-center mb-4 mt-4
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                        text-base font-medium text-white hover:bg-[#ac0537] 
+                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                        text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
             >
               <p className="translate-x-1.5">Next</p>

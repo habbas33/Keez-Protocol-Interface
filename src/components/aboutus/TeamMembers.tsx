@@ -19,15 +19,15 @@ export const SageMemberCard = () => {
           src={imageToAdd2}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         Sage
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <p className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         <a className="flex flex-center" href="https://twitter.com/improvda">
           <SiTwitter fontSize={18} color="#fff" />
         </a>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-gray-400 text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
         Hi Im Sage! I am interested in team building, leadership, and
         interpersonal relationships. On top of that, DAOs, Digital Identity
         solutions, and human coordination fascinate me daily. we are complex
@@ -50,15 +50,15 @@ export const B00steMemberCard = () => {
           src={imageToAdd3}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         B00ste
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <p className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         <a className="flex flex-center" href="https://twitter.com/b00ste_lyx">
           <SiTwitter fontSize={18} color="#fff" />
         </a>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-gray-400 text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
         I am passionate about solidty and I deeply enjoy working with passionate
         people. Every problem has a solution.
       </h1>
@@ -78,7 +78,7 @@ export const HabbasMemberCard = () => {
           src={imageToAdd5}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         Haider
       </h1>
       <p className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
@@ -86,7 +86,7 @@ export const HabbasMemberCard = () => {
           <SiTwitter fontSize={18} color="#fff" />
         </a>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-gray-400 text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
         Dr. Abbas is the founder of foligator.io. He has 6 years of R&D
         experience and received PhD in Aerospace Engineering from Korea Advanced
         Institute of Science and Technology (KAIST).
@@ -107,10 +107,10 @@ export const LandonMemberCard = () => {
           src={imageToAdd1}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         Yellowturtle
       </h1>
-      <p className="flex flex-center w-full flex-col justify-center items-center items-align h-50 text-gray-400 text-center font-bold">
+      <p className="flex flex-center w-full flex-col justify-center items-center items-align h-50 text-white text-center font-bold">
         <a
           className="flex flex-center"
           href="https://twitter.com/yellowturtle47"
@@ -118,7 +118,7 @@ export const LandonMemberCard = () => {
           <SiTwitter fontSize={18} color="#fff" />
         </a>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-gray-400 text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
         Just a yellow reptile trying to create positive network effect on the
         LUKSO network. Mechanical engineer by day and full-time degen by night.
         Self-taught developer growing his skills in the multiverse with the
@@ -140,15 +140,15 @@ export const FawnMemberCard = () => {
           src={imageToAdd4}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         Fawn
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <p className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         <a className="flex flex-center" href="https://twitter.com/natashalfawn">
           <SiTwitter fontSize={18} color="#fff" />
         </a>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-gray-400 text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
         Fashion-obsessed, RTFKT-maxi from London. Background in building out
         brands and communities for Social Commerce and Creator Economy apps,
         which ultimately led me to discover the wonders of the LUKSOverse!
@@ -169,10 +169,10 @@ export const MumeenMemberCard = () => {
           src={imageToAdd6}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         Mumeen
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
+      <p className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
         <a
           className="flex flex-center"
           href="https://twitter.com/mumeen_official"
@@ -180,7 +180,7 @@ export const MumeenMemberCard = () => {
           <SiTwitter fontSize={18} color="#fff" />
         </a>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-gray-400 text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
         hello
       </h1>
     </div>

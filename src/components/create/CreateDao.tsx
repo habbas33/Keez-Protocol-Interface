@@ -69,7 +69,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
       <form onSubmit={handleSubmit}>
         <div className=" py-4 md:w-[70%] md:mx-auto">
           <label
-            className="block text-slate-400 text-sm font-normal"
+            className="block text-white text-sm font-normal"
             htmlFor="daoName"
           >
             DAO Name
@@ -83,7 +83,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
           />
 
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="daoLogo"
           >
             DAO Logo
@@ -95,7 +95,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             }
           />
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="categories"
           >
             Categories
@@ -106,25 +106,25 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             categories={categories}
             name={"daoCategories"}
           />
-          <p className="text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Maximum three categories in following order [Primary, Secondary, Tertiary]</p>
+          <p className="text-sm text-white dark:text-white" id="file_input_help">Maximum three categories in following order [Primary, Secondary, Tertiary]</p>
 
           <label
-            className="block pt-4 text-slate-400 text-sm font-normal"
+            className="block pt-4 text-white text-sm font-normal"
             htmlFor="description"
           >
             Description
           </label>
           <textarea
-            className="my-1 h-28 w-full rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
+            className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
             value={description}
             name="description"
             onChange={(e: any) => setDescription(e.target.value)}
           />
           <button
             type="submit"
-            className="flex justify-center rounded-md item-center mt-[12px]
-                    border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                    text-base font-medium text-white hover:bg-[#ac0537] 
+            className="flex justify-center rounded-full item-center mt-[12px]
+                    border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                    text-base font-medium text-white hover:bg-[#6341ff]
                     sm:w-auto sm:text-sm"
           >
             Next

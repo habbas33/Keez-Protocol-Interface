@@ -259,8 +259,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             type="button"
             onClick={handleEdit}
             className="flex justify-center rounded-md item-center ml-auto 
-                        border border-transparent shadow-sm px-3 py-1 bg-[#C3073F]
-                        text-base font-medium text-white hover:bg-[#ac0537] 
+                        border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
+                        text-base font-medium text-white hover:bg-[#8186ff] 
                             w-auto text-sm"
           >
             Edit
@@ -371,8 +371,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             type="submit"
             onClick={handleSubmit}
             className="flex justify-center rounded-md item-center mb-10 mt-[12px]
-                    border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                    text-base font-medium text-white hover:bg-[#ac0537] 
+                    border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                    text-base font-medium text-white hover:bg-[#8168ff] 
                     sm:w-auto sm:text-sm"
           >
             Submit
@@ -382,7 +382,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             disabled
             type="submit"
             className="flex justify-center rounded-md item-center mb-10 mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
+                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                         text-base font-medium text-white opacity-50"
           >
             <SpinnerCircular
@@ -394,7 +394,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             />
           </button>
         )}
-        ;
+        
       </div>
     </div>
   );
