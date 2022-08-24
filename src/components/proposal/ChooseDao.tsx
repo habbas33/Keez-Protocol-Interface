@@ -59,7 +59,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
 
   const daos = [0, 1, 2, 3];
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
+    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
       <h1 className="text-white text-sm py-2">Step 1</h1>
       <h1 className="text-white text-lg font-bold">
         Choose a DAO to create a proposal for
@@ -67,7 +67,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
       <form onSubmit={handleSubmit}>
         <div className="py-4 ">
           <label
-            className="block text-slate-400 text-sm font-normal"
+            className="block text-white text-sm font-normal"
             htmlFor="daoName"
           >
             You have permission to create proposals for the following DAOs
@@ -102,12 +102,12 @@ const ChooseDao = (props: { handleComponent: any }) => {
           <div className="flex justify-end items-center">
             <button
               type="submit"
-              className="flex justify-center rounded-md item-center mt-[12px]
+              className="flex justify-center rounded-full item-center mt-[12px]
                         border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                         text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
             >
-              <p className="translate-x-1.5">Next</p>
+              <p className="translate-x-1.5">Propose</p>
               <MdNavigateNext
                 className="translate-x-1.5 w-6"
                 color="#fff"
@@ -153,7 +153,7 @@ const DaoCard = (props: {
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div
-          className={`flex w-full flex-col bg-[#a44523] justify-between rounded-lg items-start h-[250px] p-5 ${
+          className={`flex w-full flex-col bg-[#a44523] border-2 border-white justify-between rounded-lg items-start h-[250px] p-5 ${
             daoSelected === id
               ? "outline outline-offset-2 outline-1 outline-green-500"
               : ""
@@ -178,7 +178,7 @@ const DaoCard = (props: {
         </div>
 
         <div
-          className={`flex w-full flex-col bg-[#b8a5a6] justify-between rounded-lg items-center h-[250px] p-5 ${
+          className={`flex w-full flex-col bg-[#b8a5a6] border-2 border-white justify-between rounded-lg items-center h-[250px] p-5 ${
             daoSelected === id
               ? "outline outline-offset-2 outline-1 outline-green-500"
               : ""
@@ -196,7 +196,7 @@ const DaoCard = (props: {
               onClick={() =>
                 navigate("/DaoProfile", { state: { daoDetail: daoDetail } })
               }
-              className="flex flex-row items-center w-20 justify-center text-white text-xs font-bold py-2 rounded bg-[#6341ff] hover:bg-[#8168ff]"
+              className="flex flex-row items-center w-20  justify-center text-[#6341ff] text-xs font-bold py-2 hover:text-white hover:border-white border-2 border-transparent rounded-full bg-white hover:bg-[#8168ff]"
             >
               View DAO
             </button>

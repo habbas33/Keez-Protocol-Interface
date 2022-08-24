@@ -69,7 +69,7 @@ const Create: React.FC = () => {
     <div className="min-h-screen">
         {showModal && <CreateDaoModal showModal={showModal} setShowModal={setShowModal} daoUpMetadata={daoUpMetadata} metalink={metalink}/>}
         { !accountAddress ? (
-        <div className="bg-welcome flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
+        <div className="bg-other flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
           <ConnectProfileModal/>
             <h1 className="text-white">Connect your user profile</h1>
             {/* <button
@@ -84,8 +84,8 @@ const Create: React.FC = () => {
         </div>
         
         ):(
-          <div className="bg-welcome min-h-[100vh] pt-24 w-full px-5">
-            <div className="w-[80%] mx-auto bg-welcome">
+          <div className="bg-other min-h-[100vh] pt-24 w-full px-5">
+            <div className="w-[80%] mx-auto bg-other">
               <Stepper style={{backgroundColor:'#8168ff'}} activeStep={allStepsValidated?4:activeStep} alternativeLabel connector={<QontoConnector />}>
                   <Step>
                     <StepLabel onClick={()=>handleReview("CreateDAO")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==0?"text-[#22c55e]":"text-white"} font-semibold text-xs ${allStepsValidated || activeStep > 0?"hover:text-[#ac0537] cursor-pointer":""} `}>Create Dao</p></StepLabel>

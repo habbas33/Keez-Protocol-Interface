@@ -246,7 +246,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
 
   toast.configure();
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
+    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
       <h1 className="text-white text-center text-lg pb-2 font-bold">
         Preview Proposal
       </h1>
@@ -258,7 +258,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
           <button
             type="button"
             onClick={handleEdit}
-            className="flex justify-center rounded-md item-center ml-auto 
+            className="flex justify-center rounded-full item-center ml-auto 
                         border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
                         text-base font-medium text-white hover:bg-[#8186ff] 
                             w-auto text-sm"
@@ -370,7 +370,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
           <button
             type="submit"
             onClick={handleSubmit}
-            className="flex justify-center rounded-md item-center mb-10 mt-[12px]
+            className="flex justify-center rounded-full item-center mb-10 mt-[12px]
                     border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                     text-base font-medium text-white hover:bg-[#8168ff] 
                     sm:w-auto sm:text-sm"

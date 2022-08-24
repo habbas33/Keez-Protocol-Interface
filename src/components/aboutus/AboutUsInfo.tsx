@@ -1,33 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import imageToAdd1 from "../../assets/Logos/KP_BW_trans_crop-Recovered.png";
+import imageToAdd1 from "../../assets/Logos/KP Submark White.png";
 
 const AboutUsInfo = () => {
   return (
-    <div className="flex pt-32 w-full justify-center items-center px-5 lg:px-20 md:px-20 ">
-      <div className="flex-column ">
-        <div className="flex-column flex-initial justify-between py-0 px-20 text-center">
-          <h1 className="md:text-6xl text-3xl text-white py-2 font-extrabold">
+    <div className="flex pt-32 w-full justify-center items-center py-0 px-5 lg:px-20 md:px-20 ">
+      <div className="flex-column space-y-[0px] py-0 flex-wrap">
+        <div className="flex-column flex-initial justify-between  py-0 px-20 text-center">
+          <h1 className="md:text-6xl text-4xl text-white py-0">
             About Us
           </h1>
         </div>
-        <div className="flex gap-3 flex-initial items-center flex-wrap justify-between py-10">
+        <div className="flex gap-3 flex-initial items-center flex-wrap justify-between py-0">
           <div
-            className="bg-transparent md:flex-1  h-40
+            className="bg-transparent md:flex-1 py-0 h-auto object-top
                     2xl:min-w-[550px]
                     2xl:max-w-[600px]
                     w-[100%]
-                    flex-col p-3 rounded-md hover:shadow-2xl"
+                    flex-col p-3 rounded-md"
+                    
           >
             <div className="flex justify-center items-center">
-              <img className="object-cover" src={imageToAdd1}/>
+              <img className=" object-top justify-center mx-auto" src={imageToAdd1}/>
             </div>
           </div>
           <div className="flex-column w-[100%] md:flex-1 text-white">
-            <h1 className="md:text-5xl text-2xl text-white py-2 font-extrabold">
+            <h1 className="md:text-5xl text-3xl text-white py-2">
               Who we are?
             </h1>
-            <div className="text-justify">
+            <div className="text-justify text-base">
               KEEZ Protocol is a team of six like-minded individuals passionate
               about revolutionizing DAO governance structures and building on
               the LUKSO network. We value transparency, inclusivity, and
@@ -38,12 +39,12 @@ const AboutUsInfo = () => {
             </div>
             <div className="flex flex-wrap gap-3 flex-row py-10 ">
               <button>
-                <h3 className="flex items-center w-44 justify-center text-white font-bold py-2 px-2 border-2 border-white rounded-full bg-transparent">
-                  KEEZ WEBSITE
+                <h3 className="flex items-center w-44 justify-center text-white font-bold py-2 px-2 border-2 hover:bg-[#8168ff] border-white rounded-full bg-transparent">
+                  KEEZ TWITTER
                 </h3>
               </button>
               <button>
-                <h3 className="flex tems-center w-44 justify-center text-[#8168ff] font-bold py-2 px-2 rounded-full bg-white">
+                <h3 className="flex tems-center w-44 justify-center border-2 border-white text-[#8168ff] hover:bg-[#8168ff] hover:text-white font-bold py-2 px-2 rounded-full bg-white">
                   KEEZ DISCORD
                 </h3>
               </button>

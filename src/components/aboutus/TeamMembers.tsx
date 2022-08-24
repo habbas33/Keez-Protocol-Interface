@@ -9,7 +9,7 @@ import { SiTwitter, SiGithub, SiDiscord } from "react-icons/si";
 export const SageMemberCard = () => {
   return (
     <div
-      className="bg-gradient-to-r from-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
@@ -40,7 +40,7 @@ export const SageMemberCard = () => {
 export const B00steMemberCard = () => {
   return (
     <div
-      className="bg-gradient-to-r h-auto from-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
@@ -68,7 +68,7 @@ export const B00steMemberCard = () => {
 export const HabbasMemberCard = () => {
   return (
     <div
-      className="bg-gradient-to-r from-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
@@ -97,7 +97,7 @@ export const HabbasMemberCard = () => {
 export const LandonMemberCard = () => {
   return (
     <div
-      className="bg-gradient-to-r from-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
@@ -130,7 +130,7 @@ export const LandonMemberCard = () => {
 export const FawnMemberCard = () => {
   return (
     <div
-      className="bg-gradient-to-r from-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
@@ -159,7 +159,7 @@ export const FawnMemberCard = () => {
 export const MumeenMemberCard = () => {
   return (
     <div
-      className="bg-gradient-to-r from-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >

@@ -74,8 +74,8 @@ export default function ConnectProfileModal() {
                 <button
                   type="button"
                   className="justify-center rounded-md item-center
-                   border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                    text-base font-medium text-white hover:bg-[#ac0537] 
+                   border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                    text-base font-medium text-white hover:border-white hover:bg-[#8168ff] 
                      sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={connectWallet}
                 >

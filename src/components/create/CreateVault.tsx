@@ -74,7 +74,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="bg-welcome md:px-[20%] px-5">
+    <div className="bg-other md:px-[20%] px-5">
       <h1 className="text-white text-sm py-2">Step 3</h1>
       <h1 className="text-white text-lg font-bold">Create your Vault</h1>
       <form onSubmit={handleSubmit}>

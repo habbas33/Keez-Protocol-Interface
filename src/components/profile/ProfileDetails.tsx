@@ -115,8 +115,8 @@ const ProfileDetails = (props: {accountAddress: string}) => {
                         <IoAppsSharp onClick={() => setDaoCardView(3)} className="w-6 cursor-pointer hover:text-[#ac0537]" fontSize={18}/>
                     </div>
                 </div>
-                <div className="flex justify-between items-center pb-4 my-1">
-                    <div className="flex items-center border-solid border-[#999999] border-2 bg-white text-[#7f7f81] px-2 text-sm font-bold">
+                <div className="flex justify-between items-center rounded-lg pb-4 my-1">
+                    <div className="flex items-center rounded-lg border-solid border-[#999999] border-2 bg-white text-[#7f7f81] px-2 text-sm font-bold">
                         <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">Social</p>  
                         <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">Investment</p>
                         <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">Fasion</p>

@@ -32,12 +32,12 @@ const Discover: React.FC = () => {
   const userProfiles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <div className="min-h-screen">
-      <div className="bg-welcome flex min-h-[100vh] w-full px-5 lg:px-40 md:px-20">
+      <div className="bg-other flex min-h-[100vh] w-full px-5 lg:px-40 md:px-20">
         <div className="pt-28 text-white w-full flex-col justify-start items-start">
-          <p className="text-2xl text-bold text-center pb-4">Discover DAOs</p>
+          <p className="text-4xl text-center pb-4">Discover DAOs</p>
           <div className="flex-col justify-start items-start w-full">
-            <div className="flex flex-wrap justify-between m-5 items-center pb-4 my-1">
-              <div className="flex items-center border-solid rounded-lg border-[#999999] border-2 bg-white text-[#7f7f81] px-2 text-sm font-bold">
+            <div className="flex flex-wrap justify-between m-5 items-center pb-4 my-1 rounded-lg">
+              <div className="flex items-center border-solid rounded-lg  border-[#999999] border-2 bg-white  text-[#7f7f81] px-2 text-sm font-bold">
                 <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">
                   Social
                 </p>
@@ -115,8 +115,8 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
       className=" w-full"
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
-        <div className="flex w-full h-[250px] flex-col  bg-[#a44523] justify-between rounded-lg items-start h-full p-5">
-          <div className="p-1 min-w-[35%] rounded-full bg-black self-end">
+        <div className="flex w-full h-[250px] flex-col border-2 border-white bg-[#a44523] justify-between rounded-lg items-start h-full p-5">
+          <div className="p-1 min-w-[35%] rounded-full text-base bg-black self-end">
             <h1 className="text-white text-xs text-center px-1">
               {categoriesObject[0].label}
             </h1>
@@ -131,7 +131,7 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
           </div>
         </div>
 
-        <div className="flex h-[250px] w-full flex-col rounded-lg bg-[#b8a5a6] justify-between items-center h-full p-5">
+        <div className="flex h-[250px] w-full flex-col rounded-lg border-2 border-white bg-[#b8a5a6] justify-between items-center h-full p-5">
           <div className="flex w-full flex-col justify-start items-center h-full ">
             <h1 className="text-black text-lg font-bold">
               {daoDetail.daoName}
@@ -144,7 +144,7 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
               onClick={() =>
                 navigate("/DaoProfile", { state: { daoDetail: daoDetail } })
               }
-              className="flex flex-row items-center w-20 justify-center text-white text-xs font-bold py-2 rounded bg-[#6341ff] hover:bg-[#8168ff]"
+              className="flex flex-row items-center w-20  justify-center text-[#6341ff] text-xs font-bold py-2 hover:text-white hover:border-white border-2 border-transparent rounded-full bg-white hover:bg-[#8168ff]"
             >
               View DAO
             </button>
