@@ -106,6 +106,8 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
   const navigate = useNavigate();
   const keyPermissionObject = getParsedJsonObj(daoDetail.keyPermissions);
   const categoriesObject = getParsedJsonObj(daoDetail.categories);
+  const profileImageObj = getParsedJsonObj(daoDetail.profileImage);
+  const profileImageUrl = profileImageObj.url.concat(profileImageObj.hash);
 
   const memberStr = keyPermissionObject.length > 1 ? "Members" : "Member";
   return (
@@ -115,13 +117,21 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
       className=" w-full"
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
-        <div className="flex w-full h-[250px] flex-col border-2 border-white bg-[#a44523] justify-between rounded-lg items-start h-full p-5">
-          <div className="p-1 min-w-[35%] rounded-full text-base bg-black self-end">
+        <div className="flex w-full h-[250px] flex-col border-2 border-white bg-[#a44523] justify-between rounded-lg items-start">
+          <div className="w-[180px] h-[150px] absolute overflow-none rounded-lg p-5 ">
+            <img 
+              className="object-cover w-[180px] h-[150px] text-center rounded-lg  bg-[#1A1A1D]"
+              src={profileImageUrl}
+              alt=""
+            >
+            </img>
+          </div>
+          <div className="p-1 min-w-[35%] rounded-full text-base bg-black self-end z-10 m-5">
             <h1 className="text-white text-xs text-center px-1">
               {categoriesObject[0].label}
             </h1>
           </div>
-          <div className="flex w-full flex-col justify-end items-start h-full ">
+          <div className="flex w-full flex-col justify-end items-start h-full z-10 m-5">
             <h1 className="text-black text-lg font-bold py-1">
               {daoDetail.daoName}
             </h1>
@@ -131,7 +141,7 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
           </div>
         </div>
 
-        <div className="flex h-[250px] w-full flex-col rounded-lg border-2 border-white bg-[#b8a5a6] justify-between items-center h-full p-5">
+        <div className="flex h-[250px] w-full flex-col rounded-lg border-2 border-white bg-[#b8a5a6] justify-between items-center p-5">
           <div className="flex w-full flex-col justify-start items-center h-full ">
             <h1 className="text-black text-lg font-bold">
               {daoDetail.daoName}
