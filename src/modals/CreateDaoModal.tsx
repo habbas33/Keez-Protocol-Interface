@@ -5,6 +5,9 @@ import { Dialog, Transition } from '@headlessui/react';
 import { ProfileContext } from '../context/ProfileContext'
 import { DeployDaoContext } from '../context/DeployDaoContext'
 import { SpinnerCircular } from 'spinners-react'
+import { toast } from "react-toastify";
+import { postDaoUp } from "../services/keezBackend";
+import { IPFS_DWEB_URL } from "../constants/globals";
 
 export default function CreateDaoModal(props:{setShowModal:any, showModal:boolean, daoUpMetadata:any, metalink:string}) {
   const { setShowModal, showModal, daoUpMetadata, metalink } = props;
@@ -28,6 +31,15 @@ export default function CreateDaoModal(props:{setShowModal:any, showModal:boolea
   const [step, setStep] = useState<number>(0);
   const [hashArray, setHashArray] = useState<string[]>([]);
 
+  const [universalReceiverDelegateUPAddress, setUniversalReceiverDelegateUPAddress] = useState<string>("");
+  const [universalReceiverDelegateVaultAddress, setUniversalReceiverDelegateVaultAddress] = useState<string>("");
+  const [universalProfileAddress, setUniversalProfileAddress] = useState<string>("");
+  const [vaultAddress, setVaultAddress] = useState<string>("");
+  const [keyManagerAddress, setKeyManagerAddress] = useState<string>("");
+  const [daoPermissionsAddress, setDaoPermissionsAddress] = useState<string>("");
+  const [daoDelegatesAddress, setDaoDelegatesAddress] = useState<string>("");
+  const [daoProposalsAddress, setDaoProposalsAddress] = useState<string>("");
+
   const cancelButtonRef = useRef(null);
 
   const handleModel = () =>{
@@ -47,61 +59,113 @@ export default function CreateDaoModal(props:{setShowModal:any, showModal:boolea
     window.open(linkAddress, "_blank");
   }
 
+  const postDeploy = async () => {
+    const DaoUpMetadata = daoUpMetadata;
+    console.log(metalink);
+    //@ts-ignore
+    DaoUpMetadata.daoProfile['CID'] = metalink.replace(IPFS_DWEB_URL,""); 
+    //@ts-ignore
+    DaoUpMetadata.daoProfile['url'] = IPFS_DWEB_URL; 
+    //@ts-ignore
+    DaoUpMetadata.daoProfile['daoUpAddress'] = {
+      universalReceiverDelegateUP: universalReceiverDelegateUPAddress,
+      universalReceiverDelegateVault: universalReceiverDelegateVaultAddress,
+      universalProfile: universalProfileAddress,
+      vault: vaultAddress,
+      keyManager: keyManagerAddress,
+      daoPermissions: daoPermissionsAddress,
+      daoDelegates: daoDelegatesAddress,
+      daoProposals: daoProposalsAddress,
+    };
+    const result = await postDaoUp(DaoUpMetadata);
+    console.log("DaoUpMetadata", DaoUpMetadata)
+    toast.success("Dao Profile Created", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  }
+
   const handleDeploy = async () => {
-    console.log("deploy");
+    // console.log("deploy");
     let txHashArray = hashArray;
-    let txhash
+    let txhash: string = "";
     setLoading(true);
     switch (step) {
       case 0:
-        txhash = await deployUniversalReceiverDelegateUP();
+        const { hash0, contractAddress0} = await deployUniversalReceiverDelegateUP();
+        txhash = hash0;
+        setUniversalReceiverDelegateUPAddress(contractAddress0);
         break;
       case 1:
-        txhash = await deployUniversalReceiverDelegateVault();
+        const { hash1, contractAddress1} = await deployUniversalReceiverDelegateVault();
+        txhash = hash1;
+        setUniversalReceiverDelegateVaultAddress(contractAddress1);
         break;
       case 2:
-        txhash = await deployUniversalProfile();
+        const { hash2, contractAddress2} = await deployUniversalProfile();
+        txhash = hash2;
+        setUniversalProfileAddress(contractAddress2);
         break;
       case 3:
-        txhash = await deployVault();
+        const { hash3, contractAddress3} = await deployVault();
+        txhash = hash3;
+        setVaultAddress(contractAddress3);
         break;
       case 4:
-        txhash = await deployKeyManager();
+        const { hash4, contractAddress4} = await deployKeyManager();
+        txhash = hash4;
+        setKeyManagerAddress(contractAddress4);
         break;
       case 5:
-        txhash = await deployDaoPermissions();
+        const { hash5, contractAddress5} = await deployDaoPermissions();
+        txhash = hash5;
+        setDaoPermissionsAddress(contractAddress5);
         break;
       case 6:
-        txhash = await deployDaoDelegates();
+        const { hash6, contractAddress6} = await deployDaoDelegates();
+        txhash = hash6;
+        setDaoDelegatesAddress(contractAddress6);
         break;
       case 7:
-        txhash = await deployDaoProposals();
+        const { hash7, contractAddress7} = await deployDaoProposals();
+        txhash = hash7;
+        setDaoProposalsAddress(contractAddress7);
         break;
       case 8:
         txhash = await setDaoUpData(daoUpMetadata,metalink);
+        // console.log(txhash);
         break;
       case 9:
         txhash = await setGiveOwnerPermissionToChangeOwner();
+        // console.log(txhash);
         break;
       case 10:
         txhash = await setControllerPermissionsForDao();
+        // console.log(txhash);
         break;
       case 11:
         txhash = await upTransferOwnership();
+        // console.log(txhash);
         break;
       case 12:
         txhash = await keyManagerClaimOwnership();
+        // console.log(txhash);
+        postDeploy();
         break;
     }
 
     // txhash = await setDaoUpData(daoUpMetadata,metalink);
-    if (txhash != "Stopped") {
+    if (txhash != "Stopped" ) {
       txHashArray.push(txhash)
       setHashArray(txHashArray)
       setStep(step+1);
     }
     setLoading(false);
-    console.log(step);
+    // console.log(step);
+  }
+
+  const handleEnd = async () => {
+    // setStep(100);
+    postDeploy();
   }
 
   return (
@@ -433,6 +497,14 @@ export default function CreateDaoModal(props:{setShowModal:any, showModal:boolea
                       </div>
                     </div>
                    
+                    <button type="button" onClick={handleEnd}
+                          className={`flex justify-center rounded-md item-center min-w-[66px]
+                          border border-transparent shadow-sm px-2 py-1 bg-[#C3073F]
+                            text-sm font-medium text-white hover:bg-[#ac0537] 
+                            sm:ml-3 sm:w-auto sm:text-sm`}
+                          >
+                          End
+                        </button>
                   </div>
                 </div>
               </div>

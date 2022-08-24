@@ -177,6 +177,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
     }
     console.log("member changes");
     console.log(permissionsObject);
+    console.log(daoSelected);
   }, [memberAddress]);
 
   const permissionsObject =

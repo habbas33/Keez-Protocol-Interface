@@ -11,6 +11,7 @@ import KeyManagerJSON from '../keezContracts/deps/KeyManager.sol/KeyManager.json
 import DaoPermissionsJSON from '../keezContracts/Dao/DaoPermissions.sol/DaoPermissions.json';
 import DaoDelegatesJSON from '../keezContracts/Dao/DaoDelegates.sol/DaoDelegates.json';
 import DaoProposalsJSON from '../keezContracts/Dao/DaoProposals.sol/DaoProposals.json';
+import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 
 import { ethers } from "ethers";
 
@@ -78,41 +79,47 @@ export const DaoProposalProvider = ({children}:any) => {
     // ********* Create Proposal ********* //
     // *********************************** // 
     
-    const createDaoProposal = async () => {
+    const createDaoProposal = async (dao:any, payloads:any,ProposalMetadata:any) => {
         try {
-            // const universalProfileContractAddress= "";
-            const daoProposalsContractAddress= "";
-            const userAddress = "";
+            console.log("dao",dao);
+            const votingParametersObject = getParsedJsonObj(dao.votingParameters);
+            const contractAddressObject = getParsedJsonObj(dao.daoUpAddress);
             const votingParameters = {minimumVotingDelay:0, minVotingPeriod:0, minExecutionDelay:0};
-
-            // const universalProfile = new ethers.Contract(universalProfileContractAddress, UniversalProfileJSON.abi, signer);
-            const daoProposals = new ethers.Contract(daoProposalsContractAddress, DaoProposalsJSON.abi, signer);
+            const metalink: string = ProposalMetadata.proposalProfile.url.concat(ProposalMetadata.proposalProfile.CID);
+            const proposalTitle = ProposalMetadata.proposalProfile.proposalName;
+            console.log("daoContractAddresses",contractAddressObject)
+            console.log("daoProposalsContractAddress",contractAddressObject.daoProposals)
+            console.log("votingParametersObject",votingParametersObject)
+            console.log("participationRate",votingParametersObject.participationRate)
             
-            const ABI = ["function setData(bytes32 dataKey, bytes memory dataValue)"];
-            const ERC725Yinterface = new ethers.utils.Interface(ABI);
-            const payloads = [ //* ask b00ste about this
-              ERC725Yinterface.encodeFunctionData(
-                "setData",
-                [
-                  "0x4b80742de2bfb3cc0e490000" + userAddress.substring(2),
-                  "0x000000000000000000000000000000000000000000000000000000000000ffff"
-                ]
-              )
-            ];
-        
+            console.log("payloads",payloads)
+            console.log("participationRate",proposalTitle)
+            console.log("metalink",metalink)
+            const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
+            
+            // const payloads = [ //* ask b00ste about this
+            //   ERC725Yinterface.encodeFunctionData(
+            //     "setData",
+            //     [
+            //       "0x4b80742de2bfb3cc0e490000" + userAddress.substring(2),
+            //       "0x000000000000000000000000000000000000000000000000000000000000ffff"
+            //     ]
+            //   )
+            // ];
             const create_proposal = await daoProposals.connect(signer).createProposal(
-              "Som random title",
-              "https://somerandomlink.sahs",
+              ProposalMetadata.proposalProfile.proposalName,
+              metalink,
               ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minimumVotingDelay)*24*3600), 32),
               ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minVotingPeriod)*24*3600), 32),
               ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minExecutionDelay)*24*3600), 32),
               payloads,
               ethers.utils.hexZeroPad(ethers.utils.hexValue(2), 32),
-              ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32)
+              ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32),
+              {gasPrice: '1000000000', gasLimit: 5000000}
             );
         
             setCreatedProposal(create_proposal);
-            return create_proposal.transactionHash
+            return create_proposal
         } catch (error) {
             console.log(error);
             return "Stopped"
@@ -129,64 +136,20 @@ export const DaoProposalProvider = ({children}:any) => {
         }
     }
     
-    // ************************************************ //
-    // ********** Register Votes and execute ********** //
-    // ************************************************ // 
-    
-    const registerVotes = async () => {
-        try {
-            const daoProposalsContractAddress= "";// get this data from backend
-            const signaturesArray: string[] = [];// get this data from new voting model at backend
-            const addressArray: string[] = [];// get this data from new voting model at backend
-            const choiceArray: string[] = [];// get this data from new voting model at backend
-            const proposalSignature = ""; // get this data from backend
-            const daoProposals = new ethers.Contract(daoProposalsContractAddress, DaoProposalsJSON.abi, signer);
-            const register_users = await daoProposals.connect(signer).registerVotes(
-                proposalSignature,
-                signaturesArray,
-                addressArray,
-                choiceArray
-              );
-            return register_users.transactionHash
-        } catch (error) {
-            console.log(error);
-            return "Stopped"
-        }
-    }
 
-    const executeProposal = async () => {
-        try {
-            const daoProposalsContractAddress= "";// get this data from backend
-            const proposalSignature = ""; // get this data from backend
-            const daoProposals = new ethers.Contract(daoProposalsContractAddress, DaoProposalsJSON.abi, signer);
-            const execution_result = await daoProposals.connect(signer).executeProposal( proposalSignature );
-            return execution_result.transactionHash
-        } catch (error) {
-            console.log(error);
-            return "Stopped"
-        }
-    }
     
     // ******************************** //
     // ********* User Voting ********** //
     // ******************************** // 
     
-    const getProposalHash = async () => {
+    const getProposalHash = async (contractAddressObject:any,proposalSignature:any,choice:number) => {
         try {
-            const daoProposalsContractAddress= "";// get this data from backend
-            const proposalSignature = ""; // get this data from backend
-            const userAddress = ""; //get that from connected profile
-            const choice: number = 0; //get that from vote page
-            const arrayOfChoices = [ //** ask booste about this
-                ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32),
-                ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32),
-                ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32)
-              ];
-            const daoProposals = new ethers.Contract(daoProposalsContractAddress, DaoProposalsJSON.abi, signer);
+            const userAddress = owner; //get that from connected profile
+            const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
             const hashUser = await daoProposals.getProposalHash(
                 userAddress,
                 proposalSignature,
-                arrayOfChoices[choice]
+                choice
               );
             setUserHash(hashUser);
             return hashUser
@@ -205,6 +168,38 @@ export const DaoProposalProvider = ({children}:any) => {
             return "Stopped"
         }
     }
+
+        // ************************************************ //
+    // ********** Register Votes and execute ********** //
+    // ************************************************ // 
+    
+    const registerVotes = async (contractAddressObject:any, proposalSignature:any, signaturesArray:any, addressArray:any, choiceArray:any ) => {
+        try {
+            const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
+            const register_users = await daoProposals.connect(signer).registerVotes(
+                proposalSignature,
+                signaturesArray,
+                addressArray,
+                choiceArray
+              );
+            return register_users
+        } catch (error) {
+            console.log(error);
+            return "Stopped"
+        }
+    }
+
+    const executeProposal = async (contractAddressObject:any, proposalSignature:any) => {
+        try {
+            const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
+            const execution_result = await daoProposals.connect(signer).executeProposal( proposalSignature );
+            return execution_result
+        } catch (error) {
+            console.log(error);
+            return "Stopped"
+        }
+    }
+
     return (
         <DaoProposalContext.Provider 
             value={{
