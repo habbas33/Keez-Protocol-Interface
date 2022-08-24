@@ -17,12 +17,28 @@ const Discover: React.FC = () => {
       label: "Closed",
     },
   ];
-
+  const [filterString, setFilter] = useState("");
   const [allDaos, setAllDaos] = useState<any>([]);
+  const filterParam = [
+    "NFT",
+    "DAO",
+    "Social",
+    "Fashion",
+    "Investment",
+    "Gaming",
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await getAllDaos();
+      console.log(result);
+      console.log(
+        result.filter((dao: any) =>
+          getParsedJsonObj(dao.categories)[0]
+            .value.toLowerCase()
+            .includes("defi")
+        )
+      );
       // console.log("x ->",result);
       setAllDaos(result);
     };
@@ -37,19 +53,19 @@ const Discover: React.FC = () => {
           <p className="text-4xl text-center pb-4">Discover DAOs</p>
           <div className="flex-col justify-start items-start w-full">
             <div className="flex flex-wrap justify-between m-5 items-center pb-4 my-1 rounded-lg">
-              <div className="flex items-center border-solid rounded-lg  border-[#999999] border-2 bg-white  text-[#7f7f81] px-2 text-sm font-bold">
-                <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">
-                  Social
-                </p>
-                <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">
-                  Investment
-                </p>
-                <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">
-                  Fasion
-                </p>
-                <p className="hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2">
-                  Gaming
-                </p>
+              <div className="flex flex-wrap items-center border-solid rounded-lg  border-[#999999] border-2 bg-white  text-[#7f7f81] px-2 text-sm font-bold">
+                {filterParam.map((item) => (
+                  <p
+                    className={`hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2 ${
+                      filterString === item.toLowerCase()
+                        ? " text-[#1A1A1D] border-[#1A1A1D]"
+                        : ""
+                    }`}
+                    onClick={() => setFilter(item.toLowerCase())}
+                  >
+                    {item}
+                  </p>
+                ))}
               </div>
               <div className="md:w-1/3">
                 <SingleSelect
@@ -64,9 +80,19 @@ const Discover: React.FC = () => {
             </div>
             {allDaos.length != [] ? (
               <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
-                {[...allDaos].reverse().map((daoDetail, i) => (
-                  <DaoCard key={i} id={i} daoDetail={daoDetail} />
-                ))}
+                {[...allDaos]
+                  .filter((dao: any) =>
+                    getParsedJsonObj(dao.categories)[0]
+                      .value.toLowerCase()
+                      .includes(filterString)
+                  )
+                  .reverse()
+                  .map(
+                    (daoDetail, i) => (
+                      console.log(getParsedJsonObj(daoDetail.categories)[0]),
+                      (<DaoCard key={i} id={i} daoDetail={daoDetail} />)
+                    )
+                  )}
               </div>
             ) : (
               <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
@@ -119,12 +145,11 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div className="flex w-full h-[250px] flex-col border-2 border-white bg-[#a44523] justify-between rounded-lg items-start">
           <div className="w-[180px] h-[150px] absolute overflow-none rounded-lg p-5 ">
-            <img 
+            <img
               className="object-cover w-[180px] h-[150px] text-center rounded-lg  bg-[#1A1A1D]"
               src={profileImageUrl}
               alt=""
-            >
-            </img>
+            ></img>
           </div>
           <div className="p-1 min-w-[35%] rounded-full text-base bg-black self-end z-10 m-5">
             <h1 className="text-white text-xs text-center px-1">
