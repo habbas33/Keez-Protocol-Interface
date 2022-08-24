@@ -6,10 +6,21 @@ import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import { shortenAddress } from "../utils/shortenAddress";
 import { getDaoByCID } from "../services/keezBackend";
 import { votingDelayItems } from '../constants/votingPeriodItems';
+import { DaoProposalContext } from "../context/DaoProposalContext";
 import dayjs from 'dayjs';
+import { toast } from "react-toastify";
+import {ethers} from 'ethers';
 
 export default function ProposalVotingModal(props:{setShowModal:any, showModal:boolean, proposal:any, daoSelected:any}) {
     const {setShowModal, showModal, proposal, daoSelected} = props;
+    const { 
+        getProposalHash,
+        registerVotes,
+        signMessage,
+        executeProposal
+        } = useContext(DaoProposalContext);
+    const { accountAddress } = useContext(ProfileContext);
+
     const [open, setOpen] = useState(true);
 
     const cancelButtonRef = useRef(null);
@@ -19,7 +30,149 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         setOpen(!open);
         console.log(proposal)
     }
+    toast.configure();
 
+    const handleFor = async () => {
+        const timestamp = dayjs().valueOf();
+        const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
+        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(0), 32);
+        const proposalUrl = proposal.url.concat(proposal.CID);
+        try {
+            //************Contract Interaction ************* */
+            // const proposalSignature = "" //proposalSignature get from backend proposals
+            // await getProposalHash(contractAddressObject,proposalSignature,choice);
+            // const result =await signMessage();
+            // console.log(result)
+            //********************************************** */
+            
+            //************backend Interaction ************* */
+            // const VoteMetadata = {
+            //     proposalContractAddress: contractAddressObject.daoProposals,
+            //     proposalUrl: proposalUrl,
+            //     signature: "signature",
+            //     proposalSignature: "proposalSignature",
+            //     choice: choice,
+            //     voter: accountAddress,
+            //     createdAt: timestamp,
+            // };
+            // console.log(VoteMetadata);
+            //********************************************** */
+
+            toast.success("Voted Successfully", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+        } catch (err) {
+            console.log(err);
+            toast.error("Vote Submission Failed", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            
+        }
+    }
+
+    const handleAgainst = async () =>{
+        const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
+        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32);
+        console.log(proposal);
+        try {
+            //************Contract Interaction ************* */
+            // const proposalSignature = "" //proposalSignature get from backend proposals
+            // await getProposalHash(contractAddressObject,proposalSignature,choice);
+            // const result = await signMessage();
+            // console.log(result)
+            //********************************************** */
+            
+            //************backend Interaction ************* */
+            // const VoteMetadata = {
+            //     proposalContractAddress: contractAddressObject.daoProposals,
+            //     proposalUrl: proposalUrl,
+            //     signature: signature,
+            //     choice: choice,
+                // voter: accountAddress,
+                // createdAt: timestamp,
+            //   };
+
+            toast.success("Voted Successfully", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+        } catch (err) {
+            console.log(err);
+            toast.error("Vote Submission Failed", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            
+        }
+    }
+    
+    const handleAbstain = async () =>{
+        const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
+        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(2), 32);
+        try {
+            //************Contract Interaction ************* */
+            // const proposalSignature = "" //proposalSignature get from backend proposals
+            // await getProposalHash(contractAddressObject,proposalSignature,choice);
+            // const result = await signMessage();
+            // console.log(result)
+            //********************************************** */
+            
+            toast.success("Voted Successfully", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+        } catch (err) {
+            console.log(err);
+            toast.error("Vote Submission Failed", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            
+        }
+    }
+
+    const handleRegister = async () =>{
+        const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
+        try {;
+            //************Contract Interaction ************* */
+            // const signaturesArray: string[] = [];// get this data from new voting model at backend
+            // const addressArray: string[] = [];// get this data from new voting model at backend
+            // const choiceArray: string[] = [];// get this data from new voting model at backend
+            // const proposalSignature = ""; // get this data from backend proposals
+            // const result = await registerVotes(contractAddressObject, proposalSignature, signaturesArray, addressArray, choiceArray);
+            // console.log(result)
+            //********************************************** */
+            
+            toast.success("Voters Registered Successfully", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+        } catch (err) {
+            console.log(err);
+            toast.error("Voter registeration Failed", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            
+        }
+    }
+
+    const handleExecute = () =>{
+        const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
+        try {
+            const proposalSignature = "" //proposalSignature get from backend
+            //************Contract Interaction ************* */
+            
+            // const result = await executeProposal(contractAddressObject,proposalSignature);
+            // console.log(result)
+            //********************************************** */
+            
+            toast.success("Executed Successfully", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+        } catch (err) {
+            console.log(err);
+            toast.error("Execution Failed", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            
+        }
+    }
+    
     useEffect(() => {
         if (!open)
             setShowModal(false);
@@ -160,16 +313,47 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                 </div>
                             </div>
                             <div className="flex flex-col w-full text-center space-y-1 justify-center items-center text-center">
-                                <h1 className="text-sm font-bold">VOTE</h1>
-                                <div className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                    <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
-                                </div>
-                                <div className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                    <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
-                                </div>
-                                <div className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                    <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
-                                </div>
+                            {proposalStatus === "Pending" &&
+                                <>
+                                    <h1 className="text-sm font-bold">VOTE</h1>
+                                    <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
+                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
+                                    </div>
+                                    <div className="flex justify-start items-center w-28 opacity-50 cursor-default bg-blue-800 rounded-full">
+                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
+                                    </div>
+                                    <div className="flex justify-start items-center w-28 opacity-50 cursor-default bg-blue-800 rounded-full">
+                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
+                                    </div>
+                                </>
+                            }
+                            
+                            { proposalStatus === "Active" &&
+                                <>
+                                    <h1 className="text-sm font-bold">VOTE</h1>
+                                    <div onClick={handleFor} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
+                                    </div>
+                                    <div onClick={handleAgainst} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
+                                    </div>
+                                    <div onClick={handleAbstain} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
+                                    </div>
+                                </>
+                            }
+
+                            { proposalStatus === "Closed" &&
+                                <>
+                                    <h1 className="text-sm font-bold">Actions</h1>
+                                    <div onClick={handleRegister} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Register</h1>
+                                    </div>
+                                    <div onClick={handleExecute} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Execute</h1>
+                                    </div>
+                                </>
+                            }
                             </div>
                         </div>
                     </div>
