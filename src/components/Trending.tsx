@@ -75,7 +75,7 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div className="flex h-[250px] border-2 border-white bg-[#a44523] flex-col justify-between rounded-lg items-start">
-        <div className="w-[180px] h-[150px] absolute overflow-none rounded-lg p-5 ">
+          <div className="w-[180px] h-[150px] absolute overflow-none rounded-lg p-5 ">
             <img 
               className="object-cover w-[180px] h-[150px] text-center rounded-lg  bg-[#1A1A1D]"
               src={profileImageUrl}

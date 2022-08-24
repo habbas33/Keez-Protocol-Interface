@@ -15,7 +15,7 @@ import { ProfileContext } from "../../context/ProfileContext";
 import { menuItems } from "../../constants/menuItems";
 import NavItems from "./NavItems";
 import { NavLink } from "react-router-dom";
-import { IPFS_GATEWAY } from "../../constants/globals";
+import { IPFS_GATEWAY, KEEZ_FRONTEND_ENDPOINT } from "../../constants/globals";
 import Skeleton from "@material-ui/lab/Skeleton";
 import {
   MenuItem,
@@ -30,25 +30,6 @@ import {
 } from "@material-ui/core";
 import { StyledMenuItem } from "../../styles";
 
-const NavbarItem = ({ title }: any, { classProps }: any) => {
-  return (
-    <li
-      className={`flex items-center font-semibold  hover:text-[#6341ff] transition duration-300 cursor-pointer ${classProps}`}
-    >
-      {title}
-      {title == "Get Started" && (
-        <div className="pl-2">
-          <AiOutlineDown fontSize={12} />
-          {/* <div className="flex absolute translate-y-6">
-            <a href="#">Create</a>
-            <a href="#">Propose</a>
-            <a href="#">Vote</a>
-          </div> */}
-        </div>
-      )}
-    </li>
-  );
-};
 
 export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
@@ -57,7 +38,8 @@ export default function Navbar() {
   const { accountAddress, disconnectWallet, connectWallet, profileData } =
     useContext(ProfileContext);
   let profileImgUrl = profileData?.value?.LSP3Profile?.profileImage[4]?.url;
-
+  const isWellcomePage = window.location.href === KEEZ_FRONTEND_ENDPOINT;
+  console.log(isWellcomePage)
   const [open, setOpen] = React.useState(false);
   const anchorEl = React.useRef(null);
   const navigate = useNavigate();
@@ -89,17 +71,17 @@ export default function Navbar() {
     navigate("/Profile");
     // disconnectWallet();
   };
-
+  // ${isWellcomePage?"bg-welcome":"bg-other"}
   return (
-    <nav className="w-full bg-welcome">
+    <nav className={isWellcomePage?"w-full bg-welcome":"w-full bg-other"}>
       <div className="px-5 lg:px-20 py-5">
         <div className="flex md:justify-between justify-between items-center">
           <NavLink className="hover:text-[#6341ff]" to={`/`}>
             <div className="flex md:flex flex-initial justify-center items-center">
             <img
-          className="object-center max-w-full h-14 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
-          src={imageToAdd1}
-        />
+              className="object-center max-w-full h-14 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
+              src={imageToAdd1}
+            />
               {/* <h1 className="text-3xl text-white font-extrabold px-2">KEEZ</h1> */}
             </div>
           </NavLink>
@@ -283,15 +265,6 @@ export default function Navbar() {
                   flex flex-col justify-start items-start gap-3 pt-[50px] rounded-md blue-glassmorphism text-white animate-slide-in
                 "
               >
-                {/* <li className="text-xl w-full my-2">
-                  <AiOutlineClose onClick={() => setToggleMenu(false)} />
-                </li>
-                {[].map((item, index) => (
-                  <NavbarItem
-                    key={item + index}
-                    title={item}
-                    classProps="my-2 text-lg"
-                  /> */}
                   {[
                   { name: "Create", title: "Create" },
                   {
