@@ -43,7 +43,7 @@ const DaoProfile = () => {
 
   return (
     <div className="min-h-screen">
-          <div className="bg-welcome flex min-h-[100vh] w-full justify-start items-start px-5 lg:px-40 md:px-20">
+          <div className="bg-other flex min-h-[100vh] w-full justify-start items-start px-5 lg:px-40 md:px-20">
             <DaoProfileSideBar handleComponent={handleComponent} profileComponent={profileComponent}/>
             <div className="pt-28 text-white min-h-[100vh] w-5/6 flex-col justify-start items-start">
               <div className="mt flex justify-start items-start">

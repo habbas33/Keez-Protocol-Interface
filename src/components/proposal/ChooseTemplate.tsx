@@ -55,8 +55,8 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
   }, []);
 
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
-      <h1 className="text-white text-sm py-2">Step 1</h1>
+    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
+      {/* <h1 className="text-white text-lg py-2">Step 1</h1> */}
       <form onSubmit={(event) => handleSubmit(event, templateSelected)}>
         <div className="py-2 ">
           <div className="flex justify-between items-center">
@@ -66,7 +66,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
             <button
               type="button"
               onClick={(event) => handleBack(event)}
-              className="flex justify-center rounded-md item-center 
+              className="flex justify-center rounded-full item-center 
                         border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                         text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
@@ -81,7 +81,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
           </div>
 
           <label
-            className="block text-slate-400 text-sm pb-4 font-normal"
+            className="block text-white text-sm pb-4 font-normal"
             htmlFor="daoName"
           >
             You have permission to create proposals for the following DAOs
@@ -99,9 +99,9 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                 Voting Parameters Template
               </p>
               <p className="text-sm h-4/6 text-light">
-                Praesent pulvinar pretium suscipit. Donec maximus ultrices nibh
-                eget vestibulum. Donec accumsan eget augue sit amet tincidunt.
-                Nam hendrerit efficitur risus, sed sollicitudin sem semper a
+              This template will allow you to propose new default voting parameters for the DAO. Voting parameters include participation rate, majority, minimum voting delay, 
+              minimum voting period, and minimum execution delay. These parameters represent the minimum default values and can be extended in any proposal. These proposals will 
+              auto execute the results when the voting period ends and after the execution delay.
               </p>
             </div>
             <div
@@ -116,9 +116,9 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                 Send Tokens From DAO Template
               </p>
               <p className="text-sm text-light">
-                Praesent pulvinar pretium suscipit. Donec maximus ultrices nibh
-                eget vestibulum. Donec accumsan eget augue sit amet tincidunt.
-                Nam hendrerit efficitur risus, sed sollicitudin sem semper a
+              This proposal template will allow you to send tokens from a DAO’s vault to another address. This template may be used to relocate tokens from one vault 
+              to another or from one vault to an individual's UP for, let's say, payment of service. These proposals will auto execute the results when the voting period 
+              ends and after an execution delay.
               </p>
             </div>
             <div
@@ -133,9 +133,8 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                 Add & Revoke Permissions Template
               </p>
               <p className="text-sm text-light">
-                Praesent pulvinar pretium suscipit. Donec maximus ultrices nibh
-                eget vestibulum. Donec accumsan eget augue sit amet tincidunt.
-                Nam hendrerit efficitur risus, sed sollicitudin sem semper a
+              This proposal template will allow you to add or revoke permissions to a DAO member's Universal Profile. This can be used to add new members to the DAO or 
+              remove members who are not respecting the community. These proposals will auto execute the results when the voting period ends and after an execution delay.
               </p>
             </div>
             <div
@@ -150,9 +149,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                 General Template
               </p>
               <p className="text-sm text-light">
-                Praesent pulvinar pretium suscipit. Donec maximus ultrices nibh
-                eget vestibulum. Donec accumsan eget augue sit amet tincidunt.
-                Nam hendrerit efficitur risus, sed sollicitudin sem semper a
+              This proposal template allows you to create a custom proposal. These proposals will not auto-execute when voting ends.
               </p>
             </div>
           </div>
@@ -160,7 +157,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
           <div className="flex justify-end items-center">
             <button
               type="submit"
-              className="flex justify-center rounded-md item-center mb-4 mt-4
+              className="flex justify-center rounded-full item-center mb-4 mt-4
                         border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                         text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"

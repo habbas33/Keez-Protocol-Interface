@@ -124,7 +124,7 @@ const CreateDaoSummary = (props: {
   }, []);
 
   return (
-    <div className="bg-welcome w-full md:px-[20%] px-5">
+    <div className="bg-other w-full md:px-[20%] px-5">
       <h1 className="text-white text-center text-lg font-bold">DAO Summary</h1>
       <div className="flex-column my-6 justify-center items-center mx-auto w-[90%] rounded-lg order border border-slate-400">
         <div className="flex flex-col md:flex-row flex-wrap justify-center h-1/2">

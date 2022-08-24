@@ -33,7 +33,7 @@ import { StyledMenuItem } from "../../styles";
 const NavbarItem = ({ title }: any, { classProps }: any) => {
   return (
     <li
-      className={`flex items-center font-semibold hover:text-[#6341ff] transition duration-300 cursor-pointer ${classProps}`}
+      className={`flex items-center font-semibold  hover:text-[#6341ff] transition duration-300 cursor-pointer ${classProps}`}
     >
       {title}
       {title == "Get Started" && (
@@ -91,7 +91,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-welcome fixed z-10">
+    <nav className="w-full bg-welcome">
       <div className="px-5 lg:px-20 py-5">
         <div className="flex md:justify-between justify-between items-center">
           <NavLink className="hover:text-[#6341ff]" to={`/`}>
@@ -119,7 +119,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={connectWallet}
-                  className="flex flex-row items-center w-44 justify-center text-white font-bold py-2 px-2 rounded-full bg-[#6341ff] hover:bg-[#8168ff]"
+                  className="flex flex-row items-center w-44 justify-center text-white font-bold py-2 px-2 rounded-full bg-[#6341ff] hover:border-white border-2 border-transparent hover:bg-[#8168ff]"
                 >
                   <AiOutlineLogin className="text-white mr-2" />
                   <p className="text-white text-base font-semibold">

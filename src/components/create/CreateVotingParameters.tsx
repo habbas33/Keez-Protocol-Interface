@@ -80,7 +80,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
   }, []);
 
   return (
-    <div className="bg-welcome w-full px-5 md:px-[20%]">
+    <div className="bg-other w-full px-5 md:px-[20%]">
       <h1 className="text-white text-sm py-2">Step 4</h1>
       <h1 className="text-white text-lg font-bold">
         Create your Default Voting Parameters

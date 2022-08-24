@@ -115,14 +115,14 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
     { value: vaultObject.vaultName, label: vaultObject.vaultName },
   ];
   return (
-    <div className="bg-welcome pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
+    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="flex justify-between items-center">
           <h1 className="text-white text-lg font-bold">Create your Proposal</h1>
           <button
             type="button"
             onClick={(event) => handleBack(event)}
-            className="flex justify-center rounded-md item-center 
+            className="flex justify-center rounded-full item-center 
                         border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                         text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
@@ -135,13 +135,13 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             <p className="-translate-x-1.5">Back</p>
           </button>
         </div>
-        <p className="block text-slate-400 text-center py-2 text-md font-semibold">
+        <p className="block text-white text-center py-2 text-md font-semibold">
           Send Tokens From DAO
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className="w-full md:w-3/5">
             <label
-              className="block text-slate-400 text-sm font-normal"
+              className="block text-white text-sm font-normal"
               htmlFor="proposalName"
             >
               Proposal Title
@@ -154,7 +154,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="categories"
             >
               Categories
@@ -166,7 +166,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="description"
             >
               Description
@@ -179,7 +179,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="minVotingPeriod"
             >
               Vault
@@ -191,7 +191,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="minVotingPeriod"
             >
               Token
@@ -203,7 +203,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="receiving Address"
             >
               Token Amount
@@ -216,7 +216,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             />
 
             <label
-              className="block pt-4 text-slate-400 text-sm font-normal"
+              className="block pt-4 text-white text-sm font-normal"
               htmlFor="receiving Address"
             >
               Receiving Address
@@ -233,7 +233,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
         <div className="flex justify-end items-center">
           <button
             type="submit"
-            className="flex justify-center rounded-md item-center mb-10 mt-[12px]
+            className="flex justify-center rounded-full item-center mb-10 mt-[12px]
                         border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                         text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
