@@ -1,15 +1,72 @@
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Popover from '@material-ui/core/Popover';
+// import { Popover } from '@headlessui/react'
+import { MdOutlineHelp }  from "react-icons/md";
 import imageToAdd1 from "../../assets/Logos/KP Submark White.png";
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    popover: {
+      pointerEvents: 'none',
+    },
+    paper: {
+      padding: theme.spacing(1),
+    },
+  }),
+);
 
 const AboutUsInfo = () => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  
   return (
     <div className="flex pt-32 w-full justify-center items-center py-0 px-5 lg:px-20 md:px-20 ">
       <div className="flex-column space-y-[0px] py-0 flex-wrap">
         <div className="flex-column flex-initial justify-between  py-0 px-20 text-center">
-          <h1 className="md:text-6xl text-4xl text-white py-0">
-            About Us
-          </h1>
+            <div className="flex justify-center  w-full">
+              <h1 className="md:text-6xl text-4xl text-white py-0">
+                  About Us 
+              </h1>
+              
+              <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-[#000000DE] text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover>
+            </div>
+            
         </div>
         <div className="flex gap-3 flex-initial items-center flex-wrap justify-between py-0">
           <div
