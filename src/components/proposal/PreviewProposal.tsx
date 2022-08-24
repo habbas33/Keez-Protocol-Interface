@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { MdLink, MdShare } from "react-icons/md";
+import { DaoProposalContext } from "../../context/DaoProposalContext";
 import { CreateProposalContext } from "../../context/CreateProposalContext";
 import { ProfileContext } from "../../context/ProfileContext";
 // import { create, IPFSHTTPClient } from "ipfs-http-client";
@@ -12,6 +13,7 @@ import { getDaoByCID, postProposal } from "../../services/keezBackend";
 import { votingDelayItems } from "../../constants/votingPeriodItems";
 import dayjs from "dayjs";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
+import { ethers } from "ethers";
 
 const GeneralTemplate = (props: { handleComponent: any }) => {
   const { handleComponent } = props;
@@ -37,6 +39,10 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
     vaultPermissions,
     daoCid,
   } = useContext(CreateProposalContext);
+  const { createDaoProposal,
+    getProposalSignatures
+    } = useContext(DaoProposalContext);
+
   const { accountAddress } = useContext(ProfileContext);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [metalink, setMetalink] = useState<string>("");
@@ -65,7 +71,9 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
   const handleSubmit = async (event: React.FormEvent) => {
     setSubmitLoading(true);
     const timestamp = dayjs().valueOf();
-
+    let payloads:any[] = [];
+    const ABI = ["function setData(bytes32 dataKey, bytes memory dataValue)"];
+    const ERC725Yinterface = new ethers.utils.Interface(ABI);
     try {
       let ProposalMetadata = {};
       switch (proposalType) {
@@ -134,6 +142,22 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
               proposalDetails: { keyPermissions: keyPermissions },
               createdAt: timestamp,
             };
+                //@ts-ignore
+                const permissionbyte = (keyPermissions.keyPermissions.registerVotes<<7) +(keyPermissions.keyPermissions.removePermission<<6) +(keyPermissions.keyPermissions.addPermission<<5) +(keyPermissions.keyPermissions.receiveDelegate<<4) +(keyPermissions.keyPermissions.sendDelegate<<3) 
+                  //@ts-ignore    
+                  +(keyPermissions.keyPermissions.execute<<2) +(keyPermissions.keyPermissions.propose<<1) + keyPermissions.keyPermissions.vote; 
+                const permissionHex = ethers.utils.hexZeroPad(ethers.utils.hexValue(permissionbyte), 32)
+                console.log(permissionbyte)
+                console.log(permissionHex)
+            payloads = [ 
+              ERC725Yinterface.encodeFunctionData(
+                "setData",
+                [
+                  "0x4b80742de2bfb3cc0e490000" + keyPermissions.upAddress.substring(2),
+                  permissionHex
+                ]
+              )
+            ];
           } else if (membersOrVault === "Vault") {
             ProposalMetadata = {
               proposalProfile: {
@@ -183,21 +207,27 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
           };
           break;
       }
-      const resultDaoMetadata = await postJsonToIPFS(ProposalMetadata); //
-      const metalink: string = IPFS_DWEB_URL.concat(resultDaoMetadata.cid); //
+      const resultProposalMetadata = await postJsonToIPFS(ProposalMetadata); //
+      const metalink: string = IPFS_DWEB_URL.concat(resultProposalMetadata.cid); //
 
       //@ts-ignore
-      ProposalMetadata.proposalProfile["CID"] = resultDaoMetadata.cid;
+      ProposalMetadata.proposalProfile["CID"] = resultProposalMetadata.cid;
       //@ts-ignore
       ProposalMetadata.proposalProfile["url"] = IPFS_DWEB_URL;
+      
+      //************contract interaction ************* */
       //@ts-ignore
-      ProposalMetadata.proposalProfile["identifier"] = "";
-
-      console.log("ProposalMetadata = ", JSON.stringify(ProposalMetadata));
-
+      // const result = await createDaoProposal(daoSelected,payloads,ProposalMetadata);
+      // console.log("create Proposal = ", result);
+      // const proposalSignatures = await getProposalSignatures();
+      // console.log("proposalSignatures = ", proposalSignatures);
+      //@ts-ignore
+      // ProposalMetadata.proposalProfile["identifier"] = proposalSignatures;
+      //************************ */
+      
       console.log(metalink);
       setMetalink(metalink);
-      window.open(metalink, "_blank");
+      // window.open(metalink, "_blank");
       const result = await postProposal(ProposalMetadata);
       setSubmitLoading(false);
       toast.success("Proposal Created", {

@@ -81,15 +81,12 @@ const CreateDaoSummary = (props: {
         setMetalink(metalink);
         // window.open(metalink, "_blank");
         
+      //************contract interaction ************* */
         
-        // const { 
-        //   universalReceiverDelegateUP,
-        //   universalProfile,
-        //   vault,
-        //   keyManager,
-        //   daoPermissions,
-        //   daoDelegates } = await createDaoService(DaoUpMetadata,metalink);
-        handleDeployDao(DaoUpMetadata,metalink)
+        // handleDeployDao(DaoUpMetadata)
+        
+      //******************************************* */
+
         //@ts-ignore
         DaoUpMetadata.daoProfile['CID'] = resultDaoMetadata.cid; 
         //@ts-ignore
@@ -103,8 +100,9 @@ const CreateDaoSummary = (props: {
         //   daoPermissions: daoPermissions.address,
         //   daoDelegates: daoDelegates.address,
         // };
-        // const result = await postDaoUp(DaoUpMetadata);
-        console.log(DaoUpMetadata)
+
+        const result = await postDaoUp(DaoUpMetadata);
+        // console.log(DaoUpMetadata)
         setSubmitLoading(false);
         toast.success("Dao Profile Created", {
           position: toast.POSITION.BOTTOM_RIGHT,
