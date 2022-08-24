@@ -10,4 +10,4 @@ export const KEEZ_BACKEND_ENDPOINT = "https://keezdaobackend.herokuapp.com/api/v
 export const KEEZ_FRONTEND_ENDPOINT = "https://keez-dao-mock.vercel.app/"
 // export const KEEZ_BACKEND_ENDPOINT = "http://127.0.0.1:8000/api/v1/"
 // export const KEEZ_FRONTEND_ENDPOINT = "http://localhost:3000/"
-export const VALIDATORS = false
+export const VALIDATORS = true
