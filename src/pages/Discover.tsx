@@ -31,14 +31,6 @@ const Discover: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getAllDaos();
-      console.log(result);
-      console.log(
-        result.filter((dao: any) =>
-          getParsedJsonObj(dao.categories)[0]
-            .value.toLowerCase()
-            .includes("defi")
-        )
-      );
       // console.log("x ->",result);
       setAllDaos(result);
     };
@@ -67,16 +59,16 @@ const Discover: React.FC = () => {
                   </p>
                 ))}
               </div>
-              <div className="md:w-1/3">
+              {/* <div className="md:w-1/3">
                 <SingleSelect
                   handleChange={(e: string) => {
                     console.log(e);
                   }}
                   name={"MinVotingDelay"}
                   placeholder={"Select your state"}
-                  listItems={state}
+                  // listItems={state}
                 />
-              </div>
+              </div> */}
             </div>
             {allDaos.length != [] ? (
               <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
