@@ -89,16 +89,16 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
           <div className="grid gap-4 md:grid-cols-2 text-white mx-5 md:mx-20">
             <div
               onClick={(event) => handleTemplateSelection(event, 0)}
-              className={`flex-col justify-start p-6 cursor-pointer items-center bg-[#292d46] ${
+              className={`flex-col justify-start p-6 cursor-pointer rounded-lg items-center hover:bg-[#8168ff] bg-[#292d46] ${
                 templateSelected === 0
-                  ? "outline outline-offset-2 outline-1 outline-green-500"
+                  ? "outline outline-offset-2 outline-4 outline-white"
                   : ""
               }`}
             >
               <p className="text-xl h-2/6 text-center pb-4 text-bold">
                 Voting Parameters Template
               </p>
-              <p className="text-sm h-4/6 text-light">
+              <p className="text-sm h-4/6 text-light text-center">
               This template will allow you to propose new default voting parameters for the DAO. Voting parameters include participation rate, majority, minimum voting delay, 
               minimum voting period, and minimum execution delay. These parameters represent the minimum default values and can be extended in any proposal. These proposals will 
               auto execute the results when the voting period ends and after the execution delay.
@@ -106,16 +106,16 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
             </div>
             <div
               onClick={(event) => handleTemplateSelection(event, 1)}
-              className={`flex-col justify-start p-6 cursor-pointer items-center bg-[#292d46] ${
+              className={`flex-col justify-start p-6 cursor-pointer rounded-lg items-center hover:bg-[#8168ff] bg-[#292d46] ${
                 templateSelected === 1
-                  ? "outline outline-offset-2 outline-1 outline-green-500"
+                  ? "outline outline-offset-2 outline-4 bg-[#8168ff] outline-white"
                   : ""
               }`}
             >
               <p className="text-xl h-2/6 text-center pb-4 text-bold">
                 Send Tokens From DAO Template
               </p>
-              <p className="text-sm text-light">
+              <p className="text-sm text-light text-center">
               This proposal template will allow you to send tokens from a DAO’s vault to another address. This template may be used to relocate tokens from one vault 
               to another or from one vault to an individual's UP for, let's say, payment of service. These proposals will auto execute the results when the voting period 
               ends and after an execution delay.
@@ -123,32 +123,32 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
             </div>
             <div
               onClick={(event) => handleTemplateSelection(event, 2)}
-              className={`flex-col justify-start p-6 cursor-pointer items-center bg-[#292d46] ${
+              className={`flex-col justify-start p-6 cursor-pointer rounded-lg items-center hover:bg-[#8168ff] bg-[#292d46] ${
                 templateSelected === 2
-                  ? "outline outline-offset-2 outline-1 outline-green-500"
+                  ? "outline outline-offset-2 outline-4 outline-white"
                   : ""
               }`}
             >
               <p className="text-xl h-2/6 text-center pb-4 text-bold">
                 Add & Revoke Permissions Template
               </p>
-              <p className="text-sm text-light">
+              <p className="text-sm text-light text-center">
               This proposal template will allow you to add or revoke permissions to a DAO member's Universal Profile. This can be used to add new members to the DAO or 
               remove members who are not respecting the community. These proposals will auto execute the results when the voting period ends and after an execution delay.
               </p>
             </div>
             <div
               onClick={(event) => handleTemplateSelection(event, 3)}
-              className={`flex-col justify-start p-6 cursor-pointer items-center bg-[#292d46] ${
+              className={`flex-col justify-start p-6 cursor-pointer rounded-lg items-center hover:bg-[#8168ff] bg-[#292d46] ${
                 templateSelected === 3
-                  ? "outline outline-offset-2 outline-1 outline-green-500"
+                  ? "outline outline-offset-2 outline-4 outline-white"
                   : ""
               }`}
             >
               <p className="text-xl h-2/6 text-center pb-4 text-bold">
                 General Template
               </p>
-              <p className="text-sm text-light">
+              <p className="text-sm text-light text-center">
               This proposal template allows you to create a custom proposal. These proposals will not auto-execute when voting ends.
               </p>
             </div>

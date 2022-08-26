@@ -168,7 +168,7 @@ const CreateDaoSummary = (props: {
           <button
             type="submit"
             onClick={handleSubmit}
-            className="flex justify-center rounded-md item-center
+            className="flex justify-center rounded-full item-center
                     border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                     text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm ml-auto"

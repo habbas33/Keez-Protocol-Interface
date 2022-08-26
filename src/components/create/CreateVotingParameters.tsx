@@ -8,8 +8,34 @@ import {
   votingDelayItems,
 } from "../../constants/votingPeriodItems";
 import { VALIDATORS } from "../../constants/globals";
+import { MdOutlineHelp }  from "react-icons/md";
+import Popover from '@material-ui/core/Popover';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    popover: {
+      pointerEvents: 'none',
+    },
+    paper: {
+      padding: theme.spacing(1),
+    },
+  }),
+);
 
 const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   const { handleSubmitCreate } = props;
   const {
     participationRate,
@@ -87,12 +113,38 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
       </h1>
       <form onSubmit={handleSubmit}>
         <div className="md:px-[10%] py-4">
+        <div className="flex justify-left  w-full">
           <label
             className="block text-white text-sm font-normal"
             htmlFor="participationRate"
           >
             Participation rate
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           <div className="flex items-center text-white text-sm font-normal">
             <Input
               value={participationRate.toString()}
@@ -106,13 +158,38 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             />
             <p className="px-2">%</p>
           </div>
-
+          <div className="flex justify-left  w-full">
           <label
-            className="block pt-4 text-white text-sm font-normal"
+            className="block  text-white text-sm font-normal"
             htmlFor="votingMajority"
           >
             Majority
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           <div className="flex items-center text-white text-sm font-normal">
             <Input
               value={votingMajority.toString()}
@@ -126,13 +203,38 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             />
             <p className="px-2">%</p>
           </div>
-
+          <div className="flex justify-left  w-full">
           <label
-            className="block pt-4 text-white text-sm font-normal"
+            className="block  text-white text-sm font-normal"
             htmlFor="MinVotingDelay"
           >
             Minimum Voting Delay
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           <div className="w-1/2">
             <SingleSelect
               handleChange={handleMinVotingDelay}
@@ -140,13 +242,38 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
               listItems={votingDelayItems}
             />
           </div>
-
+          <div className="flex justify-left  w-full">
           <label
-            className="block pt-4 text-white text-sm font-normal"
+            className="block  text-white text-sm font-normal"
             htmlFor="minVotingPeriod"
           >
             Minimum Voting Period
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           <div className="w-1/2">
             <SingleSelect
               handleChange={handleMinVotingPeriod}
@@ -154,13 +281,38 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
               listItems={votingPeriodItems}
             />
           </div>
-
+          <div className="flex justify-left  w-full">
           <label
-            className="block pt-4 text-white text-sm font-normal"
+            className="block  text-white text-sm font-normal"
             htmlFor="minVotingPeriod"
           >
             Minimum Execution Delay
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           <div className="w-1/2">
             <SingleSelect
               handleChange={handleMinExecutionDelay}

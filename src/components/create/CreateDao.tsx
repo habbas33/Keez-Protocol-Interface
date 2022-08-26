@@ -10,8 +10,33 @@ import { toast } from "react-toastify";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { daoCategoryItems } from "../../constants/daoCategoryItems";
 import { VALIDATORS } from "../../constants/globals";
+import { MdOutlineHelp }  from "react-icons/md";
+import Popover from '@material-ui/core/Popover';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    popover: {
+      pointerEvents: 'none',
+    },
+    paper: {
+      padding: theme.spacing(1),
+    },
+  }),
+);
 
 const CreateDao = (props: { handleSubmitCreate: any }) => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
   const { handleSubmitCreate } = props;
   const {
     daoName,
@@ -70,15 +95,67 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
   return (
     <div className="bg-other w-full px-5 md:px-[20%]">
       <h1 className="text-white text-sm py-2">Step 1</h1>
+      <div className="flex justify-left  w-full">
       <h1 className="text-white text-lg font-bold">Create your DAO</h1>
+      <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg "/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
       <form onSubmit={handleSubmit}>
         <div className=" py-4 md:w-[70%] md:mx-auto">
+        <div className="flex justify-left  w-full">
           <label
             className="block text-white text-sm font-normal"
             htmlFor="daoName"
           >
             DAO Name
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           <Input
             value={daoName}
             name="dao_name"
@@ -86,25 +163,76 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             maxLength={50}
             handleChange={(e: any) => setDaoName(e.target.value)}
           />
-
+          <div className="flex justify-left  w-full">
           <label
-            className="block pt-4 text-white text-sm font-normal"
+            className="block  text-white text-sm font-normal"
             htmlFor="daoLogo"
           >
             DAO Logo
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           <FileUploader
             onFileSelectSuccess={(file: any) => setLogoImageFile(file)}
             onFileSelectError={(error: string) =>
               toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT })
             }
           />
+          <div className="flex justify-left  w-full">
           <label
-            className="block pt-4 text-white text-sm font-normal"
+            className="block  text-white text-sm font-normal"
             htmlFor="categories"
           >
             Categories
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           {/* <MultiSelect
             handleChange={handleCategoriesChange}
             listItems={daoCategoryItems}
@@ -123,13 +251,38 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             Maximum three categories in following order [Primary, Secondary,
             Tertiary]
           </p>
-
+          <div className="flex justify-left  w-full">
           <label
-            className="block pt-4 text-white text-sm font-normal"
+            className="block  text-white text-sm font-normal"
             htmlFor="description"
           >
             Description
           </label>
+          <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
           <textarea
             className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
             value={description}
