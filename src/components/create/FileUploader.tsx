@@ -20,7 +20,7 @@ const FileUploader = (props:{onFileSelectError:any, onFileSelectSuccess:any}) =>
     return (
         <div className="file-uploader">
             <input type="file" onChange={handleFileInput}  accept=".jpg, .jpeg, .png, .gif," className="my-1 block rounded-lg w-full text-sm bg-white text-gray-900 border-2 border-[#999999] p-[5px] outline-none focus:border-red-400 text-sm text-gray-700 leading-tight"/>
-            <p className="text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. SIZE 1MB).</p>
+            <p className="text-sm text-white " id="file_input_help">SVG, PNG, JPG or GIF (MAX. SIZE 1MB).</p>
             {fileURL && (<img src={fileURL} className="my-2 max-h-[200px] mx-auto"/>
             )}
         </div>

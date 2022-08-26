@@ -143,6 +143,8 @@ const DaoCard = (props: {
   const categoriesObject = getParsedJsonObj(daoDetail.categories);
   const memberStr = keyPermissionObject.length > 1 ? "Members" : "Member";
   const navigate = useNavigate();
+  const profileImageObj = getParsedJsonObj(daoDetail.profileImage);
+  const profileImageUrl = profileImageObj.url.concat(profileImageObj.hash);
 
   return (
     <div
@@ -153,7 +155,7 @@ const DaoCard = (props: {
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div
-          className={`flex w-full flex-col bg-[#a44523] border-2 border-white justify-between rounded-lg items-start h-[250px] p-5 ${
+          className={`flex w-full flex-col bg-gradient-to-tr from-purple-300 via-purple-500 to-blue-300 border-2 border-white justify-between rounded-lg items-start h-[250px] p-5 ${
             daoSelected === id
               ? "outline outline-offset-2 outline-1 outline-green-500"
               : ""
@@ -166,6 +168,12 @@ const DaoCard = (props: {
               {categoriesObject[0].label}
             </h1>{" "}
           </div>{" "}
+          <img 
+              className="object-cover w-[150px] h-[150px] text-center rounded-full  bg-[#1A1A1D]"
+              src={profileImageUrl}
+              alt=""
+            >
+            </img>
           <div className="flex w-full flex-col justify-end items-start h-full ">
             {" "}
             <h1 className="text-black text-lg font-bold py-1">

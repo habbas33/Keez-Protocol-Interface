@@ -13,8 +13,34 @@ import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { fetchErc725Data } from "../../services/erc725";
 import { VALIDATORS } from "../../constants/globals";
+import { MdOutlineHelp }  from "react-icons/md";
+import Popover from '@material-ui/core/Popover';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    popover: {
+      pointerEvents: 'none',
+    },
+    paper: {
+      padding: theme.spacing(1),
+    },
+  }),
+);
 
 const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   const { handleSubmitCreate } = props;
   const { keyPermissions, setKeyPermissions } = useContext(CreateDaoContext);
   const [upAddress, setUpAddress] = useState<string>("");
@@ -125,19 +151,71 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
   return (
     <div className="bg-other w-full px-5 md:px-[20%]">
       <h1 className="text-white text-sm py-2">Step 2</h1>
+      <div className="flex justify-left  w-full">
       <h1 className="text-white text-lg font-bold">
         Create your Key Permissions
       </h1>
+      <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
 
       <div className="flex flex-row justify-between">
         <form onSubmit={handleSubmit} className="w-3/5">
           <div className="md:pl-32 py-4">
+          <div className="flex justify-left  w-full">
             <label
               className="block text-white text-sm font-normal"
               htmlFor="keyTitle"
             >
               UP Address
             </label>
+            <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
             <div className="flex flex-row items-center">
               <Input
                 placeholder=""
@@ -156,13 +234,38 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 <AiOutlineUserAdd className="w-6" color="#fff" fontSize={21} />
               </button>
             </div>
-
+            <div className="flex justify-left  w-full">
             <label
-              className="block pt-4 text-white text-sm font-normal"
+              className="block  text-white text-sm font-normal"
               htmlFor="categories"
             >
               Key Permissions
             </label>
+            <p aria-owns={open ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  i used popover
+              </Popover></div>
 
             <div className="flex items-center my-3">
               <input

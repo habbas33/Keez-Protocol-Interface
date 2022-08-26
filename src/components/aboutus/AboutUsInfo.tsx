@@ -40,7 +40,7 @@ const AboutUsInfo = () => {
                   About Us 
               </h1>
               
-              <p aria-owns={open ? 'mouse-over-popover' : undefined}
+              {/* <p aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
                   <MdOutlineHelp className="text-[#000000DE] text-lg"/>
                 </p>
@@ -64,7 +64,7 @@ const AboutUsInfo = () => {
                   disableRestoreFocus
                 >
                   i used popover
-              </Popover>
+              </Popover> */}
             </div>
             
         </div>
