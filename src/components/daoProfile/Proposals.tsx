@@ -52,8 +52,8 @@ const Proposals = (props: { daoDetail: any }) => {
 
   const userProfiles = [0, 1, 2, 3, 4, 5];
   return (
-    <div className="flex-col py-4 justify-start items-start w-full">
-      <div className="flex justify-between items-center py-4 my-1">
+    <div className="flex-col md:py-4 justify-start items-start w-full">
+      <div className="flex flex-wrap justify-between items-center md:py-4 my-1">
         <div className="flex items-center border-solid border-[#999999] border-2 rounded-lg bg-white text-[#7f7f81] px-2 text-sm font-bold">
           {categories.map((category) => {
             return (
@@ -83,7 +83,7 @@ const Proposals = (props: { daoDetail: any }) => {
       </div>
 
       {proposals.length != [] ? (
-        <div className="flex flex-wrap">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg-grid-cols-4">
           {[...proposals]
             .filter((proposal) => proposal.proposalDetails.includes(filterStr))
             .filter((proposal) => {
@@ -184,7 +184,7 @@ const ProposalCard = (props: {
   return (
     <div
       onClick={() => setShowModal(true)}
-      className="min-w-[30.5%] max-w-[30.5%] h-60 flex flex-1 flex-col cursor-pointer m-4 rounded-md bg-[#b8a5a6]"
+      className="w-full h-60 flex flex-1 flex-col cursor-pointer m-4 rounded-md bg-[#b8a5a6]"
     >
       <div className="flex w-full flex-col justify-start items-start h-full p-5">
         <div className="flex justify-between items-center w-full">
