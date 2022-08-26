@@ -30,7 +30,14 @@ const Proposals = (props: { daoDetail: any }) => {
   }, []);
 
   // const bg_imgfromurl = "url('".concat(backgroundImageUrl).concat("')");
-  const categories = ["Voting", "Send tokens", "Permission", "General"];
+  const categories = ["All", "Voting", "Permission", "General", "Send tokens"];
+  const filterByCategory = (category: string) => {
+    if (category === "All") {
+      setFilter("");
+    } else {
+      setFilter(category);
+    }
+  };
   const state = [
     {
       value: "",
@@ -53,12 +60,12 @@ const Proposals = (props: { daoDetail: any }) => {
   const userProfiles = [0, 1, 2, 3, 4, 5];
   return (
     <div className="flex-col md:py-4 justify-start items-start w-full">
-      <div className="flex flex-wrap justify-between items-center md:py-4 my-1">
-        <div className="flex items-center border-solid border-[#999999] border-2 rounded-lg bg-white text-[#7f7f81] px-2 text-sm font-bold">
+      <div className="flex w-full flex-wrap justify-between items-center md:py-4 my-1">
+        <div className="flex flex-wrap items-center border-solid border-[#999999] border-2 rounded-lg bg-white text-[#7f7f81] px-2 text-sm font-bold">
           {categories.map((category) => {
             return (
               <p
-                onClick={() => setFilter(category)}
+                onClick={() => filterByCategory(category)}
                 className={`hover:border-[#1A1A1D] border-b-2 cursor-pointer  px-2 hover:text-[#1A1A1D] py-2 ${
                   category === filterStr
                     ? "text-[#1A1A1D] border-[#1A1A1D]"
@@ -103,8 +110,6 @@ const Proposals = (props: { daoDetail: any }) => {
                   : startDay <= dayjs() && endDay >= dayjs()
                   ? "Active"
                   : "Closed";
-              console.log(proposalStatus);
-              // return true;
               return proposalStatus?.includes(filterActivity);
             })
             .reverse()
@@ -184,10 +189,10 @@ const ProposalCard = (props: {
   return (
     <div
       onClick={() => setShowModal(true)}
-      className="w-full h-60 flex flex-1 flex-col cursor-pointer m-4 rounded-md bg-[#b8a5a6]"
+      className="w-full h-60 flex flex-1 flex-col cursor-pointer rounded-md bg-[#b8a5a6]"
     >
-      <div className="flex w-full flex-col justify-start items-start h-full p-5">
-        <div className="flex justify-between items-center w-full">
+      <div className="flex flex-col justify-start items-start h-full p-5">
+        <div className="flex justify-between items-center ">
           <h1 className="text-gray-800 font-bold">
             {daoDetailsObject.daoName}
           </h1>
