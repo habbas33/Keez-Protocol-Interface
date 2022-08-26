@@ -1,6 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { MdNavigateNext } from "react-icons/md";
-import { MultiSelect, FileUploader, Input } from "../../components";
+import {
+  MultiSelect,
+  FileUploader,
+  Input,
+  SingleSelect,
+} from "../../components";
 import { toast } from "react-toastify";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { daoCategoryItems } from "../../constants/daoCategoryItems";
@@ -100,13 +105,24 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
           >
             Categories
           </label>
-          <MultiSelect
+          {/* <MultiSelect
             handleChange={handleCategoriesChange}
             listItems={daoCategoryItems}
             categories={categories}
             name={"daoCategories"}
+          /> */}
+          <SingleSelect
+            handleChange={handleCategoriesChange}
+            listItems={daoCategoryItems}
+            name={"daoCategories"}
           />
-          <p className="text-sm text-white dark:text-white" id="file_input_help">Maximum three categories in following order [Primary, Secondary, Tertiary]</p>
+          <p
+            className="text-sm text-white dark:text-white"
+            id="file_input_help"
+          >
+            Maximum three categories in following order [Primary, Secondary,
+            Tertiary]
+          </p>
 
           <label
             className="block pt-4 text-white text-sm font-normal"
