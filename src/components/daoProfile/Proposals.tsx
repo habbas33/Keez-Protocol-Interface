@@ -83,7 +83,7 @@ const Proposals = (props: { daoDetail: any }) => {
       </div>
 
       {proposals.length != [] ? (
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg-grid-cols-4">
+        <div className="grid sm:grid-cols-2 gap-5 md:grid-cols-3 lg-grid-cols-4">
           {[...proposals]
             .filter((proposal) => proposal.proposalDetails.includes(filterStr))
             .filter((proposal) => {
