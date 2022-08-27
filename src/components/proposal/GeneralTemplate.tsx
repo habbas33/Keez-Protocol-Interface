@@ -31,17 +31,35 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const GeneralTemplate = (props: { handleComponent: any }) => {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+    const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
+    const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
+    const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
   
-    const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      setAnchorEl(event.currentTarget);
+    const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      setAnchorEl1(event.currentTarget);
+    };
+    const handlePopoverClose1 = () => {
+      setAnchorEl1(null);
     };
   
-    const handlePopoverClose = () => {
-      setAnchorEl(null);
+    const handlePopoverOpen2 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      setAnchorEl2(event.currentTarget);
     };
   
-    const open = Boolean(anchorEl);
+    const handlePopoverClose2 = () => {
+      setAnchorEl2(null);
+    };
+  
+    const handlePopoverOpen3 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      setAnchorEl3(event.currentTarget);
+    };
+    const handlePopoverClose3 = () => {
+      setAnchorEl3(null);
+    };
+  
+    const open1 = Boolean(anchorEl1);
+    const open2 = Boolean(anchorEl2);
+    const open3 = Boolean(anchorEl3);
   const { handleComponent } = props;
   const {
     proposalName,
@@ -147,7 +165,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
       {/* <h1 className="text-white text-sm py-2">Step 1</h1> */}
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="flex justify-between items-center">
-          <h1 className="text-white text-lg font-bold">Create your Proposal</h1>
+          <h1 className="text-white text-4xl">Create your Proposal</h1>
           <button
             type="button"
             onClick={(event) => handleBack(event)}
@@ -165,7 +183,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
           </button>
         </div>
 
-        <p className="block text-white text-center py-2 text-md font-semibold">
+        <p className="block text-white text-center py-2 text-3xl ">
           General Template
         </p>
 
@@ -178,8 +196,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             >
               Proposal Title
             </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
-            aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+            <p aria-owns={open1 ? 'mouse-over-popover' : undefined}
+            aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -188,8 +206,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open1}
+                  anchorEl={anchorEl1}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -198,10 +216,10 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose1}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  This title will be displayed at the top of the proposal and should reflect the contents of the proposal.</div>
               </Popover>
           </div>
             <Input
@@ -217,8 +235,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             >
               Upload a Photo [optional]
             </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+            <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -227,8 +245,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open2}
+                  anchorEl={anchorEl2}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -237,10 +255,10 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose2}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  Add an image that will help describe the proposal in any way.</div>
               </Popover></div>
             <FileUploader
               // onFileSelectSuccess={(file:any) => setLogoImageFile(file)}
@@ -257,8 +275,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             >
               Description
             </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+            <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -267,8 +285,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open3}
+                  anchorEl={anchorEl3}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -277,10 +295,11 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose3}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  This description will be displayed on the proposal card and should describe its contents and why it is being proposed. This is your chance to provide the reasoning
+                  behind this proposal.</div>
               </Popover></div>
             <textarea
               className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"

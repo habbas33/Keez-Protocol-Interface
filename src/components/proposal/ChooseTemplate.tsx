@@ -60,7 +60,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
       <form onSubmit={(event) => handleSubmit(event, templateSelected)}>
         <div className="py-2 ">
           <div className="flex justify-between items-center">
-            <h1 className="text-white text-lg font-bold">
+            <h1 className="text-white text-4xl ">
               Choose a DAO to create a proposal for
             </h1>
             <button
@@ -81,7 +81,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
           </div>
 
           <label
-            className="block text-white text-sm pb-4 font-normal"
+            className="block text-white text-lg pb-4 font-normal"
             htmlFor="daoName"
           >
             You have permission to create proposals for the following DAOs

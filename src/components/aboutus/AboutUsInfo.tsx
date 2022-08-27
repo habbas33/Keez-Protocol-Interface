@@ -38,7 +38,7 @@ const AboutUsInfo = () => {
       <div className="flex-column space-y-[0px] py-0 flex-wrap">
         <div className="flex-column flex-initial justify-between  py-0 px-20 text-center">
           <div className="flex justify-center  w-full">
-            <h1 className="md:text-6xl text-4xl text-white py-0">About Us</h1>
+            <h1 className="md:text-5xl text-lg text-white py-0">About Us</h1>
 
             {/* <p aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>

@@ -13,6 +13,7 @@ import { VALIDATORS } from "../../constants/globals";
 import { MdOutlineHelp }  from "react-icons/md";
 import Popover from '@material-ui/core/Popover';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,16 +28,54 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CreateDao = (props: { handleSubmitCreate: any }) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
+  const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
+  const [anchorEl4, setAnchorEl4] = React.useState<HTMLElement | null>(null);
+  const [anchorEl5, setAnchorEl5] = React.useState<HTMLElement | null>(null);
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl(event.currentTarget);
+  const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl1(event.currentTarget);
+  };
+  const handlePopoverClose1 = () => {
+    setAnchorEl1(null);
   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
+  const handlePopoverOpen2 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl2(event.currentTarget);
   };
-  const open = Boolean(anchorEl);
+
+  const handlePopoverClose2 = () => {
+    setAnchorEl2(null);
+  };
+
+  const handlePopoverOpen3 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl3(event.currentTarget);
+  };
+  const handlePopoverClose3 = () => {
+    setAnchorEl3(null);
+  };
+
+  const handlePopoverOpen4 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl4(event.currentTarget);
+  };
+  const handlePopoverClose4 = () => {
+    setAnchorEl4(null);
+  };
+
+  const handlePopoverOpen5 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl5(event.currentTarget);
+  };
+
+  const handlePopoverClose5 = () => {
+    setAnchorEl5(null);
+  };
+  const open1 = Boolean(anchorEl1);
+  const open2 = Boolean(anchorEl2);
+  const open3 = Boolean(anchorEl3);
+  const open4 = Boolean(anchorEl4);
+  const open5 = Boolean(anchorEl5);
+  
   const { handleSubmitCreate } = props;
   const {
     daoName,
@@ -95,11 +134,11 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
 
   return (
     <div className="bg-other w-full px-5 md:px-[20%]">
-      <h1 className="text-white text-sm py-2">Step 1</h1>
+      <h1 className="text-white text-3xl py-2">Step 1</h1>
       <div className="flex justify-left  w-full">
-      <h1 className="text-white text-lg font-bold">Create your DAO</h1>
-      <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+      <h1 className="text-white text-4xl font-bold">Create your DAO</h1>
+      <p aria-owns={open1 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
                   <MdOutlineHelp className="text-white text-lg "/>
                 </p>
               <Popover
@@ -108,8 +147,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open1}
+                  anchorEl={anchorEl1}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -118,10 +157,12 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose1}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                Here you will begin to create a Universal Profile for your DAO,
+                add members, assign permissions, create vaults & multisigs, 
+                and governance parameters.</div>
               </Popover></div>
       <form onSubmit={handleSubmit}>
         <div className=" py-4 md:w-[70%] md:mx-auto">
@@ -132,8 +173,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
           >
             DAO Name
           </label>
-          <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+          <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -142,8 +183,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open2}
+                  anchorEl={anchorEl2}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -152,10 +193,12 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose2}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  The name of your DAO. This will be the name that is displayed on your profile card/page. 
+                  There is currently no way to change it after the creation 
+                  process is completed so choose wisely.</div>
               </Popover>
           </div>
           <Input
@@ -172,8 +215,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
           >
             DAO Logo
           </label>
-          <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+          <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -182,8 +225,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open3}
+                  anchorEl={anchorEl3}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -192,10 +235,12 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose3}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  This logo will be displayed on your profile card/page. 
+                  This image cannot currently be changed after the creation 
+                  process is completed so choose wisely.</div>
               </Popover></div>
           <FileUploader
             onFileSelectSuccess={(file: any) => setLogoImageFile(file)}
@@ -210,8 +255,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
           >
             Category
           </label>
-          <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+          <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -220,8 +265,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open4}
+                  anchorEl={anchorEl4}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -230,10 +275,12 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose4}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  These categories will help users find your DAO when searching
+                  through the discovery page. Please select the category that
+                  best describes your DAO.</div>
               </Popover></div>
           {/* <MultiSelect
             handleChange={handleCategoriesChange}
@@ -260,8 +307,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
           >
             Description
           </label>
-          <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+          <p aria-owns={open5 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -270,8 +317,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open5}
+                  anchorEl={anchorEl5}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -280,10 +327,11 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose1}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  This description will be displayed on your profile card/page
+                  and can be edited anytime. There is a 500-word limit.</div>
               </Popover></div>
           <textarea
             className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"

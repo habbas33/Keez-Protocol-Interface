@@ -340,7 +340,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
   toast.configure();
   return (
     <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
-      <h1 className="text-white text-center text-lg pb-2 font-bold">
+      <h1 className="text-white text-center text-4xl pb-2">
         Preview Proposal
       </h1>
       <div className="flex flex-col justify-between items-center p-8 rounded-lg bg-[#8168ff]">
