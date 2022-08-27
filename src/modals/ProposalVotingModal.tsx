@@ -83,29 +83,37 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     }
 
     const handleAgainst = async () =>{
+        setIsLoading(true);
+        const timestamp = dayjs().valueOf();
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
         const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32);
-        console.log(proposal);
+        const proposalUrl = proposal.url.concat(proposal.CID);
         try {
             //************Contract Interaction ************* */
-            const proposalSignature = proposal.identifier; //proposalSignature get from backend proposals
-            await getProposalHash(contractAddressObject,proposalSignature,choice);
-            // const result = await signMessage();
-            // console.log(result)
+            const proposalSignature = proposal.identifier //proposalSignature get from backend proposals
+            //@ts-ignore
+            const hash = await getProposalHash(contractAddressObject,proposalSignature,choice);
+            console.log("phash",hash.signature);
             //********************************************** */
             
             //************backend Interaction ************* */
-            // const VoteMetadata = {
-            //     "proposalContractAddress":" contractAddressObject.daoProposals",
-            //      "proposalName": "proposal.proposalName",
-            //     "proposalUrl": "proposalUrl",
-            // "proposalSignature":"proposalSignature",
-            //     "VoterSignature": "signature",
-            //     "VoterChoice": "choice",
-            //     "VoterAddress": "accountAddress",
-            //     "createdAt": "timestamp",
-            //   }
+            const VoteMetadata = {
+                proposalContractAddress: contractAddressObject.daoProposals,
+                proposalUrl: proposalUrl,
+                proposalName: proposal.proposalName,
+                signature: hash.signature,
+                proposalSignature: proposalSignature,
+                VoterChoice: choice,
+                VoterAddress: accountAddress,
+                createdAt: timestamp,
+            };
+           
+            console.log(VoteMetadata);
+            
+            const result = await postVote(VoteMetadata);
+            //********************************************** */
 
+            setIsLoading(false);
             toast.success("Voted Successfully", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
@@ -119,16 +127,37 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     }
     
     const handleAbstain = async () =>{
+        setIsLoading(true);
+        const timestamp = dayjs().valueOf();
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
         const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(2), 32);
+        const proposalUrl = proposal.url.concat(proposal.CID);
         try {
             //************Contract Interaction ************* */
-            const proposalSignature = proposal.identifier; //proposalSignature get from backend proposals
-            await getProposalHash(contractAddressObject,proposalSignature,choice);
-            const result = await signMessage();
-            console.log(result)
+            const proposalSignature = proposal.identifier //proposalSignature get from backend proposals
+            //@ts-ignore
+            const hash = await getProposalHash(contractAddressObject,proposalSignature,choice);
+            console.log("phash",hash.signature);
             //********************************************** */
             
+            //************backend Interaction ************* */
+            const VoteMetadata = {
+                proposalContractAddress: contractAddressObject.daoProposals,
+                proposalUrl: proposalUrl,
+                proposalName: proposal.proposalName,
+                signature: hash.signature,
+                proposalSignature: proposalSignature,
+                VoterChoice: choice,
+                VoterAddress: accountAddress,
+                createdAt: timestamp,
+            };
+           
+            console.log(VoteMetadata);
+            
+            const result = await postVote(VoteMetadata);
+            //********************************************** */
+
+            setIsLoading(false);
             toast.success("Voted Successfully", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
