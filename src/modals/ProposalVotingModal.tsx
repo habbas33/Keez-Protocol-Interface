@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { ProfileContext } from '../context/ProfileContext'
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import { shortenAddress } from "../utils/shortenAddress";
-import { getDaoByCID } from "../services/keezBackend";
+import { getVotesBySignature, postVote } from "../services/keezBackend";
 import { votingDelayItems } from '../constants/votingPeriodItems';
 import { DaoProposalContext } from "../context/DaoProposalContext";
 import dayjs from 'dayjs';
@@ -22,42 +22,54 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     const { accountAddress } = useContext(ProfileContext);
 
     const [open, setOpen] = useState(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [votes, setVotes] = useState<any>([]);
+    const [userCanVote, setUserCanVote] = useState<boolean>(false);
+    const [userCanRegister, setUserCanRegister] = useState<boolean>(false);
+    const [userCanExecute, setUserCanExecute] = useState<boolean>(false);
+    const [hasVoted, setHasVoted] = useState<boolean>(false);
+    const [voters, setVoters] = useState<string[]>([]);
 
     const cancelButtonRef = useRef(null);
 
     const handleModel = () =>{
         setShowModal(false);
         setOpen(!open);
-        console.log(proposal)
     }
     toast.configure();
 
     const handleFor = async () => {
+        setIsLoading(true);
         const timestamp = dayjs().valueOf();
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
         const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(0), 32);
         const proposalUrl = proposal.url.concat(proposal.CID);
         try {
             //************Contract Interaction ************* */
-            // const proposalSignature = "" //proposalSignature get from backend proposals
-            // await getProposalHash(contractAddressObject,proposalSignature,choice);
-            // const result =await signMessage();
-            // console.log(result)
+            const proposalSignature = proposal.identifier //proposalSignature get from backend proposals
+            //@ts-ignore
+            const hash = await getProposalHash(contractAddressObject,proposalSignature,choice);
+            console.log("phash",hash.signature);
             //********************************************** */
             
             //************backend Interaction ************* */
-            // const VoteMetadata = {
-            //     proposalContractAddress: contractAddressObject.daoProposals,
-            //     proposalUrl: proposalUrl,
-            //     signature: "signature",
-            //     proposalSignature: "proposalSignature",
-            //     choice: choice,
-            //     voter: accountAddress,
-            //     createdAt: timestamp,
-            // };
-            // console.log(VoteMetadata);
+            const VoteMetadata = {
+                proposalContractAddress: contractAddressObject.daoProposals,
+                proposalUrl: proposalUrl,
+                proposalName: proposal.proposalName,
+                signature: hash.signature,
+                proposalSignature: proposalSignature,
+                VoterChoice: choice,
+                VoterAddress: accountAddress,
+                createdAt: timestamp,
+            };
+           
+            console.log(VoteMetadata);
+            
+            const result = await postVote(VoteMetadata);
             //********************************************** */
 
+            setIsLoading(false);
             toast.success("Voted Successfully", {
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
@@ -76,21 +88,23 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         console.log(proposal);
         try {
             //************Contract Interaction ************* */
-            // const proposalSignature = "" //proposalSignature get from backend proposals
-            // await getProposalHash(contractAddressObject,proposalSignature,choice);
+            const proposalSignature = proposal.identifier; //proposalSignature get from backend proposals
+            await getProposalHash(contractAddressObject,proposalSignature,choice);
             // const result = await signMessage();
             // console.log(result)
             //********************************************** */
             
             //************backend Interaction ************* */
             // const VoteMetadata = {
-            //     proposalContractAddress: contractAddressObject.daoProposals,
-            //     proposalUrl: proposalUrl,
-            //     signature: signature,
-            //     choice: choice,
-                // voter: accountAddress,
-                // createdAt: timestamp,
-            //   };
+            //     "proposalContractAddress":" contractAddressObject.daoProposals",
+            //      "proposalName": "proposal.proposalName",
+            //     "proposalUrl": "proposalUrl",
+            // "proposalSignature":"proposalSignature",
+            //     "VoterSignature": "signature",
+            //     "VoterChoice": "choice",
+            //     "VoterAddress": "accountAddress",
+            //     "createdAt": "timestamp",
+            //   }
 
             toast.success("Voted Successfully", {
                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -109,10 +123,10 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(2), 32);
         try {
             //************Contract Interaction ************* */
-            // const proposalSignature = "" //proposalSignature get from backend proposals
-            // await getProposalHash(contractAddressObject,proposalSignature,choice);
-            // const result = await signMessage();
-            // console.log(result)
+            const proposalSignature = proposal.identifier; //proposalSignature get from backend proposals
+            await getProposalHash(contractAddressObject,proposalSignature,choice);
+            const result = await signMessage();
+            console.log(result)
             //********************************************** */
             
             toast.success("Voted Successfully", {
@@ -172,12 +186,59 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
             
         }
     }
-    
     useEffect(() => {
         if (!open)
             setShowModal(false);
     }, [open])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getVotesBySignature(proposal.identifier);
+            //   console.log("doa selected set", result);
+            setVotes(result);
+            console.log("votes",result);
+        };
+        const getVoterDetails = () => {
+            const _voters :string[] = [];
+            for (var i = 0; i < permissionsObject.length; i++) {
+                if (permissionsObject[i].upAddress == accountAddress) {
+                    setUserCanVote(permissionsObject[i].keyPermissions.vote === "True");
+                    setUserCanRegister(permissionsObject[i].keyPermissions.register === "True");
+                    setUserCanExecute(permissionsObject[i].keyPermissions.execute === "True");
+                }
+                if (permissionsObject[i].keyPermissions.vote === "True"){
+                    _voters.push(permissionsObject[i].upAddress);
+                }
+            }
+            setVoters(_voters);
+            console.log("voters",_voters);
+            console.log("voters.length",_voters.length)
+            console.log("daoSelected",JSON.stringify(daoSelected.keyPermissions,null,4));
+        };
+        const checkIfVoted = () => {
+            // const _voters :string[] = [];
+            for (var i = 0; i < votes.length; i++) {
+                if (votes[i].VoterAddress === accountAddress) {
+                    setHasVoted(true);
+                    console.log(1);
+                } else {
+                    setHasVoted(false);
+                    console.log(0);
+                }
+            }
+            // console.log("votes.length",((votes.length/voters.length)*100).toFixed(2))
+        };
+        
+        fetchData();
+        checkIfVoted();
+        getVoterDetails();
+    }, [isLoading])
     
+    const permissionsObject =
+    daoSelected.length != ""
+      ? getParsedJsonObj(daoSelected.keyPermissions)
+      : "";
+      
     const proposalDetailsObject = getParsedJsonObj(proposal.proposalDetails);
     const votingParametersObject = daoSelected.length!=""?getParsedJsonObj(daoSelected.votingParameters):"";
     const createdAt = dayjs(Number(proposal.createdAt));
@@ -312,8 +373,27 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                     </div>
                                 </div>
                             </div>
+                            <div className="flex flex-col justify-start items-start">
+                            { (proposalStatus === "Active" || proposalStatus === "Closed" )&&
+                                <>
+                                    <h1 className="text-sm font-bold">Current Results</h1>
+                                    <div className="flex justify-start items-center">
+                                        <h1 className="text-sm font-normal">Voted</h1>
+                                        <h1 className="text-sm font-semibold px-2">{((votes.length/voters.length)*100).toFixed(0)}%</h1>
+                                    </div>
+                                    <div className="flex justify-start items-center">
+                                        <h1 className="text-sm font-normal">Total Needed</h1>
+                                        <h1 className="text-sm font-semibold px-2"> {votingParametersObject.votingMajority}%</h1>
+                                    </div>
+                                    <div className="flex justify-start items-center">
+                                        <h1 className="text-sm font-normal">Participation Required</h1>
+                                        <h1 className="text-sm font-semibold px-2"> {votingParametersObject.participationRate}%</h1>
+                                    </div>
+                                </>
+                            }
+                            </div>
                             <div className="flex flex-col w-full text-center space-y-1 justify-center items-center text-center">
-                            {proposalStatus === "Pending" &&
+                            {((proposalStatus === "Pending" || isLoading || !userCanVote) && proposalStatus != "Closed") &&
                                 <>
                                     <h1 className="text-sm font-bold">VOTE</h1>
                                     <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
@@ -328,7 +408,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                 </>
                             }
                             
-                            { proposalStatus === "Active" &&
+                            { (proposalStatus === "Active" && !isLoading && userCanVote)&&
                                 <>
                                     <h1 className="text-sm font-bold">VOTE</h1>
                                     <div onClick={handleFor} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
@@ -343,18 +423,35 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                 </>
                             }
 
-                            { proposalStatus === "Closed" &&
+                            { (proposalStatus === "Closed" && !isLoading ) &&
                                 <>
                                     <h1 className="text-sm font-bold">Actions</h1>
-                                    <div onClick={handleRegister} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Register</h1>
-                                    </div>
-                                    <div onClick={handleExecute} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Execute</h1>
-                                    </div>
+                                    {userCanRegister ?
+                                        <div onClick={handleRegister} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Register</h1>
+                                        </div>
+                                        :
+                                        <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Register</h1>
+                                        </div>
+                                    }
+                                    {userCanExecute ?
+                                        <div onClick={handleExecute} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Execute</h1>
+                                        </div>
+                                        :
+                                         <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Execute</h1>
+                                        </div>
+                                    }
+                                    {!userCanRegister && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Register Votes permission</h1>}
+                                    {!userCanExecute && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Execute Votes permission</h1>}
                                 </>
                             }
+                            {!userCanVote && proposalStatus != "Closed" && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Vote permission</h1>}
+                           
                             </div>
+                            {hasVoted && <h1 className="text-red-600 text-xs font-normal py-1 px-2">already voted</h1>}
                         </div>
                     </div>
                 </div>

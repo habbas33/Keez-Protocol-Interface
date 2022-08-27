@@ -52,7 +52,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
   toast.configure();
 
   const handleCategoriesChange = (selectedOption: any) => {
-    setCategories(selectedOption);
+    setCategories([selectedOption]);
+    console.log(selectedOption)
   };
 
   const formSubmitValidations = () => {
@@ -124,7 +125,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
               </Popover></div>
       <form onSubmit={handleSubmit}>
         <div className=" py-4 md:w-[70%] md:mx-auto">
-        <div className="flex justify-left  w-full">
+        <div className="flex justify-left w-full">
           <label
             className="block text-white text-sm font-normal"
             htmlFor="daoName"
@@ -155,7 +156,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   disableRestoreFocus
                 >
                   i used popover
-              </Popover></div>
+              </Popover>
+          </div>
           <Input
             value={daoName}
             name="dao_name"
@@ -163,7 +165,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             maxLength={50}
             handleChange={(e: any) => setDaoName(e.target.value)}
           />
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="daoLogo"
@@ -201,12 +203,12 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
               toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT })
             }
           />
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="categories"
           >
-            Categories
+            Category
           </label>
           <p aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
@@ -248,10 +250,10 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             className="text-sm text-white dark:text-white"
             id="file_input_help"
           >
-            Maximum three categories in following order [Primary, Secondary,
-            Tertiary]
+            {/* Maximum three categories in following order [Primary, Secondary,
+            Tertiary] */}
           </p>
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="description"

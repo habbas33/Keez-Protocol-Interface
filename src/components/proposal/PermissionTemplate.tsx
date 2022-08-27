@@ -248,7 +248,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className="w-full md:w-3/5">
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
             <label
               className="block text-white text-sm font-normal"
               htmlFor="proposalName"
@@ -286,7 +286,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
               type="text"
               handleChange={(e: any) => setProposalName(e.target.value)}
             />
-            <div className="flex justify-left  w-full">
+            {/* <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="categories"
@@ -322,8 +322,8 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
               handleChange={handleCategoriesChange}
               listItems={daoCategoryItems}
               name={"proposalCategories"}
-            />
-            <div className="flex justify-left  w-full">
+            /> */}
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="description"
@@ -361,7 +361,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
               name="description"
               onChange={(e: any) => setDescription(e.target.value)}
             />
-            <div className="flex justify-left  w-full">
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="minVotingPeriod"
@@ -402,7 +402,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
 
             {membersOrVault === "Members" && (
               <>
-              <div className="flex justify-left  w-full">
+              <div className="flex justify-left pt-4 w-full">
                 <label
                   className="block  text-white text-sm font-normal"
                   htmlFor="minVotingPeriod"
@@ -570,25 +570,26 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
                 </div>
               </>
             )}
+            <div className="flex justify-end items-center">
+              <button
+                type="submit"
+                className="flex justify-center rounded-full item-center mb-10 mt-[12px]
+                            border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                            text-base font-medium text-white hover:bg-[#8168ff] 
+                            sm:w-auto sm:text-sm"
+              >
+                <p className="translate-x-1.5">Next</p>
+                <MdNavigateNext
+                  className="translate-x-1.5 w-6"
+                  color="#fff"
+                  fontSize={20}
+                />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-end items-center">
-          <button
-            type="submit"
-            className="flex justify-center rounded-full item-center mb-10 mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
-                        text-base font-medium text-white hover:bg-[#8168ff] 
-                        sm:w-auto sm:text-sm"
-          >
-            <p className="translate-x-1.5">Next</p>
-            <MdNavigateNext
-              className="translate-x-1.5 w-6"
-              color="#fff"
-              fontSize={20}
-            />
-          </button>
-        </div>
+        
       </form>
     </div>
   );

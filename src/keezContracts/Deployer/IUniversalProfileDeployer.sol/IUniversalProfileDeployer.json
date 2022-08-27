@@ -1,0 +1,40 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IUniversalProfileDeployer",
+  "sourceName": "contracts/Deployer/IUniversalProfileDeployer.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_unviersalReceiverDelegateUPAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_universalProfileMetadata",
+          "type": "bytes"
+        }
+      ],
+      "name": "deployUniversalProfile",
+      "outputs": [
+        {
+          "internalType": "address payable",
+          "name": "_UNIVERSAL_PROFILE",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_KEY_MANAGER",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

@@ -20,6 +20,7 @@ export const daoCategoryItems = [
     label: "Research",
   },
 ];
+
 export const daoCategoryItems1 = [
   {
     value: "DAO",

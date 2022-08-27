@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useWeb3 from '../hooks/useWeb3';
-import { requestAccount, getAccountBalance } from '../services/web3';
-import { fetchErc725Data } from '../services/erc725';
-
-import UniversalReceiverDelegateUPJSON from '../keezContracts/deps/UniversalReceiverDelegateUP.sol/UniversalReceiverDelegateUP.json';
-import UniversalReceiverDelegateVaultJSON from '../keezContracts/deps/UniversalReceiverDelegateVault.sol/UniversalReceiverDelegateVault.json';
-import UniversalProfileJSON from '../keezContracts/deps/UniversalProfile.sol/UniversalProfile.json';
-import VaultJSON from '../keezContracts/deps/Vault.sol/Vault.json';
-import KeyManagerJSON from '../keezContracts/deps/KeyManager.sol/KeyManager.json';
-import DaoPermissionsJSON from '../keezContracts/Dao/DaoPermissions.sol/DaoPermissions.json';
-import DaoDelegatesJSON from '../keezContracts/Dao/DaoDelegates.sol/DaoDelegates.json';
 import DaoProposalsJSON from '../keezContracts/Dao/DaoProposals.sol/DaoProposals.json';
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
-
 import { ethers } from "ethers";
 
 interface DaoProposalContextInterface {
@@ -22,14 +11,6 @@ interface DaoProposalContextInterface {
     executeProposal: any,
     getProposalHash: any,
     signMessage: any,
-    // deployDaoDelegates: any,
-    // deployDaoProposals: any,
-    
-    // setDaoUpData: any,
-    // setGiveOwnerPermissionToChangeOwner:any,
-    // setControllerPermissionsForDao:any,
-    // upTransferOwnership: any,
-    // keyManagerClaimOwnership: any,
 }
 
 export const DaoProposalContext = React.createContext<DaoProposalContextInterface>(
@@ -40,18 +21,11 @@ export const DaoProposalContext = React.createContext<DaoProposalContextInterfac
         executeProposal: () => {},
         getProposalHash: () => {},
         signMessage: () => {},
-        // deployDaoDelegates: () => {},
-        // deployDaoProposals: () => {},
-        
-        // setDaoUpData: () => {},
-        // setGiveOwnerPermissionToChangeOwner: () => {},
-        // setControllerPermissionsForDao: () => {},
-        // upTransferOwnership: () => {},
-        // keyManagerClaimOwnership: () => {},
     }   
 );
 
 export const DaoProposalProvider = ({children}:any) => {
+    const web3 = useWeb3();
     const [owner, setOwner] = useState<string>('');
     const [signer, setSigner] = useState<any>([]);
     const [provider, setProvider] = useState<any>([]);
@@ -84,7 +58,7 @@ export const DaoProposalProvider = ({children}:any) => {
             console.log("dao",dao);
             const votingParametersObject = getParsedJsonObj(dao.votingParameters);
             const contractAddressObject = getParsedJsonObj(dao.daoUpAddress);
-            const votingParameters = {minimumVotingDelay:0, minVotingPeriod:0, minExecutionDelay:0};
+            // const votingParameters = {minimumVotingDelay:0, minVotingPeriod:0, minExecutionDelay:0};
             const metalink: string = ProposalMetadata.proposalProfile.url.concat(ProposalMetadata.proposalProfile.CID);
             const proposalTitle = ProposalMetadata.proposalProfile.proposalName;
             console.log("daoContractAddresses",contractAddressObject)
@@ -96,30 +70,24 @@ export const DaoProposalProvider = ({children}:any) => {
             console.log("participationRate",proposalTitle)
             console.log("metalink",metalink)
             const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
-            
-            // const payloads = [ //* ask b00ste about this
-            //   ERC725Yinterface.encodeFunctionData(
-            //     "setData",
-            //     [
-            //       "0x4b80742de2bfb3cc0e490000" + userAddress.substring(2),
-            //       "0x000000000000000000000000000000000000000000000000000000000000ffff"
-            //     ]
-            //   )
-            // ];
+                 
             const create_proposal = await daoProposals.connect(signer).createProposal(
-              ProposalMetadata.proposalProfile.proposalName,
-              metalink,
-              ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minimumVotingDelay)*24*3600), 32),
-              ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minVotingPeriod)*24*3600), 32),
-              ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParameters.minExecutionDelay)*24*3600), 32),
-              payloads,
-              ethers.utils.hexZeroPad(ethers.utils.hexValue(2), 32),
-              ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32),
-              {gasPrice: '1000000000', gasLimit: 5000000}
+                ProposalMetadata.proposalProfile.proposalName,
+                metalink,
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParametersObject.minVotingDelay)*24*3600), 32),
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParametersObject.minVotingPeriod)*24*3600), 32),
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingParametersObject.minExecutionDelay)*24*3600), 32),
+                payloads,
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(2), 32),
+                ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32),
+                {gasPrice: '1000000000', gasLimit: 5_000_000}
             );
+            console.log("create_proposal",create_proposal)
+            const proposalSignature = (await create_proposal.wait(1)).logs[9].data.substring(0, 22);
+            console.log("proposalSignature",proposalSignature?proposalSignature:"no signature")
         
-            setCreatedProposal(create_proposal);
-            return create_proposal
+            setCreatedProposal(proposalSignature);
+            return proposalSignature
         } catch (error) {
             console.log(error);
             return "Stopped"
@@ -146,13 +114,19 @@ export const DaoProposalProvider = ({children}:any) => {
         try {
             const userAddress = owner; //get that from connected profile
             const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
+            console.log(daoProposals.address)
+            console.log(proposalSignature)
             const hashUser = await daoProposals.getProposalHash(
                 userAddress,
                 proposalSignature,
                 choice
               );
-            setUserHash(hashUser);
-            return hashUser
+
+            if (web3) {
+                const signature = await web3.eth.sign(ethers.utils.arrayify(hashUser).toString(), userAddress);
+                return signature
+            }
+            return "error"
         } catch (error) {
             console.log(error);
             return "Stopped"
@@ -161,6 +135,7 @@ export const DaoProposalProvider = ({children}:any) => {
     
     const signMessage = async () => {
         try {
+            console.log("userHash",userHash)
             const signature = await signer.signMessage(ethers.utils.arrayify(userHash))
             return signature // save this to backend
         } catch (error) {

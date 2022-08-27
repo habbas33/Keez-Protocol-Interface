@@ -1,10 +1,9 @@
-import imageToAdd1 from "../../assets/Logos/KP_BW_trans_crop-Recovered.png";
+
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { HiMenuAlt4, HiUser } from "react-icons/hi";
-import { IoDiamond } from "react-icons/io5";
 import { AiOutlineClose, AiOutlineLogin, AiOutlineDown } from "react-icons/ai";
-// import { HiUserCircle } from "react-icons/hi";
+import imageToAdd1 from "../../assets/Logos/KP_BW_trans_crop-Recovered.png";
 import {
   GrOrganization,
   GrSettingsOption,
@@ -15,7 +14,7 @@ import { ProfileContext } from "../../context/ProfileContext";
 import { menuItems } from "../../constants/menuItems";
 import NavItems from "./NavItems";
 import { NavLink } from "react-router-dom";
-import { IPFS_GATEWAY, KEEZ_FRONTEND_ENDPOINT } from "../../constants/globals";
+import { IPFS_GATEWAY } from "../../constants/globals";
 import Skeleton from "@material-ui/lab/Skeleton";
 import {
   MenuItem,
@@ -35,11 +34,12 @@ export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState<boolean>(false);
   const [profileName, setProfileName] = useState<string>("");
   const [profileImageUrl, setProfileImageUrl] = useState<string>("");
+  const [isWellcomePage, setIsWellcomePage] = useState<boolean>(false)
   const { accountAddress, disconnectWallet, connectWallet, profileData } =
     useContext(ProfileContext);
   let profileImgUrl = profileData?.value?.LSP3Profile?.profileImage[4]?.url;
-  const isWellcomePage = window.location.href === KEEZ_FRONTEND_ENDPOINT;
-  console.log(isWellcomePage)
+  const location = useLocation();
+
   const [open, setOpen] = React.useState(false);
   const anchorEl = React.useRef(null);
   const navigate = useNavigate();
@@ -51,6 +51,10 @@ export default function Navbar() {
     setProfileName(profile?.name);
     setProfileImageUrl(profileImgUrl);
   }, [profileData]);
+
+  useEffect(() => {
+    setIsWellcomePage(location.pathname === "/");
+  }, [location]);
 
   const handleToggle = () => {
     setOpen(!open);
@@ -71,7 +75,7 @@ export default function Navbar() {
     navigate("/Profile");
     // disconnectWallet();
   };
-  // ${isWellcomePage?"bg-welcome":"bg-other"}
+
   return (
     <nav className={isWellcomePage?"w-full bg-welcome":"w-full bg-other"}>
       <div className="px-5 lg:px-20 py-5">

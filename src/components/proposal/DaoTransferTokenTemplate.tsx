@@ -166,7 +166,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className="w-full md:w-3/5">
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
             <label
               className="block text-white text-sm font-normal"
               htmlFor="proposalName"
@@ -204,7 +204,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               type="text"
               handleChange={(e: any) => setProposalName(e.target.value)}
             />
-            <div className="flex justify-left  w-full">
+            {/* <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="categories"
@@ -240,8 +240,8 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               handleChange={handleCategoriesChange}
               listItems={daoCategoryItems}
               name={"proposalCategories"}
-            />
-            <div className="flex justify-left  w-full">
+            /> */}
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="description"
@@ -274,12 +274,12 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
                   i used popover
               </Popover></div>
             <textarea
-              className="my-1 h-28 w-full rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
+              className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
               value={description}
               name="description"
               onChange={(e: any) => setDescription(e.target.value)}
             />
-            <div className="flex justify-left  w-full">
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="minVotingPeriod"
@@ -316,7 +316,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               name={"vault"}
               listItems={vaultlist}
             />
-            <div className="flex justify-left  w-full">
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="minVotingPeriod"
@@ -353,7 +353,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               name={"token"}
               listItems={[{ value: "lyx", label: "LYX" }]}
             />
-            <div className="flex justify-left  w-full">
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="receiving Address"
@@ -391,7 +391,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               type="number"
               handleChange={(e: any) => setTokenAmount(e.target.value)}
             />
-            <div className="flex justify-left  w-full">
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="receiving Address"
@@ -429,25 +429,26 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               type="text"
               handleChange={(e: any) => setReceivingAddress(e.target.value)}
             />
+             <div className="flex justify-end items-center">
+              <button
+                type="submit"
+                className="flex justify-center rounded-full item-center mb-10 mt-[12px]
+                            border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                            text-base font-medium text-white hover:bg-[#8168ff] 
+                            sm:w-auto sm:text-sm"
+              >
+                <p className="translate-x-1.5">Next</p>
+                <MdNavigateNext
+                  className="translate-x-1.5 w-6"
+                  color="#fff"
+                  fontSize={20}
+                />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-end items-center">
-          <button
-            type="submit"
-            className="flex justify-center rounded-full item-center mb-10 mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
-                        text-base font-medium text-white hover:bg-[#8168ff] 
-                        sm:w-auto sm:text-sm"
-          >
-            <p className="translate-x-1.5">Next</p>
-            <MdNavigateNext
-              className="translate-x-1.5 w-6"
-              color="#fff"
-              fontSize={20}
-            />
-          </button>
-        </div>
+       
       </form>
     </div>
   );

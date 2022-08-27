@@ -1,0 +1,100 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IDaoDeployer",
+  "sourceName": "contracts/Deployer/DaoDeployer/IDaoDeployer.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_DAO_PERMISSIONS",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_DAO_DELEGATES",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_DAO_PROPOSALS",
+          "type": "address"
+        }
+      ],
+      "name": "DaoDeployed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_UNIVERSAL_PROFILE",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_KEY_MANAGER",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_caller",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_majority",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_participationRate",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_minimumVotingDelay",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_minimumVotingPeriod",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_minimumExecutionDelay",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_daoParticipants",
+          "type": "address[]"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "_daoParticipantsPermissions",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "deployDao",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "_DAO_ADDRESSES",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

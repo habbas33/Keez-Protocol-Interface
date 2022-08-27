@@ -2,20 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import { toast } from "react-toastify";
 import imageToAdd1 from "../../src/assets/Logos/—Pngtree—three-dimensional purple high-tech scene_3688672.png";
-// import { daoDeployTest,daoReadTest, daoDeployWeb3Test, daoReadWeb3Test } from "../services/daoDeployTest"
 
 const Welcome = () => {
   const { accountAddress, connectWallet } = useContext(ProfileContext);
-  
-  // const handleDeploy = () => {
-  //   console.log("deploy");
-  //   daoDeployWeb3Test();
-  // }
-
-  // const handleRead = () => {
-  //   console.log("read dao");
-  //   daoReadWeb3Test();
-  // }
   return (
     <div className="flex pt-32 justify-center items-center px-5 lg:px-20 md:px-20 ">
       <div className="flex-column w-[90%]">
@@ -41,16 +30,6 @@ const Welcome = () => {
                   DISCOVER DAOs
                 </h3>
               </button>
-              {/* <button onClick={handleDeploy}>
-                <h3 className="flex tems-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]">
-                  Deploy 
-                </h3>
-              </button>
-              <button onClick={handleRead}>
-                <h3 className="flex tems-center w-44 justify-center text-white font-bold py-2 px-2 rounded bg-[#C3073F] hover:bg-[#ac0537]">
-                  Read UP
-                </h3>
-              </button> */}
             </div>
           </div>
 

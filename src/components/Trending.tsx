@@ -23,13 +23,13 @@ const Trending = () => {
         </h1>
         <div className="flex gap-3 flex-no-wrap justify-between items-center pb-10 ">
           {allDaos.length != [] ? (
-              <div className="grid md:grid-cols-4 w-full m-5 gap-4 grid-cols-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
                 {[...allDaos].reverse().map((daoDetail, i) => (
                   i<4?<DaoCard key={i} id={i} daoDetail={daoDetail} />:""
-                ))}
+                ))} 
               </div>
             ) : (
-              <div className="grid md:grid-cols-4 m-5 w-full gap-4 grid-cols-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
                 {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
                   <Skeleton
                     key={i}
@@ -79,7 +79,11 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
             <img 
               className="object-cover w-[180px] h-[150px] text-center rounded-full  bg-[#1A1A1D]"
               src={profileImageUrl}
-              alt=""
+              alt="Not Found" onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src="https://i0.wp.com/zeevector.com/wp-content/uploads/2021/02/black-grey-gradient-background.jpg?resize=768%2C576&ssl=1";
+              }}
+              
             >
             </img>
           </div>
