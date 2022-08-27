@@ -8,7 +8,7 @@ const UserProfile: React.FC = () => {
   const [profileComponent, setProfileComponent] = useState<string>('ProfileDetails');
 
   const handleComponent = (Component:string) => {
-    console.log(Component);
+    // console.log(Component);
     setProfileComponent(Component);
     // createDaoService(accountAddress);
   }

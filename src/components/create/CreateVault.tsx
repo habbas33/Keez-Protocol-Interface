@@ -102,7 +102,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
   return (
     <div className="bg-other md:px-[20%] px-5">
       <h1 className="text-white text-sm py-2">Step 3</h1>
-      <div className="flex justify-left  w-full">
+      <div className="flex justify-left w-full">
       <h1 className="text-white text-lg font-bold">Create your Vault</h1>
       <p aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
@@ -130,8 +130,8 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                   i used popover
               </Popover></div>
       <form onSubmit={handleSubmit}>
-        <div className="py-4 md:w-[60%] ml-10">
-        <div className="flex justify-left  w-full">
+        <div className=" py-4 md:w-[70%] md:mx-auto">
+        <div className="flex justify-left w-full">
           <label
             className="block text-white text-sm font-normal"
             htmlFor="vaultName"
@@ -169,7 +169,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
             type="text"
             handleChange={(e: any) => setVaultName(e.target.value)}
           />
-          <label className="block  text-white text-sm font-medium">
+          <label className="block pt-4 text-white text-sm font-medium">
             Choose the DAO member(s) that you would like to give multisig
             permissions to:
           </label>
@@ -193,7 +193,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
           ) : (
             <h1 className="text-white text-sm">----</h1>
           )}
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="majority"

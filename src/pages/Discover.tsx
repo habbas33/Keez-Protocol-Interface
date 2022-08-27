@@ -71,7 +71,7 @@ const Discover: React.FC = () => {
               </div> */}
             </div>
             {allDaos.length != [] ? (
-              <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 m-5 gap-4 ">
                 {[...allDaos]
                   .filter((dao: any) =>
                     getParsedJsonObj(dao.categories)[0]
@@ -81,13 +81,13 @@ const Discover: React.FC = () => {
                   .reverse()
                   .map(
                     (daoDetail, i) => (
-                      console.log(getParsedJsonObj(daoDetail.categories)[0]),
+                      // console.log(getParsedJsonObj(daoDetail.categories)[0]),
                       (<DaoCard key={i} id={i} daoDetail={daoDetail} />)
                     )
                   )}
               </div>
             ) : (
-              <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 m-5 gap-4 ">
                 {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
                   <Skeleton
                     key={i}

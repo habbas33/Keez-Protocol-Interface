@@ -12,19 +12,20 @@ const useStyles = makeStyles({
   modal: {
     width: 512,
     height: 512,
-    backgroundColor: "white",
+    backgroundColor: "#382C71",
     display: "flex",
     justifyContent: "center",
     flexFlow: "column",
-    borderRadius: "0px 0px 10px 10px",
+    padding: "10px",
+    borderRadius: "10px 10px 10px 10px",
     "& .crop-container": {
       height: 400,
       borderRadius: "10px 10px 0px 0px",
-      backgroundColor: "#f4f7fb",
+      backgroundColor: "#382C71",
       position: "relative",
       "& .container": {},
       "& .crop-area": {
-        border: "3px solid #00A0FF"
+        border: "3px solid #382C71" 
       },
       "& .media": {}
     },
@@ -36,7 +37,7 @@ const useStyles = makeStyles({
       alignItems: "center",
       marginTop: 10,
       "& .zoom-range": {
-        color: "#00A0FF"
+        color: "#6341ff"
       }
     },
     "& .buttons": {
@@ -47,13 +48,16 @@ const useStyles = makeStyles({
       marginRight: 90,
       marginLeft: 90,
       marginBottom: 10,
+
       "& .close": {
-        backgroundColor: "gray",
-        color: "#fff"
+        backgroundColor: "#6341ff",
+        color: "#fff",
+        borderRadius: "9999px",
       },
       "& .ok": {
-        backgroundColor: "#00A0FF",
-        color: "#fff"
+        backgroundColor: "#6341ff",
+        color: "#fff",
+        borderRadius: "9999px",
       }
     }
   }
@@ -132,7 +136,7 @@ const CropperModal: React.FC<Props> = ({
           />
         </div>
         <div className="buttons">
-          <Button className="close" onClick={onClose}>
+          <Button className="close " onClick={onClose}>
             Close
           </Button>
           <Button

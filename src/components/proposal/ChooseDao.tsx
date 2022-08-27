@@ -74,7 +74,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
           </label>
 
           {memberDaos.length != [] ? (
-            <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
               {[...memberDaos].reverse().map((daoDetail, i) => (
                 <DaoCard
                   key={i}
@@ -86,7 +86,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
               ))}
             </div>
           ) : (
-            <div className="grid md:grid-cols-4 m-5 gap-4 grid-cols-1">
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
               {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
                 <Skeleton
                   key={i}
@@ -155,26 +155,30 @@ const DaoCard = (props: {
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div
-          className={`flex w-full flex-col bg-gradient-to-tr from-purple-300 via-purple-500 to-blue-300 border-2 border-white justify-between rounded-lg items-start h-[250px] p-5 ${
+          className={`flex w-full h-[250px] flex-col bg-gradient-to-tr from-purple-300 via-purple-500 to-blue-300 border-2 border-white justify-between rounded-lg items-start ${
             daoSelected === id
-              ? "outline outline-offset-2 outline-1 outline-green-500"
+              ? "outline outline-offset-2 outline-4 outline-white"
               : ""
           }`}
         >
           {" "}
-          <div className="p-1 min-w-[35%] rounded-full bg-black self-end">
+          <div className="w-[180px] h-[150px] absolute overflow-none rounded-lg p-5 ">
+            <img 
+                className="object-cover w-[180px] h-[150px] text-center rounded-full bg-[#1A1A1D]"
+                src={profileImageUrl}
+                alt=""
+              >
+              </img>
+          </div>
+          
+          <div className="p-1 min-w-[35%] rounded-full bg-black self-end z-10 m-5">
             {" "}
             <h1 className="text-white text-xs text-center px-1">
               {categoriesObject[0].label}
             </h1>{" "}
           </div>{" "}
-          <img 
-              className="object-cover w-[150px] h-[150px] text-center rounded-full  bg-[#1A1A1D]"
-              src={profileImageUrl}
-              alt=""
-            >
-            </img>
-          <div className="flex w-full flex-col justify-end items-start h-full ">
+
+          <div className="flex w-full flex-col justify-end items-start h-full z-10 m-5">
             {" "}
             <h1 className="text-black text-lg font-bold py-1">
               {daoDetail.daoName}
@@ -188,7 +192,7 @@ const DaoCard = (props: {
         <div
           className={`flex w-full flex-col bg-[#b8a5a6] border-2 border-white justify-between rounded-lg items-center h-[250px] p-5 ${
             daoSelected === id
-              ? "outline outline-offset-2 outline-1 outline-green-500"
+              ? "outline outline-offset-2 outline-4 outline-white"
               : ""
           }`}
         >

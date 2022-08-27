@@ -108,7 +108,7 @@ export const getDaoByCID = async (cid: string) => {
 
 export const getAllDaos = async () => {
     const url = `${KEEZ_BACKEND_ENDPOINT}daos/?format=json`
-    console.log(url);
+    // console.log(url);
     try {
       const response = await fetch(url, {
         method: 'Get',

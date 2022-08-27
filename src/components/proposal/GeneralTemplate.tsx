@@ -164,12 +164,14 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             <p className="-translate-x-1.5">Back</p>
           </button>
         </div>
+
         <p className="block text-white text-center py-2 text-md font-semibold">
           General Template
         </p>
+
         <div className="flex flex-col justify-center items-center py-2">
           <div className=" w-full md:w-3/5">
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
             <label
               className="block text-white text-sm font-normal"
               htmlFor="proposalName"
@@ -177,7 +179,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
               Proposal Title
             </label>
             <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+            aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -200,19 +202,20 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                   disableRestoreFocus
                 >
                   i used popover
-              </Popover></div>
+              </Popover>
+          </div>
             <Input
               value={proposalName}
               name="proposal_name"
               type="text"
               handleChange={(e: any) => setProposalName(e.target.value)}
             />
-            <div className="flex justify-left  w-full">
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="daoLogo"
             >
-              Upload a Cover Photo [optional]
+              Upload a Photo [optional]
             </label>
             <p aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
@@ -246,44 +249,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                 toast.error(error, { position: toast.POSITION.BOTTOM_RIGHT })
               }
             />
-            <div className="flex justify-left  w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="categories"
-            >
-              Categories
-            </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-                  <MdOutlineHelp className="text-white text-lg"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open}
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose}
-                  disableRestoreFocus
-                >
-                  i used popover
-              </Popover></div>
-            <MultiSelect
-              handleChange={handleCategoriesChange}
-              listItems={daoCategoryItems}
-              name={"proposalCategories"}
-            />
-            <div className="flex justify-left  w-full">
+
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="description"
@@ -316,113 +283,31 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                   i used popover
               </Popover></div>
             <textarea
-              className="my-1 h-28 w-full rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
+              className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
               value={description}
               name="description"
               onChange={(e: any) => setDescription(e.target.value)}
             />
-            <div className="flex justify-left  w-full">
-            <label
-              className="block  text-white text-sm font-semibold"
-              htmlFor="votinOptions"
-            >
-              Voting Options
-            </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-                  <MdOutlineHelp className="text-white text-lg"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open}
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose}
-                  disableRestoreFocus
-                >
-                  i used popover
-              </Popover></div>
-            {votingOptions.map((option, index) => (
-              <div key={index}>
-                <label className="block  text-white text-sm font-normal">
-                  Option {index + 1}
-                </label>
-                <div className="flex justify-between items-center">
-                  <div className="w-5/6">
-                    {/* <input name="votingOption" value={option} type="text" onChange={(event:any) => handleOptionsChange(event, index)}
-                        className={`my-1 w-full rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight`}
-                      /> */}
-                    <Input
-                      name="votingOption"
-                      placeholder={option}
-                      type="text"
-                      handleChange={(event: any) =>
-                        handleOptionsChange(event, index)
-                      }
-                    />
-                  </div>
-                  {index === votingOptions.length - 1 ? (
-                    <div className="flex justify-between items-center">
-                      <div
-                        onClick={() => handleRemoveOption(index)}
-                        className="rounded-full mx-2 bg-[#6341ff] cursor-pointer active:bg-[#8168ff] hover:bg-[#8168ff] align-center"
-                      >
-                        <MdRemove className="w-6 h-6 p-0.5" color="#fff" />
-                      </div>
-                      <div
-                        onClick={handleAddOption}
-                        className="rounded-full mx-2 bg-[#6341ff] cursor-pointer active:bg-[#8168ff] hover:bg-[#8168ff]"
-                      >
-                        <MdAdd className="w-6 h-6 p-0.5" color="#fff" />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex justify-between items-center">
-                      <div
-                        onClick={() => handleRemoveOption(index)}
-                        className="rounded-full mx-2 bg-[#6341ff] cursor-pointer active:bg-[#8168ff] hover:bg-[#8168ff]"
-                      >
-                        <MdRemove className="w-6 h-6 p-0.5" color="#fff" />
-                      </div>
-                      <div
-                        onClick={handleAddOption}
-                        className="rounded-full w-6 h-6 p-0.5 "
-                      ></div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
+            <div className="flex justify-end items-center">
+              <button
+                type="submit"
+                className="flex justify-center rounded-full item-center mb-10 mt-[12px]
+                            border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                            text-base font-medium text-white hover:bg-[#8168ff] 
+                            sm:w-auto sm:text-sm"
+              >
+                <p className="translate-x-1.5">Next</p>
+                <MdNavigateNext
+                  className="translate-x-1.5 w-6"
+                  color="#fff"
+                  fontSize={20}
+                />
+              </button>
+            </div>
           </div>
         </div>
-
-        <div className="flex justify-end items-center">
-          <button
-            type="submit"
-            className="flex justify-center rounded-full item-center mb-10 mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
-                        text-base font-medium text-white hover:bg-[#8168ff] 
-                        sm:w-auto sm:text-sm"
-          >
-            <p className="translate-x-1.5">Next</p>
-            <MdNavigateNext
-              className="translate-x-1.5 w-6"
-              color="#fff"
-              fontSize={20}
-            />
-          </button>
-        </div>
+        
+        
       </form>
     </div>
   );

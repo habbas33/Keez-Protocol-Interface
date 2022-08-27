@@ -10,8 +10,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import { MdCheck } from "react-icons/md";
 import StepConnector from '@material-ui/core/StepConnector';
 import { StepIconProps } from '@material-ui/core/StepIcon';
-import { DeployDaoContext } from '../context/DeployDaoContext'
-import { DeployerModal } from '../modals'
+// import { DeployDaoContext } from '../context/DeployDaoContext'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
 
 const steps= {"CreateDAO":0,"CreateKeyPermissions":1,"CreateVault":2,"CreateVotingParameters":3,"CreateDaoSummary":4}
@@ -22,7 +21,7 @@ const Create: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [metalink, setMetalink] = useState<string>('');
   const [allStepsValidated, setAllStepsValidated] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  // const [showModal, setShowModal] = useState<boolean>(false);
   const [daoUpMetadata, setDaoUpMetadata] = useState<any>([]);
 
   const handleSubmitCreate = (NextForm:string,DaoUpMetadata?:any) => {
@@ -35,25 +34,25 @@ const Create: React.FC = () => {
       setAllStepsValidated(true)
     }
     // setActiveStep();
-    if (NextForm==="DaoCreated"){
-      if(DaoUpMetadata){
-        setShowModal(true);
-      }
-    }
+    // if (NextForm==="DaoCreated"){
+    //   if(DaoUpMetadata){
+    //     setShowModal(true);
+    //   }
+    // }
   }
 
-  const handleDeployDao = (DaoUpMetadata?:any) => {
-    setDaoUpMetadata(DaoUpMetadata);
-      if(DaoUpMetadata){
-        setShowModal(true);
-      }
-  }
+  // const handleDeployDao = (DaoUpMetadata?:any) => {
+  //   setDaoUpMetadata(DaoUpMetadata);
+  //     if(DaoUpMetadata){
+  //       setShowModal(true);
+  //     }
+  // }
 
-  const handleDeploy = () => {
-    console.log("creat");
-    setShowModal(true);
-    // deployUniversalReceiverDelegateUP();
-  }
+  // const handleDeploy = () => {
+  //   console.log("creat");
+  //   setShowModal(true);
+  //   // deployUniversalReceiverDelegateUP();
+  // }
 
   const handleReview = (NextForm:string) => {
     //@ts-ignore
@@ -67,7 +66,7 @@ const Create: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-        {showModal && <DeployerModal showModal={showModal} setShowModal={setShowModal} daoUpMetadata={daoUpMetadata} metalink={metalink}/>}
+        {/* {showModal && <DeployerModal showModal={showModal} setShowModal={setShowModal} daoUpMetadata={daoUpMetadata} metalink={metalink}/>} */}
         { !accountAddress ? (
         <div className="bg-other flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
           <ConnectProfileModal/>
@@ -85,7 +84,7 @@ const Create: React.FC = () => {
         
         ):(
           <div className="bg-other min-h-[100vh] pt-24 w-full ">
-            <div className="w-[100%] px-[12vw] mx-auto bg-other">
+            <div className="w-[100%] md:px-[12vw] mx-auto bg-other">
               <Stepper style={{backgroundColor:'transparent'}} activeStep={allStepsValidated?4:activeStep} alternativeLabel connector={<QontoConnector />}>
                   <Step>
                     <StepLabel onClick={()=>handleReview("CreateDAO")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==0?"text-[#22c55e]":"text-white"} font-semibold text-xs ${allStepsValidated || activeStep > 0?"hover:text-[#ac0537] cursor-pointer":""} `}>Create Dao</p></StepLabel>
@@ -108,7 +107,7 @@ const Create: React.FC = () => {
             { (createForm === "CreateKeyPermissions") && (<CreateKeyPermissions handleSubmitCreate={handleSubmitCreate}/>)}
             { (createForm === "CreateVault") && (<CreateVault handleSubmitCreate={handleSubmitCreate}/>)}
             { (createForm === "CreateVotingParameters") && (<CreateVotingParameters handleSubmitCreate={handleSubmitCreate}/>)}
-            { (createForm === "CreateDaoSummary") && (<CreateDaoSummary handleSubmitCreate={handleSubmitCreate} handleDeployDao={handleDeployDao} metalink={metalink} setMetalink={setMetalink}/>)}
+            { (createForm === "CreateDaoSummary") && (<CreateDaoSummary handleSubmitCreate={handleSubmitCreate} setMetalink={setMetalink}/>)}
            
                 {/* <button
                 onClick={handleDeploy}

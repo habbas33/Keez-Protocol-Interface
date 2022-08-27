@@ -192,7 +192,7 @@ const ProposalCard = (props: {
       className="w-full h-60 flex flex-1 flex-col cursor-pointer rounded-md bg-[#b8a5a6]"
     >
       <div className="flex flex-col justify-start items-start h-full p-5">
-        <div className="flex justify-between items-center ">
+        <div className="flex justify-between items-center w-full">
           <h1 className="text-gray-800 font-bold">
             {daoDetailsObject.daoName}
           </h1>

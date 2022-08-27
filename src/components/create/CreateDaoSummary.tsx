@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { SpinnerCircular } from "spinners-react";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { ProfileContext } from '../../context/ProfileContext'
+import { DeployDaoContext } from '../../context/DeployDaoContext'
 import { shortenAddress } from "../../utils/shortenAddress";
 import { IPFS_DWEB_URL } from "../../constants/globals";
 import { postJsonToIPFS, postImageToIPFS } from "../../services/web3Storage";
@@ -14,16 +15,14 @@ import {
 import { AiOutlineUser } from "react-icons/ai";
 import { StyledTooltip } from "../../styles";
 import { fetchErc725Data } from "../../services/erc725";
-// import {createDao as createDaoService} from "../../services/createDao"
+import { useNavigate } from "react-router-dom";
 import dayjs from 'dayjs';
 
 const CreateDaoSummary = (props: {
   handleSubmitCreate: any;
-  metalink: string;
   setMetalink: any;
-  handleDeployDao: any;
 }) => {
-  const { handleSubmitCreate, metalink, setMetalink, handleDeployDao } = props;
+  const { handleSubmitCreate, setMetalink } = props;
   const {
     daoName,
     logoImageFile,
@@ -39,9 +38,16 @@ const CreateDaoSummary = (props: {
     minVotingPeriod,
     minExecutionDelay,
   } = useContext(CreateDaoContext);
+  const { executeDeployer } = useContext(DeployDaoContext);
   const {accountAddress} = useContext(ProfileContext);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
-  
+  const [imageSize, setImageSize] = useState<{width:number, height:number}>({width:0, height:0})
+  const navigate = useNavigate();
+
+  //@ts-ignore
+  console.log("height",logoImageFile)
+  //@ts-ignore
+  // console.log("width",logoImageFile)
   const handleSubmit = async () => {
     setSubmitLoading(true);
     const timestamp = dayjs().valueOf();
@@ -83,7 +89,7 @@ const CreateDaoSummary = (props: {
         
       //************contract interaction ************* */
         
-        handleDeployDao(DaoUpMetadata)
+        const { hash, contractAddresses} = await executeDeployer(DaoUpMetadata,metalink);
         
       //******************************************* */
 
@@ -92,21 +98,23 @@ const CreateDaoSummary = (props: {
         //@ts-ignore
         DaoUpMetadata.daoProfile['url'] = IPFS_DWEB_URL; 
         //@ts-ignore
-        // DaoUpMetadata.daoProfile['daoUpAddress'] = {
-        //   universalReceiverDelegateUP: universalReceiverDelegateUP.address,
-        //   universalProfile: universalProfile.address,
-        //   vault: vault,
-        //   keyManager: keyManager.address,
-        //   daoPermissions: daoPermissions.address,
-        //   daoDelegates: daoDelegates.address,
-        // };
+        DaoUpMetadata.daoProfile['daoUpAddress'] = {
+          universalReceiverDelegateUP: contractAddresses.UNIVERSALRECEIVER,
+          universalProfile: contractAddresses.UNIVERSAL_PROFILE,
+          keyManager: contractAddresses.KEY_MANAGER,
+          daoPermissions: contractAddresses.DAO_PERMISSIONS,
+          daoDelegates: contractAddresses.DAO_DELEGATES,
+          daoProposals: contractAddresses.DAO_PROPOSALS,
+          multisig: contractAddresses.MULTISIG,
+        };
 
-        // const result = await postDaoUp(DaoUpMetadata);
-        // console.log(DaoUpMetadata)
+        const result = await postDaoUp(DaoUpMetadata);
+        console.log(DaoUpMetadata)
+        toast.success("Dao Profile Created", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
         setSubmitLoading(false);
-        // toast.success("Dao Profile Created", {
-        //   position: toast.POSITION.BOTTOM_RIGHT,
-        // });
+        navigate("/Profile")
 
       } catch (err) {
         toast.error("Dao Profile Creation Unsuccessful", {
@@ -116,17 +124,29 @@ const CreateDaoSummary = (props: {
       }
     }
   };
+  
+
+  useEffect(() => {
+    if (logoImageFile) {
+      const img =new Image();
+      img.onload = function() {
+        setImageSize({width:img.width, height:img.height});
+      }
+      img.src = URL.createObjectURL(logoImageFile);
+    }
+  }, [logoImageFile]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="bg-other w-full md:px-[20%] px-5">
-      <h1 className="text-white text-center text-lg font-bold">DAO Summary</h1>
-      <div className="flex-column my-6 justify-center items-center mx-auto w-[90%] rounded-lg order border border-slate-400">
-        <div className="flex flex-col md:flex-row flex-wrap justify-center h-1/2">
-          <div className="md:w-1/2 bg-black rounded-tl-lg ">
+    <div className="bg-other w-full md:px-[10%] xl:px-[20%] px-5">
+      <h1 className="text-white text-center text-lg my-6 font-bold">DAO Summary</h1>
+      {/* <div className="flex-column justify-center items-center mx-auto w-[90%] rounded-lg order border border-slate-300"> */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-0 mx-auto w-[90%] rounded-lg ">
+        {/* <div className="flex flex-col md:flex-row flex-wrap justify-center h-1/2"> */}
+          <div className="border rounded-lg md:border-b border-solid bg-[#8168ff] md:rounded-none md:rounded-tl-lg border-slate-300 ">
             <DaoDetails
               daoName={daoName}
               logoImageFile={logoImageFile}
@@ -135,15 +155,15 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-          <div className="md:w-1/2 border-t md:border-t-0 md:border-l border-solid bg-black rounded-tr-lg border-slate-400">
+          <div className="border rounded-lg md:border-l md:border-b border-solid bg-[#8168ff] md:rounded-none md:rounded-tr-lg border-slate-300">
             <KeyPermissionDetails
               keyPermissions={keyPermissions}
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-        </div>
-        <div className="flex flex-col md:flex-row justify-center h-1/2 border-t bg-black rounded-bl-lg border-solid border-slate-400">
-          <div className="md:w-1/2  ">
+        {/* </div> */}
+        {/* <div className="border rounded-lg flex flex-col md:flex-row justify-center h-1/2 border-t rounded-lg bg-[#8168ff] rounded-bl-lg border-solid border-slate-300"> */}
+          <div className="border rounded-lg border-solid bg-[#8168ff] md:rounded-none md:rounded-bl-lg border-slate-300">
             <VaultDetails
               vaultName={vaultName}
               daoMembers={daoMembers}
@@ -151,7 +171,7 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-          <div className="md:w-1/2 border-t md:border-t-0 md:border-l border-solid bg-black rounded-br-lg border-slate-400">
+          <div className="border rounded-lg md:border-l border-solid bg-[#8168ff] md:rounded-none md:rounded-br-lg border-slate-300">
             <VotingParametersDetails
               participationRate={participationRate}
               votingMajority={votingMajority}
@@ -161,9 +181,9 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-        </div>
+        {/* </div> */}
       </div>
-      <div className="w-[90%] mx-auto">
+      <div className="w-[90%] py-6 mx-auto">
         {!submitLoading ? (
           <button
             type="submit"
@@ -180,7 +200,7 @@ const CreateDaoSummary = (props: {
             disabled
             type="submit"
             className="flex justify-center rounded-md item-center 
-                        border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
+                        border border-transparent shadow-sm px-4 w-[82px] py-2 bg-[#6341ff]
                         text-base font-medium text-white opacity-50 ml-auto"
           >
             <SpinnerCircular
@@ -192,7 +212,7 @@ const CreateDaoSummary = (props: {
             />
           </button>
         )}
-        ;
+        
       </div>
     </div>
   );
@@ -233,11 +253,11 @@ const DaoDetails = (props: {
       </div>
       <div className="flex justify-between px-2">
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">DAO Name</h1>
+          <h1 className="text-slate-300 text-xs font-normal">DAO Name</h1>
           <h1 className="text-white text-2xl font-bold break">{daoName}</h1>
         </div>
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">Categories</h1>
+          <h1 className="text-slate-300 text-xs font-normal">Categories</h1>
           {categories.map((item: any, index: string) => (
             <h1 key={index} className="text-white text-xs font-normal">
               {item.value}
@@ -248,11 +268,11 @@ const DaoDetails = (props: {
 
       <div className="flex justify-between px-2 pt-2">
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">DAO Logo</h1>
-          {fileURL && <img src={fileURL} className="py-1 max-w-[120px]" />}
+          <h1 className="text-slate-300 text-xs font-normal">DAO Logo</h1>
+          {fileURL && <img src={fileURL} className="py-2 max-w-[60%] rounded-full" />}
         </div>
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">
+          <h1 className="text-slate-300 text-xs font-normal">
             Dao Description
           </h1>
           <h1 className="text-white text-xs font-normal">{description}</h1>
@@ -370,7 +390,7 @@ const DaoPermissions = (props: {
 
   return (
     <div className="flex justify-between px-2 py-1 ">
-      <h1 className="text-slate-400 text-sm font-normal w-1/2">{permission}</h1>
+      <h1 className="text-slate-300 text-sm font-normal w-1/2">{permission}</h1>
       <div className="flex justify-start w-1/2">
         {permissionDict[permission].map((item: string, index: number) => (
           <>
@@ -429,7 +449,7 @@ const TooltipContainerUpName = (props: {
   const { upAddress, upNameDict } = props;
   return (
     <div className="py-1">
-      <h1 className="text-slate-400 text-xs font-normal">
+      <h1 className="text-slate-300 text-xs font-normal">
         {upNameDict.get(upAddress)}
       </h1>
     </div>
@@ -444,7 +464,7 @@ const TooltipContainerUpNames = (props: {
   return (
     <div className="py-1">
       {upNames.map((item: any, index: number) => (
-        <h1 className="text-slate-400 text-xs font-normal">
+        <h1 className="text-slate-300 text-xs font-normal">
           {upNameDict.get(item)}
         </h1>
       ))}
@@ -477,14 +497,14 @@ const VaultDetails = (props: {
       </div>
       <div className="flex justify-between px-2">
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">Vault Name</h1>
+          <h1 className="text-slate-300 text-xs font-normal">Vault Name</h1>
           <h1 className="text-white text-2xl font-bold">{vaultName}</h1>
         </div>
       </div>
 
       <div className="flex justify-between px-2 pt-2">
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">
+          <h1 className="text-slate-300 text-xs font-normal">
             Multisig Allowances
           </h1>
           {daoMembers.map((item, index) => (
@@ -495,7 +515,7 @@ const VaultDetails = (props: {
               ))}
         </div>
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">Majority</h1>
+          <h1 className="text-slate-300 text-xs font-normal">Majority</h1>
           <h1 className="text-white text-2xl font-bold">{majority}%</h1>
         </div>
       </div>
@@ -575,7 +595,7 @@ const VotingParametersDetails = (props: {
 
       <div className="flex justify-between px-2 pt-2">
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">
+          <h1 className="text-slate-300 text-xs font-normal">
             Participation Rate
           </h1>
           <h1 className="text-white text-2xl font-bold">
@@ -583,7 +603,7 @@ const VotingParametersDetails = (props: {
           </h1>
         </div>
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">
+          <h1 className="text-slate-300 text-xs font-normal">
             Min. Voting Delay
           </h1>
           <h1 className="text-white text-2xl font-bold">
@@ -594,11 +614,11 @@ const VotingParametersDetails = (props: {
       {/* minExecutionDelay */}
       <div className="flex justify-between px-2 pt-2">
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">Majority</h1>
+          <h1 className="text-slate-300 text-xs font-normal">Majority</h1>
           <h1 className="text-white text-2xl font-bold">{votingMajority}%</h1>
         </div>
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">
+          <h1 className="text-slate-300 text-xs font-normal">
             Min. Voting Period
           </h1>
           <h1 className="text-white text-2xl font-bold">
@@ -608,7 +628,7 @@ const VotingParametersDetails = (props: {
       </div>
       <div className="flex justify-end px-2 pt-2">
         <div className="flex-column justify-between items-center w-1/2">
-          <h1 className="text-slate-400 text-xs font-normal">
+          <h1 className="text-slate-300 text-xs font-normal">
             Min. Execution Delay
           </h1>
           <h1 className="text-white text-2xl font-bold">

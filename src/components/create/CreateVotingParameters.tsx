@@ -112,8 +112,8 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
         Create your Default Voting Parameters
       </h1>
       <form onSubmit={handleSubmit}>
-        <div className="md:px-[10%] py-4">
-        <div className="flex justify-left  w-full">
+        <div className=" py-4 md:w-[70%] md:mx-auto">
+        <div className="flex justify-left w-full">
           <label
             className="block text-white text-sm font-normal"
             htmlFor="participationRate"
@@ -158,7 +158,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             />
             <p className="px-2">%</p>
           </div>
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="votingMajority"
@@ -203,7 +203,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             />
             <p className="px-2">%</p>
           </div>
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="MinVotingDelay"
@@ -242,7 +242,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
               listItems={votingDelayItems}
             />
           </div>
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="minVotingPeriod"
@@ -281,7 +281,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
               listItems={votingPeriodItems}
             />
           </div>
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="minVotingPeriod"

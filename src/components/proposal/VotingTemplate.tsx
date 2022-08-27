@@ -155,12 +155,13 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             <p className="-translate-x-1.5">Back</p>
           </button>
         </div>
+
         <p className="block text-white text-center py-2 text-md font-semibold">
           Voting Parameters Template
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className="w-full md:w-3/5">
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
             <label
               className="block text-white text-sm font-normal"
               htmlFor="proposalName"
@@ -198,7 +199,8 @@ const VotingTemplate = (props: { handleComponent: any }) => {
               type="text"
               handleChange={(e: any) => setProposalName(e.target.value)}
             />
-            <div className="flex justify-left w-full">
+
+            {/* <div className="flex justify-left w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="categories"
@@ -234,8 +236,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
               handleChange={handleCategoriesChange}
               listItems={daoCategoryItems}
               name={"proposalCategories"}
-            />
-            <div className="flex justify-left  w-full">
+            /> */}
+
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="description"
@@ -268,12 +271,13 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                   i used popover
               </Popover></div>
             <textarea
-              className="my-1 h-28 w-full rounded-sm p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
+              className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
               value={description}
               name="description"
               onChange={(e: any) => setDescription(e.target.value)}
             />
-            <div className="flex justify-left  w-full">
+
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block text-white text-sm font-normal"
               htmlFor="participationRate"
@@ -317,7 +321,8 @@ const VotingTemplate = (props: { handleComponent: any }) => {
               />
               <p className="px-2">%</p>
             </div>
-            <div className="flex justify-left  w-full">
+
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="votingMajority"
@@ -361,7 +366,8 @@ const VotingTemplate = (props: { handleComponent: any }) => {
               />
               <p className="px-2">%</p>
             </div>
-            <div className="flex justify-left  w-full">
+
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="MinVotingDelay"
@@ -400,7 +406,8 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                 listItems={votingDelayItems}
               />
             </div>
-            <div className="flex justify-left  w-full">
+
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="minVotingPeriod"
@@ -439,7 +446,8 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                 listItems={votingPeriodItems}
               />
             </div>
-            <div className="flex justify-left  w-full">
+
+            <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"
               htmlFor="minExecutionDelay"
@@ -478,25 +486,27 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                 listItems={votingDelayItems}
               />
             </div>
+
+            <div className="flex justify-end items-center">
+              <button
+                type="submit"
+                className="flex justify-center rounded-full item-center mb-10 mt-[12px]
+                            border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                            text-base font-medium text-white hover:bg-[#8186ff] 
+                            sm:w-auto sm:text-sm"
+              >
+                <p className="translate-x-1.5">Next</p>
+                <MdNavigateNext
+                  className="translate-x-1.5 w-6"
+                  color="#fff"
+                  fontSize={20}
+                />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="flex justify-end items-center">
-          <button
-            type="submit"
-            className="flex justify-center rounded-full item-center mb-10 mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
-                        text-base font-medium text-white hover:bg-[#8186ff] 
-                        sm:w-auto sm:text-sm"
-          >
-            <p className="translate-x-1.5">Next</p>
-            <MdNavigateNext
-              className="translate-x-1.5 w-6"
-              color="#fff"
-              fontSize={20}
-            />
-          </button>
-        </div>
+        
       </form>
     </div>
   );

@@ -1,33 +1,14 @@
 import React, {useRef, useState, useCallback} from 'react'
 
 import { Area, MediaSize } from "react-easy-crop";
-// import "./styles.css";
-import CropperModal from "./CropperModal";
-import { Button, makeStyles } from "@material-ui/core";
-import getCroppedImg from "./getCroppedImg";
+import CropperModal from "../../modals/CropperModal";
+import getCroppedImg from "../../utils/getCroppedImg";
 export const ASPECT_RATIO = 1 / 1;
 export const CROP_WIDTH = 512;
 
 const FileUploader = (props:{onFileSelectError:any, onFileSelectSuccess:any}) => {
     const {onFileSelectError, onFileSelectSuccess} = props;
-    // const fileInput = useRef<any>(null)
-    // const [fileURL, setFileURL] = useState<any>(null);
-    
-    // const handleFileInput = (e:any) => {
-    //     const file = e.target.files[0];
-    //     setFileURL(URL.createObjectURL(e.target.files[0]));
-    //     if (!isImage(file.name)) {
-    //         onFileSelectError("Please upload file having extensions .jpeg/.jpg/.png/.gif only.");
-    //       }    
-
-    //     if (file.size > 1024*1024)
-    //         onFileSelectError("File size cannot exceed more than 1MB");
-    //     else onFileSelectSuccess(file);
-    // }
-
-    // const classes = useStyles();
     const [isOpen, setIsOpen] = useState(false);
-
     const [imgSrc, setImgSrc] = useState("");
     const [zoom, setZoom] = useState(1);
     const [minZoom, setMinZoom] = useState(1);
@@ -85,7 +66,7 @@ const FileUploader = (props:{onFileSelectError:any, onFileSelectSuccess:any}) =>
           const croppedImage = await getCroppedImg(imgSrc, croppedAreaPixels);
           setCroppedImgSrc(URL.createObjectURL(croppedImage));
           onFileSelectSuccess(croppedImage);
-          console.log("croppedImgSrc",croppedImage);
+          // console.log("croppedImgSrc",croppedImage);
         } catch (e) {
           console.error(e);
         }
@@ -94,9 +75,7 @@ const FileUploader = (props:{onFileSelectError:any, onFileSelectSuccess:any}) =>
     return (
         <div className="file-uploader">
            <input type="file" onChange={onFileChange}  accept=".jpg, .jpeg, .png, .gif," className="my-1 block rounded-lg w-full text-sm bg-white text-gray-900 border-2 border-[#999999] p-[5px] outline-none focus:border-red-400 text-sm text-gray-700 leading-tight"/>
-            <p className="text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. SIZE 1MB).</p>
-            {/* {fileURL && (<img src={fileURL} className="my-2 max-h-[200px] mx-auto"/>
-                )} */}
+            <p className="text-xs text-gray-100" id="file_input_help">SVG, PNG, JPG or GIF (MAX. SIZE 1MB).</p>
             <div className="img-container">
                 {croppedImgSrc && (
                 <img src={croppedImgSrc} alt="Cropped" className="my-2 max-h-[200px] mx-auto" />

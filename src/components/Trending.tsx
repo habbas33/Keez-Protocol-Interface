@@ -23,13 +23,13 @@ const Trending = () => {
         </h1>
         <div className="flex gap-3 flex-no-wrap justify-between items-center pb-10 ">
           {allDaos.length != [] ? (
-              <div className="grid md:grid-cols-4 w-full m-5 gap-4 grid-cols-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
                 {[...allDaos].reverse().map((daoDetail, i) => (
                   i<4?<DaoCard key={i} id={i} daoDetail={daoDetail} />:""
-                ))}
+                ))} 
               </div>
             ) : (
-              <div className="grid md:grid-cols-4 m-5 w-full gap-4 grid-cols-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
                 {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
                   <Skeleton
                     key={i}

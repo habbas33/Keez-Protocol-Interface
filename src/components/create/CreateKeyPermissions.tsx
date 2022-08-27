@@ -181,240 +181,247 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   i used popover
               </Popover></div>
 
-      <div className="flex flex-row justify-between">
-        <form onSubmit={handleSubmit} className="w-3/5">
-          <div className="md:pl-32 py-4">
-          <div className="flex justify-left  w-full">
-            <label
-              className="block text-white text-sm font-normal"
-              htmlFor="keyTitle"
-            >
-              UP Address
-            </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-                  <MdOutlineHelp className="text-white text-lg"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open}
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose}
-                  disableRestoreFocus
+      <div className="flex flex-row justify-between w-full">
+        <form onSubmit={handleSubmit} className="w-full md:w-[70%] md:mx-auto">
+          <div className="py-4  grid xl:grid-cols-2 grid-cols-1">
+            <div>
+              <div className="flex justify-left w-full">
+              <label
+                className="block text-white text-sm font-normal"
+                htmlFor="keyTitle"
+              >
+                UP Address
+              </label>
+              <p aria-owns={open ? 'mouse-over-popover' : undefined}
+              aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                    <MdOutlineHelp className="text-white text-lg"/>
+                  </p>
+                <Popover
+                    id="mouse-over-popover"
+                    className={classes.popover}
+                    classes={{
+                      paper: classes.paper,
+                    }}
+                    open={open}
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    onClose={handlePopoverClose}
+                    disableRestoreFocus
+                  >
+                    i used popover
+                </Popover>
+                </div>
+              <div className="flex flex-row items-center">
+                <Input
+                  placeholder=""
+                  name="up_address"
+                  type="text"
+                  handleChange={(e: any) => setUpAddress(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddKeyPermission}
+                  className="flex justify-center rounded-full items-center 
+                      border border-transparent shadow-sm px-2 mx-2 py-2 bg-[#6341ff]
+                      text-base font-medium text-white hover:bg-[#8168ff] 
+                        sm:w-auto sm:text-sm"
                 >
-                  i used popover
-              </Popover></div>
-            <div className="flex flex-row items-center">
-              <Input
-                placeholder=""
-                name="up_address"
-                type="text"
-                handleChange={(e: any) => setUpAddress(e.target.value)}
-              />
+                  <AiOutlineUserAdd className="w-6" color="#fff" fontSize={21} />
+                </button>
+              </div>
+
+              <div className="flex justify-left pt-4 w-full">
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="categories"
+                >
+                Key Permissions
+              </label>
+              <p aria-owns={open ? 'mouse-over-popover' : undefined}
+              aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+                    <MdOutlineHelp className="text-white text-lg"/>
+                  </p>
+                <Popover
+                    id="mouse-over-popover"
+                    className={classes.popover}
+                    classes={{
+                      paper: classes.paper,
+                    }}
+                    open={open}
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    onClose={handlePopoverClose}
+                    disableRestoreFocus
+                  >
+                    i used popover
+                </Popover>
+              </div>
+
+              <div className="flex items-center my-3">
+                <input
+                  type="checkbox"
+                  name="vote"
+                  onClick={(e: any) => setVotePermission(e.target.checked)}
+                  className="accent-[#6341ff] focus:accent-[#6341ff]"
+                />
+                <label
+                  htmlFor="vote"
+                  className="px-2 text-white text-sm font-medium"
+                >
+                  Vote
+                </label>
+              </div>
+              <div className="flex items-center my-3">
+                <input
+                  type="checkbox"
+                  name="propose"
+                  onClick={(e: any) => setProposePermission(e.target.checked)}
+                  className="accent-[#6341ff] focus:accent-[#6341ff]"
+                />
+                <label
+                  htmlFor="propose"
+                  className="px-2 text-white text-sm font-medium"
+                >
+                  Propose
+                </label>
+              </div>
+              <div className="flex items-center my-3">
+                <input
+                  type="checkbox"
+                  name="execute"
+                  onClick={(e: any) => setExecutePermission(e.target.checked)}
+                  className="accent-[#6341ff] focus:accent-[#6341ff]"
+                />
+                <label
+                  htmlFor="execute"
+                  className="px-2 text-white text-sm font-medium"
+                >
+                  Execute
+                </label>
+              </div>
+              <div className="flex items-center my-3">
+                <input
+                  type="checkbox"
+                  name="registerVotes"
+                  onClick={(e: any) => setRegisterVotesPermission(e.target.checked)}
+                  className="accent-[#6341ff] focus:accent-[#6341ff]"
+                />
+                <label
+                  htmlFor="registerVotes"
+                  className="px-2 text-white text-sm font-medium"
+                >
+                  Register Votes
+                </label>
+              </div>
+              <div className="flex items-center my-3">
+                <input
+                  type="checkbox"
+                  name="add"
+                  onClick={(e: any) => setAddPermission(e.target.checked)}
+                  className="accent-[#6341ff] focus:accent-[#6341ff]"
+                />
+                <label
+                  htmlFor="add"
+                  className="px-2 text-white text-sm font-medium"
+                >
+                  Add Permission
+                </label>
+              </div>
+              <div className="flex items-center my-3">
+                <input
+                  type="checkbox"
+                  name="remove"
+                  onClick={(e: any) => setRemovePermission(e.target.checked)}
+                  className="accent-[#6341ff] focus:accent-[#6341ff]"
+                />
+                <label
+                  htmlFor="remove"
+                  className="px-2 text-white text-sm font-medium"
+                >
+                  Remove Permission
+                </label>
+              </div>
+              <div className="flex items-center my-3">
+                <input
+                  type="checkbox"
+                  name="sendDeligate"
+                  onClick={(e: any) =>
+                    setSendDelegatePermission(e.target.checked)
+                  }
+                  className="accent-[#6341ff] focus:accent-[#6341ff]"
+                />
+                <label
+                  htmlFor="sendDeligate"
+                  className="px-2 text-white text-sm font-medium"
+                >
+                  Send Delegate
+                </label>
+              </div>
+              <div className="flex items-center my-3">
+                <input
+                  type="checkbox"
+                  name="receiveDelegate"
+                  onClick={(e: any) =>
+                    setReceiveDelegatePermission(e.target.checked)
+                  }
+                  className="accent-[#6341ff] focus:accent-[#6341ff]"
+                />
+                <label
+                  htmlFor="receiveDelegate"
+                  className="px-2 text-white text-sm font-medium"
+                >
+                  Receive Delegate
+                </label>
+              </div>
               <button
-                type="button"
-                onClick={handleAddKeyPermission}
-                className="flex justify-center rounded-full items-center 
-                    border border-transparent shadow-sm px-2 mx-2 py-2 bg-[#6341ff]
+                type="submit"
+                className="flex justify-center rounded-full item-center mt-[16px]
+                    border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                     text-base font-medium text-white hover:bg-[#8168ff] 
                       sm:w-auto sm:text-sm"
-              >
-                <AiOutlineUserAdd className="w-6" color="#fff" fontSize={21} />
+                >
+                Next
+                <MdNavigateNext
+                  className="pl-[2px] w-6"
+                  color="#fff"
+                  fontSize={20}
+                />
               </button>
             </div>
-            <div className="flex justify-left  w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="categories"
-            >
-              Key Permissions
-            </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-                  <MdOutlineHelp className="text-white text-lg"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open}
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose}
-                  disableRestoreFocus
-                >
-                  i used popover
-              </Popover></div>
-
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="vote"
-                onClick={(e: any) => setVotePermission(e.target.checked)}
-                className="accent-[#6341ff] focus:accent-[#6341ff]"
-              />
-              <label
-                htmlFor="vote"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Vote
-              </label>
+            {keyPermissions && keyPermissions.length > 0 && (
+            <div className="m-4 p-4 bg-[#4E4E50] overflow-auto max-h-[347.5px] rounded-md ">
+              <h1 className="text-white text-center text-base font-semibold pb-1">
+                Dao Members
+              </h1>
+              {keyPermissions.map((item, index) => (
+                <PermittedDaoMembers
+                  key={index}
+                  id={index}
+                  upAddress={item.upAddress}
+                  keyPermissions={item.keyPermissions}
+                  handleDeleteKeyPermission={handleDeleteKeyPermission}
+                />
+              ))}
             </div>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="propose"
-                onClick={(e: any) => setProposePermission(e.target.checked)}
-                className="accent-[#6341ff] focus:accent-[#6341ff]"
-              />
-              <label
-                htmlFor="propose"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Propose
-              </label>
-            </div>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="execute"
-                onClick={(e: any) => setExecutePermission(e.target.checked)}
-                className="accent-[#6341ff] focus:accent-[#6341ff]"
-              />
-              <label
-                htmlFor="execute"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Execute
-              </label>
-            </div>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="registerVotes"
-                onClick={(e: any) => setRegisterVotesPermission(e.target.checked)}
-                className="accent-[#6341ff] focus:accent-[#6341ff]"
-              />
-              <label
-                htmlFor="registerVotes"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Register Votes
-              </label>
-            </div>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="add"
-                onClick={(e: any) => setAddPermission(e.target.checked)}
-                className="accent-[#6341ff] focus:accent-[#6341ff]"
-              />
-              <label
-                htmlFor="add"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Add Permission
-              </label>
-            </div>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="remove"
-                onClick={(e: any) => setRemovePermission(e.target.checked)}
-                className="accent-[#6341ff] focus:accent-[#6341ff]"
-              />
-              <label
-                htmlFor="remove"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Remove Permission
-              </label>
-            </div>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="sendDeligate"
-                onClick={(e: any) =>
-                  setSendDelegatePermission(e.target.checked)
-                }
-                className="accent-[#6341ff] focus:accent-[#6341ff]"
-              />
-              <label
-                htmlFor="sendDeligate"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Send Delegate
-              </label>
-            </div>
-            <div className="flex items-center my-3">
-              <input
-                type="checkbox"
-                name="receiveDelegate"
-                onClick={(e: any) =>
-                  setReceiveDelegatePermission(e.target.checked)
-                }
-                className="accent-[#6341ff] focus:accent-[#6341ff]"
-              />
-              <label
-                htmlFor="receiveDelegate"
-                className="px-2 text-white text-sm font-medium"
-              >
-                Receive Delegate
-              </label>
-            </div>
-            <button
-              type="submit"
-              className="flex justify-center rounded-full item-center mt-[16px]
-                  border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
-                  text-base font-medium text-white hover:bg-[#8168ff] 
-                    sm:w-auto sm:text-sm"
-            >
-              Next
-              <MdNavigateNext
-                className="pl-[2px] w-6"
-                color="#fff"
-                fontSize={20}
-              />
-            </button>
+          )}
           </div>
+          
         </form>
-        {keyPermissions && keyPermissions.length > 0 && (
-          <div className="m-4 p-4 bg-[#4E4E50] overflow-auto max-h-[347.5px] rounded-md w-2/6">
-            <h1 className="text-white text-center text-base font-semibold pb-1">
-              Dao Members
-            </h1>
-            {keyPermissions.map((item, index) => (
-              <PermittedDaoMembers
-                key={index}
-                id={index}
-                upAddress={item.upAddress}
-                keyPermissions={item.keyPermissions}
-                handleDeleteKeyPermission={handleDeleteKeyPermission}
-              />
-            ))}
-          </div>
-        )}
+        
       </div>
     </div>
   );

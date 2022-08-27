@@ -6,13 +6,13 @@ import DaoDeployerJSON from '../keezContracts/Deployer/Deployer.sol/Deployer.jso
 import { ethers } from "ethers";
 
 interface DeployDaoContextInterface {
-    deployUniversalReceiverDelegateUP: any,
+    // deployUniversalReceiverDelegateUP: any,
     executeDeployer: any
 }
 
 export const DeployDaoContext = React.createContext<DeployDaoContextInterface>(
     {
-        deployUniversalReceiverDelegateUP: () => {},
+        // deployUniversalReceiverDelegateUP: () => {},
         executeDeployer: () => {},
     }   
 );
@@ -22,7 +22,7 @@ export const DeployDaoProvider = ({children}:any) => {
     const [owner, setOwner] = useState<string>('');
     const [signer, setSigner] = useState<any>([]);
     const [provider, setProvider] = useState<any>([]);
-    const [universalReceiverDelegateUPState, setUniversalReceiverDelegateUPState] = useState<any>([]);
+    // const [universalReceiverDelegateUPState, setUniversalReceiverDelegateUPState] = useState<any>([]);
 
     useEffect(() => {
         const fetchProvider = async () => {
@@ -70,15 +70,16 @@ export const DeployDaoProvider = ({children}:any) => {
                     +(permissions.execute<<2) +(permissions.propose<<1) + permissions.vote; 
                 permissionArray.push(ethers.utils.hexZeroPad(ethers.utils.hexValue(permissionbyte), 32))
             }
+
             console.log(addressArray)
             console.log(permissionArray)
+            const universalReceiverDelegateUPAddress = "0x718D6ceD390FAeC92Aff2d8581BD41255a7fE1Cb";
             const deployerAddress = "0xD8443C594CFC573406ca80a86e879D3aa1750d7E";
             const deployer = new ethers.Contract(deployerAddress, DaoDeployerJSON.abi, signer);
-   
             const deployment = await deployer
               .connect(signer)
               ["deploy(address,bytes,bytes32,bytes32,bytes32,bytes32,bytes32,address[],bytes32[])"](
-                universalReceiverDelegateUPState.address,
+                universalReceiverDelegateUPAddress,
                 ethers.utils.hexlify(ethers.utils.toUtf8Bytes(metalink)),
                 ethers.utils.hexZeroPad(ethers.utils.hexValue(voting_majority), 32),
                 ethers.utils.hexZeroPad(ethers.utils.hexValue(participation_rate), 32),
@@ -98,7 +99,8 @@ export const DeployDaoProvider = ({children}:any) => {
                 "DAO_PERMISSIONS": addresses[2],
                 "DAO_DELEGATES": addresses[3],
                 "DAO_PROPOSALS": addresses[4],
-                "MULTISIG": addresses[5]
+                "MULTISIG": addresses[5],
+                "UNIVERSALRECEIVER": universalReceiverDelegateUPAddress
             }
             const UniversalProfile  = new ethers.ContractFactory(UniversalProfileJSON.abi, UniversalProfileJSON.bytecode, signer);
             const universalProfile = UniversalProfile.attach(addresses[0]);
@@ -111,36 +113,37 @@ export const DeployDaoProvider = ({children}:any) => {
         }
     }
 
-    const deployUniversalReceiverDelegateUP = async () => {
-        try {
-            let txHash:string = "";
-             //@ts-ignore
-            const UniversalReceiverDelegateUP  = new web3.eth.Contract(UniversalReceiverDelegateUPJSON.abi)
-            const universalReceiverDelegateUP = UniversalReceiverDelegateUP.deploy({
-                data: UniversalReceiverDelegateUPJSON.bytecode,
-                arguments: []
-            })
-            const newContractInstance = await universalReceiverDelegateUP.send({
-                from: owner,
-                gas: 1500000
-            }).on('transactionHash', function(hash:string){
-                txHash = hash;
-            })
+    // const deployUniversalReceiverDelegateUP = async () => {
+    //     try {
+    //         let txHash:string = "";
+    //          //@ts-ignore
+    //         const UniversalReceiverDelegateUP  = new web3.eth.Contract(UniversalReceiverDelegateUPJSON.abi)
+    //         const universalReceiverDelegateUP = UniversalReceiverDelegateUP.deploy({
+    //             data: UniversalReceiverDelegateUPJSON.bytecode,
+    //             arguments: []
+    //         })
+    //         console.log("this")
+    //         const newContractInstance = await universalReceiverDelegateUP.send({
+    //             from: owner,
+    //             gas: 1500000
+    //         }).on('transactionHash', function(hash:string){
+    //             txHash = hash;
+    //         })
                         
-            console.log("universalReceiverDelegateUP is deployed",newContractInstance.options.address); 
-            setUniversalReceiverDelegateUPState(newContractInstance.options);
-            return {hash0: txHash , contractAddress0:newContractInstance.options.address}
-        } catch (error) {
-            console.log(error);
-            return "Stopped"
-        }
-    }
+    //         console.log("universalReceiverDelegateUP is deployed",newContractInstance.options.address); 
+    //         setUniversalReceiverDelegateUPState(newContractInstance.options);
+    //         return {hash0: txHash , contractAddress0:newContractInstance.options.address}
+    //     } catch (error) {
+    //         console.log(error);
+    //         return "Stopped"
+    //     }
+    // }
 
    
     return (
         <DeployDaoContext.Provider 
             value={{
-                deployUniversalReceiverDelegateUP:deployUniversalReceiverDelegateUP,
+                // deployUniversalReceiverDelegateUP:deployUniversalReceiverDelegateUP,
                 executeDeployer:executeDeployer,
                 }}>
             {children}
