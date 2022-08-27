@@ -6,18 +6,23 @@ import imageToAdd1 from "../../src/assets/Logos/—Pngtree—three-dimensional p
 const Welcome = () => {
   const { accountAddress, connectWallet } = useContext(ProfileContext);
   return (
-    <div className="flex pt-32 justify-center items-center px-5 lg:px-20 md:px-20 ">
+    <div className="flex pt-10 justify-center items-center px-5 lg:px-20 md:px-20 ">
       <div className="flex-column w-[90%]">
         <div className="flex flex-col md:flex-row gap-4 flex-initial justify-between py-0">
           <div className="flex-column md:w-1/2 text-white">
             <h1 className="text-4xl md:text-7xl text-white py-2 ">
-              Create a DAO, propose & vote within the <h1 className='font-bold flex-row inline'>LUKSO</h1> <h1 className='flex-column inline'>ecosystem</h1>
+              Create a DAO, propose & vote within the{" "}
+              <h1 className="font-bold flex-row inline">LUKSO</h1>{" "}
+              <h1 className="flex-column inline">ecosystem</h1>
             </h1>
             <div className="text-justify text-base">
-            The power of KEEZ DAO unlocks the KEEZ Protocol. This platform allows individuals to create a 
-            DAO and distribute permissions to members. The permissions can enable members to vote, propose, delegate, 
-            add/revoke permissions, and access the vaults and multisig of the DAO. The mission of this protocol is to 
-            revolutionize DAO governance models and step away from traditional token gating.
+              The power of KEEZ DAO unlocks the KEEZ Protocol. This platform
+              allows individuals to create a DAO and distribute permissions to
+              members. The permissions can enable members to vote, propose,
+              delegate, add/revoke permissions, and access the vaults and
+              multisig of the DAO. The mission of this protocol is to
+              revolutionize DAO governance models and step away from traditional
+              token gating.
             </div>
             <div className="flex flex-wrap gap-4 flex-row py-10 ">
               <button onClick={connectWallet}>

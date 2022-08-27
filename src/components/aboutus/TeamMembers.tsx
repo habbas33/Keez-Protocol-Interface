@@ -181,7 +181,8 @@ export const MumeenMemberCard = () => {
         </a>
       </p>
       <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
-      I am a passionate self-taught developer hoping to hoping to learn more and improve on my skills.
+        I am a passionate self-taught developer hoping to learn more and improve
+        on my skills.
       </h1>
     </div>
   );
