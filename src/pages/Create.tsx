@@ -11,7 +11,7 @@ import { MdCheck } from "react-icons/md";
 import StepConnector from '@material-ui/core/StepConnector';
 import { StepIconProps } from '@material-ui/core/StepIcon';
 import { DeployDaoContext } from '../context/DeployDaoContext'
-import { CreateDaoModal } from '../modals'
+import { DeployerModal } from '../modals'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
 
 const steps= {"CreateDAO":0,"CreateKeyPermissions":1,"CreateVault":2,"CreateVotingParameters":3,"CreateDaoSummary":4}
@@ -67,7 +67,7 @@ const Create: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-        {showModal && <CreateDaoModal showModal={showModal} setShowModal={setShowModal} daoUpMetadata={daoUpMetadata} metalink={metalink}/>}
+        {showModal && <DeployerModal showModal={showModal} setShowModal={setShowModal} daoUpMetadata={daoUpMetadata} metalink={metalink}/>}
         { !accountAddress ? (
         <div className="bg-other flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
           <ConnectProfileModal/>

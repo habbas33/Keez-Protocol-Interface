@@ -83,7 +83,7 @@ const CreateDaoSummary = (props: {
         
       //************contract interaction ************* */
         
-        // handleDeployDao(DaoUpMetadata)
+        handleDeployDao(DaoUpMetadata)
         
       //******************************************* */
 
@@ -101,12 +101,12 @@ const CreateDaoSummary = (props: {
         //   daoDelegates: daoDelegates.address,
         // };
 
-        const result = await postDaoUp(DaoUpMetadata);
+        // const result = await postDaoUp(DaoUpMetadata);
         // console.log(DaoUpMetadata)
         setSubmitLoading(false);
-        toast.success("Dao Profile Created", {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
+        // toast.success("Dao Profile Created", {
+        //   position: toast.POSITION.BOTTOM_RIGHT,
+        // });
 
       } catch (err) {
         toast.error("Dao Profile Creation Unsuccessful", {

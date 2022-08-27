@@ -1,0 +1,68 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IMultisigDeployer",
+  "sourceName": "contracts/Deployer/IMultisigDeployer.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_MULTISIG",
+          "type": "address"
+        }
+      ],
+      "name": "MultisigDeployed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_UNIVERSAL_PROFILE",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_KEY_MANAGER",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_caller",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "quorum",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_multisigParticipants",
+          "type": "address[]"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "_multisigParticipantsPermissions",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "deployMultisig",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "_MULTISIG",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

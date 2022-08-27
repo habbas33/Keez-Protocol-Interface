@@ -1,0 +1,35 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IDaoPermissionsDeployer",
+  "sourceName": "contracts/Deployer/DaoDeployer/DaoPermissions/IDaoPermissionsDeployer.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_UNIVERSAL_PROFILE",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_KEY_MANAGER",
+          "type": "address"
+        }
+      ],
+      "name": "deployDaoPermissions",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "_DAO_PERMISSIONS",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

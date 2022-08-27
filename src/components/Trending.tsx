@@ -79,7 +79,11 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
             <img 
               className="object-cover w-[180px] h-[150px] text-center rounded-full  bg-[#1A1A1D]"
               src={profileImageUrl}
-              alt=""
+              alt="Not Found" onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src="https://i0.wp.com/zeevector.com/wp-content/uploads/2021/02/black-grey-gradient-background.jpg?resize=768%2C576&ssl=1";
+              }}
+              
             >
             </img>
           </div>
