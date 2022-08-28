@@ -189,7 +189,7 @@ const ProposalCard = (props: {
   return (
     <div
       onClick={() => setShowModal(true)}
-      className="w-full h-60 flex flex-1 flex-col cursor-pointer rounded-md bg-[#b8a5a6]"
+      className="w-full h-60 flex flex-1 flex-col cursor-pointer pb-1 rounded-md bg-[#b8a5a6]"
     >
       <div className="flex flex-col justify-start items-start h-full p-5">
         <div className="flex justify-between items-center w-full">
@@ -219,11 +219,13 @@ const ProposalCard = (props: {
           )}
         </div>
 
-        <div className="flex w-full flex-col justify-start items-center h-full ">
-          <h1 className="text-black text-lg font-bold">
+        <div className="flex w-full flex-col mt-3 justify-start overflow-y-scroll items-center h-full ">
+          <h1 className="text-black text-lg break-all font-bold ">
             {proposal.proposalName}
           </h1>
-          <h1 className="text-black text-xs py-1">{proposal.description}</h1>
+          <h1 className="text-black text-xs break-all  pr-2 mb-1">
+            {proposal.description}
+          </h1>
         </div>
       </div>
       {showModal && (
