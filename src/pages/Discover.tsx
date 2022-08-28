@@ -20,13 +20,20 @@ const Discover: React.FC = () => {
   const [filterString, setFilter] = useState("");
   const [allDaos, setAllDaos] = useState<any>([]);
   const filterParam = [
-    "NFT",
-    "DAO",
-    "Social",
-    "Fashion",
+    "All",
     "Investment",
-    "Gaming",
+    "Grant",
+    "Protocol",
+    "Social",
+    "Research",
   ];
+  const filterByCategory = (category: string) => {
+    if (category === "All") {
+      setFilter("");
+    } else {
+      setFilter(category.toLowerCase());
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +60,7 @@ const Discover: React.FC = () => {
                         ? " text-[#1A1A1D] border-[#1A1A1D]"
                         : ""
                     }`}
-                    onClick={() => setFilter(item.toLowerCase())}
+                    onClick={() => filterByCategory(item)}
                   >
                     {item}
                   </p>
@@ -79,12 +86,10 @@ const Discover: React.FC = () => {
                       .includes(filterString)
                   )
                   .reverse()
-                  .map(
-                    (daoDetail, i) => (
-                      // console.log(getParsedJsonObj(daoDetail.categories)[0]),
-                      (<DaoCard key={i} id={i} daoDetail={daoDetail} />)
-                    )
-                  )}
+                  .map((daoDetail, i) => (
+                    // console.log(getParsedJsonObj(daoDetail.categories)[0]),
+                    <DaoCard key={i} id={i} daoDetail={daoDetail} />
+                  ))}
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 m-5 gap-4 ">
