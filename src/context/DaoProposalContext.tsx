@@ -121,7 +121,7 @@ export const DaoProposalProvider = ({children}:any) => {
                 proposalSignature,
                 choice
               );
-
+                console.log("here");
             if (web3) {
                 const signature = await web3.eth.sign(ethers.utils.arrayify(hashUser).toString(), userAddress);
                 return signature

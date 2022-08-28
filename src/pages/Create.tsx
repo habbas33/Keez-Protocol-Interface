@@ -10,7 +10,6 @@ import StepLabel from '@material-ui/core/StepLabel';
 import { MdCheck } from "react-icons/md";
 import StepConnector from '@material-ui/core/StepConnector';
 import { StepIconProps } from '@material-ui/core/StepIcon';
-// import { DeployDaoContext } from '../context/DeployDaoContext'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
 
 const steps= {"CreateDAO":0,"CreateKeyPermissions":1,"CreateVault":2,"CreateVotingParameters":3,"CreateDaoSummary":4}
@@ -21,7 +20,6 @@ const Create: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [metalink, setMetalink] = useState<string>('');
   const [allStepsValidated, setAllStepsValidated] = useState<boolean>(false);
-  // const [showModal, setShowModal] = useState<boolean>(false);
   const [daoUpMetadata, setDaoUpMetadata] = useState<any>([]);
 
   const handleSubmitCreate = (NextForm:string,DaoUpMetadata?:any) => {
@@ -33,26 +31,8 @@ const Create: React.FC = () => {
     if (NextForm==="CreateDaoSummary"){
       setAllStepsValidated(true)
     }
-    // setActiveStep();
-    // if (NextForm==="DaoCreated"){
-    //   if(DaoUpMetadata){
-    //     setShowModal(true);
-    //   }
-    // }
   }
 
-  // const handleDeployDao = (DaoUpMetadata?:any) => {
-  //   setDaoUpMetadata(DaoUpMetadata);
-  //     if(DaoUpMetadata){
-  //       setShowModal(true);
-  //     }
-  // }
-
-  // const handleDeploy = () => {
-  //   console.log("creat");
-  //   setShowModal(true);
-  //   // deployUniversalReceiverDelegateUP();
-  // }
 
   const handleReview = (NextForm:string) => {
     //@ts-ignore
@@ -71,19 +51,10 @@ const Create: React.FC = () => {
         <div className="bg-other flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
           <ConnectProfileModal/>
             <h1 className="text-white">Connect your user profile</h1>
-            {/* <button
-                      onClick={handleDeploy}
-                      type="button"
-                      className="flex justify-center rounded-md item-center 
-                                  border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                                  text-base font-medium text-white  ml-auto"
-                    >
-                      deploy
-                    </button> */}
         </div>
         
         ):(
-          <div className="bg-other min-h-[100vh] pt-24 w-full ">
+          <div className="bg-other min-h-[100vh] pt-10 w-full ">
             <div className="w-[100%] md:px-[12vw] mx-auto bg-other">
               <Stepper style={{backgroundColor:'transparent'}} activeStep={allStepsValidated?4:activeStep} alternativeLabel connector={<QontoConnector />}>
                   <Step>
@@ -108,16 +79,6 @@ const Create: React.FC = () => {
             { (createForm === "CreateVault") && (<CreateVault handleSubmitCreate={handleSubmitCreate}/>)}
             { (createForm === "CreateVotingParameters") && (<CreateVotingParameters handleSubmitCreate={handleSubmitCreate}/>)}
             { (createForm === "CreateDaoSummary") && (<CreateDaoSummary handleSubmitCreate={handleSubmitCreate} setMetalink={setMetalink}/>)}
-           
-                {/* <button
-                onClick={handleDeploy}
-                type="button"
-                className="flex justify-center rounded-md item-center 
-                            border border-transparent shadow-sm px-4 py-2 bg-[#C3073F]
-                            text-base font-medium text-white  ml-auto"
-              >
-                deploy
-              </button> */}
           </div>
         )}
     </div>

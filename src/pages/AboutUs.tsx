@@ -14,15 +14,15 @@ import {
 const Main: React.FC = () => {
   return (
     <div className="min-h-screen">
-      <div className="bg-other">
+      <div className="bg-other px-5 lg:px-40 md:px-20">
         <AboutUsInfo />
-        <div className="flex-column flex-initial justify-between py-5 px-20">
+        <div className="flex-column flex-initial justify-between py-5 ">
           <h1 className="text-4xl text-left text-white">
             Team Members
           </h1>
         </div>
 
-        <div className="bg-other grid flex-wrap place-content-stretch gap-3 md:grid-cols-2 lg:grid-cols-3 items-center px-5 md:px-20">
+        <div className=" grid flex-wrap place-content-stretch gap-3 lg:grid-cols-2 xl:grid-cols-3 items-center ">
           <SageMemberCard />
           <B00steMemberCard />
           <HabbasMemberCard />

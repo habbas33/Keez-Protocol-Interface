@@ -6,7 +6,7 @@ export const StyledTooltip = withStyles(theme => ({
       backgroundColor: "#8168ff",
       color: "#FFFFFF",
       boxShadow: theme.shadows[5],
-      fontSize: 11,
+      fontSize: "0.875rem",
     },
     arrow: {
       color: "#8168ff",

@@ -16,7 +16,6 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     const { 
         getProposalHash,
         registerVotes,
-        signMessage,
         executeProposal
         } = useContext(DaoProposalContext);
     const { accountAddress } = useContext(ProfileContext);
@@ -28,7 +27,11 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     const [userCanRegister, setUserCanRegister] = useState<boolean>(false);
     const [userCanExecute, setUserCanExecute] = useState<boolean>(false);
     const [hasVoted, setHasVoted] = useState<boolean>(false);
+    const [voterChoice, setVoterChoice] = useState<number>(10);
     const [voters, setVoters] = useState<string[]>([]);
+    const [signatureArray, setSignatureArray] = useState<string[]>([]);
+    const [addressArray, setAddressArray] = useState<string[]>([]);
+    const [choiceArray, setChoiceArray] = useState<string[]>([]);
 
     const cancelButtonRef = useRef(null);
 
@@ -57,7 +60,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 proposalContractAddress: contractAddressObject.daoProposals,
                 proposalUrl: proposalUrl,
                 proposalName: proposal.proposalName,
-                signature: hash.signature,
+                VoterSignature: hash.signature,
                 proposalSignature: proposalSignature,
                 VoterChoice: choice,
                 VoterAddress: accountAddress,
@@ -65,14 +68,19 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
             };
            
             console.log(VoteMetadata);
-            
-            const result = await postVote(VoteMetadata);
+            if (hash.signature){
+                const result = await postVote(VoteMetadata);
+                toast.success("Voted Successfully", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            }   else {
+                toast.success("Vote Submission Failed", {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }
             //********************************************** */
 
             setIsLoading(false);
-            toast.success("Voted Successfully", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
         } catch (err) {
             console.log(err);
             toast.error("Vote Submission Failed", {
@@ -101,7 +109,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 proposalContractAddress: contractAddressObject.daoProposals,
                 proposalUrl: proposalUrl,
                 proposalName: proposal.proposalName,
-                signature: hash.signature,
+                VoterSignature: hash.signature,
                 proposalSignature: proposalSignature,
                 VoterChoice: choice,
                 VoterAddress: accountAddress,
@@ -109,14 +117,19 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
             };
            
             console.log(VoteMetadata);
-            
-            const result = await postVote(VoteMetadata);
+            if (hash.signature){
+                const result = await postVote(VoteMetadata);
+                toast.success("Voted Successfully", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            }   else {
+                toast.success("Vote Submission Failed", {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }
             //********************************************** */
 
             setIsLoading(false);
-            toast.success("Voted Successfully", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
         } catch (err) {
             console.log(err);
             toast.error("Vote Submission Failed", {
@@ -145,7 +158,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 proposalContractAddress: contractAddressObject.daoProposals,
                 proposalUrl: proposalUrl,
                 proposalName: proposal.proposalName,
-                signature: hash.signature,
+                VoterSignature: hash.signature,
                 proposalSignature: proposalSignature,
                 VoterChoice: choice,
                 VoterAddress: accountAddress,
@@ -153,14 +166,20 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
             };
            
             console.log(VoteMetadata);
-            
-            const result = await postVote(VoteMetadata);
+            if (hash.signature){
+                const result = await postVote(VoteMetadata);
+                toast.success("Voted Successfully", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+            });
+            }   else {
+                toast.success("Vote Submission Failed", {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }
             //********************************************** */
 
             setIsLoading(false);
-            toast.success("Voted Successfully", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
+            
         } catch (err) {
             console.log(err);
             toast.error("Vote Submission Failed", {
@@ -174,11 +193,12 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
         try {;
             //************Contract Interaction ************* */
-            // const signaturesArray: string[] = [];// get this data from new voting model at backend
-            // const addressArray: string[] = [];// get this data from new voting model at backend
-            // const choiceArray: string[] = [];// get this data from new voting model at backend
-            // const proposalSignature = ""; // get this data from backend proposals
-            // const result = await registerVotes(contractAddressObject, proposalSignature, signaturesArray, addressArray, choiceArray);
+            const signaturesArray: string[] = signatureArray;// get this data from new voting model at backend
+            const addressesArray: string[] = addressArray;// get this data from new voting model at backend
+            const choicesArray: string[] = choiceArray;// get this data from new voting model at backend
+            const proposalSignature = proposal.identifier; // get this data from backend proposals
+            const result = await registerVotes(contractAddressObject, proposalSignature, signaturesArray, addressesArray, choicesArray);
+            console.log("votes array = ", votes);
             // console.log(result)
             //********************************************** */
             
@@ -194,14 +214,14 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         }
     }
 
-    const handleExecute = () =>{
+    const handleExecute = async() =>{
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
         try {
-            const proposalSignature = "" //proposalSignature get from backend
+            const proposalSignature = proposal.identifier //proposalSignature get from backend
             //************Contract Interaction ************* */
             
-            // const result = await executeProposal(contractAddressObject,proposalSignature);
-            // console.log(result)
+            const result = await executeProposal(contractAddressObject,proposalSignature);
+            console.log(result)
             //********************************************** */
             
             toast.success("Executed Successfully", {
@@ -240,29 +260,37 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 }
             }
             setVoters(_voters);
-            console.log("voters",_voters);
-            console.log("voters.length",_voters.length)
-            console.log("daoSelected",JSON.stringify(daoSelected.keyPermissions,null,4));
-        };
-        const checkIfVoted = () => {
-            // const _voters :string[] = [];
-            for (var i = 0; i < votes.length; i++) {
-                if (votes[i].VoterAddress === accountAddress) {
-                    setHasVoted(true);
-                    console.log(1);
-                } else {
-                    setHasVoted(false);
-                    console.log(0);
-                }
-            }
-            // console.log("votes.length",((votes.length/voters.length)*100).toFixed(2))
         };
         
         fetchData();
-        checkIfVoted();
         getVoterDetails();
-    }, [isLoading])
-    
+        // checkIfVoted();
+    }, [isLoading, accountAddress])
+
+    useEffect(() => {
+        const checkIfVoted = () => {
+            const signature_array :string[] = [];
+            const address_array :string[] = [];
+            const choice_array :string[] = [];
+            for (var i = 0; i < votes.length; i++) {
+                signature_array.push(votes[i].VoterSignature);
+                choice_array.push(votes[i].VoterChoice)
+                address_array.push(votes[i].VoterAddress)
+                if (votes[i].VoterAddress === accountAddress) {
+                    setHasVoted(true);
+                    setVoterChoice(Number(votes[i].VoterChoice));
+                } else {
+                    setHasVoted(false);
+                }
+            }
+            setSignatureArray(signature_array);
+            setAddressArray(address_array);
+            setChoiceArray(choice_array);
+            
+        };
+        checkIfVoted();
+    }, [votes])
+
     const permissionsObject =
     daoSelected.length != ""
       ? getParsedJsonObj(daoSelected.keyPermissions)
@@ -323,10 +351,10 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full"
                 >
     
-                <div className="flex flex-col justify-between items-center p-8 bg-black">
+                <div className="flex flex-col justify-between items-center p-8 bg-[#8168ff]">
                     <div className="flex flex-row w-full justify-between items-center">
                         <h1 className="text-slate-100 text-sm font-semi">{daoSelected.daoName}</h1>
-                        <AiOutlineClose fontSize={24} className="text-white hover:bg-[#59595c] p-[2px] rounded-full cursor-pointer" onClick={handleModel}/>
+                        <AiOutlineClose fontSize={24} className="text-white hover:bg-[#8186ff] p-[2px] rounded-full cursor-pointer" onClick={handleModel}/>
                     </div>
                     
                     <div className="grid gap-x-6 gap-y-0 md:grid-cols-2 grid-cols-1 w-full text-white py-2">
@@ -350,7 +378,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                             <div className="flex flex-col w-full justify-start items-start">
                                 <div className="flex flex-row w-full justify-between items-center">
                                     <div className="flex justify-start items-center">
-                                        <h1 className="text-slate-400 text-sm font-normal">Proposed By</h1>
+                                        <h1 className="text-slate-300 text-sm font-normal">Proposed By</h1>
                                         <h1 className="text-white text-sm px-2 font-semibold">{shortenAddress(proposal.creator)}</h1>
                                     </div>
                                     {/* <div className="flex justify-start items-center">
@@ -359,8 +387,10 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                     </div> */}
                                 </div>
                             </div>
-                            <div className="flex flex-col h-full w-full justify-between items-start">
-                                <h1 className="text-white pb-3 text-xs font-normal break-words">{proposal.description}</h1>
+                            <div className="flex flex-col w-full h-full justify-between items-start ">
+                                <div className="max-h-[200px] min-h-[200px] overflow-scroll md:overflow-auto pb-3">
+                                    <h1 className="text-white  text-xs font-normal break-all">{proposal.description}</h1>
+                                </div>
                                 <div className="flex flex-col w-full justify-between space-y-4 items-start p-2 bg-white rounded-md text-black">
                                     <h1 className="text-sm text-center font-bold">Proposal Details</h1>
         
@@ -422,65 +452,81 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                             }
                             </div>
                             <div className="flex flex-col w-full text-center space-y-1 justify-center items-center text-center">
-                            {((proposalStatus === "Pending" || isLoading || !userCanVote) && proposalStatus != "Closed") &&
-                                <>
-                                    <h1 className="text-sm font-bold">VOTE</h1>
-                                    <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
-                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
-                                    </div>
-                                    <div className="flex justify-start items-center w-28 opacity-50 cursor-default bg-blue-800 rounded-full">
-                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
-                                    </div>
-                                    <div className="flex justify-start items-center w-28 opacity-50 cursor-default bg-blue-800 rounded-full">
-                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
-                                    </div>
-                                </>
-                            }
-                            
-                            { (proposalStatus === "Active" && !isLoading && userCanVote)&&
-                                <>
-                                    <h1 className="text-sm font-bold">VOTE</h1>
-                                    <div onClick={handleFor} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
-                                    </div>
-                                    <div onClick={handleAgainst} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
-                                    </div>
-                                    <div onClick={handleAbstain} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                        <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
-                                    </div>
-                                </>
-                            }
+                                {hasVoted && (
+                                     <>
+                                        <h1 className="text-sm font-bold">VOTE</h1>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 0 ? "bg-green-800 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
+                                        </div>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 1 ? "bg-green-800 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
+                                        </div>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 2 ? "bg-green-800 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
+                                        </div>
+                                    </>
+                                )}
 
-                            { (proposalStatus === "Closed" && !isLoading ) &&
-                                <>
-                                    <h1 className="text-sm font-bold">Actions</h1>
-                                    {userCanRegister ?
-                                        <div onClick={handleRegister} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Register</h1>
-                                        </div>
-                                        :
+                                {((proposalStatus === "Pending" || isLoading || !userCanVote) && proposalStatus != "Closed" && !hasVoted) &&
+                                    <>
+                                        <h1 className="text-sm font-bold">VOTE</h1>
                                         <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Register</h1>
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
                                         </div>
-                                    }
-                                    {userCanExecute ?
-                                        <div onClick={handleExecute} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Execute</h1>
+                                        <div className="flex justify-start items-center w-28 opacity-50 cursor-default bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
                                         </div>
-                                        :
-                                         <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Execute</h1>
+                                        <div className="flex justify-start items-center w-28 opacity-50 cursor-default bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
                                         </div>
-                                    }
-                                    {!userCanRegister && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Register Votes permission</h1>}
-                                    {!userCanExecute && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Execute Votes permission</h1>}
-                                </>
-                            }
+                                    </>
+                                }
+
+                                {(proposalStatus === "Active" && !isLoading && userCanVote && !hasVoted)&&
+                                    <>
+                                        <h1 className="text-sm font-bold">VOTE</h1>
+                                        <div onClick={handleFor} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
+                                        </div>
+                                        <div onClick={handleAgainst} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
+                                        </div>
+                                        <div onClick={handleAbstain} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
+                                        </div>
+                                    </>
+                                }
+                                
+                                {(proposalStatus === "Closed" && !isLoading  && !hasVoted) &&
+                                    <>
+                                        <h1 className="text-sm font-bold">Actions</h1>
+                                        {userCanRegister ?
+                                            <div onClick={handleRegister} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                                <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Register</h1>
+                                            </div>
+                                            :
+                                            <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
+                                                <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Register</h1>
+                                            </div>
+                                        }
+                                        {userCanExecute ?
+                                            <div onClick={handleExecute} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                                <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Execute</h1>
+                                            </div>
+                                            :
+                                             <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
+                                                <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Execute</h1>
+                                            </div>
+                                        }
+                                        {!userCanRegister && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Register Votes permission</h1>}
+                                        {!userCanExecute && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Execute Votes permission</h1>}
+                                    </>
+                                }
+                            
                             {!userCanVote && proposalStatus != "Closed" && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Vote permission</h1>}
                            
                             </div>
-                            {hasVoted && <h1 className="text-red-600 text-xs font-normal py-1 px-2">already voted</h1>}
+                            {/* {hasVoted ? <h1 className="text-red-600 text-xs font-normal py-1 px-2">already voted</h1>:"hello"} */}
                         </div>
                     </div>
                 </div>

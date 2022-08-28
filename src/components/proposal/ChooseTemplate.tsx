@@ -55,7 +55,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
   }, []);
 
   return (
-    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
+    <div className="bg-other pt-10  min-h-[100vh] w-full px-5 md:px-[15%]">
       {/* <h1 className="text-white text-lg py-2">Step 1</h1> */}
       <form onSubmit={(event) => handleSubmit(event, templateSelected)}>
         <div className="py-2 ">
@@ -86,7 +86,7 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
           >
             You have permission to create proposals for the following DAOs
           </label>
-          <div className="grid gap-4 md:grid-cols-2 text-white mx-5 md:mx-20">
+          <div className="grid gap-4 xl:grid-cols-2 md:grid-cols-1 text-white m-5 md:mx-20">
             <div
               onClick={(event) => handleTemplateSelection(event, 0)}
               className={`flex-col justify-start p-6 cursor-pointer rounded-lg items-center hover:bg-[#8168ff] bg-[#292d46] ${
@@ -95,10 +95,10 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                   : ""
               }`}
             >
-              <p className="text-xl h-2/6 text-center pb-4 text-bold">
+              <p className="text-xl text-center font-bold">
                 Voting Parameters Template
               </p>
-              <p className="text-sm h-4/6 text-light text-center">
+              <p className="text-sm text-light text-center py-5">
               This template will allow you to propose new default voting parameters for the DAO. Voting parameters include participation rate, majority, minimum voting delay, 
               minimum voting period, and minimum execution delay. These parameters represent the minimum default values and can be extended in any proposal. These proposals will 
               auto execute the results when the voting period ends and after the execution delay.
@@ -112,10 +112,10 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                   : ""
               }`}
             >
-              <p className="text-xl h-2/6 text-center pb-4 text-bold">
+              <p className="text-xl text-center font-bold">
                 Send Tokens From DAO Template
               </p>
-              <p className="text-sm text-light text-center">
+              <p className="text-sm text-light text-center py-5">
               This proposal template will allow you to send tokens from a DAO’s vault to another address. This template may be used to relocate tokens from one vault 
               to another or from one vault to an individual's UP for, let's say, payment of service. These proposals will auto execute the results when the voting period 
               ends and after an execution delay.
@@ -129,10 +129,10 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                   : ""
               }`}
             >
-              <p className="text-xl h-2/6 text-center pb-4 text-bold">
+              <p className="text-xl text-center font-bold">
                 Add & Revoke Permissions Template
               </p>
-              <p className="text-sm text-light text-center">
+              <p className="text-sm text-light text-center py-5">
               This proposal template will allow you to add or revoke permissions to a DAO member's Universal Profile. This can be used to add new members to the DAO or 
               remove members who are not respecting the community. These proposals will auto execute the results when the voting period ends and after an execution delay.
               </p>
@@ -145,10 +145,10 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                   : ""
               }`}
             >
-              <p className="text-xl h-2/6 text-center pb-4 text-bold">
+              <p className="text-xl text-center font-bold">
                 General Template
               </p>
-              <p className="text-sm text-light text-center">
+              <p className="text-sm text-light text-center py-5">
               This proposal template allows you to create a custom proposal. These proposals will not auto-execute when voting ends.
               </p>
             </div>

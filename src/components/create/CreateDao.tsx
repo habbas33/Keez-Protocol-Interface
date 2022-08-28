@@ -10,24 +10,12 @@ import { toast } from "react-toastify";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { daoCategoryItems } from "../../constants/daoCategoryItems";
 import { VALIDATORS } from "../../constants/globals";
+import { StyledPopover } from "../../styles";
 import { MdOutlineHelp }  from "react-icons/md";
 import Popover from '@material-ui/core/Popover';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from "@material-ui/core";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: 'none',
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  }),
-);
 
 const CreateDao = (props: { handleSubmitCreate: any }) => {
-  const classes = useStyles();
+  const classes = StyledPopover();
   const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
   const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
@@ -138,8 +126,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
       <div className="flex justify-left  w-full">
       <h1 className="text-white text-4xl font-bold">Create your DAO</h1>
       <p aria-owns={open1 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-lg "/>
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1} className="px-1">
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -159,7 +147,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                 Here you will begin to create a Universal Profile for your DAO,
                 add members, assign permissions, create vaults & multisigs, 
                 and governance parameters.</div>
@@ -174,8 +162,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             DAO Name
           </label>
           <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2} className="px-1">
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -195,7 +183,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose2}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The name of your DAO. This will be the name that is displayed on your profile card/page. 
                   There is currently no way to change it after the creation 
                   process is completed so choose wisely.</div>
@@ -216,8 +204,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             DAO Logo
           </label>
           <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3} className="px-1">
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -237,7 +225,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose3}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   This logo will be displayed on your profile card/page. 
                   This image cannot currently be changed after the creation 
                   process is completed so choose wisely.</div>
@@ -256,8 +244,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             Category
           </label>
           <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4} className="px-1">
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -277,7 +265,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   These categories will help users find your DAO when searching
                   through the discovery page. Please select the category that
                   best describes your DAO.</div>
@@ -308,8 +296,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             Description
           </label>
           <p aria-owns={open5 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5} className="px-1">
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -329,7 +317,7 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   This description will be displayed on your profile card/page
                   and can be edited anytime. There is a 500-word limit.</div>
               </Popover></div>

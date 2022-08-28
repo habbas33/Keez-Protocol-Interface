@@ -238,51 +238,44 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
       ProposalMetadata.proposalProfile["url"] = IPFS_DWEB_URL;
       
       if (proposalType === "Voting"){
-        console.log("metalink", metalink, typeof metalink);
-        console.log(ethers.utils.hexlify(ethers.utils.toUtf8Bytes(metalink)));
-        console.log("votingMajority", typeof votingMajority);
-        console.log(ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingMajority)), 32));
-        console.log("participationRate", typeof participationRate);
-        console.log(ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(participationRate)), 32));
-        console.log("minVotingDelay", typeof minVotingDelay);
-        console.log(ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minVotingDelay)*24*3600), 32));
-        console.log("minVotingPeriod", typeof minVotingPeriod);
-        console.log(ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minVotingPeriod)*24*3600), 32));
-        console.log("minExecutionDelay", typeof minExecutionDelay);
-        console.log(ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minExecutionDelay)*24*3600), 32));
-        payloads = [
-          setDataInterface.encodeFunctionData(
-            "setData",
-            [
+        // console.log(ethers.utils.hexlify(ethers.utils.toUtf8Bytes(metalink)));
+        const changeParameters = (datakeys:string[], dataValues:string[]) => {
+          const setDataABI = ["function setData(bytes32[] memory dataKeys, bytes[] memory dataValues)"];
+          const setDataInterface = new ethers.utils.Interface(setDataABI);
+          const payloads = [
+            setDataInterface.encodeFunctionData(
+              "setData",
               [
-                _DAO_JSON_METDATA_KEY,
-                _DAO_MAJORITY_KEY,
-                _DAO_PARTICIPATION_RATE_KEY,
-                _DAO_MINIMUM_VOTING_DELAY_KEY,
-                _DAO_MINIMUM_VOTING_PERIOD_KEY,
-                _DAO_MINIMUM_EXECUTION_DELAY_KEY,
-              ],
-              [
-                ethers.utils.hexlify(ethers.utils.toUtf8Bytes(metalink)),
-                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingMajority)), 32),
-                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(participationRate)), 32),
-                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minVotingDelay)*24*3600), 32),
-                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minVotingPeriod)*24*3600), 32),
-                ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minExecutionDelay)*24*3600), 32),
+                datakeys,
+                dataValues
               ]
-            ]
-          )
-        ];
-        console.log("h2");
-        console.log(payloads)
+            )
+          ];
+          return payloads;
+        }
+
+        payloads = changeParameters(
+          [
+            _DAO_MAJORITY_KEY,
+            _DAO_PARTICIPATION_RATE_KEY,
+            _DAO_MINIMUM_VOTING_DELAY_KEY,
+            _DAO_MINIMUM_VOTING_PERIOD_KEY,
+            _DAO_MINIMUM_EXECUTION_DELAY_KEY
+          ],
+          [
+            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingMajority)), 32),
+            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(participationRate)), 32),
+            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minVotingDelay)*24*3600), 32),
+            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minVotingPeriod)*24*3600), 32),
+            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minExecutionDelay)*24*3600), 32),
+          ]
+        )
       }
 
       //************contract interaction ************* */
       //@ts-ignore
       const proposalSignatures = await createDaoProposal(daoSelected,payloads,ProposalMetadata);
       console.log("proposalSignatures = ", proposalSignatures);
-      // const proposalSignatures = await getProposalSignatures();
-      // console.log("proposalSignatures = ", proposalSignatures);
       //@ts-ignore
       ProposalMetadata.proposalProfile["identifier"] = proposalSignatures;
       //************************ */
@@ -339,8 +332,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
 
   toast.configure();
   return (
-    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
-      <h1 className="text-white text-center text-4xl pb-2">
+    <div className="bg-other pt-10  min-h-[100vh] w-full px-5 md:px-[15%]">
+      <h1 className="text-white text-center textShadow text-4xl pb-5">
         Preview Proposal
       </h1>
       <div className="flex flex-col justify-between items-center p-8 rounded-lg bg-[#8168ff]">

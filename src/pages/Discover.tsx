@@ -48,8 +48,8 @@ const Discover: React.FC = () => {
   return (
     <div className="min-h-screen">
       <div className="bg-other flex min-h-[100vh] w-full px-5 lg:px-40 md:px-20">
-        <div className="pt-28 text-white w-full flex-col justify-start items-start">
-          <p className="text-4xl text-center pb-4">Discover DAOs</p>
+        <div className="pt-10 text-white w-full flex-col justify-start items-start">
+          <p className="text-5xl text-center textShadow pb-10">Discover DAOs</p>
           <div className="flex-col justify-start items-start w-full">
             <div className="flex flex-wrap justify-between m-5 items-center pb-4 my-1 rounded-lg">
               <div className="flex flex-wrap items-center border-solid rounded-lg  border-[#999999] border-2 bg-white  text-[#7f7f81] px-2 text-sm font-bold">

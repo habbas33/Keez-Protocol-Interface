@@ -10,21 +10,10 @@ import {
 import { VALIDATORS } from "../../constants/globals";
 import { MdOutlineHelp }  from "react-icons/md";
 import Popover from '@material-ui/core/Popover';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: 'none',
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  }),
-);
+import { StyledPopover } from "../../styles";
 
 const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
-  const classes = useStyles();
+  const classes = StyledPopover();
   const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
   const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
@@ -157,9 +146,9 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
       <h1 className="text-white text-4xl font-bold">
         Create your Default Voting Parameters
       </h1>
-      <p aria-owns={open1 ? 'mouse-over-popover' : undefined}
+      <p className="px-1" aria-owns={open1 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -179,7 +168,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Here you will create your default governance parameters you'd like your DAO to follow.</div>
               </Popover></div>
       <form onSubmit={handleSubmit}>
@@ -191,9 +180,9 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           >
             Participation rate
           </label>
-          <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+          <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -213,7 +202,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose2}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Please enter a number from 0-100. This number will reflect the percentage of DAO members needed to vote on a proposal for the result to be valid. 
                   The average participation rate for DAO voting is less than 15%.</div>
               </Popover></div>
@@ -237,9 +226,9 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           >
             Majority
           </label>
-          <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+          <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -259,7 +248,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose3}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Please enter a number from 0-100. This number will reflect the percentage of votes needed on a specific decision (i.e., for, against, abstain) for the result to 
                   be executed. It is recommended to enter a number over 51% to ensure a majority. The higher the number, the more agreement is needed within the community.</div>
               </Popover></div>
@@ -283,9 +272,9 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           >
             Minimum Voting Delay
           </label>
-          <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
+          <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -305,7 +294,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   This parameter describes the minimum period in which a proposal is viewable but unable to be voted on. This will give the community time to think and discuss
                    before solidifying a vote.</div>
               </Popover></div>
@@ -323,9 +312,9 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           >
             Minimum Voting Period
           </label>
-          <p aria-owns={open5 ? 'mouse-over-popover' : undefined}
+          <p className="px-1" aria-owns={open5 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -345,7 +334,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose5}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                    This parameter describes the minimum period for which a proposal can be voted on. Giving the community multiple days at least to vote on the 
                    proposal is recommended.</div>
               </Popover></div>
@@ -363,9 +352,9 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
           >
             Minimum Execution Delay
           </label>
-          <p aria-owns={open6 ? 'mouse-over-popover' : undefined}
+          <p className="px-1" aria-owns={open6 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen6} onMouseLeave={handlePopoverClose6}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -385,7 +374,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose6}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   This parameter describes the minimum delay period for which a proposal will be executed after the voting period has ended.</div>
               </Popover></div>
           <div className="w-1/2">
