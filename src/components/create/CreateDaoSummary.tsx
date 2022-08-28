@@ -142,11 +142,11 @@ const CreateDaoSummary = (props: {
 
   return (
     <div className="bg-other w-full md:px-[10%] xl:px-[20%] px-5">
-      <h1 className="text-white text-center text-lg my-6 font-bold">DAO Summary</h1>
+      <h1 className="text-white text-center text-4xl my-6 ">DAO Summary</h1>
       {/* <div className="flex-column justify-center items-center mx-auto w-[90%] rounded-lg order border border-slate-300"> */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-0 mx-auto w-[90%] rounded-lg ">
         {/* <div className="flex flex-col md:flex-row flex-wrap justify-center h-1/2"> */}
-          <div className="border rounded-lg md:border-b border-solid bg-[#8168ff] md:rounded-none md:rounded-tl-lg border-slate-300 ">
+          <div className="border rounded-lg md:border-b border-solid bg-[#382c71] md:rounded-none md:rounded-tl-lg border-slate-300 ">
             <DaoDetails
               daoName={daoName}
               logoImageFile={logoImageFile}
@@ -155,7 +155,7 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-          <div className="border rounded-lg md:border-l md:border-b border-solid bg-[#8168ff] md:rounded-none md:rounded-tr-lg border-slate-300">
+          <div className="border rounded-lg md:border-l md:border-b border-solid bg-[#382c71] md:rounded-none md:rounded-tr-lg border-slate-300">
             <KeyPermissionDetails
               keyPermissions={keyPermissions}
               handleSubmitCreate={handleSubmitCreate}
@@ -163,7 +163,7 @@ const CreateDaoSummary = (props: {
           </div>
         {/* </div> */}
         {/* <div className="border rounded-lg flex flex-col md:flex-row justify-center h-1/2 border-t rounded-lg bg-[#8168ff] rounded-bl-lg border-solid border-slate-300"> */}
-          <div className="border rounded-lg border-solid bg-[#8168ff] md:rounded-none md:rounded-bl-lg border-slate-300">
+          <div className="border rounded-lg border-solid bg-[#382c71] md:rounded-none md:rounded-bl-lg border-slate-300">
             <VaultDetails
               vaultName={vaultName}
               daoMembers={daoMembers}
@@ -171,7 +171,7 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-          <div className="border rounded-lg md:border-l border-solid bg-[#8168ff] md:rounded-none md:rounded-br-lg border-slate-300">
+          <div className="border rounded-lg md:border-l border-solid bg-[#382c71] md:rounded-none md:rounded-br-lg border-slate-300">
             <VotingParametersDetails
               participationRate={participationRate}
               votingMajority={votingMajority}
@@ -237,13 +237,13 @@ const DaoDetails = (props: {
   const fileURL = logoImageFile ? URL.createObjectURL(logoImageFile) : "";
 
   return (
-    <div className="px-4 py-2">
+    <div className="px-4 py-4">
       <div className="flex justify-between items-center pb-2">
-        <h1 className="text-white text-lg font-bold">Your DAO</h1>
+        <h1 className="text-white text-3xl ">Your DAO</h1>
         <button
           type="button"
           onClick={() => handleSubmitCreate("CreateDAO")}
-          className="flex justify-center rounded-md item-center ml-auto 
+          className="flex justify-center rounded-full item-center ml-auto 
                 border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
                 text-base font-medium text-white hover:bg-[#8168ff] 
                     w-auto text-sm"
@@ -350,13 +350,13 @@ const KeyPermissionDetails = (props: {
   }, []);
 
   return (
-    <div className="px-4 py-2">
+    <div className="px-4 py-4">
       <div className="flex justify-between items-center pb-2">
-        <h1 className="text-white text-lg font-bold">Key Permissions</h1>
+        <h1 className="text-white text-3xl ">Key Permissions</h1>
         <button
           type="button"
           onClick={() => handleSubmitCreate("CreateKeyPermissions")}
-          className="flex justify-center rounded-md item-center ml-auto 
+          className="flex justify-center rounded-full item-center ml-auto 
                     border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
                     text-base font-medium text-white hover:bg-[#8168ff] 
                         w-auto text-sm"
@@ -412,7 +412,7 @@ const DaoPermissions = (props: {
                     index > 0
                       ? "-translate-x-".concat((index * 2).toString())
                       : ""
-                  } justify-between rounded-full border hover:z-50 hover:border-[#ac0537] border-solid bg-[#4E4E50]`}
+                  } justify-between rounded-full border hover:z-50 hover:border-[#8168ff] border-solid bg-[#4E4E50]`}
                 >
                   <AiOutlineUser color="#fff" fontSize={16} />
                 </div>
@@ -481,13 +481,13 @@ const VaultDetails = (props: {
   const { vaultName, daoMembers, majority, handleSubmitCreate } = props;
 
   return (
-    <div className="px-4 py-2">
+    <div className="px-4 py-4">
       <div className="flex justify-between items-center pb-2">
-        <h1 className="text-white text-lg font-bold">Your Vault</h1>
+        <h1 className="text-white text-3xl">Your Vault</h1>
         <button
           type="button"
           onClick={() => handleSubmitCreate("CreateVault")}
-          className="flex justify-center rounded-md item-center ml-auto 
+          className="flex justify-center rounded-full item-center ml-auto 
                     border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
                     text-base font-medium text-white hover:bg-[#8168ff] 
                         w-auto text-sm"
@@ -578,13 +578,13 @@ const VotingParametersDetails = (props: {
   );
 
   return (
-    <div className="px-4 py-2">
+    <div className="px-4 py-4">
       <div className="flex justify-between items-center pb-2">
-        <h1 className="text-white text-lg font-bold">Voting Parameters</h1>
+        <h1 className="text-white text-3xl ">Voting Parameters</h1>
         <button
           type="button"
           onClick={() => handleSubmitCreate("CreateVotingParameters")}
-          className="flex justify-center rounded-md item-center ml-auto 
+          className="flex justify-center rounded-full item-center ml-auto 
                     border border-transparent shadow-sm px-3 py-1 bg-[#6341ff]
                     text-base font-medium text-white hover:bg-[#8168ff] 
                         w-auto text-sm"

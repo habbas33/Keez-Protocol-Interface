@@ -24,17 +24,44 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CreateVault = (props: { handleSubmitCreate: any }) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
+  const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
+  const [anchorEl4, setAnchorEl4] = React.useState<HTMLElement | null>(null);;
 
-  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl(event.currentTarget);
+  const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl1(event.currentTarget);
+  };
+  const handlePopoverClose1 = () => {
+    setAnchorEl1(null);
   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
+  const handlePopoverOpen2 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl2(event.currentTarget);
   };
 
-  const open = Boolean(anchorEl);
+  const handlePopoverClose2 = () => {
+    setAnchorEl2(null);
+  };
+
+  const handlePopoverOpen3 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl3(event.currentTarget);
+  };
+  const handlePopoverClose3 = () => {
+    setAnchorEl3(null);
+  };
+
+  const handlePopoverOpen4 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl4(event.currentTarget);
+  };
+  const handlePopoverClose4 = () => {
+    setAnchorEl4(null);
+  };
+
+  const open1 = Boolean(anchorEl1);
+  const open2 = Boolean(anchorEl2);
+  const open3 = Boolean(anchorEl3);
+  const open4 = Boolean(anchorEl4);
   const { handleSubmitCreate } = props;
   const {
     keyPermissions,
@@ -101,11 +128,11 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
   }, []);
   return (
     <div className="bg-other md:px-[20%] px-5">
-      <h1 className="text-white text-sm py-2">Step 3</h1>
+      <h1 className="text-white text-3xl py-2">Step 3</h1>
       <div className="flex justify-left w-full">
-      <h1 className="text-white text-lg font-bold">Create your Vault</h1>
-      <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+      <h1 className="text-white text-4xl font-bold">Create your Vault</h1>
+      <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -114,8 +141,8 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open1}
+                  anchorEl={anchorEl1}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -124,10 +151,10 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose1}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  Here you will create a vault and add DAO members from the previous screen to have control over the multisig.</div>
               </Popover></div>
       <form onSubmit={handleSubmit}>
         <div className=" py-4 md:w-[70%] md:mx-auto">
@@ -138,8 +165,8 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
           >
             Vault Name
           </label>
-          <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+          <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -148,8 +175,8 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open2}
+                  anchorEl={anchorEl2}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -158,10 +185,11 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose2}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  Select a vault name for your DAO. For now, one vault will be created to hold the DAOs assets and data. In the future, you will have the option to add more 
+                  vaults for subgroups.</div>
               </Popover></div>
           <Input
             value={vaultName}
@@ -169,16 +197,44 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
             type="text"
             handleChange={(e: any) => setVaultName(e.target.value)}
           />
-          <label className="block pt-4 text-white text-sm font-medium">
+          <div className="flex justify-left  w-full">
+          <label className="block  text-white text-sm font-medium">
             Choose the DAO member(s) that you would like to give multisig
             permissions to:
           </label>
+          <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
+                  <MdOutlineHelp className="text-white text-lg"/>
+                </p>
+              <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open3}
+                  anchorEl={anchorEl3}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  onClose={handlePopoverClose3}
+                  disableRestoreFocus
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  Select DAO members that you added on the previous page that you would like to add to the multisig. The multisig is in place to control the UP, so only add
+                   DAO members that are trustworthy and able to run a multisig properly.</div>
+              </Popover></div>
           <label
             className="block  text-white text-sm font-normal"
             htmlFor="categories"
           >
             DAO Members
           </label>
+          
           {keyPermissions && keyPermissions.length > 0 ? (
             <div className="">
               {keyPermissions.map((item, index) => (
@@ -200,8 +256,8 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
           >
             Majority (recommended 50% +)
           </label>
-          <p aria-owns={open ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+          <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
+        aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
                   <MdOutlineHelp className="text-white text-lg"/>
                 </p>
               <Popover
@@ -210,8 +266,8 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
-                  anchorEl={anchorEl}
+                  open={open4}
+                  anchorEl={anchorEl4}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -220,10 +276,10 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                     vertical: 'bottom',
                     horizontal: 'center',
                   }}
-                  onClose={handlePopoverClose}
+                  onClose={handlePopoverClose4}
                   disableRestoreFocus
-                >
-                  i used popover
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  The Majority is what percentage of multisig members that is needed to sign. It is recommended that it is above 50% to ensure a majority. </div>
               </Popover></div>
           <div className="flex items-center text-slate-400 text-sm font-normal">
             <Input

@@ -60,14 +60,14 @@ const ChooseDao = (props: { handleComponent: any }) => {
   const daos = [0, 1, 2, 3];
   return (
     <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
-      <h1 className="text-white text-sm py-2">Step 1</h1>
-      <h1 className="text-white text-lg font-bold">
+      <h1 className="text-white text-3xl py-2">Step 1</h1>
+      <h1 className="text-white text-4xl ">
         Choose a DAO to create a proposal for
       </h1>
       <form onSubmit={handleSubmit}>
         <div className="py-4 ">
           <label
-            className="block text-white text-sm font-normal"
+            className="block text-white text-lg font-normal"
             htmlFor="daoName"
           >
             You have permission to create proposals for the following DAOs

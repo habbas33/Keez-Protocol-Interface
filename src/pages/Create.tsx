@@ -87,19 +87,19 @@ const Create: React.FC = () => {
             <div className="w-[100%] md:px-[12vw] mx-auto bg-other">
               <Stepper style={{backgroundColor:'transparent'}} activeStep={allStepsValidated?4:activeStep} alternativeLabel connector={<QontoConnector />}>
                   <Step>
-                    <StepLabel onClick={()=>handleReview("CreateDAO")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==0?"text-[#22c55e]":"text-white"} font-semibold text-xs ${allStepsValidated || activeStep > 0?"hover:text-[#ac0537] cursor-pointer":""} `}>Create Dao</p></StepLabel>
+                    <StepLabel onClick={()=>handleReview("CreateDAO")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==0?"text-[#22c55e]":"text-white"} font-semibold text-lg ${allStepsValidated || activeStep > 0?"hover:text-[#ac0537] cursor-pointer":""} `}>Create Dao</p></StepLabel>
                   </Step>
                   <Step>
-                    <StepLabel onClick={()=>handleReview("CreateKeyPermissions")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==1?"text-[#22c55e]":"text-white"} font-semibold text-xs ${allStepsValidated || activeStep > 1?"hover:text-[#ac0537] cursor-pointer":""} `}>Key Permissions</p></StepLabel>
+                    <StepLabel onClick={()=>handleReview("CreateKeyPermissions")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==1?"text-[#22c55e]":"text-white"} font-semibold text-lg ${allStepsValidated || activeStep > 1?"hover:text-[#ac0537] cursor-pointer":""} `}>Key Permissions</p></StepLabel>
                   </Step>
                   <Step>
-                    <StepLabel onClick={()=>handleReview("CreateVault")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==2?"text-[#22c55e]":"text-white"} font-semibold text-xs ${allStepsValidated || activeStep > 2?"hover:text-[#ac0537] cursor-pointer":""} `}>Vault</p></StepLabel>
+                    <StepLabel onClick={()=>handleReview("CreateVault")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==2?"text-[#22c55e]":"text-white"} font-semibold text-lg ${allStepsValidated || activeStep > 2?"hover:text-[#ac0537] cursor-pointer":""} `}>Vault</p></StepLabel>
                   </Step>
                   <Step>
-                    <StepLabel onClick={()=>handleReview("CreateVotingParameters")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==3?"text-[#22c55e]":"text-white"} font-semibold text-xs ${allStepsValidated || activeStep > 3?"hover:text-[#ac0537] cursor-pointer":""} `}>Voting Parameters</p></StepLabel>
+                    <StepLabel onClick={()=>handleReview("CreateVotingParameters")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==3?"text-[#22c55e]":"text-white"} font-semibold text-lg ${allStepsValidated || activeStep > 3?"hover:text-[#ac0537] cursor-pointer":""} `}>Voting Parameters</p></StepLabel>
                   </Step>
                   <Step>
-                    <StepLabel onClick={()=>handleReview("CreateDaoSummary")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==4?"text-[#22c55e]":"text-white"} font-semibold text-xs ${allStepsValidated || activeStep > 4?"hover:text-[#ac0537] cursor-pointer":""} `}>Summary</p></StepLabel>
+                    <StepLabel onClick={()=>handleReview("CreateDaoSummary")} StepIconComponent={QontoStepIcon}><p className={`${activeStep==4?"text-[#22c55e]":"text-white"} font-semibold text-lg ${allStepsValidated || activeStep > 4?"hover:text-[#ac0537] cursor-pointer":""} `}>Summary</p></StepLabel>
                   </Step>
               </Stepper>
               </div>

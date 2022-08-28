@@ -3,12 +3,12 @@ import { withStyles } from "@material-ui/core/styles";
 
 export const StyledTooltip = withStyles(theme => ({
     tooltip: {
-      backgroundColor: "#ac0537",
-      color: "#fff",
+      backgroundColor: "#8168ff",
+      color: "#FFFFFF",
       boxShadow: theme.shadows[5],
       fontSize: 11,
     },
     arrow: {
-      color: "#ac0537",
+      color: "#8168ff",
     }
   }))(Tooltip);
