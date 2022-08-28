@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ProfileContext } from "../context/ProfileContext";
-import { toast } from "react-toastify";
-import imageToAdd1 from "../../src/assets/Logos/—Pngtree—three-dimensional purple high-tech scene_3688672.png";
+import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
-  const { accountAddress, connectWallet } = useContext(ProfileContext);
+  const { connectWallet } = useContext(ProfileContext);
+  const navigate = useNavigate();
   return (
     <div className="flex pt-10 justify-center items-center px-5 lg:px-20 md:px-20 ">
-      <div className="flex-column w-[90%]">
+      <div className="flex-column w-[90%] ">
         <div className="flex flex-col md:flex-row gap-4 flex-initial justify-between py-0">
           <div className="flex-column md:w-1/2 text-white">
-            <h1 className="text-4xl md:text-7xl text-white py-2 ">
+            <h1 className="text-4xl 2xl:text-7xl md:text-5xl text-white py-2 ">
               Create a DAO, propose & vote within the{" "}
               <h1 className="font-bold flex-row inline">LUKSO</h1>{" "}
               <h1 className="flex-column inline">ecosystem</h1>
@@ -30,7 +30,7 @@ const Welcome = () => {
                   CONNECT UP!
                 </h3>
               </button>
-              <button onClick={() => console.log("DISCOVER DAOS")}>
+              <button onClick={() => navigate("/Discover")}>
                 <h3 className="flex tems-center w-44 justify-center text-lg text-white font-bold py-2 px-2 border-2 border-white rounded-full bg-transparent hover:bg-[#8168ff]">
                   DISCOVER DAOs
                 </h3>
@@ -50,7 +50,6 @@ const Welcome = () => {
             {/* <img src={imageToAdd1}/> */}
           </div>
         </div>
-        <div className="flex w-full items-end h-[0.1px] bg-zinc-800 " />
       </div>
     </div>
   );

@@ -146,3 +146,16 @@ export const getProposalsByDaoCid = async (cid: string) => {
     return error;
   }
 }
+
+export const getProposalsByCreator = async (address: string) => {
+  const url = `${KEEZ_BACKEND_ENDPOINT}proposals/creator?format=json&info=${address}`
+  try {
+    const response = await fetch(url, {
+      method: 'Get',
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    return error;
+  }
+}

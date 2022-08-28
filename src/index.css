@@ -9,13 +9,11 @@
 body {
   margin: 0;
   font-family: 'Space Grotesk', sans-serif;
-  /* font-family: monospace; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .bg-welcome {
-  /* background: linear-gradient(90deg, rgba(121,220,255,1) 0%, rgba(121,220,255,1) 7%, rgba(141,158,255,1) 57%, rgba(141,158,255,1) 74%, rgba(160,101,255,1) 100%); */
   background-image: url("/src/assets/Logos/KEEZ Protocol Hero Banner Image.png");
   height: 80%;
   width: auto;
@@ -30,29 +28,7 @@ body {
 
 
 .textShadow {
-  text-shadow: 2px 2px 2px #1A1A1D;
-}
-/* $4E4E50 */
-/* $6F2232 */
-/* $950740 */
-/* $C3073F */
-
-
-.flipCardBack:hover {
-  transform: rotateY(180deg);
-}
-
-/* .flipCardFront:hover {
-  transform: rotateY(180deg);
-}
-
-.flipCardFront:not(:hover) {
-  transform: rotateY(0deg);
-} */
-
-.flipCardBack:not(:hover) {
-  transition-delay: 200ms;
-  transform: rotateY(0deg);
+  text-shadow: 2px 2px 2px rgba(129,108,255,1);
 }
 
 ::-webkit-scrollbar {

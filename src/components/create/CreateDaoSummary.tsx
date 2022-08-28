@@ -142,7 +142,7 @@ const CreateDaoSummary = (props: {
 
   return (
     <div className="bg-other w-full md:px-[10%] xl:px-[20%] px-5">
-      <h1 className="text-white text-center text-4xl my-6 ">DAO Summary</h1>
+      <h1 className="text-white text-center text-4xl my-6 textShadow ">DAO Summary</h1>
       {/* <div className="flex-column justify-center items-center mx-auto w-[90%] rounded-lg order border border-slate-300"> */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-0 mx-auto w-[90%] rounded-lg ">
         {/* <div className="flex flex-col md:flex-row flex-wrap justify-center h-1/2"> */}

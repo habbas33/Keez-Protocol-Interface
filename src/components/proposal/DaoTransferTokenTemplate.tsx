@@ -10,20 +10,10 @@ import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 import { MdOutlineHelp }  from "react-icons/md";
 import Popover from '@material-ui/core/Popover';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: 'none',
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  }),
-);
+import { StyledPopover } from "../../styles";
 
 const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
-  const classes = useStyles();
+  const classes = StyledPopover();
   const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
   const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
@@ -187,7 +177,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
     { value: vaultObject.vaultName, label: vaultObject.vaultName },
   ];
   return (
-    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
+    <div className="bg-other pt-10 min-h-[100vh] w-full px-5 md:px-[15%]">
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="flex justify-between items-center">
           <h1 className="text-white text-4xl">Create your Proposal</h1>
@@ -219,9 +209,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             >
               Proposal Title
             </label>
-            <p aria-owns={open1 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open1 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -257,9 +247,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             >
               Categories
             </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -294,9 +284,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             >
               Description
             </label>
-            <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -333,9 +323,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             >
               Vault
             </label>
-            <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -370,9 +360,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             >
               Token
             </label>
-            <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -407,9 +397,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             >
               Token Amount
             </label>
-            <p aria-owns={open5 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open5 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -445,9 +435,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             >
               Receiving Address
             </label>
-            <p aria-owns={open6 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open6 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen6} onMouseLeave={handlePopoverClose6}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"

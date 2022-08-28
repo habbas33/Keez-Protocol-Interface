@@ -9,21 +9,10 @@ import { fetchErc725Data } from "../../services/erc725";
 import { VALIDATORS } from "../../constants/globals";
 import { MdOutlineHelp }  from "react-icons/md";
 import Popover from '@material-ui/core/Popover';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: 'none',
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  }),
-);
+import { StyledPopover } from "../../styles";
 
 const CreateVault = (props: { handleSubmitCreate: any }) => {
-  const classes = useStyles();
+  const classes = StyledPopover();
   const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
   const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
@@ -131,9 +120,9 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
       <h1 className="text-white text-3xl py-2">Step 3</h1>
       <div className="flex justify-left w-full">
       <h1 className="text-white text-4xl font-bold">Create your Vault</h1>
-      <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
+      <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -153,7 +142,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Here you will create a vault and add DAO members from the previous screen to have control over the multisig.</div>
               </Popover></div>
       <form onSubmit={handleSubmit}>
@@ -165,9 +154,9 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
           >
             Vault Name
           </label>
-          <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+          <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -187,7 +176,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose2}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Select a vault name for your DAO. For now, one vault will be created to hold the DAOs assets and data. In the future, you will have the option to add more 
                   vaults for subgroups.</div>
               </Popover></div>
@@ -197,14 +186,14 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
             type="text"
             handleChange={(e: any) => setVaultName(e.target.value)}
           />
-          <div className="flex justify-left  w-full">
+          <div className="flex justify-left pt-4 w-full">
           <label className="block  text-white text-sm font-medium">
             Choose the DAO member(s) that you would like to give multisig
             permissions to:
           </label>
-          <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+          <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -224,7 +213,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose3}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Select DAO members that you added on the previous page that you would like to add to the multisig. The multisig is in place to control the UP, so only add
                    DAO members that are trustworthy and able to run a multisig properly.</div>
               </Popover></div>
@@ -256,9 +245,9 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
           >
             Majority (recommended 50% +)
           </label>
-          <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
+          <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -278,7 +267,7 @@ const CreateVault = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Majority is what percentage of multisig members that is needed to sign. It is recommended that it is above 50% to ensure a majority. </div>
               </Popover></div>
           <div className="flex items-center text-slate-400 text-sm font-normal">

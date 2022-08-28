@@ -2,14 +2,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { HiMenuAlt4, HiUser } from "react-icons/hi";
-import { AiOutlineClose, AiOutlineLogin, AiOutlineDown } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLogin, AiOutlineLogout, AiOutlineUser, AiOutlineCopy } from "react-icons/ai";
 import imageToAdd1 from "../../assets/Logos/KP_BW_trans_crop-Recovered.png";
-import {
-  GrOrganization,
-  GrSettingsOption,
-  GrLogout,
-  GrUser,
-} from "react-icons/gr";
 import { ProfileContext } from "../../context/ProfileContext";
 import { menuItems } from "../../constants/menuItems";
 import NavItems from "./NavItems";
@@ -167,6 +161,7 @@ export default function Navbar() {
             anchorEl={anchorEl.current}
             transition
             placement={"bottom-end"}
+            // style={{backgroundColor: "#fff"}}
           >
             {({ TransitionProps, placement }) => (
               <Grow
@@ -176,67 +171,53 @@ export default function Navbar() {
                     placement === "bottom" ? "center top" : "right top",
                 }}
               >
-                <Paper>
+                <Paper style={{backgroundColor:"#8168ff"}}>
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList>
                       <MenuItem onClick={handleViewProfile}>
                         <ListItemIcon style={{ minWidth: "0", padding: "0" }}>
-                          <GrUser className={"text-[#000000DE] text-lg"} />
+                          <AiOutlineUser color="#fff" className={"text-lg"} />
                         </ListItemIcon>
                         <ListItemText
                           style={{
                             padding: "0 8px",
                             margin: "0 ",
-                            fontFamily: "Open Sans",
+                            fontFamily: "Space Grotesk",
+                            color:"#FFF"
                           }}
                           inset
                           primary="View Profile"
                         />
                       </MenuItem>
                       <Divider light />
-                      <MenuItem onClick={handleClose}>
+                      <MenuItem onClick={() => {navigator.clipboard.writeText(accountAddress)}}>
                         <ListItemIcon style={{ minWidth: "0", padding: "0" }}>
-                          <GrOrganization
-                            className={"text-[#000000DE] text-lg"}
+                          <AiOutlineCopy
+                            color="#fff" className={"text-lg"}
                           />
                         </ListItemIcon>
                         <ListItemText
                           style={{
                             padding: "0 8px",
                             margin: "0 ",
-                            fontFamily: "Open Sans",
+                            fontFamily: "Space Grotesk",
+                            color:"#FFF"
                           }}
                           inset
-                          primary="My DAOs"
-                        />
-                      </MenuItem>
-                      <Divider light />
-                      <MenuItem onClick={handleClose}>
-                        <ListItemIcon style={{ minWidth: "0", padding: "0" }}>
-                          <GrSettingsOption
-                            className={"text-[#000000DE] text-lg"}
-                          />
-                        </ListItemIcon>
-                        <ListItemText
-                          style={{
-                            padding: "0 8px",
-                            margin: "0 ",
-                            fontFamily: "Open Sans",
-                          }}
-                          inset
-                          primary="Settings"
+                          primary="Copy Address"
                         />
                       </MenuItem>
                       <Divider light />
                       <MenuItem onClick={handleDisconnectWallet}>
                         <ListItemIcon style={{ minWidth: "0", padding: "0" }}>
-                          <GrLogout className={"text-[#000000DE] text-lg"} />
+                          <AiOutlineLogout color="#fff" className={"text-lg"} />
                         </ListItemIcon>
                         <ListItemText
                           style={{
                             padding: "0 8px",
                             margin: "0 ",
-                            fontFamily: "Open Sans",
+                            fontFamily: "Space Grotesk",
+                            color:"#FFF"
                           }}
                           inset
                           primary="Logout"

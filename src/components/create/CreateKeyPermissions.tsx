@@ -15,21 +15,11 @@ import { fetchErc725Data } from "../../services/erc725";
 import { VALIDATORS } from "../../constants/globals";
 import { MdOutlineHelp }  from "react-icons/md";
 import Popover from '@material-ui/core/Popover';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { StyledPopover } from "../../styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: 'none',
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  }),
-);
 
 const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
-  const classes = useStyles();
+  const classes = StyledPopover();
   const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
   const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
@@ -248,7 +238,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
       </h1>
       <p aria-owns={open1 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -268,7 +258,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Here you will add the Universal Profiles of DAO members and 
                   assign them key permissions. </div>
               </Popover></div>
@@ -284,9 +274,9 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
               >
                 UP Address
               </label>
-              <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+              <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
               aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                    <MdOutlineHelp className="text-white text-lg"/>
+                    <MdOutlineHelp className="text-white text-md"/>
                   </p>
                 <Popover
                     id="mouse-over-popover"
@@ -306,7 +296,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                     }}
                     onClose={handlePopoverClose2}
                     disableRestoreFocus
-                  ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                      Please enter the Universal Profile Address or Universal Profile
                      Name of any member in your DAO to whom you would like to 
                      assign key permissions. Please see other informational boxes
@@ -339,9 +329,9 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 >
                 Key Permissions
               </label>
-              <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+              <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
               aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                    <MdOutlineHelp className="text-white text-lg"/>
+                    <MdOutlineHelp className="text-white text-md"/>
                   </p>
                 <Popover
                     id="mouse-over-popover"
@@ -361,7 +351,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                     }}
                     onClose={handlePopoverClose3}
                     disableRestoreFocus
-                  ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                  ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                     Key permissions are enabled by the LSP6 and allow other Universal Profiles to access the DAO Universal Profile in various ways.</div>
                 </Popover>
               </div>
@@ -382,7 +372,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 </label>
                 <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -402,7 +392,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Vote Key will allow these DAO members to vote on proposals on the DAO profile page.</div>
               </Popover></div>
               </div>
@@ -422,7 +412,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 </label>
                 <p aria-owns={open5 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -442,7 +432,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose5}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Propose Key will allow these DAO members to make proposals on the DAO profile page. </div>
               </Popover></div>
               </div>
@@ -462,7 +452,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 </label>
                 <p aria-owns={open6 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen6} onMouseLeave={handlePopoverClose6}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -482,7 +472,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose6}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Execute Key allows for members to push a proposal result that is executable. Meaning, after an UP with the Register Votes key registers the vote signatures, 
                   an UP with the execute key can execute the results of the proposal.</div>
               </Popover></div>
@@ -503,7 +493,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 </label>
                 <p aria-owns={open7 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen7} onMouseLeave={handlePopoverClose7}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -523,7 +513,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose7}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Register Votes Key allows the member to register the signatures received as votes on a proposal. When a proposal voting period has ended, the member with 
                   these permissions has to register the votes to find out the results.</div>
               </Popover></div>
@@ -544,7 +534,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 </label>
                 <p aria-owns={open8 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen8} onMouseLeave={handlePopoverClose8}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -564,7 +554,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose8}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Add Permissions Key allows the member to add permissions to another UP. </div>
               </Popover></div>
               </div>
@@ -585,7 +575,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 </label>
                 <p aria-owns={open9 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen9} onMouseLeave={handlePopoverClose9}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -605,7 +595,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose9}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Revoke Permissions Key allows the member to take away permissions from another UP.</div>
               </Popover></div>
               </div>
@@ -627,7 +617,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 </label>
                 <p aria-owns={open10 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen10} onMouseLeave={handlePopoverClose10}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -647,7 +637,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose10}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Send Delegate Key will allow members to delegate their vote to other members of the DAO who have the Receive Delegate Key.</div>
               </Popover></div>
               </div>
@@ -669,7 +659,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 </label>
                 <p aria-owns={open11 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen11} onMouseLeave={handlePopoverClose11}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -689,7 +679,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   }}
                   onClose={handlePopoverClose11}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   The Receive Delegate Key will allow members to receive another DAO members voting power for a specific proposal. 
                   This permission should be given to high-ranking members of the DAO whose input is valued and trusted by the community.</div>
               </Popover></div>

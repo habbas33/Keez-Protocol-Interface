@@ -12,20 +12,11 @@ import { VALIDATORS } from "../../constants/globals";
 import { MdOutlineHelp }  from "react-icons/md";
 import Popover from '@material-ui/core/Popover';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { StyledPopover } from "../../styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: 'none',
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  }),
-);
 
 const VotingTemplate = (props: { handleComponent: any }) => {
-  const classes = useStyles();
+  const classes = StyledPopover();
   const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
   const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
@@ -190,7 +181,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
   toast.configure();
 
   return (
-    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
+    <div className="bg-other pt-10  min-h-[100vh] w-full px-5 md:px-[15%]">
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="flex justify-between items-center">
           <h1 className="text-white text-4xl">Create your Proposal</h1>
@@ -223,9 +214,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             >
               Proposal Title
             </label>
-            <p aria-owns={open1 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open1 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -262,9 +253,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             >
               Categories
             </label>
-            <p aria-owns={open ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -300,9 +291,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             >
               Description
             </label>
-            <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -340,9 +331,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             >
               Participation rate
             </label>
-            <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -386,9 +377,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             >
               Majority
             </label>
-            <p aria-owns={open4 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -432,9 +423,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             >
               Minimum Voting Delay
             </label>
-            <p aria-owns={open5 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open5 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -472,9 +463,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             >
               Minimum Voting Period
             </label>
-            <p aria-owns={open6 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open6 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen6} onMouseLeave={handlePopoverClose6}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -512,9 +503,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
             >
               Minimum Execution Delay
             </label>
-            <p aria-owns={open7 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open7 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen7} onMouseLeave={handlePopoverClose7}>
-                  <MdOutlineHelp className="text-white text-lg popover"/>
+                  <MdOutlineHelp className="text-white text-md popover"/>
                 </p>
               <Popover
                   id="mouse-over-popover"

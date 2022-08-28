@@ -16,21 +16,10 @@ import { toast } from "react-toastify";
 import { VALIDATORS } from "../../constants/globals";
 import { MdOutlineHelp }  from "react-icons/md";
 import Popover from '@material-ui/core/Popover';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    popover: {
-      pointerEvents: 'none',
-    },
-    paper: {
-      padding: theme.spacing(1),
-    },
-  }),
-); 
+import { StyledPopover } from "../../styles";
 
 const GeneralTemplate = (props: { handleComponent: any }) => {
-    const classes = useStyles();
+    const classes = StyledPopover();
     const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
     const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
     const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
@@ -161,7 +150,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
 
   toast.configure();
   return (
-    <div className="bg-other pt-28  min-h-[100vh] w-full px-5 md:px-[15%]">
+    <div className="bg-other pt-10  min-h-[100vh] w-full px-5 md:px-[15%]">
       {/* <h1 className="text-white text-sm py-2">Step 1</h1> */}
       <form onSubmit={(event) => handleSubmit(event)}>
         <div className="flex justify-between items-center">
@@ -196,9 +185,9 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             >
               Proposal Title
             </label>
-            <p aria-owns={open1 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open1 ? 'mouse-over-popover' : undefined}
             aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -235,9 +224,9 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             >
               Upload a Photo [optional]
             </label>
-            <p aria-owns={open2 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"
@@ -275,9 +264,9 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             >
               Description
             </label>
-            <p aria-owns={open3 ? 'mouse-over-popover' : undefined}
+            <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-lg"/>
+                  <MdOutlineHelp className="text-white text-md"/>
                 </p>
               <Popover
                   id="mouse-over-popover"

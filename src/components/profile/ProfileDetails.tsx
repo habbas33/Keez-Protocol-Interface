@@ -93,7 +93,7 @@ const ProfileDetails = (props: {accountAddress: string}) => {
     };
   
     return (
-        <div className="pt-28 text-white min-h-[100vh] w-5/6 flex-col justify-start items-start">
+        <div className="pt-10 text-white min-h-[100vh] w-5/6 flex-col justify-start items-start">
             <div className="flex-col justify-end items-end full h-40 overflow-hidden bg-[#0a2d61]" 
                 style={{backgroundImage: bg_imgfromurl, backgroundRepeat:"no-repeat", backgroundSize:"cover"}}>
             </div>
@@ -107,7 +107,7 @@ const ProfileDetails = (props: {accountAddress: string}) => {
                 </div>
                 
                 <div className="flex-col h-40 p-4">
-                    <p className="h-16 w-full text-4xl text-bold p-2 textShadow" >{upName}</p>
+                    <p className="h-16 w-full text-4xl p-2 textShadow" >{upName}</p>
                     <p className="h-20 p-2">{upDescription}</p>
                     <div className="flex justify-start items-center my-1">
                         <AiOutlineLink className="w-6" fontSize={20}  />
@@ -118,8 +118,8 @@ const ProfileDetails = (props: {accountAddress: string}) => {
                     <div className="flex justify-start items-center my-1">
                         {/* <AiOutlineLink className="w-6" fontSize={20}  /> */}
                         {upTags.map((tags:string, index:number) => (
-                            <div className="rounded-md mx-1 bg-[#ac0537]">
-                                <a className="px-2 py-1 text-normal text-sm" key={index}>{tags}</a>
+                            <div key={index} className="rounded-md mx-1 bg-[#ac0537]">
+                                <a className="px-2 py-1 text-normal text-sm" >{tags}</a>
                             </div>
                         ))}
                     </div>
@@ -128,7 +128,7 @@ const ProfileDetails = (props: {accountAddress: string}) => {
             <div className="sm:w-[100%] mt-[80px] w-full h-[0.1px] bg-zinc-800 " />
             <div className="flex-col justify-start items-start w-full">
                 <div className="flex justify-between items-center py-4 my-1">
-                    <p className="text-2xl text-bold">Joined DAOs</p>
+                    <p className="text-2xl font-bold">Joined DAOs</p>
                     {/* <div className= "flex justify-between items-center px-1">
                         <AiFillAppstore onClick={() => setDaoCardView(2)} className="w-6 cursor-pointer hover:text-[#ac0537]" fontSize={20}/>
                         <IoAppsSharp onClick={() => setDaoCardView(3)} className="w-6 cursor-pointer hover:text-[#ac0537]" fontSize={18}/>
@@ -136,8 +136,8 @@ const ProfileDetails = (props: {accountAddress: string}) => {
                 </div>
                 <div className="flex flex-wrap justify-between m-5 items-center pb-4 my-1 rounded-lg">
                     <div className="flex flex-wrap items-center border-solid rounded-lg  border-[#999999] border-2 bg-white  text-[#7f7f81] px-2 text-sm font-bold">
-                        {filterParam.map((item) => (
-                        <p
+                        {filterParam.map((item,index) => (
+                        <p key={index}
                             className={`hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2 ${
                             filterString === item.toLowerCase() || ('All' === item && filterString === "")
                                 ? " text-[#1A1A1D] border-[#1A1A1D]"

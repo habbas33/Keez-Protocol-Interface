@@ -9,25 +9,27 @@ import { SiTwitter, SiGithub, SiDiscord } from "react-icons/si";
 export const SageMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
         min-w-full
-        flex-col p-3 rounded-md hover:shadow-2xl"
+        flex-col p-3 rounded-md hover:shadow-2xl "
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center p-2">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd2}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
         Sage
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
-        <a className="flex flex-center" href="https://twitter.com/improvda">
-          <SiTwitter fontSize={18} color="#fff" />
-        </a>
+      <p className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
+        <div className="flex justify-center items-center mx-1 h-8 w-8 hover:bg-[#8168ff] rounded-full">
+          <a href="https://twitter.com/improvda">
+            <SiTwitter fontSize={18} color="#fff" />
+          </a>
+        </div>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full p-2  text-white text-center">
         Hi Im Sage! I am interested in team building, leadership, and
         interpersonal relationships. On top of that, DAOs, Digital Identity
         solutions, and human coordination fascinate me daily. we are complex
@@ -40,25 +42,27 @@ export const SageMemberCard = () => {
 export const B00steMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center p-2">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd3}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
         B00ste
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
-        <a className="flex flex-center" href="https://twitter.com/b00ste_lyx">
-          <SiTwitter fontSize={18} color="#fff" />
-        </a>
+      <p className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
+        <div className="flex justify-center items-center mx-1 h-8 w-8 hover:bg-[#8168ff] rounded-full">
+          <a href="https://twitter.com/b00ste_lyx">
+            <SiTwitter fontSize={18} color="#fff" />
+          </a>
+        </div>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full p-2  text-white text-center">
         I am passionate about solidty and I deeply enjoy working with passionate
         people. Every problem has a solution.
       </h1>
@@ -68,28 +72,28 @@ export const B00steMemberCard = () => {
 export const HabbasMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center p-2">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd5}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
-        Haider
+      <h1 className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
+        BearSurvivor
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-gray-400 text-center font-bold">
-        <a className="flex flex-center" href="https://twitter.com/BearSurvivor">
-          <SiTwitter fontSize={18} color="#fff" />
-        </a>
+      <p className="flex w-full flex-col justify-center items-center text-gray-400 text-center font-bold ">
+        <div className="flex justify-center items-center mx-1 h-8 w-8 hover:bg-[#8168ff] rounded-full">
+          <a href="https://twitter.com/BearSurvivor">
+            <SiTwitter fontSize={18} color="#fff" />
+          </a>
+        </div>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
-        Dr. Abbas is the founder of foligator.io. He has 6 years of R&D
-        experience and received PhD in Aerospace Engineering from Korea Advanced
-        Institute of Science and Technology (KAIST).
+      <h1 className="flex w-full flex-col justify-center items-center h-full p-2 text-white text-center">
+        Founder of foligator.io and PhD in Aerospace Engineering. Passionate about working on interesting Web3 projects. Bringing 6 years of R&D experience to Blockchain.
       </h1>
     </div>
   );
@@ -97,28 +101,27 @@ export const HabbasMemberCard = () => {
 export const LandonMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center p-2">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd1}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
         Yellowturtle
       </h1>
-      <p className="flex flex-center w-full flex-col justify-center items-center items-align h-50 text-white text-center font-bold">
-        <a
-          className="flex flex-center"
-          href="https://twitter.com/yellowturtle47"
-        >
-          <SiTwitter fontSize={18} color="#fff" />
-        </a>
+      <p className="flex flex-center w-full flex-col justify-center items-center items-align text-white text-center font-bold">
+        <div className="flex justify-center items-center mx-1 h-8 w-8 hover:bg-[#8168ff] rounded-full">
+          <a href="https://twitter.com/yellowturtle47">
+            <SiTwitter fontSize={18} color="#fff" />
+          </a>
+        </div>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full p-2  text-white text-center">
         Just a yellow reptile trying to create positive network effect on the
         LUKSO network. Mechanical engineer by day and full-time degen by night.
         Self-taught developer growing his skills in the multiverse with the
@@ -130,25 +133,27 @@ export const LandonMemberCard = () => {
 export const FawnMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center p-2">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd4}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
         Fawn
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
-        <a className="flex flex-center" href="https://twitter.com/natashalfawn">
-          <SiTwitter fontSize={18} color="#fff" />
-        </a>
+      <p className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
+        <div className="flex justify-center items-center mx-1 h-8 w-8 hover:bg-[#8168ff] rounded-full">
+          <a href="https://twitter.com/natashalfawn">
+            <SiTwitter fontSize={18} color="#fff" />
+          </a>
+        </div>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full p-2  text-white text-center">
         Fashion-obsessed, RTFKT-maxi from London. Background in building out
         brands and communities for Social Commerce and Creator Economy apps,
         which ultimately led me to discover the wonders of the LUKSOverse!
@@ -159,28 +164,27 @@ export const FawnMemberCard = () => {
 export const MumeenMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[385px] my-10 flex flex-1 
+      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-md hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center p-2">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd6}
         />
       </div>
-      <h1 className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
+      <h1 className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
         Mumeen
       </h1>
-      <p className="flex w-full flex-col justify-center items-center h-50 text-white text-center font-bold">
-        <a
-          className="flex flex-center"
-          href="https://twitter.com/mumeen_official"
-        >
-          <SiTwitter fontSize={18} color="#fff" />
-        </a>
+      <p className="flex w-full flex-col justify-center items-center text-white text-center font-bold">
+        <div className="flex justify-center items-center mx-1 h-8 w-8 hover:bg-[#8168ff] rounded-full">
+          <a href="https://twitter.com/mumeen_official">
+            <SiTwitter fontSize={18} color="#fff" />
+          </a>
+        </div>
       </p>
-      <h1 className="flex w-full flex-col justify-center items-center h-full px-12  text-white text-center">
+      <h1 className="flex w-full flex-col justify-center items-center h-full p-2  text-white text-center">
         I am a passionate self-taught developer hoping to learn more and improve
         on my skills.
       </h1>

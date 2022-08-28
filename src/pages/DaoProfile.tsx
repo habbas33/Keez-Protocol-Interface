@@ -62,7 +62,7 @@ const DaoProfile = () => {
           handleComponent={handleComponent}
           profileComponent={profileComponent}
         />
-        <div className="lg:pt-28 pt-5 text-white min-h-[100vh] lg:w-5/6 flex-col justify-start items-start">
+        <div className="lg:pt-10 pt-5 text-white min-h-[100vh] lg:w-5/6 flex-col justify-start items-start">
           <div className="mt flex justify-start items-start">
             {profileImageObj ? (
               <div className="md:w-32 w-20">
