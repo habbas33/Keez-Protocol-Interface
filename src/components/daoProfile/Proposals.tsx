@@ -219,7 +219,7 @@ const ProposalCard = (props: {
           )}
         </div>
 
-        <div className="flex w-full flex-col mt-3 justify-start overflow-y-scroll items-center h-full ">
+        <div className="flex w-full flex-col mt-3 justify-start overflow-y-auto items-center h-full ">
           <h1 className="text-black text-lg break-all font-bold ">
             {proposal.proposalName}
           </h1>
