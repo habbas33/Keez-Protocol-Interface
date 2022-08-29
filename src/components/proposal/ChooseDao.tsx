@@ -5,14 +5,16 @@ import { CreateProposalContext } from "../../context/CreateProposalContext";
 import { ProfileContext } from "../../context/ProfileContext";
 import { getDaoByMember } from "../../services/keezBackend";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
+import { ZeroMemberModal } from "../../modals";
 import Skeleton from "@material-ui/lab/Skeleton";
 import ReactCardFlip from "react-card-flip";
 
 const ChooseDao = (props: { handleComponent: any }) => {
   const { handleComponent } = props;
   const [daoSelected, setDaoSelected] = useState<number>(0);
+  const [zeroMember, setZeroMember] = useState<boolean>(false);
   const [memberDaos, setMemberDaos] = useState<any>([]);
-  const { setDaoCid, daoCid } = useContext(CreateProposalContext);
+  const { setDaoCid } = useContext(CreateProposalContext);
   const { accountAddress } = useContext(ProfileContext);
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -28,8 +30,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
   ) => {
     event.preventDefault();
     setDaoSelected(id);
-    console.log("set dao cid", CID);
-    // console.log("set dao id", id)
+    // console.log("set dao cid", CID);
     setDaoCid(CID);
   };
 
@@ -43,80 +44,83 @@ const ChooseDao = (props: { handleComponent: any }) => {
         const result = await getDaoByMember(accountAddress);
         // console.log("x ->",result);
         setMemberDaos(result);
-        if (memberDaos.length != []) {
-          setDaoCid(memberDaos[0].CID);
+        if (result.length >0) {
+          setZeroMember(false);
+          setDaoCid(result[result.length - 1].CID);
+          // console.log("CID",result[result.length - 1].CID)
+        } else {
+          setZeroMember(true);
         }
       };
       fetchData();
     }
   }, [accountAddress]);
 
-  useEffect(() => {
-    if (memberDaos.length != []) {
-      setDaoCid(memberDaos[memberDaos.length - 1].CID);
-    }
-  }, [memberDaos]);
-
-  const daos = [0, 1, 2, 3];
   return (
     <div className="bg-other pt-10  min-h-[100vh] w-full px-5 md:px-[15%]">
-      <h1 className="text-white text-3xl py-2">Step 1</h1>
-      <h1 className="text-white text-4xl ">
-        Choose a DAO to create a proposal for
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <div className="py-4 ">
-          <label
-            className="block text-white text-lg font-normal"
-            htmlFor="daoName"
-          >
-            You have permission to create proposals for the following DAOs
-          </label>
-
-          {memberDaos.length != [] ? (
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
-              {[...memberDaos].reverse().map((daoDetail, i) => (
-                <DaoCard
-                  key={i}
-                  id={i}
-                  daoSelected={daoSelected}
-                  handleDaoSelection={handleDaoSelection}
-                  daoDetail={daoDetail}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
-              {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
-                <Skeleton
-                  key={i}
-                  animation="wave"
-                  className="w-full rounded-md"
-                  variant="rect"
-                  height={240}
-                />
-              ))}
-            </div>
-          )}
-
-          <div className="flex justify-end items-center">
-            <button
-              type="submit"
-              className="flex justify-center rounded-full item-center mt-[12px]
-                        border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
-                        text-base font-medium text-white hover:bg-[#8168ff] 
-                        sm:w-auto sm:text-sm"
+      {zeroMember && 
+        // <div className="bg-other flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
+        <ZeroMemberModal/>
+          
+      // </div>
+      }
+        <h1 className="text-white text-3xl py-2">Step 1</h1>
+        <h1 className="text-white text-4xl ">
+          Choose a DAO to create a proposal for
+        </h1>
+        <form onSubmit={handleSubmit}>
+          <div className="py-4 ">
+            <label
+              className="block text-white text-lg font-normal"
+              htmlFor="daoName"
             >
-              <p className="translate-x-1.5">Propose</p>
-              <MdNavigateNext
-                className="translate-x-1.5 w-6"
-                color="#fff"
-                fontSize={20}
-              />
-            </button>
+              You have permission to create proposals for the following DAOs
+            </label>
+
+            {memberDaos.length >0 ? (
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
+                {[...memberDaos].reverse().map((daoDetail, i) => (
+                  <DaoCard
+                    key={i}
+                    id={i}
+                    daoSelected={daoSelected}
+                    handleDaoSelection={handleDaoSelection}
+                    daoDetail={daoDetail}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
+                {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
+                  <Skeleton
+                    key={i}
+                    animation="wave"
+                    className="w-full rounded-md"
+                    variant="rect"
+                    height={240}
+                  />
+                ))}
+              </div>
+            )}
+
+            <div className="flex justify-end items-center">
+              <button
+                type="submit"
+                className="flex justify-center rounded-full item-center mt-[12px]
+                          border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                          text-base font-medium text-white hover:bg-[#8168ff] 
+                          sm:w-auto sm:text-sm"
+              >
+                <p className="translate-x-1.5">Propose</p>
+                <MdNavigateNext
+                  className="translate-x-1.5 w-6"
+                  color="#fff"
+                  fontSize={20}
+                />
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
     </div>
   );
 };

@@ -74,13 +74,12 @@ const ProfileDetails = (props: {accountAddress: string}) => {
   
 
     const filterParam = [
-        "All",
-        "NFT",
-        "DAO",
-        "Social",
-        "Fashion",
-        "Investment",
-        "Gaming",
+      "All",
+      "Investment",
+      "Grant",
+      "Protocol",
+      "Social",
+      "Research",
     ];
 
     const filterByCategory = (category: string) => {

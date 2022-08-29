@@ -2,16 +2,10 @@ import React, { useContext, useState, useEffect } from "react";
 import {
   MdNavigateNext,
   MdOutlineNavigateBefore,
-  MdAdd,
-  MdRemove,
 } from "react-icons/md";
-import { MultiSelect, FileUploader, Input } from "../../components";
+import { Input } from "../../components";
+import { FileUploader } from "../../components/create";
 import { CreateProposalContext } from "../../context/CreateProposalContext";
-import { daoCategoryItems } from "../../constants/daoCategoryItems";
-import {
-  votingPeriodItems,
-  votingDelayItems,
-} from "../../constants/votingPeriodItems";
 import { toast } from "react-toastify";
 import { VALIDATORS } from "../../constants/globals";
 import { MdOutlineHelp }  from "react-icons/md";
@@ -20,9 +14,9 @@ import { StyledPopover } from "../../styles";
 
 const GeneralTemplate = (props: { handleComponent: any }) => {
     const classes = StyledPopover();
-    const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
-    const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
-    const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
+    const [anchorEl1, setAnchorEl1] = useState<HTMLElement | null>(null);
+    const [anchorEl2, setAnchorEl2] = useState<HTMLElement | null>(null);
+    const [anchorEl3, setAnchorEl3] = useState<HTMLElement | null>(null);
   
     const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
       setAnchorEl1(event.currentTarget);

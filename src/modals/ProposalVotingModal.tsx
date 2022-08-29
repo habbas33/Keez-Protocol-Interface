@@ -1,6 +1,7 @@
 import React, { Fragment, useRef, useState, useContext,useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from '@headlessui/react';
+
 import { ProfileContext } from '../context/ProfileContext'
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import { shortenAddress } from "../utils/shortenAddress";
@@ -32,6 +33,9 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     const [signatureArray, setSignatureArray] = useState<string[]>([]);
     const [addressArray, setAddressArray] = useState<string[]>([]);
     const [choiceArray, setChoiceArray] = useState<string[]>([]);
+    const [totalAbstained, setTotalAbstained] = useState<number>(0);
+    const [totalApproved, setTotalApproved] = useState<number>(0);
+    const [totalRejected, setTotalRejected] = useState<number>(0);
 
     const cancelButtonRef = useRef(null);
 
@@ -41,7 +45,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     }
     toast.configure();
 
-    const handleFor = async () => {
+    const handleApprove = async () => {
         setIsLoading(true);
         const timestamp = dayjs().valueOf();
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
@@ -74,7 +78,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             }   else {
-                toast.success("Vote Submission Failed", {
+                toast.error("Vote Submission Failed", {
                     position: toast.POSITION.BOTTOM_RIGHT,
                 });
             }
@@ -90,7 +94,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         }
     }
 
-    const handleAgainst = async () =>{
+    const handleReject = async () =>{
         setIsLoading(true);
         const timestamp = dayjs().valueOf();
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
@@ -123,7 +127,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             }   else {
-                toast.success("Vote Submission Failed", {
+                toast.error("Vote Submission Failed", {
                     position: toast.POSITION.BOTTOM_RIGHT,
                 });
             }
@@ -172,7 +176,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 position: toast.POSITION.BOTTOM_RIGHT,
             });
             }   else {
-                toast.success("Vote Submission Failed", {
+                toast.error("Vote Submission Failed", {
                     position: toast.POSITION.BOTTOM_RIGHT,
                 });
             }
@@ -269,6 +273,9 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
 
     useEffect(() => {
         const checkIfVoted = () => {
+            let total_approved:number = 0;
+            let total_rejected:number = 0;
+            let total_abstained:number = 0;
             const signature_array :string[] = [];
             const address_array :string[] = [];
             const choice_array :string[] = [];
@@ -279,13 +286,23 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                 if (votes[i].VoterAddress === accountAddress) {
                     setHasVoted(true);
                     setVoterChoice(Number(votes[i].VoterChoice));
-                } else {
-                    setHasVoted(false);
+                } 
+                if (Number(votes[i].VoterChoice) === 0){
+                    total_approved ++;
+                } else if (Number(votes[i].VoterChoice) === 1){
+                    total_rejected ++;
+                } else if (Number(votes[i].VoterChoice) === 2){
+                    total_abstained ++;
                 }
             }
+            setTotalApproved(total_approved);
+            setTotalRejected(total_rejected);
+            setTotalAbstained(total_abstained);
             setSignatureArray(signature_array);
             setAddressArray(address_array);
             setChoiceArray(choice_array);
+            // console.log("choice",choice_array);
+            console.log(hasVoted);
             
         };
         checkIfVoted();
@@ -391,16 +408,16 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                 <div className="max-h-[200px] min-h-[200px] overflow-scroll md:overflow-auto pb-3">
                                     <h1 className="text-white  text-xs font-normal break-all">{proposal.description}</h1>
                                 </div>
-                                <div className="flex flex-col w-full justify-between space-y-4 items-start p-2 bg-white rounded-md text-black">
-                                    <h1 className="text-sm text-center font-bold">Proposal Details</h1>
-        
-                                    {proposal.proposalType === "Voting" && <VotingDetails proposalDetailsObject={proposalDetailsObject}/>}
-                                    {proposal.proposalType === "Token Transfer" && <TokenTransferDetails proposalDetailsObject={proposalDetailsObject}/>}
-                                    {proposal.proposalType === "Permission" && <PermissionDetails proposalDetailsObject={proposalDetailsObject}/>}
-                                    {proposal.proposalType === "General" && <GeneralDetails proposalDetailsObject={proposalDetailsObject}/>}
-
-                                
-                                </div>
+                                {proposal.proposalType != "General"&&
+                                    <div className="flex flex-col w-full justify-between space-y-4 items-start p-2 bg-white rounded-md text-black">
+                                        <h1 className="text-sm text-center font-bold">Proposal Details</h1>
+            
+                                        {proposal.proposalType === "Voting" && <VotingDetails proposalDetailsObject={proposalDetailsObject}/>}
+                                        {proposal.proposalType === "Token Transfer" && <TokenTransferDetails proposalDetailsObject={proposalDetailsObject}/>}
+                                        {proposal.proposalType === "Permission" && <PermissionDetails proposalDetailsObject={proposalDetailsObject}/>}
+                                        {/* {proposal.proposalType === "General" && <GeneralDetails proposalDetailsObject={proposalDetailsObject}/>} */}
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className="flex flex-col justify-between space-y-4 items-between p-4 bg-white rounded-md text-black">
@@ -436,6 +453,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                             { (proposalStatus === "Active" || proposalStatus === "Closed" )&&
                                 <>
                                     <h1 className="text-sm font-bold">Current Results</h1>
+                                    <ProgressBar reject={((totalRejected/voters.length)*100)} approve={((totalApproved/voters.length)*100)} abstain={((totalAbstained/voters.length)*100)} />
                                     <div className="flex justify-start items-center">
                                         <h1 className="text-sm font-normal">Voted</h1>
                                         <h1 className="text-sm font-semibold px-2">{((votes.length/voters.length)*100).toFixed(0)}%</h1>
@@ -455,13 +473,13 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                 {hasVoted && (
                                      <>
                                         <h1 className="text-sm font-bold">VOTE</h1>
-                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 0 ? "bg-green-800 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 0 ? "bg-green-700 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Approve</h1>
                                         </div>
-                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 1 ? "bg-green-800 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 1 ? "bg-red-700 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Reject</h1>
                                         </div>
-                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 2 ? "bg-green-800 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 2 ? "bg-yellow-500 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
                                             <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
                                         </div>
                                     </>
@@ -471,10 +489,10 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                     <>
                                         <h1 className="text-sm font-bold">VOTE</h1>
                                         <div className="flex justify-start items-center w-28 opacity-50 cursor-default  bg-blue-800 rounded-full">
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Approve</h1>
                                         </div>
                                         <div className="flex justify-start items-center w-28 opacity-50 cursor-default bg-blue-800 rounded-full">
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Reject</h1>
                                         </div>
                                         <div className="flex justify-start items-center w-28 opacity-50 cursor-default bg-blue-800 rounded-full">
                                             <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
@@ -485,11 +503,11 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                 {(proposalStatus === "Active" && !isLoading && userCanVote && !hasVoted)&&
                                     <>
                                         <h1 className="text-sm font-bold">VOTE</h1>
-                                        <div onClick={handleFor} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">For</h1>
+                                        <div onClick={handleApprove} className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Approve</h1>
                                         </div>
-                                        <div onClick={handleAgainst} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
-                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Against</h1>
+                                        <div onClick={handleReject} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
+                                            <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Reject</h1>
                                         </div>
                                         <div onClick={handleAbstain} className="flex justify-start items-center w-28 cursor-pointer active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full">
                                             <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
@@ -541,13 +559,8 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
 
 const GeneralDetails = (props:{ proposalDetailsObject: any} ) => {
     const { proposalDetailsObject } = props;  
-    // useContext(CreateProposalContext);
     return (
         <div className="flex flex-col justify-start items-start">
-            {/* <div className="flex justify-start items-center">
-                <h1 className="text-sm font-normal">Proposal Type:</h1>
-                <h1 className="text-sm font-semibold px-2"></h1>
-            </div> */}
             <div className="flex flex-col justify-start items-start">
                 <h1 className="text-sm font-normal">Voting Options:</h1>
                 {proposalDetailsObject.votingOptions.map((value:any,index:number) => (
@@ -661,5 +674,37 @@ const VotingDetails = (props:{ proposalDetailsObject: any}) => {
                 <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.receiveDelegate?"true":"false"}</h1>
             </div>
         </div>
+    );
+  };
+
+  const ProgressBar = (props: { reject:number, approve:number, abstain:number}) => {
+    const { reject, approve, abstain } = props;
+    const [widthApprove,setwidthApprove] = useState<string>("")
+    const [widthReject,setwidthReject] = useState<string>("")
+    const [widthAbstain,setwidthAbstain] = useState<string>("")
+    useEffect(() => {
+        setwidthApprove((approve.toString()).concat("%"));
+        setwidthReject((reject.toString()).concat("%"));
+        setwidthAbstain((abstain.toString()).concat("%"));
+    }, [reject,approve,abstain])
+    
+    return (
+        <div className="my-1 w-full">
+            <div className={`flex justify-start items-center text-black`}>
+                <span className="text-green-700 drop-shadow-md text-xs font-bold pr-1">{`${approve}%`} approved,</span>
+                <span className="text-red-700 drop-shadow-md text-xs font-bold pr-1">{`${reject}%`} rejected,</span>
+                <span className="text-yellow-500 drop-shadow-md text-xs font-bold">{`${abstain}%`} abstained</span>
+            </div>
+            <div  className="flex h-3 w-[100%] bg-gray-200 rounded-lg my-1 border-2 border-solid border-blue-600 drop-shadow-md">
+                <div style={{ width:widthApprove, background: "repeating-linear-gradient(45deg,#15803D 0px,#15803D 10px, #60ad7d 10px, #60ad7d 20px)"}} 
+                    className={`h-[100%] bg-green-700`}/>
+                
+                <div style={{ width:widthReject, background: "repeating-linear-gradient(45deg,#B91C1C 0px,#B91C1C 10px, #b85f5f 10px, #b85f5f 20px)"}}
+                    className={`h-[100%] bg-red-700`}/>
+                
+                <div style={{ width:widthAbstain, background: "repeating-linear-gradient(45deg,#EAB308 0px,#EAB308 10px, #c2c071 10px, #c2c071 20px)"}}
+                    className={`h-[100%]  bg-yellow-500`}/>
+            </div>
+      </div>
     );
   };

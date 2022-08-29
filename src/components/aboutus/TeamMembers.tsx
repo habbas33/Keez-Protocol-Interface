@@ -9,11 +9,11 @@ import { SiTwitter, SiGithub, SiDiscord } from "react-icons/si";
 export const SageMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
+      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
-        flex-col p-3 rounded-md hover:shadow-2xl "
+        flex-col p-3 rounded-3xl hover:shadow-2xl "
     >
-      <div className="flex justify-center items-center p-2">
+      <div className="flex justify-center items-center p-2 drop-shadow-xl">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd2}
@@ -42,11 +42,11 @@ export const SageMemberCard = () => {
 export const B00steMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
+      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
-        flex-col p-3 rounded-md hover:shadow-2xl"
+        flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center p-2">
+      <div className="flex justify-center items-center p-2 drop-shadow-xl">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd3}
@@ -72,11 +72,11 @@ export const B00steMemberCard = () => {
 export const HabbasMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
+      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
-        flex-col p-3 rounded-md hover:shadow-2xl"
+        flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center p-2">
+      <div className="flex justify-center items-center p-2 drop-shadow-xl">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd5}
@@ -101,11 +101,11 @@ export const HabbasMemberCard = () => {
 export const LandonMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
+      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
-        flex-col p-3 rounded-md hover:shadow-2xl"
+        flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center p-2">
+      <div className="flex justify-center items-center p-2 drop-shadow-xl">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd1}
@@ -133,11 +133,11 @@ export const LandonMemberCard = () => {
 export const FawnMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
+      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
-        flex-col p-3 rounded-md hover:shadow-2xl"
+        flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center p-2">
+      <div className="flex justify-center items-center p-2 drop-shadow-xl">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd4}
@@ -164,11 +164,11 @@ export const FawnMemberCard = () => {
 export const MumeenMemberCard = () => {
   return (
     <div
-      className="bg-indigo-500 min-h-[450px] my-10 flex flex-1 
+      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
-        flex-col p-3 rounded-md hover:shadow-2xl"
+        flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
-      <div className="flex justify-center items-center p-2">
+      <div className="flex justify-center items-center p-2 drop-shadow-xl">
         <img
           className="object-center max-w-full h-28 rounded-full transition-shadow ease-in-out duration-300 shadow-none hover:shadow-xl"
           src={imageToAdd6}

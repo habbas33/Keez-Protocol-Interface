@@ -22,7 +22,7 @@ const Main: React.FC = () => {
           </h1>
         </div>
 
-        <div className=" grid flex-wrap place-content-stretch gap-3 lg:grid-cols-2 xl:grid-cols-3 items-center ">
+        <div className=" grid flex-wrap place-content-stretch gap-10 lg:grid-cols-2 xl:grid-cols-3 items-center ">
           <SageMemberCard />
           <B00steMemberCard />
           <HabbasMemberCard />

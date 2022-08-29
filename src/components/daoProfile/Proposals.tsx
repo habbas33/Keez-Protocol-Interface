@@ -30,7 +30,7 @@ const Proposals = (props: { daoDetail: any }) => {
   }, []);
 
   // const bg_imgfromurl = "url('".concat(backgroundImageUrl).concat("')");
-  const categories = ["All", "Voting", "Permission", "General", "Send tokens"];
+  const categories = ["All", "Voting", "Permission", "General", "Token Transfer"];
   const filterByCategory = (category: string) => {
     if (category === "All") {
       setFilter("");
@@ -56,8 +56,7 @@ const Proposals = (props: { daoDetail: any }) => {
       label: "Pending",
     },
   ];
-
-  const userProfiles = [0, 1, 2, 3, 4, 5];
+  
   return (
     <div className="flex-col md:py-4 justify-start items-start w-full">
       <div className="flex w-full flex-wrap justify-between items-center md:py-4 my-1">
@@ -92,7 +91,7 @@ const Proposals = (props: { daoDetail: any }) => {
       {proposals.length != [] ? (
         <div className="grid sm:grid-cols-2 gap-5 md:grid-cols-3 lg-grid-cols-4">
           {[...proposals]
-            .filter((proposal) => proposal.proposalDetails.includes(filterStr))
+            .filter((proposal) => proposal.proposalType.includes(filterStr))
             .filter((proposal) => {
               const createdAt = dayjs(Number(proposal.createdAt));
               let details = getParsedJsonObj(proposal.forDaoDetails);
@@ -189,7 +188,7 @@ const ProposalCard = (props: {
   return (
     <div
       onClick={() => setShowModal(true)}
-      className="w-full h-60 flex flex-1 flex-col cursor-pointer rounded-md pb-1 bg-[#b8a5a6]"
+      className="w-full h-60 flex flex-1 flex-col cursor-pointer rounded-lg border-2 border-white bg-gradient-to-tr from-purple-100 via-purple-300 to-blue-300 pb-1"
     >
       <div className="flex flex-col justify-start items-start h-full p-5">
         <div className="flex justify-between items-center w-full">
@@ -237,8 +236,5 @@ const ProposalCard = (props: {
         />
       )}
     </div>
-    //   <div className={`bg-[#4b3132] ${cardWidth} h-80 my-2 flex flex-1 flex-col mx-3 p-3 rounded-md hover:shadow-2xl`}>
-    //     {proposal.proposalName}
-    //   </div>
   );
 };

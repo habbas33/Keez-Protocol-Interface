@@ -1,14 +1,20 @@
-import React, { Fragment, useRef, useState, useContext } from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from '@headlessui/react';
-import { ProfileContext } from '../context/ProfileContext'
+import { useNavigate } from "react-router-dom";
 
-export default function ConnectProfileModal() {
-  const { connectWallet } = useContext(ProfileContext);
+export default function ZeroMemberModal() {
   const [open, setOpen] = useState(true);
+  const navigate = useNavigate();
 
   const cancelButtonRef = useRef(null);
+    useEffect(() => {
+      if (!open){
+        navigate("/Discover")
+      }
 
+    }, [open])
+    
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -58,13 +64,13 @@ export default function ConnectProfileModal() {
                   <div className="mt-3 text-center  sm:mt-0 sm:ml-0 sm:text-left">
                     <div className="px-6 py-5 bg-[#2B2C50] flex justify-between items-center">
                       <Dialog.Title as="h3" className="text-xl leading-6 font-medium text-white">
-                        Connect your Universal Profile
+                        No DAO Membership
                       </Dialog.Title>
                       <AiOutlineClose fontSize={24} className="text-white hover:bg-[#382C71] p-[2px] rounded-full cursor-pointer" onClick={() => setOpen(false)}/>
                     </div>
                     <div className="py-4 px-6 font-light bg-[#382C71]">
                       <p className="text-base text-white-500">
-                        In order to use KEEZ you must have an account, you can create or log-in to your account using your LUKSO Universal Profile:
+                        In order to propose or vote you must be a member of a DAO or create a new DAO for your team.
                       </p>
                     </div>
                   </div>
@@ -77,9 +83,19 @@ export default function ConnectProfileModal() {
                    border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                     text-base font-medium text-white hover:border-white hover:bg-[#8168ff] 
                      sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={connectWallet}
+                  onClick={() => navigate("/Discover")}
                 >
-                  CONNECT YOUR UNIVERSAL PROFILE
+                  Discover DAOs
+                </button>
+                <button
+                  type="button"
+                  className="justify-center rounded-md item-center
+                   border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
+                    text-base font-medium text-white hover:border-white hover:bg-[#8168ff] 
+                     sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={() => navigate("/Create")}
+                >
+                  Create DAOs
                 </button>
               </div>
             </div>
