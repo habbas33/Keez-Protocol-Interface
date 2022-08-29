@@ -256,7 +256,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
             for (var i = 0; i < permissionsObject.length; i++) {
                 if (permissionsObject[i].upAddress == accountAddress) {
                     setUserCanVote(permissionsObject[i].keyPermissions.vote === "True");
-                    setUserCanRegister(permissionsObject[i].keyPermissions.register === "True");
+                    setUserCanRegister(permissionsObject[i].keyPermissions.registerVotes === "True");
                     setUserCanExecute(permissionsObject[i].keyPermissions.execute === "True");
                 }
                 if (permissionsObject[i].keyPermissions.vote === "True"){
@@ -515,7 +515,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                     </>
                                 }
                                 
-                                {(proposalStatus === "Closed" && !isLoading  && !hasVoted) &&
+                                {(proposalStatus === "Closed" && !isLoading  ) &&
                                     <>
                                         <h1 className="text-sm font-bold">Actions</h1>
                                         {userCanRegister ?
