@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllDaos } from "../services/keezBackend";
-import { getParsedJsonObj } from "../utils/getParsedJsonObj";
+import { getAllDaos } from "../../services/keezBackend";
+import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 import Skeleton from "@material-ui/lab/Skeleton";
 import ReactCardFlip from "react-card-flip";
  
@@ -16,12 +16,12 @@ const Trending = () => {
     fetchData();
   }, []);
   return (
-    <div className="w-full justify-start items-center px-10 py-10 lg:px-20 md:px-20 ">
-      <div className=" flex-initial justify-between py-5 w-[90%] mx-auto">
+    <div className="w-full justify-start items-center px-10 py-20 lg:px-20 md:px-20 ">
+      <div className=" flex-initial justify-between w-[90%] mx-auto">
         <h1 className="text-4xl md:text-3xl text-left text-white ">
           TRENDING DAOs
         </h1>
-        <div className="flex gap-3 flex-no-wrap justify-between items-center pb-10 ">
+        <div className="flex gap-3 flex-no-wrap justify-between items-center py-5">
           {allDaos.length != [] ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
                 {[...allDaos].reverse().map((daoDetail, i) => (

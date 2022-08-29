@@ -1,7 +1,7 @@
 import React, {useContext, useState,useEffect} from 'react'
 import { ConnectProfileModal } from '../modals/';
 import { ProfileContext } from '../context/ProfileContext'
-import { CreateDao, CreateDaoSummary, CreateKeyPermissions, CreateVault, CreateVotingParameters } from "../components";
+import { CreateDao, CreateDaoSummary, CreateKeyPermissions, CreateVault, CreateVotingParameters } from "../components/create";
 // import {createDao as createDaoService, testDao} from "../services/createDao"
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';

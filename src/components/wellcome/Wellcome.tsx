@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { ProfileContext } from "../context/ProfileContext";
+import { ProfileContext } from "../../context/ProfileContext";
 import { useNavigate } from "react-router-dom";
 
-const Welcome = () => {
+const Wellcome = () => {
   const { connectWallet } = useContext(ProfileContext);
   const navigate = useNavigate();
   return (
-    <div className="flex pt-10 justify-center items-center px-5 lg:px-20 md:px-20 ">
+    <div className="flex py-10 justify-center items-center px-5 lg:px-20 md:px-20 ">
       <div className="flex-column w-[90%] ">
         <div className="flex flex-col md:flex-row gap-4 flex-initial justify-between py-0">
           <div className="flex-column md:w-1/2 text-white">
@@ -55,4 +55,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default Wellcome;

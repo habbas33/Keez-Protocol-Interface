@@ -1,11 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { MdNavigateNext } from "react-icons/md";
-import {
-  MultiSelect,
-  FileUploader,
-  Input,
-  SingleSelect,
-} from "../../components";
+import { Input, SingleSelect } from "../../components";
+import { FileUploader } from "../create";
 import { toast } from "react-toastify";
 import { CreateDaoContext } from "../../context/CreateDaoContext";
 import { daoCategoryItems } from "../../constants/daoCategoryItems";

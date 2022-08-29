@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useWeb3 from '../hooks/useWeb3';
 import DaoProposalsJSON from '../keezContracts/Dao/DaoProposals.sol/DaoProposals.json';
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import { ethers } from "ethers";
+import { ProfileContext } from '../context/ProfileContext'
 
 interface DaoProposalContextInterface {
     createDaoProposal: any,
@@ -25,6 +26,7 @@ export const DaoProposalContext = React.createContext<DaoProposalContextInterfac
 );
 
 export const DaoProposalProvider = ({children}:any) => {
+    const { accountAddress } = useContext(ProfileContext);
     const web3 = useWeb3();
     const [owner, setOwner] = useState<string>('');
     const [signer, setSigner] = useState<any>([]);
@@ -47,7 +49,7 @@ export const DaoProposalProvider = ({children}:any) => {
             console.log("owner ",owner);
         }
         fetchProvider();
-    }, []);
+    }, [accountAddress]);
 
     // *********************************** //
     // ********* Create Proposal ********* //
