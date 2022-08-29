@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState, useContext,useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from '@headlessui/react';
-
+import { SpinnerCircular } from "spinners-react";
 import { ProfileContext } from '../context/ProfileContext'
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import { shortenAddress } from "../utils/shortenAddress";
@@ -194,6 +194,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     }
 
     const handleRegister = async () =>{
+        setIsLoading(true);
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
         try {;
             //************Contract Interaction ************* */
@@ -202,13 +203,21 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
             const choicesArray: string[] = choiceArray;// get this data from new voting model at backend
             const proposalSignature = proposal.identifier; // get this data from backend proposals
             const result = await registerVotes(contractAddressObject, proposalSignature, signaturesArray, addressesArray, choicesArray);
-            console.log("votes array = ", votes);
+            console.log("result = ", result);
             // console.log(result)
             //********************************************** */
+            if (result.hash){
+                toast.success("Voters Registered Successfully", {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }else {
+                toast.error("Voter registeration Failed", {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }
             
-            toast.success("Voters Registered Successfully", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
+            setIsLoading(false);
+
         } catch (err) {
             console.log(err);
             toast.error("Voter registeration Failed", {
@@ -219,6 +228,8 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     }
 
     const handleExecute = async() =>{
+        
+        setIsLoading(true);
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
         try {
             const proposalSignature = proposal.identifier //proposalSignature get from backend
@@ -228,9 +239,17 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
             console.log(result)
             //********************************************** */
             
-            toast.success("Executed Successfully", {
-                position: toast.POSITION.BOTTOM_RIGHT,
-            });
+
+            if (result.hash){
+                toast.success("Executed Successfully", {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }else {
+                toast.error("Execution Failed", {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                });
+            }
+            setIsLoading(false);
         } catch (err) {
             console.log(err);
             toast.error("Execution Failed", {
@@ -540,7 +559,15 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                         {!userCanExecute && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Execute Votes permission</h1>}
                                     </>
                                 }
-                            
+                                {isLoading &&
+                                    <SpinnerCircular
+                                        size={20}
+                                        thickness={200}
+                                        speed={118}
+                                        color="rgba(153, 153, 153, 1)"
+                                        secondaryColor="rgba(172, 5, 55, 1)"
+                                        />
+                                }
                             {!userCanVote && proposalStatus != "Closed" && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Vote permission</h1>}
                            
                             </div>

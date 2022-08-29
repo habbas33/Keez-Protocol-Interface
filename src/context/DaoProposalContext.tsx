@@ -152,6 +152,10 @@ export const DaoProposalProvider = ({children}:any) => {
     
     const registerVotes = async (contractAddressObject:any, proposalSignature:any, signaturesArray:any, addressArray:any, choiceArray:any ) => {
         try {
+            // console.log("proposalSignature",proposalSignature);
+            // console.log("signaturesArray",signaturesArray);
+            // console.log("addressArray",addressArray);
+            // console.log("choiceArray",choiceArray);
             const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
             const register_users = await daoProposals.connect(signer).registerVotes(
                 proposalSignature,
@@ -168,8 +172,10 @@ export const DaoProposalProvider = ({children}:any) => {
 
     const executeProposal = async (contractAddressObject:any, proposalSignature:any) => {
         try {
+            console.log(proposalSignature);
             const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
-            const execution_result = await daoProposals.connect(signer).executeProposal( proposalSignature );
+            const execution_result = await daoProposals.connect(signer).executeProposal(proposalSignature,
+                {gasPrice: '1000000000', gasLimit: 5_000_000});
             return execution_result
         } catch (error) {
             console.log(error);
