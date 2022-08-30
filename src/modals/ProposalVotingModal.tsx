@@ -50,7 +50,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         setIsLoading(true);
         const timestamp = dayjs().valueOf();
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
-        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(0), 32);
+        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32);
         const proposalUrl = proposal.url.concat(proposal.CID);
         try {
             //************Contract Interaction ************* */
@@ -99,7 +99,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         setIsLoading(true);
         const timestamp = dayjs().valueOf();
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
-        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(1), 32);
+        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(2), 32);
         const proposalUrl = proposal.url.concat(proposal.CID);
         try {
             //************Contract Interaction ************* */
@@ -148,7 +148,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
         setIsLoading(true);
         const timestamp = dayjs().valueOf();
         const contractAddressObject = getParsedJsonObj(daoSelected.daoUpAddress);
-        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(2), 32);
+        const choice = ethers.utils.hexZeroPad(ethers.utils.hexValue(0), 32);
         const proposalUrl = proposal.url.concat(proposal.CID);
         try {
             //************Contract Interaction ************* */
@@ -300,18 +300,20 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
             const address_array :string[] = [];
             const choice_array :string[] = [];
             for (var i = 0; i < votes.length; i++) {
-                signature_array.push(votes[i].VoterSignature);
-                choice_array.push(votes[i].VoterChoice)
-                address_array.push(votes[i].VoterAddress)
+                if (Number(votes[i].VoterChoice) != 0){
+                    signature_array.push(votes[i].VoterSignature);
+                    choice_array.push(votes[i].VoterChoice)
+                    address_array.push(votes[i].VoterAddress)
+                }
                 if (votes[i].VoterAddress === accountAddress) {
                     setHasVoted(true);
                     setVoterChoice(Number(votes[i].VoterChoice));
                 } 
-                if (Number(votes[i].VoterChoice) === 0){
+                if (Number(votes[i].VoterChoice) === 1){
                     total_approved ++;
-                } else if (Number(votes[i].VoterChoice) === 1){
-                    total_rejected ++;
                 } else if (Number(votes[i].VoterChoice) === 2){
+                    total_rejected ++;
+                } else if (Number(votes[i].VoterChoice) === 0){
                     total_abstained ++;
                 }
             }
