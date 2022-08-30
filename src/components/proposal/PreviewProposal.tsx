@@ -279,16 +279,23 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
       //@ts-ignore
       ProposalMetadata.proposalProfile["identifier"] = proposalSignatures;
       //************************ */
-      
-      console.log(ProposalMetadata);
-      setMetalink(metalink);
-      // window.open(metalink, "_blank");
-      const result = await postProposal(ProposalMetadata);
-      setSubmitLoading(false);
-      toast.success("Proposal Created", {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
-      navigate("/Profile");
+      if (proposalSignatures === "Stopped") {
+        toast.error("Proposal Creation Unsuccessful", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        setSubmitLoading(false);
+      } else {
+        console.log(ProposalMetadata);
+        setMetalink(metalink);
+        // window.open(metalink, "_blank");
+        const result = await postProposal(ProposalMetadata);
+        setSubmitLoading(false);
+        toast.success("Proposal Created", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+        navigate("/Profile");
+      }
+
     } catch (err) {
       console.log(err);
       toast.error("Proposal Creation Unsuccessful", {
