@@ -362,7 +362,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
 
         <div className="grid gap-x-6 gap-3 md:grid-cols-2 grid-cols-1 w-full text-white py-2">
           <div className="flex flex-col space-y-2 justify-start items-start">
-            <h1 className="text-white text-md font-semibold">{proposalName}</h1>
+            <h1 className="w-[100%] break-words text-white text-md font-semibold">{proposalName}</h1>
 
             <div className="flex justify-start items-center bg-blue-800 rounded-full">
               <h1 className="text-slate-100 text-xs font-normal py-1 px-2">
@@ -386,7 +386,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
               </div>
             </div>
             <div className="flex flex-col h-full w-full justify-between items-start">
-              <h1 className="text-white pb-3 text-xs font-normal break-words">
+              <h1 className="text-white pb-3 text-xs font-normal max-h-[200px] min-h-[200px] pb-1 overflow-auto w-[100%] break-words">
                 {description}
               </h1>
               {proposalType != "General" &&
