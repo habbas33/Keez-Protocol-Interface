@@ -203,8 +203,10 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose2}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Please enter a number from 0-100. This number will reflect the percentage of DAO members needed to vote on a proposal for the result to be valid. 
-                  The average participation rate for DAO voting is less than 15%.</div>
+                  Please enter a number from 1-100. This number will reflect the 
+                  percentage of DAO members needed to vote on a proposal for 
+                  the result to be valid. The average participation rate for 
+                  DAO voting is less than 15%.</div>
               </Popover></div>
           <div className="flex items-center text-white text-sm font-normal">
             <Input
@@ -249,8 +251,12 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose3}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Please enter a number from 0-100. This number will reflect the percentage of votes needed on a specific decision (i.e., for, against, abstain) for the result to 
-                  be executed. It is recommended to enter a number over 51% to ensure a majority. The higher the number, the more agreement is needed within the community.</div>
+                  Please enter a number from 1-100. This number will reflect the 
+                  percentage of votes needed on a specific decision 
+                  (i.e., for, against, abstain) for the result to be executed. 
+                  It is recommended to enter a number over 51% to ensure a 
+                  majority. The higher the number, the more agreement is needed
+                  within the community.</div>
               </Popover></div>
           <div className="flex items-center text-white text-sm font-normal">
             <Input
@@ -270,7 +276,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             className="block  text-white text-sm font-normal"
             htmlFor="MinVotingDelay"
           >
-            Minimum Voting Delay
+            Voting Delay
           </label>
           <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
@@ -295,8 +301,9 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This parameter describes the minimum period in which a proposal is viewable but unable to be voted on. This will give the community time to think and discuss
-                   before solidifying a vote.</div>
+                  This parameter describes the period in which a proposal is 
+                  viewable but unable to be voted on. This will give the 
+                  community time to think and discuss before solidifying a vote. </div>
               </Popover></div>
           <div className="w-1/2">
             <SingleSelect
@@ -310,7 +317,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             className="block  text-white text-sm font-normal"
             htmlFor="minVotingPeriod"
           >
-            Minimum Voting Period
+            Voting Period
           </label>
           <p className="px-1" aria-owns={open5 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
@@ -335,7 +342,8 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose5}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                   This parameter describes the minimum period for which a proposal can be voted on. Giving the community multiple days at least to vote on the 
+                   This parameter describes the period for which a proposal can be 
+                   voted on. Giving the community multiple days to vote on the 
                    proposal is recommended.</div>
               </Popover></div>
           <div className="w-1/2">
@@ -350,7 +358,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             className="block  text-white text-sm font-normal"
             htmlFor="minVotingPeriod"
           >
-            Minimum Execution Delay
+            Execution Delay
           </label>
           <p className="px-1" aria-owns={open6 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen6} onMouseLeave={handlePopoverClose6}>
@@ -375,7 +383,8 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose6}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This parameter describes the minimum delay period for which a proposal will be executed after the voting period has ended.</div>
+                  This parameter describes the delay period for which a proposal
+                  will be executed after the voting period has ended.</div>
               </Popover></div>
           <div className="w-1/2">
             <SingleSelect

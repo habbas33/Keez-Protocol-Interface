@@ -295,8 +295,9 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  This title will be displayed at the top of the proposal and should reflect the contents of the proposal.</div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  This title will be displayed at the top of the proposal 
+                  and should reflect the contents.</div>
               </Popover></div>
             <Input
               value={proposalName}
@@ -369,9 +370,9 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose2}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  This description will be displayed on the proposal card and should describe its contents and why it is being proposed. This is your chance to provide the
-                   reasoning behind this proposal.</div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  This title will be displayed at the top of the 
+                  proposal and should reflect the contents.</div>
               </Popover></div>
             <textarea
               className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
@@ -409,7 +410,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose3}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Select or enter the Universal Profile address to which you would like to add or revoke permissions. </div>
               </Popover></div>
             <SingleSelect
@@ -449,9 +450,9 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                   Select which permissions you want to add or revoke from the Universal Profile address selected. Red stands for permissions the Universal Profile has, and 
-                   Grey stands for permissions that Universal Profile does not have.</div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                   Select which permissions you want to add or revoke 
+                   from the Universal Profile address selected.</div>
               </Popover></div>
                 <div className="grid gap-x-4 gap-y-0 grid-cols-2 text-white">
                   <div className="flex items-center my-3">

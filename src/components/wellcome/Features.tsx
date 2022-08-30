@@ -4,49 +4,39 @@ const Features = () => {
   return (
     <div className="flex py-20 justify-center items-center px-5 lg:px-20 md:px-20 ">
         <div className="flex-column w-[90%] ">
-            <h1 className="text-4xl md:text-3xl text-center font-semibold text-white">FEATURES</h1>
+            <h1 className="text-4xl md:text-3xl text-center textShadow  text-white">Features</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 my-10 w-full">
-                <div className="flex flex-col justify-center items-center text-base bg-gradient-to-b from-blue-300 via-purple-500 to-yellow-500 p-10 text-white rounded-3xl drop-shadow-lg">
-                    <div className="rounded-full bg-[#FC1E9A] p-2 drop-shadow-lg">
-                        <GiFountainPen color="white" fontSize="2em"/>
+                <div className="flex flex-col justify-center items-center text-base text-center bg-white p-10 text-black rounded-3xl drop-shadow-lg">
+                    <div className="rounded-full bg-[black] p-2 drop-shadow-lg">
+                        <GiFountainPen color="white" fontSize="4em"/>
                     </div>
                     
-                    <h1 className="text-xl text-center font-semibold pb-5 pt-2 text-white">Create a DAO</h1>
-                    The power of KEEZ DAO unlocks the KEEZ Protocol. This platform
-                    allows individuals to create a DAO and distribute permissions to
-                    members. The permissions can enable members to vote, propose,
-                    delegate, add/revoke permissions, and access the vaults and
-                    multisig of the DAO. The mission of this protocol is to
-                    revolutionize DAO governance models and step away from traditional
-                    token gating.
+                    <h1 className="text-xl text-center font-semibold pb-5 pt-2 text-black">Create a DAO</h1>
+                    Through our DAO creation process, a Universal Profile (UP) can
+                    create an UP for a DAO, onboard members, govern the operation, 
+                    and manage the treasury and data through a multisig.
                 </div>
 
-                <div className="flex flex-col justify-center items-center text-base bg-gradient-to-b from-blue-300 via-purple-500 to-yellow-500 p-10 text-white rounded-3xl drop-shadow-lg">
-                    <div className="rounded-full bg-[#FC1E9A] p-2 drop-shadow-lg">
-                        <GiLightBulb color="white" fontSize="2em"/>
+                <div className="flex flex-col justify-center text-center items-center text-base bg-white p-10 text-black rounded-3xl drop-shadow-lg">
+                    <div className="rounded-full bg-[black] p-2 drop-shadow-lg">
+                        <GiLightBulb color="white" fontSize="4em"/>
                     </div>
-                    <h1 className="text-xl text-center font-semibold pb-5 pt-2 text-white">Propose</h1>
-                    The power of KEEZ DAO unlocks the KEEZ Protocol. This platform
-                    allows individuals to create a DAO and distribute permissions to
-                    members. The permissions can enable members to vote, propose,
-                    delegate, add/revoke permissions, and access the vaults and
-                    multisig of the DAO. The mission of this protocol is to
-                    revolutionize DAO governance models and step away from traditional
-                    token gating.
+                    <h1 className="text-xl text-center font-semibold pb-5 pt-2 text-black">Propose</h1>
+                    DAOs can onabord members and provide them permissions. One of 
+                    those permissions includes the ability to create proposals 
+                    for the DAO they are a member of. On the DAOs Profile Page, 
+                    a member with the Propose Permission can create proposals 
+                    using any of our proposal templates. 
                 </div>
 
-                <div className="flex flex-col justify-center items-center text-base bg-gradient-to-b from-blue-300 via-purple-500 to-yellow-500 p-10 text-white rounded-3xl drop-shadow-lg">
-                    <div className="rounded-full bg-[#FC1E9A] p-2 drop-shadow-lg">
-                        <GiVote color="white" fontSize="2em"/>
+                <div className="flex flex-col justify-center items-center text-center text-base bg-white p-10 text-black rounded-3xl drop-shadow-lg">
+                    <div className="rounded-full bg-[black] p-2 drop-shadow-lg">
+                        <GiVote color="white" fontSize="4em"/>
                     </div>
-                    <h1 className="text-xl text-center font-semibold pb-5 pt-2 text-white">Vote</h1>
-                    The power of KEEZ DAO unlocks the KEEZ Protocol. This platform
-                    allows individuals to create a DAO and distribute permissions to
-                    members. The permissions can enable members to vote, propose,
-                    delegate, add/revoke permissions, and access the vaults and
-                    multisig of the DAO. The mission of this protocol is to
-                    revolutionize DAO governance models and step away from traditional
-                    token gating.
+                    <h1 className="text-xl text-center font-semibold pb-5 pt-2 text-black">Vote</h1>
+                    Another permission available to members is voting. Any DAO 
+                    members with the Vote Permissions can view proposals on the 
+                    DAO Profile Page and submit their vote. 
                 </div>
             </div>
         </div>

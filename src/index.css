@@ -8,7 +8,7 @@
 
 body {
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Space Grotesk', 'Space Mono', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -17,12 +17,13 @@ body {
   background-image: url("/src/assets/Logos/KEEZ Protocol Hero Banner Image.png");
   height: 80%;
   width: auto;
-  background-position: 50% 50%;
+  background-position: 50% 85%;
   background-attachment:fixed;
+  background-repeat: no-repeat
 
 }
 .bg-other {
-  background: linear-gradient(90deg, rgba(129,108,255,1) 5%, rgba(120,208,254,1) 19%, rgba(167,146,223,1) 34%, rgba(138,209,255,1) 69%, rgba(143,200,227,1) 77%, rgba(104,142,255,1) 100%);
+  background: #382c71;
 
 }
 

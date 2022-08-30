@@ -188,7 +188,7 @@ const ProposalCard = (props: {
   return (
     <div
       onClick={() => setShowModal(true)}
-      className="w-full h-60 flex flex-1 flex-col cursor-pointer rounded-lg border-2 border-white bg-gradient-to-tr from-purple-100 via-purple-300 to-blue-300 pb-1"
+      className="w-full h-60 flex flex-1 flex-col cursor-pointer rounded-lg border-2 border-white bg-slate-300 pb-1"
     >
       <div className="flex flex-col justify-start items-start h-full p-5">
         <div className="flex justify-between items-center w-full">

@@ -207,7 +207,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className="w-full md:w-3/5">
-          <div className="flex justify-left pt-4 w-full">
+          <div className="flex  justify-left pt-4 w-full">
             <label
               className="block text-white text-sm font-normal"
               htmlFor="proposalName"
@@ -236,8 +236,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  This title will be displayed at the top of the proposal and should reflect the contents of the proposal.</div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  This title will be displayed at the top of the proposal and 
+                  should reflect the contents of the proposal.</div>
               </Popover></div>
             <Input
               value={proposalName}
@@ -313,9 +314,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose2}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  This description will be displayed on the proposal card and should describe its contents and why it is being proposed. This is your chance to provide the
-                   reasoning behind this proposal. </div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  This description will be displayed on the proposal card and 
+                  should describe the proposal. 200 word-limit. </div>
               </Popover></div>
             <textarea
               className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
@@ -353,9 +354,11 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose3}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                   By entering a value, you are proposing to change the participation rate from the current rate that was set upon DAO creation. Enter a number from 0-100 ideally
-                    under 20% but over 5%.</div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                   By entering a value, you are proposing to change the 
+                   participation rate from the current rate that was set upon 
+                   DAO creation. Enter a number from 1-100 ideally under 20% 
+                   but over 5%.</div>
               </Popover></div>
             <div className="flex items-center text-white text-sm font-normal">
               <Input
@@ -399,9 +402,11 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  By entering a value, you propose changing the percentage of votes needed to execute a proposal decision from its current default to this value. The value is
-                   recommended to be greater than 50% to ensure a majority decision.</div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  By entering a value, you propose changing the percentage of 
+                  votes needed to execute a proposal decision from its current 
+                  default to this value. The value is recommended to be 
+                  greater than 50% to ensure a majority decision.</div>
               </Popover></div>
             <div className="flex items-center text-white text-sm font-normal">
               <Input
@@ -421,7 +426,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
               className="block  text-white text-sm font-normal"
               htmlFor="MinVotingDelay"
             >
-              Minimum Voting Delay
+              Voting Delay
             </label>
             <p className="px-1" aria-owns={open5 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
@@ -445,8 +450,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose5}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                   By selecting a value, you are proposing to change the minimum time in which a proposal is viewable but unable to be voted on. </div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                    By selecting a value, you are proposing to change the time 
+                    in which a proposal is viewable but unable to be voted on. </div>
               </Popover></div>
             <div className="w-1/2">
               <SingleSelect
@@ -461,7 +467,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
               className="block  text-white text-sm font-normal"
               htmlFor="minVotingPeriod"
             >
-              Minimum Voting Period
+              Voting Period
             </label>
             <p className="px-1" aria-owns={open6 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen6} onMouseLeave={handlePopoverClose6}>
@@ -485,7 +491,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose6}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                    By selecting a value, you propose changing the minimum time a proposal can be voted on.</div>
               </Popover></div>
             <div className="w-1/2">
@@ -501,7 +507,7 @@ const VotingTemplate = (props: { handleComponent: any }) => {
               className="block  text-white text-sm font-normal"
               htmlFor="minExecutionDelay"
             >
-              Minimum Execution Delay
+              Execution Delay
             </label>
             <p className="px-1" aria-owns={open7 ? 'mouse-over-popover' : undefined}
         aria-haspopup="true" onMouseEnter={handlePopoverOpen7} onMouseLeave={handlePopoverClose7}>
@@ -525,8 +531,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose7}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  By selecting a value, you propose changing the minimum time a proposal can be executed after the voting period has ended. </div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  By selecting a value, you propose changing the time a 
+                  proposal can be executed after the voting period has ended. </div>
               </Popover></div>
             <div className="w-1/2">
               <SingleSelect

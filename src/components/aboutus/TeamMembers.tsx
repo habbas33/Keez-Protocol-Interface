@@ -9,7 +9,7 @@ import { SiTwitter, SiGithub, SiDiscord } from "react-icons/si";
 export const SageMemberCard = () => {
   return (
     <div
-      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
+      className="bg-[#8168ff] drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-3xl hover:shadow-2xl "
     >
@@ -31,8 +31,8 @@ export const SageMemberCard = () => {
       </p>
       <h1 className="flex w-full flex-col justify-center items-center h-full p-2  text-white text-center">
         Hi Im Sage! I am interested in team building, leadership, and
-        interpersonal relationships. On top of that, DAOs, Digital Identity
-        solutions, and human coordination fascinate me daily. we are complex
+        interpersonal relationships. On top of that, DAOs, digital Identity
+        solutions, and human coordination fascinate me daily. We are complex
         beings in need of simple solutions to optimize our productivity and
         social interactions.
       </h1>
@@ -42,7 +42,7 @@ export const SageMemberCard = () => {
 export const B00steMemberCard = () => {
   return (
     <div
-      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
+      className="bg-[#8168ff] drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
@@ -72,7 +72,7 @@ export const B00steMemberCard = () => {
 export const HabbasMemberCard = () => {
   return (
     <div
-      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
+      className="bg-[#8168ff] drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
@@ -101,7 +101,7 @@ export const HabbasMemberCard = () => {
 export const LandonMemberCard = () => {
   return (
     <div
-      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
+      className="bg-[#8168ff] drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
@@ -133,7 +133,7 @@ export const LandonMemberCard = () => {
 export const FawnMemberCard = () => {
   return (
     <div
-      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
+      className="bg-[#8168ff] drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-3xl hover:shadow-2xl"
     >
@@ -164,7 +164,7 @@ export const FawnMemberCard = () => {
 export const MumeenMemberCard = () => {
   return (
     <div
-      className="bg-blue-600 drop-shadow-lg min-h-[450px] my-10 flex flex-1 
+      className="bg-[#8168ff] drop-shadow-lg min-h-[450px] my-10 flex flex-1 
         min-w-full
         flex-col p-3 rounded-3xl hover:shadow-2xl"
     >

@@ -9,13 +9,13 @@ export default function Footer() {
         setIsWellcomePage(location.pathname === "/");
       }, [location]);
     return (
-        <nav className={isWellcomePage?"w-full bg-welcome":"w-full bg-other"}> 
+        <nav className={isWellcomePage?"w-full bg-[#382c71]":"w-full bg-[#382c71]"}> 
             <div className="w-full flex md:justify-center justify-center items-center flex-col  y-4 ">
                 <div className="sm:w-[100%] w-full h-[0.1px] bg-zinc-800 " />
                 
                 <div className="w-full flex sm:flex-row flex-col justify-between items-center my-4 px-5 lg:px-20 md:px-20">
                     <div className="flex min-w-max flex-[0.3] justify-center sm:items-center">
-                        <h1 className="text-white font-normal">  Copyright © 2022 KeezDAO</h1>
+                        <h1 className="text-white font-normal">  Copyright © 2022 KEEZ Protocol</h1>
                     </div>
 
                     <div className="flex flex-[0.4] justify-center items-center flex-wrap sm:mt-0 mt-5 w-full"></div>

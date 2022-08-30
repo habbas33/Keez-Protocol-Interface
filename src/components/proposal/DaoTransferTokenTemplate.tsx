@@ -231,8 +231,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  This title will be displayed at the top of the proposal and should reflect the contents of the proposal.</div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  This title will be displayed at the top of the proposal 
+                  and should reflect the contents.</div>
               </Popover></div>
             <Input
               value={proposalName}
@@ -306,9 +307,9 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose2}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  This description will be displayed on the proposal card and should describe its contents and why it is being proposed. This is your chance to provide the
-                   reasoning behind this proposal.</div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  This description will be displayed on the proposal card and 
+                  should describe the proposal. 200 word-limit.</div>
               </Popover></div>
             <textarea
               className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
@@ -345,7 +346,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose3}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   By selecting an option, you choose which vault you want to send tokens from.</div>
               </Popover></div>
             <SingleSelect
@@ -382,7 +383,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                   Select the token you want to send from the previously selected vault.</div>
               </Popover></div>
             <SingleSelect
@@ -419,7 +420,7 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose5}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
                    Please enter the number of tokens you would like to send from the vault.</div>
               </Popover></div>
             <Input
@@ -457,8 +458,8 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
                   }}
                   onClose={handlePopoverClose6}
                   disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-black text-center">
-                  Please enter the Universal Profile address you would like to send tokens. </div>
+                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
+                  Please enter the Universal Profile address you would like to send tokens to. </div>
               </Popover></div>
             <Input
               value={receivingAddress}

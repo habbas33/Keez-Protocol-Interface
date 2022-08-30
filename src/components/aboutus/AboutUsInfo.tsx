@@ -30,13 +30,13 @@ const AboutUsInfo = () => {
               Who we are?
             </h1>
             <div className="text-justify text-base">
-              KEEZ Protocol is a team of six like-minded individuals passionate
-              about revolutionizing DAO governance structures and building on
-              the LUKSO network. We value transparency, inclusivity, and
-              participation within our protocol and believe all DAOs must adopt
-              these values. The KEEZ Protocol will unlock non-token gated DAO
-              governance models that allow contributors from all walks of life
-              to join DAOs and start building and creating!
+            The KEEZ Protocol team is a group of six hard working and like 
+            minded individuals from the KEEZ DAO community. We value 
+            transparency, inclusivity, and participation within our 
+            protocol and believe all DAOs should as well. Through the 
+            protocol we will unlock new opportunities for DAOs regarding 
+            treasury disbursement, member onboarding, and governance 
+            structures.
             </div>
             <div className="flex flex-wrap gap-3 flex-row py-10 ">
               <button>

@@ -140,7 +140,7 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
       className=" w-full"
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
-        <div className="flex w-full h-[250px] flex-col border-2 border-white bg-gradient-to-tr from-purple-300 via-purple-500 to-blue-300 justify-between rounded-lg items-start">
+        <div className="flex w-full h-[250px] flex-col border-2 border-white bg-[#8168ff] justify-between rounded-lg items-start">
           <div className="w-[180px] h-[150px] absolute overflow-none rounded-lg p-5 ">
             <img
               className="object-cover w-[180px] h-[150px] text-center rounded-full  bg-[#1A1A1D]"
@@ -163,7 +163,7 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
           </div>
         </div>
 
-        <div className="flex h-[250px] w-full flex-col rounded-lg border-2 border-white bg-gradient-to-tr from-purple-100 via-purple-200 to-blue-300 justify-between items-center p-5">
+        <div className="flex h-[250px] w-full flex-col rounded-lg border-2 border-white bg-slate-300 justify-between items-center p-5">
           <div className="flex w-full flex-col justify-start items-center h-full ">
             <h1 className="text-black text-lg font-bold">
               {daoDetail.daoName}

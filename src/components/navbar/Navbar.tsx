@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { HiMenuAlt4, HiUser } from "react-icons/hi";
 import { AiOutlineClose, AiOutlineLogin, AiOutlineLogout, AiOutlineUser, AiOutlineCopy } from "react-icons/ai";
-import imageToAdd1 from "../../assets/Logos/KP_BW_trans_crop-Recovered.png";
+import imageToAdd1 from "../../assets/Logos/KP Logo White.png";
 import { ProfileContext } from "../../context/ProfileContext";
 import { menuItems } from "../../constants/menuItems";
 import NavItems from "./NavItems";

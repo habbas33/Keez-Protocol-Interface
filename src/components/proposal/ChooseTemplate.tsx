@@ -99,9 +99,10 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                 Voting Parameters Template
               </p>
               <p className="text-sm text-light text-center py-5">
-              This template will allow you to propose new default voting parameters for the DAO. Voting parameters include participation rate, majority, minimum voting delay, 
-              minimum voting period, and minimum execution delay. These parameters represent the minimum default values and can be extended in any proposal. These proposals will 
-              auto execute the results when the voting period ends and after the execution delay.
+              This template is for proposing changes to the default voting
+              parameters that were established during DAO creation. These
+              proposals are executable after the voting period and 
+              execution delay ends.
               </p>
             </div>
             <div
@@ -116,9 +117,11 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                 Send Tokens From DAO Template
               </p>
               <p className="text-sm text-light text-center py-5">
-              This proposal template will allow you to send tokens from a DAO’s vault to another address. This template may be used to relocate tokens from one vault 
-              to another or from one vault to an individual's UP for, let's say, payment of service. These proposals will auto execute the results when the voting period 
-              ends and after an execution delay.
+              This proposal template is for sending tokens from the DAO’s vault 
+              to another address. This template may be used to relocate 
+              tokens from one vault to another or from one vault to an 
+              individual's UP. These proposals are executable after the 
+              voting period and execution delay ends
               </p>
             </div>
             <div
@@ -133,8 +136,11 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                 Add & Revoke Permissions Template
               </p>
               <p className="text-sm text-light text-center py-5">
-              This proposal template will allow you to add or revoke permissions to a DAO member's Universal Profile. This can be used to add new members to the DAO or 
-              remove members who are not respecting the community. These proposals will auto execute the results when the voting period ends and after an execution delay.
+              This proposal template is for adding or revoking  permissions 
+              of a DAO member's UP. This can be used to add new members to 
+              the DAO or remove current members permission. These proposals 
+              are executable after the voting period and execution delay 
+              ends.
               </p>
             </div>
             <div
@@ -149,7 +155,9 @@ const ChooseTemplate = (props: { handleComponent: any }) => {
                 General Template
               </p>
               <p className="text-sm text-light text-center py-5">
-              This proposal template allows you to create a custom proposal. These proposals will not auto-execute when voting ends.
+              This proposal template is for creating a custom proposal. 
+              Results will be given but these proposals do not have an 
+              execution smart contract.
               </p>
             </div>
           </div>
