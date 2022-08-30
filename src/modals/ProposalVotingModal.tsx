@@ -495,13 +495,13 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                 {hasVoted && (
                                      <>
                                         <h1 className="text-sm font-bold">VOTE</h1>
-                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 0 ? "bg-green-700 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 1 ? "bg-green-700 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
                                             <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Approve</h1>
                                         </div>
-                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 1 ? "bg-red-700 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 2 ? "bg-red-700 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
                                             <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Reject</h1>
                                         </div>
-                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 2 ? "bg-yellow-500 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
+                                        <div className={`flex justify-start items-center w-28 cursor-default ${voterChoice === 0 ? "bg-yellow-500 opacity-100" :"bg-blue-800 opacity-50"} rounded-full`}>
                                             <h1 className="text-slate-100 w-full text-sm text-center font-normal py-1 px-5">Abstain</h1>
                                         </div>
                                     </>
