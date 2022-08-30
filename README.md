@@ -15,7 +15,7 @@ KEEZ Protocol, powered by KEEZ DAO, allows individuals to create a DAO using a U
 
 ## Project Explanation
 
-The KEEZ protocol platform allows individuals to create a DAO and distribute permissions to members. The permissions can enable members to vote, propose, delegate, add/revoke permissions, and access the vaults and multisig of the DAO. The goal is to revolutionize DAO governance models and step away from financially gated access. To read more, visit the [KEEZ protocol docs](https://docs.keezprotocol.io/) 
+The KEEZ protocol platform allows individuals to create a DAO and distribute permissions to members. The permissions can enable members to vote, propose, delegate, add/revoke permissions, and access the vaults and multisig of the DAO. The goal is to revolutionize DAO governance models and step away from financially gated access. To read more, visit the [KEEZ protocol docs](https://docs.keezprotocol.io/).
 
 ## How to Use the KEEZ Protocol
 
