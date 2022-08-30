@@ -6,7 +6,7 @@ const Features = () => {
         <div className="flex-column w-[90%] ">
             <h1 className="text-4xl md:text-3xl text-center textShadow  text-white">Features</h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 my-10 w-full">
-                <div className="flex flex-col justify-center items-center text-base text-center bg-white p-10 text-black rounded-3xl drop-shadow-lg">
+                <div className="flex flex-col justify-start items-center text-base text-center bg-white p-10 lg:pt-16 text-black rounded-3xl drop-shadow-lg">
                     <div className="rounded-full bg-[black] p-2 drop-shadow-lg">
                         <GiFountainPen color="white" fontSize="4em"/>
                     </div>
@@ -17,7 +17,7 @@ const Features = () => {
                     and manage the treasury and data through a multisig.
                 </div>
 
-                <div className="flex flex-col justify-center text-center items-center text-base bg-white p-10 text-black rounded-3xl drop-shadow-lg">
+                <div className="flex flex-col justify-start text-center items-center text-base bg-white p-10 text-black rounded-3xl drop-shadow-lg">
                     <div className="rounded-full bg-[black] p-2 drop-shadow-lg">
                         <GiLightBulb color="white" fontSize="4em"/>
                     </div>
@@ -29,7 +29,7 @@ const Features = () => {
                     using any of our proposal templates. 
                 </div>
 
-                <div className="flex flex-col justify-center items-center text-center text-base bg-white p-10 text-black rounded-3xl drop-shadow-lg">
+                <div className="flex flex-col justify-start items-center text-center text-base bg-white p-10 lg:pt-16 text-black rounded-3xl drop-shadow-lg">
                     <div className="rounded-full bg-[black] p-2 drop-shadow-lg">
                         <GiVote color="white" fontSize="4em"/>
                     </div>

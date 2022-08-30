@@ -10,7 +10,7 @@ const Wellcome = () => {
       <div className="flex-column w-[90%] ">
         <div className="flex flex-col md:flex-row gap-4 flex-initial justify-between py-0">
           <div className="flex-column md:w-1/2 text-white">
-            <h1 className="text-4xl py-4 2xl:text-7xl md:text-5xl text-white pt-36 ">
+            <h1 className="text-4xl py-4 2xl:text-7xl md:text-5xl text-white pt-15 2xl:pt-36 ">
               Create a DAO, propose & vote within the{" "}
               <h1 className="font-bold flex-row inline">LUKSO</h1>{" "}
               <h1 className="flex-column inline">ecosystem</h1>

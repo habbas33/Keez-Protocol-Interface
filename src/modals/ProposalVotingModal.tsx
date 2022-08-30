@@ -42,6 +42,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
     const handleModel = () =>{
         setShowModal(false);
         setOpen(!open);
+        // console.log("proposal",proposal)
     }
     toast.configure();
 
@@ -558,7 +559,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                         {!userCanRegister && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Register Votes permission</h1>}
                                         {!userCanExecute && <h1 className="text-red-600 text-xs font-normal py-1 px-2" >You don't have Execute Votes permission</h1>}
                                     </>
-                                }
+                                } 
                                 {isLoading &&
                                     <SpinnerCircular
                                         size={20}
@@ -668,37 +669,37 @@ const VotingDetails = (props:{ proposalDetailsObject: any}) => {
             <h1 className="text-sm font-normal">New Permissions</h1>
             <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Vote:</h1>
-                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.vote?"true":"false"}</h1>
+                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.vote==="True"?"true":"false"}</h1>
             </div>
             <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Propose:</h1>
-                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.propose?"true":"false"}</h1>
+                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.propose==="True"?"true":"false"}</h1>
             </div>
             <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Execute:</h1>
-                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.execute?"true":"false"}</h1>
+                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.execute==="True"?"true":"false"}</h1>
             </div>
 
             <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Register:</h1>
-                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.registerVotes?"true":"false"}</h1>
+                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.registerVotes==="True"?"true":"false"}</h1>
             </div>
             <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Add Permission:</h1>
-                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.addPermission?"true":"false"}</h1>
+                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.addPermission==="True"?"true":"false"}</h1>
             </div>
             <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Remove Permission:</h1>
-                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.removePermission?"true":"false"}</h1>
+                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.removePermission==="True"?"true":"false"}</h1>
             </div>
 
             <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Send Delegate:</h1>
-                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.sendDelegate?"true":"false"}</h1>
+                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.sendDelegate==="True"?"true":"false"}</h1>
             </div>
             <div className="flex justify-start items-center">
                 <h1 className="text-xs font-normal">Receive Delegate:</h1>
-                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.receiveDelegate?"true":"false"}</h1>
+                <h1 className="text-xs font-semibold px-2">{proposalDetailsObject.keyPermissions.keyPermissions.receiveDelegate==="True"?"true":"false"}</h1>
             </div>
         </div>
     );

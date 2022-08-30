@@ -1,26 +1,25 @@
 import React, { useEffect, useState, useContext } from "react";
-import { ProfileContext } from "../../context/ProfileContext";
 import { SingleSelect } from "../../components";
 import { getProposalsByDaoCid } from "../../services/keezBackend";
 import { ProposalVotingModal } from "../../modals";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
-import { getDaoByCID } from "../../services/keezBackend";
 import dayjs from "dayjs";
 import { json } from "stream/consumers";
 
 const Proposals = (props: { daoDetail: any }) => {
   const { daoDetail } = props;
-  const { profileData, accountAddress } = useContext(ProfileContext);
-  const [proposalCardView, setProposalCardView] = useState<number>(3);
   const [proposals, setProposals] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filterStr, setFilter] = useState("");
   const [filterActivity, setFilterActivity] = useState("");
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchData = async () => {
       const result = await getProposalsByDaoCid(daoDetail.CID);
       setProposals(result);
+      setIsLoading(false);
     };
     fetchData();
   }, []);
@@ -29,7 +28,6 @@ const Proposals = (props: { daoDetail: any }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  // const bg_imgfromurl = "url('".concat(backgroundImageUrl).concat("')");
   const categories = ["All", "Voting", "Permission", "General", "Token Transfer"];
   const filterByCategory = (category: string) => {
     if (category === "All") {
@@ -61,9 +59,10 @@ const Proposals = (props: { daoDetail: any }) => {
     <div className="flex-col md:py-4 justify-start items-start w-full">
       <div className="flex w-full flex-wrap justify-between items-center md:py-4 my-1">
         <div className="flex flex-wrap items-center border-solid border-[#999999] border-2 rounded-lg bg-white text-[#7f7f81] px-2 text-sm font-bold">
-          {categories.map((category) => {
+          {categories.map((category,index) => {
             return (
               <p
+                key={index}
                 onClick={() => filterByCategory(category)}
                 className={`hover:border-[#1A1A1D] border-b-2 cursor-pointer  px-2 hover:text-[#1A1A1D] py-2 ${
                   category === filterStr
@@ -88,7 +87,7 @@ const Proposals = (props: { daoDetail: any }) => {
         </div>
       </div>
 
-      {proposals.length != [] ? (
+      {proposals.length != 0 && !isLoading ? (
         <div className="grid sm:grid-cols-2 gap-5 md:grid-cols-3 lg-grid-cols-4">
           {[...proposals]
             .filter((proposal) => proposal.proposalType.includes(filterStr))
@@ -115,19 +114,19 @@ const Proposals = (props: { daoDetail: any }) => {
             .map((proposal, i) => (
               <ProposalCard
                 key={i}
-                id={i}
-                cardView={proposalCardView}
+                daoDetail={daoDetail}
                 proposal={proposal}
+                setIsLoading={setIsLoading}
               />
             ))}
         </div>
       ) : (
-        <div className="flex flex-wrap ">
+        <div className="grid sm:grid-cols-2 gap-5 md:grid-cols-3 lg-grid-cols-4">
           {[1, 1, 1].reverse().map((daoDetail, i) => (
             <Skeleton
               key={i}
               animation="wave"
-              className="m-3 min-w-[30.5%] max-w-[30.5%] rounded-md"
+              className="w-full h-60 rounded-lg pb-1"
               variant="rect"
               height={240}
             />
@@ -141,50 +140,44 @@ const Proposals = (props: { daoDetail: any }) => {
 export default Proposals;
 
 const ProposalCard = (props: {
-  id: number;
-  cardView: number;
+  daoDetail: any;
   proposal: any;
+  setIsLoading: any;
 }) => {
-  const { id, cardView, proposal } = props;
+  const { daoDetail, proposal, setIsLoading } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [daoSelected, setDaoSelected] = useState<any>([]);
+  const [proposalStatus, setProposalStatus] = useState<string>("");
 
-  // const cardWidth:string = cardView === 2 ? "min-w-[40%]" : "min-w-[30%]";
+useEffect(() => {
+  if (daoDetail){
+    setIsLoading(true);
+    setDaoSelected(daoDetail);
+  }
+}, [daoDetail])
 
-  const daoDetailsObject = getParsedJsonObj(proposal.forDaoDetails);
+useEffect(() => {
+  if (daoSelected){
+    const createdAt = dayjs(Number(proposal.createdAt));
+    const votingParametersObject =
+      daoSelected.length != 0
+        ? getParsedJsonObj(daoSelected.votingParameters)
+        : "";
+    const min_voting_delay = votingParametersObject.minVotingDelay;
+    const min_voting_period = votingParametersObject.minVotingPeriod;
+    const startDay = createdAt.add(min_voting_delay, "day");
+    const endDay = startDay.add(min_voting_period, "day");
+    const proposal_status =
+      startDay > dayjs()
+        ? "Pending"
+        : startDay <= dayjs() && endDay >= dayjs()
+        ? "Active"
+        : "Closed";
+      setProposalStatus(proposal_status);
+      setIsLoading(false);
+  }
+}, [daoSelected])
 
-  useEffect(() => {
-    if (daoDetailsObject) {
-      const fetchData = async () => {
-        const result = await getDaoByCID(daoDetailsObject.CID);
-        setDaoSelected(result);
-      };
-      fetchData();
-    }
-  }, [daoDetailsObject]);
-
-  const createdAt = dayjs(Number(proposal.createdAt));
-  const votingParametersObject =
-    daoSelected.length != ""
-      ? getParsedJsonObj(daoSelected.votingParameters)
-      : "";
-  const min_voting_delay = votingParametersObject.minVotingDelay;
-  const min_voting_period = votingParametersObject.minVotingPeriod;
-  const min_execution_delay = votingParametersObject.minExecutionDelay;
-  const startDay = createdAt.add(min_voting_delay, "day");
-  const endDay = startDay.add(min_voting_period, "day");
-  const executionDay = startDay.add(
-    min_execution_delay
-      ? Number(min_voting_period) + Number(min_execution_delay)
-      : min_voting_period,
-    "day"
-  );
-  const proposalStatus =
-    startDay > dayjs()
-      ? "Pending"
-      : startDay <= dayjs() && endDay >= dayjs()
-      ? "Active"
-      : "Closed";
   return (
     <div
       onClick={() => setShowModal(true)}
@@ -193,7 +186,7 @@ const ProposalCard = (props: {
       <div className="flex flex-col justify-start items-start h-full p-5">
         <div className="flex justify-between items-center w-full">
           <h1 className="text-gray-800 font-bold">
-            {daoDetailsObject.daoName}
+            {daoDetail.daoName}
           </h1>
           {proposalStatus === "Active" && (
             <div className="flex justify-start items-center bg-green-800 rounded-full">
