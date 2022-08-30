@@ -15,7 +15,7 @@ KEEZ Protocol, powered by KEEZ DAO, allows individuals to create a DAO using a U
 
 ## Project Explanation
 
-The KEEZ protocol platform allows individuals to create a DAO and distribute permissions to members. The permissions can enable members to vote, propose, delegate, add/revoke permissions, and access the vaults and multisig of the DAO. The goal is to revolutionize DAO governance models and step away from financially gated access. To read more, visit the [KEEZ protocol docs](https:docs.keezprotocol.io) 
+The KEEZ protocol platform allows individuals to create a DAO and distribute permissions to members. The permissions can enable members to vote, propose, delegate, add/revoke permissions, and access the vaults and multisig of the DAO. The goal is to revolutionize DAO governance models and step away from financially gated access. To read more, visit the [KEEZ protocol docs](docs.keezprotocol.io) 
 
 ## How to Use the KEEZ Protocol
 
@@ -24,8 +24,8 @@ The KEEZ protocol platform allows individuals to create a DAO and distribute per
 3. Select Create 
    - This will allow you to create a Universal Profile for your DAO and select custom voting parameters.
    - Once you have submitted the information for your DAO, you can visit the DAO profile page in the Governance tab under Get Started or in the Discover page.
-4. Selecting the Governance tab shows the DAOs in which you have Proposing permissions.
-    - Hitting the next button after selecting a DAO, will bring you to the proposal templates which can also be accessed on the DAO profile page.
+4. Selecting the Governance tab shows the DAOs in which you permissions.
+    - Hitting the Propose button after selecting a DAO, will bring you to the proposal templates which can also be accessed on the DAO profile page.
     - Selecting View DAO button on the DAO profile card will bring you to the DAO profile page.
     - Voting on active proposals takes place on the DAO profile page.
  5. The Discover Tab will bring you to a repository of all DAOs on the KEEZ protocol where you can access their profile pages. 
