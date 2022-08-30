@@ -212,10 +212,10 @@ useEffect(() => {
         </div>
 
         <div className="flex w-full flex-col mt-3 justify-start overflow-y-auto items-center h-full ">
-          <h1 className="text-black text-lg break-all font-bold ">
+          <h1 className="text-black text-lg w-[100%] text-center break-words font-bold ">
             {proposal.proposalName}
           </h1>
-            <h1 className="text-black text-xs break-all  pr-2 mb-1">
+            <h1 className="text-black text-xs w-[100%] break-words  pr-2 mb-1">
             {proposal.description}
           </h1>
         </div>
