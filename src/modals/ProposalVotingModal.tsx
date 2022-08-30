@@ -398,7 +398,7 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                     
                     <div className="grid gap-x-6 gap-y-0 md:grid-cols-2 grid-cols-1 w-full text-white py-2">
                         <div className="flex flex-col space-y-2 justify-start items-start">
-                            <h1 className="text-white text-md font-semibold">{proposal.proposalName}</h1>
+                            <h1 className="w-[100%] text-white text-md font-semibold break-words">{proposal.proposalName}</h1> 
                             {proposalStatus === "Active" &&
                                 <div className="flex justify-start items-center bg-green-800 rounded-full">
                                     <h1 className="text-slate-100 text-xs font-normal py-1 px-2">Active</h1>
@@ -427,8 +427,8 @@ export default function ProposalVotingModal(props:{setShowModal:any, showModal:b
                                 </div>
                             </div>
                             <div className="flex flex-col w-full h-full justify-between items-start ">
-                                <div className="max-h-[200px] min-h-[200px] overflow-scroll md:overflow-auto pb-3">
-                                    <h1 className="text-white  text-xs font-normal break-all">{proposal.description}</h1>
+                                <div className="max-h-[200px] min-h-[200px] w-[100%] overflow-auto pb-3 "> 
+                                    <h1 className="text-white  text-xs font-normal break-words">{proposal.description}</h1>
                                 </div>
                                 {proposal.proposalType != "General"&&
                                     <div className="flex flex-col w-full justify-between space-y-4 items-start p-2 bg-white rounded-md text-black">
