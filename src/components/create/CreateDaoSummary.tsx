@@ -409,8 +409,8 @@ const DaoPermissions = (props: {
                 <div
                   key={index}
                   className={`flex ${
-                    index > 0
-                      ? "-translate-x-".concat((index * 2).toString())
+                    index === 1
+                      ? "-translate-x-2" :index ===2 ?"-translate-x-4"
                       : ""
                   } justify-between rounded-full border hover:z-50 hover:border-[#8168ff] border-solid bg-[#4E4E50]`}
                 >
