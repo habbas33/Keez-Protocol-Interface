@@ -14,7 +14,7 @@ import {
 const Main: React.FC = () => {
   return (
     <div className="min-h-screen">
-      <div className="bg-other px-5 pt-8 pb-36 lg:px-40 md:px-20">
+      <div className="bg-other px-5 pb-36 lg:px-40 md:px-20">
         <AboutUsInfo />
         </div>
         <div className='bg-black px-5 lg:px-40 md:px-20'>

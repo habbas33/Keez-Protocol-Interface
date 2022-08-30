@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import useWeb3 from '../hooks/useWeb3';
 import DaoProposalsJSON from '../keezContracts/Dao/DaoProposals.sol/DaoProposals.json';
+import UniversalProfileJSON from '../keezContracts/deps/UniversalProfile.sol/UniversalProfile.json';
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import { ethers } from "ethers";
 import { ProfileContext } from '../context/ProfileContext'
@@ -174,9 +175,25 @@ export const DaoProposalProvider = ({children}:any) => {
         try {
             console.log(proposalSignature);
             const daoProposals = new ethers.Contract(contractAddressObject.daoProposals, DaoProposalsJSON.abi, signer);
-            const execution_result = await daoProposals.connect(signer).executeProposal(proposalSignature,
-                {gasPrice: '1000000000', gasLimit: 5_000_000});
+            const execution_result = await daoProposals.connect(signer).executeProposal(proposalSignature,{gasPrice: '1000000000', gasLimit: 5_000_000});
             return execution_result
+
+            //  //@ts-ignore
+            // const DaoProposals  = new web3.eth.Contract(DaoProposalsJSON.abi,contractAddressObject.daoProposals)
+            
+            // const newContractInstance = await DaoProposals.methods.executeProposal(proposalSignature).send({
+            //     from: owner,
+            //     gas: 1500000
+            // }).on('transactionHash', function(hash:string){
+            //     console.log(hash)
+            // })
+
+            // console.log("universalProfile", contractAddressObject.universalProfile);
+            // const universalProfile = new ethers.Contract(contractAddressObject.universalProfile, UniversalProfileJSON.abi, signer);
+            //   const getUserUpdatedPermissions = await universalProfile["getData(bytes32)"](
+            //     "0x4b80742de2bfb3cc0e490000" + "0x2aaddE1ff0d029f792FaBFE531F57f1C1856Ae1D".substring(2)
+            //   );
+            //   console.log(getUserUpdatedPermissions)
         } catch (error) {
             console.log(error);
             return "Stopped"

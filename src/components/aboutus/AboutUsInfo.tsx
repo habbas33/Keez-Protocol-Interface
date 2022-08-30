@@ -7,7 +7,7 @@ const AboutUsInfo = () => {
       <div className="flex-column space-y-[0px] flex-wrap">
         <div className="flex-column flex-initial justify-between  text-center">
           <div className="flex justify-center  w-full">
-            <h1 className="text-5xl textShadow text-white pb-10">About Us</h1>
+            <h1 className="text-5xl textShadow text-white pb-20">About Us</h1>
           </div>
         </div>
         <div className="flex gap-10 flex-initial items-center flex-wrap justify-between">
