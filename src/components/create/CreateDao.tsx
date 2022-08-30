@@ -180,9 +180,9 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose2}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  The name of your DAO. This will be the name that is displayed on your profile card/page. 
-                  There is currently no way to change it after the creation 
-                  process is completed so choose wisely.</div>
+                The name displayed on the DAO profile card/page. 
+                Currently, it can not be changed after the creation 
+                process.</div>
               </Popover>
           </div>
           <Input
@@ -222,9 +222,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose3}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This logo will be displayed on your profile card/page. 
-                  This image cannot currently be changed after the creation 
-                  process is completed so choose wisely.</div>
+                  This logo will be displayed on the DAO profile card/page. 
+                  Currently, it can not be changed after the creation process.</div>
               </Popover></div>
           <FileUploader
             onFileSelectSuccess={(file: any) => setLogoImageFile(file)}
@@ -262,9 +261,9 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose4}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  These categories will help users find your DAO when searching
+                  These categories will help users find the DAO when searching
                   through the discovery page. Please select the category that
-                  best describes your DAO.</div>
+                  best describes the DAO.</div>
               </Popover></div>
           {/* <MultiSelect
             handleChange={handleCategoriesChange}
@@ -314,8 +313,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose1}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This description will be displayed on your profile card/page
-                  and can be edited anytime. There is a 500-word limit.</div>
+                  This description will be displayed on the DAO profile card/page 
+                  and can be edited anytime. There is a 200-word limit.</div>
               </Popover></div>
           <textarea
             className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"

@@ -20,6 +20,7 @@ import { StyledPopover } from "../../styles";
 
 const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
   const classes = StyledPopover();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
   const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
@@ -31,6 +32,13 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
   const [anchorEl9, setAnchorEl9] = React.useState<HTMLElement | null>(null);
   const [anchorEl10, setAnchorEl10] = React.useState<HTMLElement | null>(null);
   const [anchorEl11, setAnchorEl11] = React.useState<HTMLElement | null>(null);
+ 
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
 
   const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     setAnchorEl1(event.currentTarget);
@@ -111,6 +119,7 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
   const handlePopoverClose11 = () => {
     setAnchorEl11(null);
   };
+  const open = Boolean(anchorEl);
   const open1 = Boolean(anchorEl1);
   const open2 = Boolean(anchorEl2);
   const open3 = Boolean(anchorEl3);
@@ -297,10 +306,9 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                     onClose={handlePopoverClose2}
                     disableRestoreFocus
                   ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                     Please enter the Universal Profile Address or Universal Profile
-                     Name of any member in your DAO to whom you would like to 
-                     assign key permissions. Please see other informational boxes
-                     next to the permissions to learn more about each.</div>
+                     Please enter the Universal Profile Address of any member 
+                     in the DAO that you would like to assign key permissions to 
+                     and then select the addition icon to the right of the input box.</div>
                 </Popover>
                 </div>
               <div className="flex flex-row items-center">
@@ -310,16 +318,18 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   type="text"
                   handleChange={(e: any) => setUpAddress(e.target.value)}
                 />
+
                 <button
                   type="button"
                   onClick={handleAddKeyPermission}
-                  className="flex justify-center rounded-full items-center 
+                  className="flex justify-center rounded-full items-center flex-none
                       border border-transparent shadow-sm px-2 mx-2 py-2 bg-[#6341ff]
                       text-base font-medium text-white hover:bg-[#8168ff] 
                         sm:w-auto sm:text-sm"
-                >
+                >Add Member
                   <AiOutlineUserAdd className="w-6" color="#fff" fontSize={21} />
                 </button>
+                
               </div>
 
               <div className="flex justify-left pt-4 w-full">
@@ -352,7 +362,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                     onClose={handlePopoverClose3}
                     disableRestoreFocus
                   ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                    Key permissions are enabled by the LSP6 and allow other Universal Profiles to access the DAO Universal Profile in various ways.</div>
+                    Key permissions are enabled by the LSP6 and allow other Universal
+                    Profiles to access the DAO Universal Profile in various ways.</div>
                 </Popover>
               </div>
 
@@ -433,7 +444,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   onClose={handlePopoverClose5}
                   disableRestoreFocus
                 ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  The Propose Key will allow these DAO members to make proposals on the DAO profile page. </div>
+                  The Propose Key will allow these DAO members to make proposals
+                   on the DAO profile page and in the governance tab. </div>
               </Popover></div>
               </div>
               <div className="flex items-center my-3">

@@ -1,4 +1,4 @@
-# Keez Protocol
+# KEEZ Protocol
 
 KEEZ Protocol, powered by KEEZ DAO, allows individuals to create a DAO using a Universal Profile (UP). Through the smart contract based tools provided by LUKSO, we are able to entirely reinvent how DAOs onboard members, participate in governance, and manage their operation. Our mission is to create DAOs built on UPs that are viable as organizations of the future.
 
@@ -15,7 +15,7 @@ KEEZ Protocol, powered by KEEZ DAO, allows individuals to create a DAO using a U
 
 ## Project Explanation
 
-The KEEZ protocol platform allows individuals to create a DAO and distribute permissions to members. The permissions can enable members to vote, propose, delegate, add/revoke permissions, and access the vaults and multisig of the DAO. The goal is to revolutionize DAO governance models and step away from financially gated access.
+The KEEZ protocol platform allows individuals to create a DAO and distribute permissions to members. The permissions can enable members to vote, propose, delegate, add/revoke permissions, and access the vaults and multisig of the DAO. The goal is to revolutionize DAO governance models and step away from financially gated access. To read more, visit the [KEEZ protocol docs](https:docs.keezprotocol.io) 
 
 ## How to Use the KEEZ Protocol
 
@@ -29,7 +29,7 @@ The KEEZ protocol platform allows individuals to create a DAO and distribute per
     - Selecting View DAO button on the DAO profile card will bring you to the DAO profile page.
     - Voting on active proposals takes place on the DAO profile page.
  5. The Discover Tab will bring you to a repository of all DAOs on the KEEZ protocol where you can access their profile pages. 
- 6. To learn more about the user flow of the KEEZ protocol, visit docs.keezprotocol.io for more information.
+ 6. To learn more about the user flow of the KEEZ protocol, visit the [guide](docs.keezprotocol.io/guide) in the KEEZ protocol docs for more information.
 
                 
          

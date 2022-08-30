@@ -146,7 +146,7 @@ const CreateDaoSummary = (props: {
       {/* <div className="flex-column justify-center items-center mx-auto w-[90%] rounded-lg order border border-slate-300"> */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-0 mx-auto w-[90%] rounded-lg ">
         {/* <div className="flex flex-col md:flex-row flex-wrap justify-center h-1/2"> */}
-          <div className="border rounded-lg md:border-b border-solid bg-[#382c71] md:rounded-none md:rounded-tl-lg border-slate-300 ">
+          <div className="border rounded-lg md:border-b border-solid bg-slate-800 md:rounded-none md:rounded-tl-lg border-slate-300 ">
             <DaoDetails
               daoName={daoName}
               logoImageFile={logoImageFile}
@@ -155,7 +155,7 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-          <div className="border rounded-lg md:border-l md:border-b border-solid bg-[#382c71] md:rounded-none md:rounded-tr-lg border-slate-300">
+          <div className="border rounded-lg md:border-l md:border-b border-solid bg-slate-800 md:rounded-none md:rounded-tr-lg border-slate-300">
             <KeyPermissionDetails
               keyPermissions={keyPermissions}
               handleSubmitCreate={handleSubmitCreate}
@@ -163,7 +163,7 @@ const CreateDaoSummary = (props: {
           </div>
         {/* </div> */}
         {/* <div className="border rounded-lg flex flex-col md:flex-row justify-center h-1/2 border-t rounded-lg bg-[#8168ff] rounded-bl-lg border-solid border-slate-300"> */}
-          <div className="border rounded-lg border-solid bg-[#382c71] md:rounded-none md:rounded-bl-lg border-slate-300">
+          <div className="border rounded-lg border-solid bg-slate-800 md:rounded-none md:rounded-bl-lg border-slate-300">
             <VaultDetails
               vaultName={vaultName}
               daoMembers={daoMembers}
@@ -171,7 +171,7 @@ const CreateDaoSummary = (props: {
               handleSubmitCreate={handleSubmitCreate}
             />
           </div>
-          <div className="border rounded-lg md:border-l border-solid bg-[#382c71] md:rounded-none md:rounded-br-lg border-slate-300">
+          <div className="border rounded-lg md:border-l border-solid bg-slate-800 md:rounded-none md:rounded-br-lg border-slate-300">
             <VotingParametersDetails
               participationRate={participationRate}
               votingMajority={votingMajority}

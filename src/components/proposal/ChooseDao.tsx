@@ -159,7 +159,7 @@ const DaoCard = (props: {
     >
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div
-          className={`flex w-full h-[250px] flex-col bg-gradient-to-tr from-purple-300 via-purple-500 to-blue-300 border-2 border-white justify-between rounded-lg items-start ${
+          className={`flex w-full h-[250px] flex-col bg-[#8168ff] border-2 border-white justify-between rounded-lg items-start ${
             daoSelected === id
               ? "outline outline-offset-2 outline-4 outline-white"
               : ""
@@ -194,7 +194,7 @@ const DaoCard = (props: {
         </div>
 
         <div
-          className={`flex w-full flex-col bg-[#b8a5a6] border-2 border-white justify-between rounded-lg items-center h-[250px] p-5 ${
+          className={`flex w-full flex-col bg-slate-300 border-2 border-white justify-between rounded-lg items-center h-[250px] p-5 ${
             daoSelected === id
               ? "outline outline-offset-2 outline-4 outline-white"
               : ""
