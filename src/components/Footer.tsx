@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { SiTwitter, SiGithub, SiDiscord } from "react-icons/si";
+import { SiTwitter, SiGithub, SiDiscord, SiGitbook } from "react-icons/si";
 import { useLocation } from 'react-router-dom';
 export default function Footer() {
     const [isWellcomePage, setIsWellcomePage] = useState<boolean>(false)
@@ -28,6 +28,9 @@ export default function Footer() {
                             </div>
                             <div className={`w-8 h-8 rounded-full flex justify-center mx-1 items-center bg-[#222831] hover:bg-[#444]`}>
                                 <a href="https://discord.gg/keez"><SiDiscord fontSize={18} color="#fff"/></a>
+                            </div>
+                            <div className={`w-8 h-8 rounded-full flex justify-center mx-1 items-center bg-[#222831] hover:bg-[#444]`}>
+                                <a href="https://docs.keezprotocol.io/"><SiGitbook fontSize={18} color="#fff"/></a>
                             </div>
                         </div>
                 </div>
