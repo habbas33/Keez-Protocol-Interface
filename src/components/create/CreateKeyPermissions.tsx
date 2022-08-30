@@ -815,14 +815,14 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.vote ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+            <AiFillCheckCircle className="w-4" fill="#166534" fontSize={16} />
           ) : (
             <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
           )}
           <h1
             className={`${
               keyPermissions.vote
-                ? "text-[#08b35d] font-bold"
+                ? "text-green-800 font-light"
                 : "text-white font-light"
             } text-xs px-1`}
           >
@@ -832,14 +832,14 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.propose ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+            <AiFillCheckCircle className="w-4" fill="#166534" fontSize={16} />
           ) : (
             <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
           )}
           <h1
             className={`${
               keyPermissions.propose
-                ? "text-[#08b35d] font-bold"
+                ? "text-[#166534] font-bold"
                 : "text-whtie font-light"
             } text-xs px-1`}
           >
@@ -849,14 +849,14 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.execute ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+            <AiFillCheckCircle className="w-4" fill="#166534" fontSize={16} />
           ) : (
             <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
           )}
           <h1
             className={`${
               keyPermissions.execute
-                ? "text-[#08b35d] font-bold"
+                ? "text-[#166534] font-bold"
                 : "text-white font-light"
             } text-xs px-1 `}
           >
@@ -866,14 +866,14 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.registerVotes ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+            <AiFillCheckCircle className="w-4" fill="#166534" fontSize={16} />
           ) : (
             <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
           )}
           <h1
             className={`${
               keyPermissions.registerVotes
-                ? "text-[#08b35d] font-bold"
+                ? "text-[#166534] font-bold"
                 : "text-white font-light"
             } text-xs px-1 `}
           >
@@ -883,14 +883,14 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.addPermission ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+            <AiFillCheckCircle className="w-4" fill="#166534" fontSize={16} />
           ) : (
             <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
           )}
           <h1
             className={`${
               keyPermissions.addPermission
-                ? "text-[#08b35d] font-bold"
+                ? "text-[#166534] font-bold"
                 : "text-white font-light"
             } text-xs px-1 `}
           >
@@ -900,14 +900,14 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.removePermission ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+            <AiFillCheckCircle className="w-4" fill="#166534" fontSize={16} />
           ) : (
             <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
           )}
           <h1
             className={`${
               keyPermissions.removePermission
-                ? "text-[#08b35d] font-bold"
+                ? "text-[#166534] font-bold"
                 : "text-white font-light"
             } text-xs px-1 `}
           >
@@ -917,14 +917,14 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.sendDelegate ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+            <AiFillCheckCircle className="w-4" fill="#166534" fontSize={16} />
           ) : (
             <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
           )}
           <h1
             className={`${
               keyPermissions.sendDelegate
-                ? "text-[#08b35d] font-bold"
+                ? "text-[#166534] font-bold"
                 : "text-white font-light"
             } text-xs px-1`}
           >
@@ -934,14 +934,14 @@ const TooltipContainer = (props: { keyPermissions: any }) => {
 
         <div className="flex flex-row items-center py-[2px]">
           {keyPermissions.receiveDelegate ? (
-            <AiFillCheckCircle className="w-4" fill="#08b35d" fontSize={16} />
+            <AiFillCheckCircle className="w-4" fill="#166534" fontSize={16} />
           ) : (
             <AiFillCheckCircle className="w-4" fill="#1A1A1D" fontSize={16} />
           )}
           <h1
             className={`${
               keyPermissions.receiveDelegate
-                ? "text-[#08b35d] font-bold"
+                ? "text-[#166534] font-bold"
                 : "text-white font-light"
             } text-xs px-1`}
           >
