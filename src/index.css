@@ -20,8 +20,20 @@ body {
   background-position: 50% 85%;
   background-attachment:fixed;
   background-repeat: no-repeat
-
 }
+
+@media only screen and (max-width: 1400px) {
+  body .bg-welcome {
+    background-image: url("/src/assets/Logos/KEEZ Protocol Hero Banner Image.png");
+    height: 80%;
+    width: auto;
+    background-position: 70% 45%;
+    background-attachment:fixed;
+    background-repeat: no-repeat
+  
+  }
+}
+
 .bg-other {
   background: #382c71;
 
