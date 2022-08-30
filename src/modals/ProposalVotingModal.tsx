@@ -721,9 +721,9 @@ const VotingDetails = (props:{ proposalDetailsObject: any}) => {
     return (
         <div className="my-1 w-full">
             <div className={`flex justify-start items-center text-black`}>
-                <span className="text-green-700 drop-shadow-md text-xs font-bold pr-1">{`${approve}%`} approved,</span>
-                <span className="text-red-700 drop-shadow-md text-xs font-bold pr-1">{`${reject}%`} rejected,</span>
-                <span className="text-yellow-500 drop-shadow-md text-xs font-bold">{`${abstain}%`} abstained</span>
+                <span className="text-green-700 drop-shadow-md text-xs font-bold pr-1">{`${approve.toFixed(2)}%`} approved,</span>
+                <span className="text-red-700 drop-shadow-md text-xs font-bold pr-1">{`${reject.toFixed(2)}%`} rejected,</span>
+                <span className="text-yellow-500 drop-shadow-md text-xs font-bold">{`${abstain.toFixed(2)}%`} abstained</span>
             </div>
             <div  className="flex h-3 w-[100%] bg-gray-200 rounded-lg my-1 border-2 border-solid border-blue-600 drop-shadow-md">
                 <div style={{ width:widthApprove, background: "repeating-linear-gradient(45deg,#15803D 0px,#15803D 10px, #60ad7d 10px, #60ad7d 20px)"}} 
