@@ -4,6 +4,8 @@ KEEZ Protocol, powered by KEEZ DAO, allows individuals to create a DAO using a U
 
 Visit the KEEZ Protocol website [here](https://www.keezprotocol.io/).
 
+Check out our demonstration video on [youtube](https://youtu.be/3TUR9c74P4E).
+
 ## Team Members 
 
 | Name           | Email   | Role    | Twitter
