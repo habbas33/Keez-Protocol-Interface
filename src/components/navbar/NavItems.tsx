@@ -72,7 +72,7 @@ const NavItems = ( props: {items: any, depthLevel:number} ) => {
       ) : (items.title !== "Docs" ?
         <NavLink className="hover:text-[#6341ff]" to={`/${items.name}`}>{items.title}</NavLink>
         :
-        <a className="hover:text-[#6341ff]" href="http://docs.keezprotocol.io">{items.title}</a>
+        <a className="hover:text-[#6341ff]" href="http://docs.keezprotocol.io" target="_blank">{items.title}</a>
       )}
     </li>
   );
