@@ -21,7 +21,7 @@ export const menuItems = [
     name: "AboutUs",
   },
   {
-    title: "FAQ",
-    name: "FAQ",
+    title: "Docs",
+    name: "Docs",
   },
 ];
