@@ -21,16 +21,16 @@ export default function Footer() {
                     <div className="flex flex-[0.4] justify-center items-center flex-wrap sm:mt-0 mt-5 w-full"></div>
                         <div className="flex flex-row sm:justify-end justify-center items-center flex-wrap w-full">
                             <div className={`w-8 h-8 rounded-full flex justify-center mx-1 items-center bg-[#222831] hover:bg-[#444]`}>
-                                <a href="https://twitter.com/keezDAO"><SiTwitter fontSize={18} color="#fff"/></a>
+                                <a href="https://twitter.com/keezDAO" target="_blank"><SiTwitter fontSize={18} color="#fff"/></a>
                             </div>
                             <div className={`w-8 h-8 rounded-full flex justify-center mx-1 items-center bg-[#222831] hover:bg-[#444]`}>
-                                <a href="https://github.com/keezDAO"><SiGithub fontSize={18} color="#fff"/></a>
+                                <a href="https://github.com/keezDAO" target="_blank"><SiGithub fontSize={18} color="#fff"/></a>
                             </div>
                             <div className={`w-8 h-8 rounded-full flex justify-center mx-1 items-center bg-[#222831] hover:bg-[#444]`}>
-                                <a href="https://discord.gg/keez"><SiDiscord fontSize={18} color="#fff"/></a>
+                                <a href="https://discord.gg/keez" target="_blank"><SiDiscord fontSize={18} color="#fff"/></a>
                             </div>
                             <div className={`w-8 h-8 rounded-full flex justify-center mx-1 items-center bg-[#222831] hover:bg-[#444]`}>
-                                <a href="https://docs.keezprotocol.io/"><SiGitbook fontSize={18} color="#fff"/></a>
+                                <a href="https://docs.keezprotocol.io" target="_blank"><SiGitbook fontSize={18} color="#fff"/></a>
                             </div>
                         </div>
                 </div>
