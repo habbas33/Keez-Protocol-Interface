@@ -69,10 +69,10 @@ const NavItems = ( props: {items: any, depthLevel:number} ) => {
             dropdown={dropdown}
           />
         </>
-      ) : (items.title !== "FAQ" ?
+      ) : (items.title !== "Docs" ?
         <NavLink className="hover:text-[#6341ff]" to={`/${items.name}`}>{items.title}</NavLink>
         :
-        <a className="hover:text-[#6341ff]" href="http://docs.keezprotocol.io/faq">{items.title}</a>
+        <a className="hover:text-[#6341ff]" href="http://docs.keezprotocol.io">{items.title}</a>
       )}
     </li>
   );
