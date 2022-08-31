@@ -265,8 +265,8 @@ export default function Navbar() {
                     name: "AboutUs",
                   },
                   {
-                    title: "FAQ",
-                    name: "FAQ",
+                    title: "Docs",
+                    name: "Docs",
                   },
                 ].map((item, index: number) => (
                   <NavItems key={index} items={item} depthLevel={0} />
