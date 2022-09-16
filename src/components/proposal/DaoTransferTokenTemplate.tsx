@@ -7,70 +7,11 @@ import { getDaoByCID } from "../../services/keezBackend";
 import { toast } from "react-toastify";
 import { VALIDATORS } from "../../constants/globals";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
-import { MdOutlineHelp }  from "react-icons/md";
-import Popover from '@material-ui/core/Popover';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { StyledPopover } from "../../styles";
+import InfoPopOver from "../InfoPopOver";
 
 const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
   const classes = StyledPopover();
-  const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
-  const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
-  const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
-  const [anchorEl4, setAnchorEl4] = React.useState<HTMLElement | null>(null);
-  const [anchorEl5, setAnchorEl5] = React.useState<HTMLElement | null>(null);
-  const [anchorEl6, setAnchorEl6] = React.useState<HTMLElement | null>(null);
-
-
-  const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl1(event.currentTarget);
-  };
-  const handlePopoverClose1 = () => {
-    setAnchorEl1(null);
-  };
-
-  const handlePopoverOpen2 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl2(event.currentTarget);
-  };
-
-  const handlePopoverClose2 = () => {
-    setAnchorEl2(null);
-  };
-
-  const handlePopoverOpen3 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl3(event.currentTarget);
-  };
-  const handlePopoverClose3 = () => {
-    setAnchorEl3(null);
-  };
-
-  const handlePopoverOpen4 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl4(event.currentTarget);
-  };
-  const handlePopoverClose4 = () => {
-    setAnchorEl4(null);
-  };
-
-  const handlePopoverOpen5 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl5(event.currentTarget);
-  };
-
-  const handlePopoverClose5 = () => {
-    setAnchorEl5(null);
-  };
-  const handlePopoverOpen6 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl6(event.currentTarget);
-  };
-  const handlePopoverClose6 = () => {
-    setAnchorEl6(null);
-  };
-
-  const open1 = Boolean(anchorEl1);
-  const open2 = Boolean(anchorEl2);
-  const open3 = Boolean(anchorEl3);
-  const open4 = Boolean(anchorEl4);
-  const open5 = Boolean(anchorEl5);
-  const open6 = Boolean(anchorEl6);
   const { handleComponent } = props;
   const {
     proposalName,
@@ -202,39 +143,18 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className="w-full md:w-3/5">
-          <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block text-white text-sm font-normal"
-              htmlFor="proposalName"
-            >
-              Proposal Title
-            </label>
-            <p className="px-1" aria-owns={open1 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open1}
-                  anchorEl={anchorEl1}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose1}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This title will be displayed at the top of the proposal 
-                  and should reflect the contents.</div>
-              </Popover></div>
+            <div className="flex justify-left pt-4 w-full">
+              <label
+                className="block text-white text-sm font-normal"
+                htmlFor="proposalName"
+              >
+                Proposal Title
+              </label>
+              <InfoPopOver
+                info="This title will be displayed at the top of the proposal and
+                  should reflect the contents."
+              />
+            </div>
             <Input
               value={proposalName}
               name="proposal_name"
@@ -279,38 +199,17 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               name={"proposalCategories"}
             /> */}
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="description"
-            >
-              Description
-            </label>
-            <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open2}
-                  anchorEl={anchorEl2}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose2}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This description will be displayed on the proposal card and 
-                  should describe the proposal. 200 word-limit.</div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="description"
+              >
+                Description
+              </label>
+              <InfoPopOver
+                info="This description will be displayed on the proposal card and 
+                  should describe the proposal. 200 word-limit."
+              />
+            </div>
             <textarea
               className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
               value={description}
@@ -318,111 +217,51 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               onChange={(e: any) => setDescription(e.target.value)}
             />
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="minVotingPeriod"
-            >
-              Vault
-            </label>
-            <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open3}
-                  anchorEl={anchorEl3}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose3}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  By selecting an option, you choose which vault you want to send tokens from.</div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="minVotingPeriod"
+              >
+                Vault
+              </label>
+              <InfoPopOver
+                info="By selecting an option, you choose which vault you want to
+                  send tokens from."
+              />
+            </div>
             <SingleSelect
               handleChange={handleSelectVault}
               name={"vault"}
               listItems={vaultlist}
             />
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="minVotingPeriod"
-            >
-              Token
-            </label>
-            <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open4}
-                  anchorEl={anchorEl4}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose4}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Select the token you want to send from the previously selected vault.</div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="minVotingPeriod"
+              >
+                Token
+              </label>
+              <InfoPopOver
+                info="Select the token you want to send from the previously selected
+                  vault."
+              />
+            </div>
             <SingleSelect
               handleChange={handleSelectToken}
               name={"token"}
               listItems={[{ value: "lyx", label: "LYX" }]}
             />
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="receiving Address"
-            >
-              Token Amount
-            </label>
-            <p className="px-1" aria-owns={open5 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open5}
-                  anchorEl={anchorEl5}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose5}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                   Please enter the number of tokens you would like to send from the vault.</div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="receiving Address"
+              >
+                Token Amount
+              </label>
+              <InfoPopOver
+                info="Please enter the number of tokens you would like to send from
+                  the vault."
+              />
+            </div>
             <Input
               value={tokenAmount.toString()}
               name="token_amount"
@@ -430,44 +269,24 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
               handleChange={(e: any) => setTokenAmount(e.target.value)}
             />
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="receiving Address"
-            >
-              Receiving Address
-            </label>
-            <p className="px-1" aria-owns={open6 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen6} onMouseLeave={handlePopoverClose6}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open6}
-                  anchorEl={anchorEl6}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose6}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Please enter the Universal Profile address you would like to send tokens to. </div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="receiving Address"
+              >
+                Receiving Address
+              </label>
+              <InfoPopOver
+                info="Please enter the Universal Profile address you would like to
+                  send tokens to."
+              />
+            </div>
             <Input
               value={receivingAddress}
               name="receiving_address"
               type="text"
               handleChange={(e: any) => setReceivingAddress(e.target.value)}
             />
-             <div className="flex justify-end items-center">
+            <div className="flex justify-end items-center">
               <button
                 type="submit"
                 className="flex justify-center rounded-full item-center mb-10 mt-[12px]
@@ -485,8 +304,6 @@ const DaoTransferTokenTemplate = (props: { handleComponent: any }) => {
             </div>
           </div>
         </div>
-
-       
       </form>
     </div>
   );

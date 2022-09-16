@@ -1,48 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import {
-  MdNavigateNext,
-  MdOutlineNavigateBefore,
-} from "react-icons/md";
+import { MdNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
 import { Input } from "../../components";
 import { FileUploader } from "../../components/create";
 import { CreateProposalContext } from "../../context/CreateProposalContext";
 import { toast } from "react-toastify";
 import { VALIDATORS } from "../../constants/globals";
-import { MdOutlineHelp }  from "react-icons/md";
-import Popover from '@material-ui/core/Popover';
 import { StyledPopover } from "../../styles";
+import InfoPopOver from "../InfoPopOver";
 
 const GeneralTemplate = (props: { handleComponent: any }) => {
-    const classes = StyledPopover();
-    const [anchorEl1, setAnchorEl1] = useState<HTMLElement | null>(null);
-    const [anchorEl2, setAnchorEl2] = useState<HTMLElement | null>(null);
-    const [anchorEl3, setAnchorEl3] = useState<HTMLElement | null>(null);
-  
-    const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      setAnchorEl1(event.currentTarget);
-    };
-    const handlePopoverClose1 = () => {
-      setAnchorEl1(null);
-    };
-  
-    const handlePopoverOpen2 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      setAnchorEl2(event.currentTarget);
-    };
-  
-    const handlePopoverClose2 = () => {
-      setAnchorEl2(null);
-    };
-  
-    const handlePopoverOpen3 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      setAnchorEl3(event.currentTarget);
-    };
-    const handlePopoverClose3 = () => {
-      setAnchorEl3(null);
-    };
-  
-    const open1 = Boolean(anchorEl1);
-    const open2 = Boolean(anchorEl2);
-    const open3 = Boolean(anchorEl3);
+  const classes = StyledPopover();
+
   const { handleComponent } = props;
   const {
     proposalName,
@@ -172,39 +140,15 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
 
         <div className="flex flex-col justify-center items-center py-2">
           <div className=" w-full md:w-3/5">
-          <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block text-white text-sm font-normal"
-              htmlFor="proposalName"
-            >
-              Proposal Title
-            </label>
-            <p className="px-1" aria-owns={open1 ? 'mouse-over-popover' : undefined}
-            aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open1}
-                  anchorEl={anchorEl1}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose1}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This title will be displayed at the top of the proposal and should reflect the contents of the proposal.</div>
-              </Popover>
-          </div>
+            <div className="flex justify-left pt-4 w-full">
+              <label
+                className="block text-white text-sm font-normal"
+                htmlFor="proposalName"
+              >
+                Proposal Title
+              </label>
+              <InfoPopOver info="This title will be displayed at the top of the proposal and should reflect the contents of the proposal." />
+            </div>
             <Input
               value={proposalName}
               name="proposal_name"
@@ -212,37 +156,14 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
               handleChange={(e: any) => setProposalName(e.target.value)}
             />
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="daoLogo"
-            >
-              Upload a Photo [optional]
-            </label>
-            <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open2}
-                  anchorEl={anchorEl2}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose2}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Add an image that will help describe the proposal in any way.</div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="daoLogo"
+              >
+                Upload a Photo [optional]
+              </label>
+              <InfoPopOver info="Add an image that will help describe the proposal in any way." />
+            </div>
             <FileUploader
               // onFileSelectSuccess={(file:any) => setLogoImageFile(file)}
               onFileSelectSuccess={(file: any) => setCoverImageFile(file)}
@@ -252,38 +173,17 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             />
 
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="description"
-            >
-              Description
-            </label>
-            <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open3}
-                  anchorEl={anchorEl3}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose3}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This description will be displayed on the proposal 
-                  card and should describe the proposal.</div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="description"
+              >
+                Description
+              </label>
+              <InfoPopOver
+                info="This description will be displayed on the proposal card and
+                  should describe the proposal."
+              />
+            </div>
             <textarea
               className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
               value={description}
@@ -308,8 +208,6 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             </div>
           </div>
         </div>
-        
-        
       </form>
     </div>
   );
