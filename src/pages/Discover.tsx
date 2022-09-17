@@ -1,22 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SingleSelect } from "../components";
+// import { SingleSelect } from "../components";
 import { getAllDaos } from "../services/keezBackend";
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import Skeleton from "@material-ui/lab/Skeleton";
 import ReactCardFlip from "react-card-flip";
 
 const Discover: React.FC = () => {
-  const state = [
-    {
-      value: "Active",
-      label: "Active",
-    },
-    {
-      value: "Closed",
-      label: "Closed",
-    },
-  ];
   const [filterString, setFilter] = useState("");
   const [allDaos, setAllDaos] = useState<any>([]);
   const filterParam = [
@@ -43,8 +33,6 @@ const Discover: React.FC = () => {
     };
     fetchData();
   }, []);
-
-  const userProfiles = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <div className="min-h-screen">
       <div className="bg-other flex min-h-[100vh] w-full px-5 lg:px-40 md:px-20">
@@ -77,7 +65,7 @@ const Discover: React.FC = () => {
                 />
               </div> */}
             </div>
-            {allDaos.length != [] ? (
+            {allDaos.length !== 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 m-5 gap-4 ">
                 {[...allDaos]
                   .filter((dao: any) =>
@@ -114,7 +102,7 @@ const Discover: React.FC = () => {
 export default Discover;
 
 const DaoCard = (props: { id: number; daoDetail: any }) => {
-  const { id, daoDetail } = props;
+  const { daoDetail } = props;
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const handleMouseOver = async () => {
     // await delay(200);

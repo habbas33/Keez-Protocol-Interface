@@ -1,18 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { MdNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
-import { MultiSelect, SingleSelect, Input } from "../../components";
+import { SingleSelect, Input } from "../../components";
 import { CreateProposalContext } from "../../context/CreateProposalContext";
-import { daoCategoryItems } from "../../constants/daoCategoryItems";
+// import { daoCategoryItems } from "../../constants/daoCategoryItems";
 import {
   votingPeriodItems,
   votingDelayItems,
 } from "../../constants/votingPeriodItems";
 import { toast } from "react-toastify";
 import { VALIDATORS } from "../../constants/globals";
-import { MdOutlineHelp } from "react-icons/md";
-import Popover from "@material-ui/core/Popover";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { StyledPopover } from "../../styles";
 import InfoPopOver from "../InfoPopOver";
 
 const VotingTemplate = (props: { handleComponent: any }) => {
@@ -21,16 +17,16 @@ const VotingTemplate = (props: { handleComponent: any }) => {
     proposalName,
     setProposalName,
     categories,
-    setCategories,
+    // setCategories,
     description,
     setDescription,
     participationRate,
     setParticipationRate,
     votingMajority,
     setVotingMajority,
-    minVotingDelay,
+    // minVotingDelay,
     setMinVotingDelay,
-    minVotingPeriod,
+    // minVotingPeriod,
     setMinVotingPeriod,
     setMinExecutionDelay,
   } = useContext(CreateProposalContext);
@@ -103,9 +99,9 @@ const VotingTemplate = (props: { handleComponent: any }) => {
     handleComponent("ChooseTemplate");
   };
 
-  const handleCategoriesChange = (selectedOption: any) => {
-    setCategories(selectedOption);
-  };
+  // const handleCategoriesChange = (selectedOption: any) => {
+  //   setCategories(selectedOption);
+  // };
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import { AboutUsInfo } from "../components/aboutus";
 import {
@@ -16,8 +16,8 @@ const Main: React.FC = () => {
     <div className="min-h-screen">
       <div className="bg-other px-5 pb-36 lg:px-40 md:px-20">
         <AboutUsInfo />
-        </div>
-        <div className='bg-black px-5 lg:px-40 md:px-20'>
+      </div>
+      <div className="bg-black px-5 lg:px-40 md:px-20">
         <div className="flex-column flex-initial justify-between py-5 ">
           <h1 className="text-4xl textShadow text-left pt-8 text-white">
             Team Members
@@ -32,8 +32,7 @@ const Main: React.FC = () => {
           <FawnMemberCard />
           <MumeenMemberCard />
         </div>
-        </div>
-      
+      </div>
     </div>
   );
 };

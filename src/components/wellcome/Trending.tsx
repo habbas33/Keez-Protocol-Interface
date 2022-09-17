@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllDaos } from "../../services/keezBackend";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 import Skeleton from "@material-ui/lab/Skeleton";
 import ReactCardFlip from "react-card-flip";
- 
+
 const Trending = () => {
   const [allDaos, setAllDaos] = useState<any>([]);
 
@@ -22,25 +22,27 @@ const Trending = () => {
           Trending DAOs
         </h1>
         <div className="flex gap-3 flex-no-wrap justify-between items-center py-5">
-          {allDaos.length != [] ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
-                {[...allDaos].reverse().map((daoDetail, i) => (
-                  i<4?<DaoCard key={i} id={i} daoDetail={daoDetail} />:""
-                ))} 
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
-                {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
-                  <Skeleton
-                    key={i}
-                    animation="wave"
-                    className="w-full rounded-md"
-                    variant="rect"
-                    height={240}
-                  />
-                ))}
-              </div>
-            )}
+          {allDaos.length !== 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
+              {[...allDaos]
+                .reverse()
+                .map((daoDetail, i) =>
+                  i < 4 ? <DaoCard key={i} id={i} daoDetail={daoDetail} /> : ""
+                )}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-5 gap-4 w-full">
+              {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
+                <Skeleton
+                  key={i}
+                  animation="wave"
+                  className="w-full rounded-md"
+                  variant="rect"
+                  height={240}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -50,7 +52,7 @@ const Trending = () => {
 export default Trending;
 
 const DaoCard = (props: { id: number; daoDetail: any }) => {
-  const { id, daoDetail } = props;
+  const { daoDetail } = props;
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const handleMouseOver = async () => {
     setIsHovering(true);
@@ -76,16 +78,16 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
       <ReactCardFlip isFlipped={isHovering} flipDirection="horizontal">
         <div className="flex h-[250px] border-2 border-white bg-[#8168ff] flex-col justify-between rounded-lg items-start">
           <div className="w-[180px] h-[150px] absolute overflow-none rounded-lg p-5 ">
-            <img 
+            <img
               className="object-cover w-[180px] h-[150px] text-center rounded-full  bg-[#1A1A1D]"
               src={profileImageUrl}
-              alt="Not Found" onError={({ currentTarget }) => {
+              alt="Not Found"
+              onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
-                currentTarget.src="https://i0.wp.com/zeevector.com/wp-content/uploads/2021/02/black-grey-gradient-background.jpg?resize=768%2C576&ssl=1";
+                currentTarget.src =
+                  "https://i0.wp.com/zeevector.com/wp-content/uploads/2021/02/black-grey-gradient-background.jpg?resize=768%2C576&ssl=1";
               }}
-              
-            >
-            </img>
+            ></img>
           </div>
           <div className="p-1 min-w-[35%] rounded-full text-base bg-black self-end z-10 m-5">
             <h1 className="text-white text-xs text-center px-1">
