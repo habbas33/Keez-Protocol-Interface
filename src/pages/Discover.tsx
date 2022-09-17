@@ -5,8 +5,10 @@ import { getAllDaos } from "../services/keezBackend";
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import Skeleton from "@material-ui/lab/Skeleton";
 import ReactCardFlip from "react-card-flip";
+import { toast } from "react-toastify";
 
 const Discover: React.FC = () => {
+  toast.configure();
   const [filterString, setFilter] = useState("");
   const [allDaos, setAllDaos] = useState<any>([]);
   const filterParam = [
@@ -27,9 +29,17 @@ const Discover: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getAllDaos();
-      // console.log("x ->",result);
-      setAllDaos(result);
+      try {
+        const result = await getAllDaos();
+        // console.log("x ->",result);
+        setAllDaos(result);
+      } catch (e) {
+        console.log(e);
+        setAllDaos([]);
+        toast.error("An error occurred, check your connection", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
     };
     fetchData();
   }, []);
