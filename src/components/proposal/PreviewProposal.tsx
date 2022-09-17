@@ -52,9 +52,9 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
       ? getParsedJsonObj(daoSelected.votingParameters)
       : "";
 
-  const min_voting_delay = votingParametersObject.minVotingDelay;
-  const min_voting_period = votingParametersObject.minVotingPeriod;
-  const min_execution_delay = votingParametersObject.minExecutionDelay;
+  const min_voting_delay = votingParametersObject?.minVotingDelay;
+  const min_voting_period = votingParametersObject?.minVotingPeriod;
+  const min_execution_delay = votingParametersObject?.minExecutionDelay;
 
   const now = dayjs();
   const startDay = now.add(min_voting_delay, "day");
