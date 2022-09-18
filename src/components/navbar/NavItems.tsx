@@ -81,6 +81,7 @@ const NavItems = (props: { items: any; depthLevel: number }) => {
           className="hover:text-[#6341ff]"
           href="http://docs.keezprotocol.io"
           target="_blank"
+          rel="noreferrer noopener"
         >
           {items.title}
         </a>

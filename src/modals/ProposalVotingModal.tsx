@@ -316,7 +316,7 @@ export default function ProposalVotingModal(props: {
     fetchData();
     getVoterDetails();
     // checkIfVoted();
-  }, [isLoading, accountAddress, proposal.identifier, permissionsObject]);
+  }, [isLoading, accountAddress]);
 
   useEffect(() => {
     const checkIfVoted = () => {
