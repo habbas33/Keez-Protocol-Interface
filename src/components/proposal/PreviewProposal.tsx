@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { MdLink, MdShare } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { DaoProposalContext } from "../../context/DaoProposalContext";
 import { CreateProposalContext } from "../../context/CreateProposalContext";
@@ -9,7 +8,7 @@ import { toast } from "react-toastify";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { SpinnerCircular } from "spinners-react";
 import { postJsonToIPFS, postImageToIPFS } from "../../services/web3Storage";
-import { getDaoByCID, postProposal } from "../../services/keezBackend";
+import { getDaoByCID } from "../../services/keezBackend";
 import { votingDelayItems } from "../../constants/votingPeriodItems";
 import dayjs from "dayjs";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
@@ -36,28 +35,26 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
     proposalType,
     membersOrVault,
     keyPermissions,
-    vaultPermissions,
+    // vaultPermissions,
     daoCid,
   } = useContext(CreateProposalContext);
-  const { createDaoProposal,
-    getProposalSignatures
-    } = useContext(DaoProposalContext);
+  const { createDaoProposal } = useContext(DaoProposalContext);
 
   const { accountAddress } = useContext(ProfileContext);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
-  const [metalink, setMetalink] = useState<string>("");
+  // const [metalink, setMetalink] = useState<string>("");
   const [daoSelected, setDaoSelected] = useState<any>([]);
 
   const navigate = useNavigate();
   toast.configure();
   const votingParametersObject =
-    daoSelected.length != ""
+    daoSelected.length !== ""
       ? getParsedJsonObj(daoSelected.votingParameters)
       : "";
 
-  const min_voting_delay = votingParametersObject.minVotingDelay;
-  const min_voting_period = votingParametersObject.minVotingPeriod;
-  const min_execution_delay = votingParametersObject.minExecutionDelay;
+  const min_voting_delay = votingParametersObject?.minVotingDelay;
+  const min_voting_period = votingParametersObject?.minVotingPeriod;
+  const min_execution_delay = votingParametersObject?.minExecutionDelay;
 
   const now = dayjs();
   const startDay = now.add(min_voting_delay, "day");
@@ -72,22 +69,28 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
   const handleSubmit = async (event: React.FormEvent) => {
     setSubmitLoading(true);
     const timestamp = dayjs().valueOf();
-    let payloads:any[] = [];
-    
+    let payloads: any[] = [];
+
     const ABI = ["function setData(bytes32 dataKey, bytes memory dataValue)"];
     const setDataInterface = new ethers.utils.Interface(ABI);
     // const executeABI = ["function execute(uint256 operation, address to, uint256 value, bytes calldata data"];
     // const executeInterface = new ethers.utils.Interface(executeABI);
     // const transferABI = ["transfer(address from, address to, uint256 amount, bool force, bytes memory data)"];
     // const transferInterface = new ethers.utils.Interface(transferABI);
-    
-    const _DAO_JSON_METDATA_KEY = "0x529fc5ec0943a0370fe51d4dec0787294933572592c61b103d9e170cb15e8e79";
-    const _DAO_MAJORITY_KEY = "0xbc776f168e7b9c60bb2a7180950facd372cd90c841732d963c31a93ff9f8c127"; // --> uint8
-    const _DAO_PARTICIPATION_RATE_KEY = "0xf89f507ecd9cb7646ce1514ec6ab90d695dac9314c3771f451fd90148a3335a9"; // --> uint8
-    const _DAO_MINIMUM_VOTING_DELAY_KEY = "0x799787138cc40d7a47af8e69bdea98db14e1ead8227cef96814fa51751e25c76"; // --> uint256
-    const _DAO_MINIMUM_VOTING_PERIOD_KEY = "0xd3cf4cd71858ea36c3f5ce43955db04cbe9e1f42a2c7795c25c1d430c9bb280a"; // --> uint256
-    const _DAO_MINIMUM_EXECUTION_DELAY_KEY = "0xb207580c05383177027a90d6c298046d3d60dfa05a32b0bb48ea9015e11a3424"; // --> uint256
-    
+
+    // const _DAO_JSON_METDATA_KEY =
+    //   "0x529fc5ec0943a0370fe51d4dec0787294933572592c61b103d9e170cb15e8e79";
+    const _DAO_MAJORITY_KEY =
+      "0xbc776f168e7b9c60bb2a7180950facd372cd90c841732d963c31a93ff9f8c127"; // --> uint8
+    const _DAO_PARTICIPATION_RATE_KEY =
+      "0xf89f507ecd9cb7646ce1514ec6ab90d695dac9314c3771f451fd90148a3335a9"; // --> uint8
+    const _DAO_MINIMUM_VOTING_DELAY_KEY =
+      "0x799787138cc40d7a47af8e69bdea98db14e1ead8227cef96814fa51751e25c76"; // --> uint256
+    const _DAO_MINIMUM_VOTING_PERIOD_KEY =
+      "0xd3cf4cd71858ea36c3f5ce43955db04cbe9e1f42a2c7795c25c1d430c9bb280a"; // --> uint256
+    const _DAO_MINIMUM_EXECUTION_DELAY_KEY =
+      "0xb207580c05383177027a90d6c298046d3d60dfa05a32b0bb48ea9015e11a3424"; // --> uint256
+
     try {
       let ProposalMetadata = {};
       switch (proposalType) {
@@ -147,21 +150,20 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
           //     "data"
           //   ]
           // );
-          payloads=[
+          payloads = [
             // executeInterface.encodeFunctionData(
             //   "execute",
             //   [
             //     0,
             //     "tokenAddress",
             //     0,
-            //     transferPayload 
+            //     transferPayload
             //   ]
             // )
           ];
           break;
         case "Permission":
           if (membersOrVault === "Members") {
-            
             ProposalMetadata = {
               proposalProfile: {
                 proposalType: proposalType,
@@ -179,23 +181,36 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
               createdAt: timestamp,
             };
             //@ts-ignore
-            const permissionbyte = (keyPermissions.keyPermissions.registerVotes<<7) +(keyPermissions.keyPermissions.removePermission<<6) +(keyPermissions.keyPermissions.addPermission<<5) +(keyPermissions.keyPermissions.receiveDelegate<<4) +(keyPermissions.keyPermissions.sendDelegate<<3) 
-              //@ts-ignore    
-              +(keyPermissions.keyPermissions.execute<<2) +(keyPermissions.keyPermissions.propose<<1) + keyPermissions.keyPermissions.vote; 
-            const permissionHex = ethers.utils.hexZeroPad(ethers.utils.hexValue(permissionbyte), 32)
-            console.log(permissionbyte)
-            console.log(permissionHex)
-            payloads = [ 
-              setDataInterface.encodeFunctionData(
-                "setData",
-                [
-                  "0x4b80742de2bfb3cc0e490000" + keyPermissions.upAddress.substring(2),
-                  permissionHex
-                ]
-              )
+            const permissionbyte =
+              //@ts-ignore
+              (keyPermissions.keyPermissions.registerVotes << 7) +
+              //@ts-ignore
+              (keyPermissions.keyPermissions.removePermission << 6) +
+              //@ts-ignore
+              (keyPermissions.keyPermissions.addPermission << 5) +
+              //@ts-ignore
+              (keyPermissions.keyPermissions.receiveDelegate << 4) +
+              //@ts-ignore
+              (keyPermissions.keyPermissions.sendDelegate << 3) +
+              //@ts-ignore
+              (keyPermissions.keyPermissions.execute << 2) +
+              //@ts-ignore
+              (keyPermissions.keyPermissions.propose << 1) +
+              keyPermissions.keyPermissions.vote;
+            const permissionHex = ethers.utils.hexZeroPad(
+              ethers.utils.hexValue(permissionbyte),
+              32
+            );
+            console.log(permissionbyte);
+            console.log(permissionHex);
+            payloads = [
+              setDataInterface.encodeFunctionData("setData", [
+                "0x4b80742de2bfb3cc0e490000" +
+                  keyPermissions.upAddress.substring(2),
+                permissionHex,
+              ]),
             ];
-            
-          } 
+          }
           break;
         case "General":
           // let path:string = "";
@@ -228,31 +243,30 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
           payloads = [];
           break;
       }
-      
+
       const resultProposalMetadata = await postJsonToIPFS(ProposalMetadata); //
-      const metalink: string = IPFS_DWEB_URL.concat(resultProposalMetadata.cid); //
+      // const metalink: string = IPFS_DWEB_URL.concat(resultProposalMetadata.cid); //
 
       //@ts-ignore
       ProposalMetadata.proposalProfile["CID"] = resultProposalMetadata.cid;
       //@ts-ignore
       ProposalMetadata.proposalProfile["url"] = IPFS_DWEB_URL;
-      
-      if (proposalType === "Voting"){
+
+      if (proposalType === "Voting") {
         // console.log(ethers.utils.hexlify(ethers.utils.toUtf8Bytes(metalink)));
-        const changeParameters = (datakeys:string[], dataValues:string[]) => {
-          const setDataABI = ["function setData(bytes32[] memory dataKeys, bytes[] memory dataValues)"];
+        const changeParameters = (datakeys: string[], dataValues: string[]) => {
+          const setDataABI = [
+            "function setData(bytes32[] memory dataKeys, bytes[] memory dataValues)",
+          ];
           const setDataInterface = new ethers.utils.Interface(setDataABI);
           const payloads = [
-            setDataInterface.encodeFunctionData(
-              "setData",
-              [
-                datakeys,
-                dataValues
-              ]
-            )
+            setDataInterface.encodeFunctionData("setData", [
+              datakeys,
+              dataValues,
+            ]),
           ];
           return payloads;
-        }
+        };
 
         payloads = changeParameters(
           [
@@ -260,21 +274,40 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             _DAO_PARTICIPATION_RATE_KEY,
             _DAO_MINIMUM_VOTING_DELAY_KEY,
             _DAO_MINIMUM_VOTING_PERIOD_KEY,
-            _DAO_MINIMUM_EXECUTION_DELAY_KEY
+            _DAO_MINIMUM_EXECUTION_DELAY_KEY,
           ],
           [
-            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(votingMajority)), 32),
-            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(participationRate)), 32),
-            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minVotingDelay)*24*3600), 32),
-            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minVotingPeriod)*24*3600), 32),
-            ethers.utils.hexZeroPad(ethers.utils.hexValue(Number(minExecutionDelay)*24*3600), 32),
+            ethers.utils.hexZeroPad(
+              ethers.utils.hexValue(Number(votingMajority)),
+              32
+            ),
+            ethers.utils.hexZeroPad(
+              ethers.utils.hexValue(Number(participationRate)),
+              32
+            ),
+            ethers.utils.hexZeroPad(
+              ethers.utils.hexValue(Number(minVotingDelay) * 24 * 3600),
+              32
+            ),
+            ethers.utils.hexZeroPad(
+              ethers.utils.hexValue(Number(minVotingPeriod) * 24 * 3600),
+              32
+            ),
+            ethers.utils.hexZeroPad(
+              ethers.utils.hexValue(Number(minExecutionDelay) * 24 * 3600),
+              32
+            ),
           ]
-        )
+        );
       }
 
       //************contract interaction ************* */
       //@ts-ignore
-      const proposalSignatures = await createDaoProposal(daoSelected,payloads,ProposalMetadata);
+      const proposalSignatures = await createDaoProposal(
+        daoSelected,
+        payloads,
+        ProposalMetadata
+      );
       console.log("proposalSignatures = ", proposalSignatures);
       //@ts-ignore
       ProposalMetadata.proposalProfile["identifier"] = proposalSignatures;
@@ -286,16 +319,15 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
         setSubmitLoading(false);
       } else {
         console.log(ProposalMetadata);
-        setMetalink(metalink);
+        // setMetalink(metalink);
         // window.open(metalink, "_blank");
-        const result = await postProposal(ProposalMetadata);
+        // const result = await postProposal(ProposalMetadata);
         setSubmitLoading(false);
         toast.success("Proposal Created", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
         navigate("/Profile");
       }
-
     } catch (err) {
       console.log(err);
       toast.error("Proposal Creation Unsuccessful", {
@@ -362,7 +394,9 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
 
         <div className="grid gap-x-6 gap-3 md:grid-cols-2 grid-cols-1 w-full text-white py-2">
           <div className="flex flex-col space-y-2 justify-start items-start">
-            <h1 className="w-[100%] break-words text-white text-md font-semibold">{proposalName}</h1>
+            <h1 className="w-[100%] break-words text-white text-md font-semibold">
+              {proposalName}
+            </h1>
 
             <div className="flex justify-start items-center bg-blue-800 rounded-full">
               <h1 className="text-slate-100 text-xs font-normal py-1 px-2">
@@ -389,18 +423,20 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
               <h1 className="text-white pb-3 text-xs font-normal max-h-[200px] min-h-[200px] pb-1 overflow-auto w-[100%] break-words">
                 {description}
               </h1>
-              {proposalType != "General" &&
+              {proposalType !== "General" && (
                 <div className="flex flex-col w-full justify-between space-y-4 items-start p-2 bg-white rounded-md text-black">
-                    <h1 className="text-sm text-center font-bold">
-                      Proposal Details
-                    </h1>
+                  <h1 className="text-sm text-center font-bold">
+                    Proposal Details
+                  </h1>
 
                   {proposalType === "Voting" && <VotingDetails />}
-                  {proposalType === "Token Transfer" && <TokenTransferDetails />}
+                  {proposalType === "Token Transfer" && (
+                    <TokenTransferDetails />
+                  )}
                   {proposalType === "Permission" && <PermissionDetails />}
                   {/* {proposalType === "General" && <GeneralDetails />} */}
                 </div>
-              }
+              )}
             </div>
           </div>
           <div className="flex flex-col justify-between space-y-4 items-between p-4 bg-white rounded-md text-black">
@@ -489,7 +525,6 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
             />
           </button>
         )}
-        
       </div>
     </div>
   );
@@ -540,26 +575,26 @@ const VotingDetails = () => {
   );
 };
 
-const GeneralDetails = (props: {}) => {
-  // const {id, daoSelected, handleDaoSelection, daoDetail } = props;
-  const { votingOptions } = useContext(CreateProposalContext);
-  return (
-    <div className="flex flex-col justify-start items-start">
-      {/* <div className="flex justify-start items-center">
-                <h1 className="text-sm font-normal">Proposal Type:</h1>
-                <h1 className="text-sm font-semibold px-2"></h1>
-            </div> */}
-      <div className="flex flex-col justify-start items-start">
-        <h1 className="text-sm font-normal">Voting Options:</h1>
-        {votingOptions.map((value, index) => (
-          <h1 key={index} className="text-sm font-semibold px-4">
-            {value}
-          </h1>
-        ))}
-      </div>
-    </div>
-  );
-};
+// const GeneralDetails = (props: {}) => {
+//   // const {id, daoSelected, handleDaoSelection, daoDetail } = props;
+//   const { votingOptions } = useContext(CreateProposalContext);
+//   return (
+//     <div className="flex flex-col justify-start items-start">
+//       {/* <div className="flex justify-start items-center">
+//                 <h1 className="text-sm font-normal">Proposal Type:</h1>
+//                 <h1 className="text-sm font-semibold px-2"></h1>
+//             </div> */}
+//       <div className="flex flex-col justify-start items-start">
+//         <h1 className="text-sm font-normal">Voting Options:</h1>
+//         {votingOptions.map((value, index) => (
+//           <h1 key={index} className="text-sm font-semibold px-4">
+//             {value}
+//           </h1>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
 
 const TokenTransferDetails = (props: {}) => {
   // const {id, daoSelected, handleDaoSelection, daoDetail } = props;
@@ -599,7 +634,7 @@ const PermissionDetails = (props: {}) => {
         <h1 className="text-sm font-normal">
           Address:{shortenAddress(keyPermissions.upAddress)}
         </h1>
-        <h1 className="text-sm font-semibold px-2"></h1>
+        {/* <h1 className="text-sm font-semibold px-2"></h1> */}
       </div>
 
       <h1 className="text-sm font-normal">New Permissions</h1>

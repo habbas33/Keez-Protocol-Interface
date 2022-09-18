@@ -8,9 +8,10 @@ import {
   votingDelayItems,
 } from "../../constants/votingPeriodItems";
 import { VALIDATORS } from "../../constants/globals";
-import { MdOutlineHelp }  from "react-icons/md";
-import Popover from '@material-ui/core/Popover';
+import { MdOutlineHelp } from "react-icons/md";
+import Popover from "@material-ui/core/Popover";
 import { StyledPopover } from "../../styles";
+import InfoPopOver from "../InfoPopOver";
 
 const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
   const classes = StyledPopover();
@@ -21,14 +22,18 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
   const [anchorEl5, setAnchorEl5] = React.useState<HTMLElement | null>(null);
   const [anchorEl6, setAnchorEl6] = React.useState<HTMLElement | null>(null);
 
-  const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const handlePopoverOpen1 = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
     setAnchorEl1(event.currentTarget);
   };
   const handlePopoverClose1 = () => {
     setAnchorEl1(null);
   };
 
-  const handlePopoverOpen2 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const handlePopoverOpen2 = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
     setAnchorEl2(event.currentTarget);
   };
 
@@ -36,28 +41,36 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
     setAnchorEl2(null);
   };
 
-  const handlePopoverOpen3 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const handlePopoverOpen3 = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
     setAnchorEl3(event.currentTarget);
   };
   const handlePopoverClose3 = () => {
     setAnchorEl3(null);
   };
 
-  const handlePopoverOpen4 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const handlePopoverOpen4 = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
     setAnchorEl4(event.currentTarget);
   };
   const handlePopoverClose4 = () => {
     setAnchorEl4(null);
   };
 
-  const handlePopoverOpen5 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const handlePopoverOpen5 = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
     setAnchorEl5(event.currentTarget);
   };
 
   const handlePopoverClose5 = () => {
     setAnchorEl5(null);
   };
-  const handlePopoverOpen6 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const handlePopoverOpen6 = (
+    event: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
     setAnchorEl6(event.currentTarget);
   };
   const handlePopoverClose6 = () => {
@@ -89,7 +102,7 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
     const selection = votingDelayItems.find(
       (element) => element.label === selectedOption.label
     ) || { value: 0, label: "instant" };
-    setMinVotingDelay(selection.value); 
+    setMinVotingDelay(selection.value);
     // console.log(selectedOption);
     // console.log(selection);
   };
@@ -143,71 +156,27 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
     <div className="bg-other w-full px-5 md:px-[20%]">
       <h1 className="text-white text-3xl py-2">Step 4</h1>
       <div className="flex justify-left  w-full">
-      <h1 className="text-white text-4xl font-bold">
-        Create your Default Voting Parameters
-      </h1>
-      <p className="px-1" aria-owns={open1 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open1}
-                  anchorEl={anchorEl1}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose1}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Here you will create your default governance parameters you'd like your DAO to follow.</div>
-              </Popover></div>
+        <h1 className="text-white text-4xl font-bold">
+          Create your Default Voting Parameters
+        </h1>
+        <InfoPopOver info="Here you will create your default governance parameters you'd like your DAO to follow." />
+      </div>
       <form onSubmit={handleSubmit}>
         <div className=" py-4 md:w-[70%] md:mx-auto">
-        <div className="flex justify-left w-full">
-          <label
-            className="block text-white text-sm font-normal"
-            htmlFor="participationRate"
-          >
-            Participation rate
-          </label>
-          <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open2}
-                  anchorEl={anchorEl2}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose2}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Please enter a number from 1-100. This number will reflect the 
-                  percentage of DAO members needed to vote on a proposal for 
-                  the result to be valid. The average participation rate for 
-                  DAO voting is less than 15%.</div>
-              </Popover></div>
+          <div className="flex justify-left w-full">
+            <label
+              className="block text-white text-sm font-normal"
+              htmlFor="participationRate"
+            >
+              Participation rate
+            </label>
+            <InfoPopOver
+              info="Please enter a number from 1-100. This number will reflect the
+                percentage of DAO members needed to vote on a proposal for the
+                result to be valid. The average participation rate for DAO
+                voting is less than 15%."
+            />
+          </div>
           <div className="flex items-center text-white text-sm font-normal">
             <Input
               value={participationRate.toString()}
@@ -222,42 +191,21 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             <p className="px-2">%</p>
           </div>
           <div className="flex justify-left pt-4 w-full">
-          <label
-            className="block  text-white text-sm font-normal"
-            htmlFor="votingMajority"
-          >
-            Majority
-          </label>
-          <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open3}
-                  anchorEl={anchorEl3}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose3}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Please enter a number from 1-100. This number will reflect the 
-                  percentage of votes needed on a specific decision 
-                  (i.e., for, against, abstain) for the result to be executed. 
-                  It is recommended to enter a number over 51% to ensure a 
-                  majority. The higher the number, the more agreement is needed
-                  within the community.</div>
-              </Popover></div>
+            <label
+              className="block  text-white text-sm font-normal"
+              htmlFor="votingMajority"
+            >
+              Majority
+            </label>
+            <InfoPopOver
+              info="Please enter a number from 1-100. This number will reflect the
+                percentage of votes needed on a specific decision (i.e., for,
+                against, abstain) for the result to be executed. It is
+                recommended to enter a number over 51% to ensure a majority. The
+                higher the number, the more agreement is needed within the
+                community."
+            />
+          </div>
           <div className="flex items-center text-white text-sm font-normal">
             <Input
               value={votingMajority.toString()}
@@ -267,44 +215,23 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
               max="100"
               size="w-1/4"
               className="flex-1"
-              handleChange={(e: any) => setVotingMajority(e.target.value)} 
+              handleChange={(e: any) => setVotingMajority(e.target.value)}
             />
             <p className="px-2">%</p>
           </div>
           <div className="flex justify-left pt-4 w-full">
-          <label
-            className="block  text-white text-sm font-normal"
-            htmlFor="MinVotingDelay"
-          >
-            Voting Delay
-          </label>
-          <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open4}
-                  anchorEl={anchorEl4}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose4}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This parameter describes the period in which a proposal is 
-                  viewable but unable to be voted on. This will give the 
-                  community time to think and discuss before solidifying a vote. </div>
-              </Popover></div>
+            <label
+              className="block  text-white text-sm font-normal"
+              htmlFor="MinVotingDelay"
+            >
+              Voting Delay
+            </label>
+            <InfoPopOver
+              info="This parameter describes the period in which a proposal is
+                viewable but unable to be voted on. This will give the community
+                time to think and discuss before solidifying a vote."
+            />
+          </div>
           <div className="w-1/2">
             <SingleSelect
               handleChange={handleMinVotingDelay}
@@ -313,39 +240,18 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             />
           </div>
           <div className="flex justify-left pt-4 w-full">
-          <label
-            className="block  text-white text-sm font-normal"
-            htmlFor="minVotingPeriod"
-          >
-            Voting Period
-          </label>
-          <p className="px-1" aria-owns={open5 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen5} onMouseLeave={handlePopoverClose5}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open5}
-                  anchorEl={anchorEl5}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose5}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                   This parameter describes the period for which a proposal can be 
-                   voted on. Giving the community multiple days to vote on the 
-                   proposal is recommended.</div>
-              </Popover></div>
+            <label
+              className="block  text-white text-sm font-normal"
+              htmlFor="minVotingPeriod"
+            >
+              Voting Period
+            </label>
+            <InfoPopOver
+              info="This parameter describes the period for which a proposal can be
+                voted on. Giving the community multiple days to vote on the
+                proposal is recommended."
+            />
+          </div>
           <div className="w-1/2">
             <SingleSelect
               handleChange={handleMinVotingPeriod}
@@ -354,38 +260,17 @@ const CreateVotingParameters = (props: { handleSubmitCreate: any }) => {
             />
           </div>
           <div className="flex justify-left pt-4 w-full">
-          <label
-            className="block  text-white text-sm font-normal"
-            htmlFor="minVotingPeriod"
-          >
-            Execution Delay
-          </label>
-          <p className="px-1" aria-owns={open6 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen6} onMouseLeave={handlePopoverClose6}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open6}
-                  anchorEl={anchorEl6}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose6}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This parameter describes the delay period for which a proposal
-                  will be executed after the voting period has ended.</div>
-              </Popover></div>
+            <label
+              className="block  text-white text-sm font-normal"
+              htmlFor="minVotingPeriod"
+            >
+              Execution Delay
+            </label>
+            <InfoPopOver
+              info="This parameter describes the delay period for which a proposal
+                will be executed after the voting period has ended."
+            />
+          </div>
           <div className="w-1/2">
             <SingleSelect
               handleChange={handleMinExecutionDelay}

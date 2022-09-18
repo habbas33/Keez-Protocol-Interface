@@ -1,64 +1,19 @@
 import React, { useContext, useState, useEffect } from "react";
-import {
-  MdNavigateNext,
-  MdOutlineNavigateBefore,
-  MdAdd,
-  MdRemove,
-} from "react-icons/md";
-import { MultiSelect, SingleSelect, Input } from "../../components";
+import { MdNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
+import { SingleSelect, Input } from "../../components";
 import { CreateProposalContext } from "../../context/CreateProposalContext";
-import { daoCategoryItems } from "../../constants/daoCategoryItems";
+// import { daoCategoryItems } from "../../constants/daoCategoryItems";
 import Switch from "@material-ui/core/Switch";
 import { toast } from "react-toastify";
 import { VALIDATORS } from "../../constants/globals";
 import { getDaoByCID } from "../../services/keezBackend";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
-import { MdOutlineHelp }  from "react-icons/md";
-import Popover from '@material-ui/core/Popover';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { StyledPopover } from "../../styles";
-
+import InfoPopOver from "../InfoPopOver";
 
 const PermissionsTemplate = (props: { handleComponent: any }) => {
   const classes = StyledPopover();
-  const [anchorEl1, setAnchorEl1] = React.useState<HTMLElement | null>(null);
-  const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement | null>(null);
-  const [anchorEl3, setAnchorEl3] = React.useState<HTMLElement | null>(null);
-  const [anchorEl4, setAnchorEl4] = React.useState<HTMLElement | null>(null);;
 
-  const handlePopoverOpen1 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl1(event.currentTarget);
-  };
-  const handlePopoverClose1 = () => {
-    setAnchorEl1(null);
-  };
-
-  const handlePopoverOpen2 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl2(event.currentTarget);
-  };
-
-  const handlePopoverClose2 = () => {
-    setAnchorEl2(null);
-  };
-
-  const handlePopoverOpen3 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl3(event.currentTarget);
-  };
-  const handlePopoverClose3 = () => {
-    setAnchorEl3(null);
-  };
-
-  const handlePopoverOpen4 = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setAnchorEl4(event.currentTarget);
-  };
-  const handlePopoverClose4 = () => {
-    setAnchorEl4(null);
-  };
-
-  const open1 = Boolean(anchorEl1);
-  const open2 = Boolean(anchorEl2);
-  const open3 = Boolean(anchorEl3);
-  const open4 = Boolean(anchorEl4);
   const { handleComponent } = props;
   const {
     proposalName,
@@ -266,39 +221,15 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
         </p>
         <div className="flex flex-col justify-center items-center py-2">
           <div className="w-full md:w-3/5">
-          <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block text-white text-sm font-normal"
-              htmlFor="proposalName"
-            >
-              Proposal Title
-            </label>
-            <p className="px-1" aria-owns={open1 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen1} onMouseLeave={handlePopoverClose1}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open1}
-                  anchorEl={anchorEl1}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose1}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This title will be displayed at the top of the proposal 
-                  and should reflect the contents.</div>
-              </Popover></div>
+            <div className="flex justify-left pt-4 w-full">
+              <label
+                className="block text-white text-sm font-normal"
+                htmlFor="proposalName"
+              >
+                Proposal Title
+              </label>
+              <InfoPopOver info="This title will be displayed at the top of the proposal and should reflect the contents." />
+            </div>
             <Input
               value={proposalName}
               name="proposal_name"
@@ -342,38 +273,17 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
               name={"proposalCategories"}
             /> */}
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="description"
-            >
-              Description
-            </label>
-            <p className="px-1" aria-owns={open2 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen2} onMouseLeave={handlePopoverClose2}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open2}
-                  anchorEl={anchorEl2}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose2}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  This title will be displayed at the top of the 
-                  proposal and should reflect the contents.</div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="description"
+              >
+                Description
+              </label>
+              <InfoPopOver
+                info="This description will be displayed on the proposal card and 
+                  should describe the proposal. 200 word-limit."
+              />
+            </div>
             <textarea
               className="my-1 h-28 w-full rounded-lg p-2 outline-none text-white border-2 border-[#999999] focus:border-red-400 text-sm text-gray-700 leading-tight"
               value={description}
@@ -381,38 +291,15 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
               onChange={(e: any) => setDescription(e.target.value)}
             />
             <div className="flex justify-left pt-4 w-full">
-            <label
-              className="block  text-white text-sm font-normal"
-              htmlFor="minVotingPeriod"
-            >
-              Choose {membersOrVault === "Members" ? "Address" : "Vault"} from
-              List
-            </label>
-            <p className="px-1" aria-owns={open3 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen3} onMouseLeave={handlePopoverClose3}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open3}
-                  anchorEl={anchorEl3}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose3}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                  Select or enter the Universal Profile address to which you would like to add or revoke permissions. </div>
-              </Popover></div>
+              <label
+                className="block  text-white text-sm font-normal"
+                htmlFor="minVotingPeriod"
+              >
+                Choose {membersOrVault === "Members" ? "Address" : "Vault"} from
+                List
+              </label>
+              <InfoPopOver info="Select or enter the Universal Profile address to which you would like to add or revoke permissions." />
+            </div>
             <SingleSelect
               handleChange={handleMemberChange}
               name={"address"}
@@ -421,39 +308,15 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
 
             {membersOrVault === "Members" && (
               <>
-              <div className="flex justify-left pt-4 w-full">
-                <label
-                  className="block  text-white text-sm font-normal"
-                  htmlFor="minVotingPeriod"
-                >
-                  Choose Permissions to Add/Revoke:
-                </label>
-                <p className="px-1" aria-owns={open4 ? 'mouse-over-popover' : undefined}
-        aria-haspopup="true" onMouseEnter={handlePopoverOpen4} onMouseLeave={handlePopoverClose4}>
-                  <MdOutlineHelp className="text-white text-md"/>
-                </p>
-              <Popover
-                  id="mouse-over-popover"
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  open={open4}
-                  anchorEl={anchorEl4}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                  }}
-                  onClose={handlePopoverClose4}
-                  disableRestoreFocus
-                ><div className="flex w-56 flex-col-3  justify-center items-center h-full px-2 text-white text-center">
-                   Select which permissions you want to add or revoke 
-                   from the Universal Profile address selected.</div>
-              </Popover></div>
+                <div className="flex justify-left pt-4 w-full">
+                  <label
+                    className="block  text-white text-sm font-normal"
+                    htmlFor="minVotingPeriod"
+                  >
+                    Choose Permissions to Add/Revoke:
+                  </label>
+                  <InfoPopOver info="Select which permissions you want to add or revoke from the Universal Profile address selected." />
+                </div>
                 <div className="grid gap-x-4 gap-y-0 grid-cols-2 text-white">
                   <div className="flex items-center my-3">
                     {/* <input type="checkbox" name="vote" onClick ={(e:any) => setVotePermission(e.target.checked)} className="accent-[#C3073F] focus:accent-[#ac0537]"/> */}
@@ -608,8 +471,6 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
             </div>
           </div>
         </div>
-
-        
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 
 export default function ZeroMemberModal() {
@@ -8,13 +8,12 @@ export default function ZeroMemberModal() {
   const navigate = useNavigate();
 
   const cancelButtonRef = useRef(null);
-    useEffect(() => {
-      if (!open){
-        navigate("/Discover")
-      }
+  useEffect(() => {
+    if (!open) {
+      navigate("/Discover");
+    }
+  }, [open, navigate]);
 
-    }, [open])
-    
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -40,7 +39,10 @@ export default function ZeroMemberModal() {
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -63,14 +65,22 @@ export default function ZeroMemberModal() {
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center  sm:mt-0 sm:ml-0 sm:text-left">
                     <div className="px-6 py-5 bg-[#2B2C50] flex justify-between items-center">
-                      <Dialog.Title as="h3" className="text-xl leading-6 font-medium text-white">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-xl leading-6 font-medium text-white"
+                      >
                         No DAO Membership
                       </Dialog.Title>
-                      <AiOutlineClose fontSize={24} className="text-white hover:bg-[#382C71] p-[2px] rounded-full cursor-pointer" onClick={() => setOpen(false)}/>
+                      <AiOutlineClose
+                        fontSize={24}
+                        className="text-white hover:bg-[#382C71] p-[2px] rounded-full cursor-pointer"
+                        onClick={() => setOpen(false)}
+                      />
                     </div>
                     <div className="py-4 px-6 font-light bg-[#382C71]">
                       <p className="text-base text-white-500">
-                        In order to propose or vote you must be a member of a DAO or create a new DAO for your team.
+                        In order to propose or vote you must be a member of a
+                        DAO or create a new DAO for your team.
                       </p>
                     </div>
                   </div>
@@ -105,4 +115,3 @@ export default function ZeroMemberModal() {
     </Transition.Root>
   );
 }
-
