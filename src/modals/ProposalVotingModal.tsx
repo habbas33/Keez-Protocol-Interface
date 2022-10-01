@@ -4,6 +4,7 @@ import React, {
   useState,
   useContext,
   useEffect,
+  useCallback,
 } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { Dialog, Transition } from "@headlessui/react";
@@ -17,24 +18,28 @@ import { DaoProposalContext } from "../context/DaoProposalContext";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
 import { ethers } from "ethers";
+import { universalProfileContract } from "../services/web3";
 
 export default function ProposalVotingModal(props: {
   setShowModal: any;
   showModal: boolean;
   proposal: any;
   daoSelected: any;
+  votingParameters: any;
 }) {
-  const { setShowModal, showModal, proposal, daoSelected } = props;
+  const { setShowModal, showModal, proposal, daoSelected, votingParameters } =
+    props;
   const { getProposalHash, registerVotes, executeProposal } =
     useContext(DaoProposalContext);
   const { accountAddress } = useContext(ProfileContext);
+  const [permisions, setPermisions] = useState<any>({});
+  const universalProfile = getParsedJsonObj(
+    daoSelected.daoUpAddress
+  ).universalProfile;
 
   const [open, setOpen] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [votes, setVotes] = useState<any>([]);
-  const [userCanVote, setUserCanVote] = useState<boolean>(false);
-  const [userCanRegister, setUserCanRegister] = useState<boolean>(false);
-  const [userCanExecute, setUserCanExecute] = useState<boolean>(false);
   const [hasVoted, setHasVoted] = useState<boolean>(false);
   const [voterChoice, setVoterChoice] = useState<number>(10);
   const [voters, setVoters] = useState<string[]>([]);
@@ -209,6 +214,33 @@ export default function ProposalVotingModal(props: {
       });
     }
   };
+  const getPermissions = useCallback(async () => {
+    if (accountAddress) {
+      try {
+        let contract1 = await universalProfileContract(universalProfile)
+          ["getData(bytes32[])"]([
+            "0x4b80742de2bfb3cc0e490000" + accountAddress.substring(2),
+          ])
+          .call();
+        const permissionBin = parseInt(contract1[0], 16).toString(2);
+        const permision = {
+          registerVotes: permissionBin[0] === "1",
+          removePermission: permissionBin[1] === "1",
+          addPermission: permissionBin[2] === "1",
+          receiveDelegate: permissionBin[3] === "1",
+          sendDelegate: permissionBin[4] === "1",
+          execute: permissionBin[5] === "1",
+          propose: permissionBin[6] === "1",
+          vote: permissionBin[7] === "1",
+        };
+        setPermisions(permision);
+      } catch {
+        toast.error("An error ocurred, check your connection", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    }
+  }, [universalProfile, accountAddress]);
 
   const handleRegister = async () => {
     setIsLoading(true);
@@ -294,18 +326,11 @@ export default function ProposalVotingModal(props: {
       setVotes(result);
       console.log("votes", result);
     };
+
+    getPermissions();
     const getVoterDetails = () => {
       const _voters: string[] = [];
       for (var i = 0; i < permissionsObject.length; i++) {
-        if (permissionsObject[i].upAddress === accountAddress) {
-          setUserCanVote(permissionsObject[i].keyPermissions.vote === "True");
-          setUserCanRegister(
-            permissionsObject[i].keyPermissions.registerVotes === "True"
-          );
-          setUserCanExecute(
-            permissionsObject[i].keyPermissions.execute === "True"
-          );
-        }
         if (permissionsObject[i].keyPermissions.vote === "True") {
           _voters.push(permissionsObject[i].upAddress);
         }
@@ -316,7 +341,13 @@ export default function ProposalVotingModal(props: {
     fetchData();
     getVoterDetails();
     // checkIfVoted();
-  }, [isLoading, accountAddress]);
+  }, [
+    isLoading,
+    accountAddress,
+    getPermissions,
+    permissionsObject,
+    proposal.identifier,
+  ]);
 
   useEffect(() => {
     const checkIfVoted = () => {
@@ -358,9 +389,7 @@ export default function ProposalVotingModal(props: {
 
   const proposalDetailsObject = getParsedJsonObj(proposal.proposalDetails);
   const votingParametersObject =
-    daoSelected.length !== ""
-      ? getParsedJsonObj(daoSelected.votingParameters)
-      : "";
+    daoSelected.length !== "" ? votingParameters : "";
   const createdAt = dayjs(Number(proposal.createdAt));
   const min_voting_delay = votingParametersObject.minVotingDelay;
   const min_voting_period = votingParametersObject.minVotingPeriod;
@@ -640,7 +669,7 @@ export default function ProposalVotingModal(props: {
 
                       {(proposalStatus === "Pending" ||
                         isLoading ||
-                        !userCanVote) &&
+                        !permisions?.vote) &&
                         proposalStatus !== "Closed" &&
                         !hasVoted && (
                           <>
@@ -665,7 +694,7 @@ export default function ProposalVotingModal(props: {
 
                       {proposalStatus === "Active" &&
                         !isLoading &&
-                        userCanVote &&
+                        permisions?.vote &&
                         !hasVoted && (
                           <>
                             <h1 className="text-sm font-bold">VOTE</h1>
@@ -699,7 +728,7 @@ export default function ProposalVotingModal(props: {
                       {proposalStatus === "Closed" && !isLoading && (
                         <>
                           <h1 className="text-sm font-bold">Actions</h1>
-                          {userCanRegister ? (
+                          {permisions?.registerVotes ? (
                             <div
                               onClick={handleRegister}
                               className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full"
@@ -715,7 +744,7 @@ export default function ProposalVotingModal(props: {
                               </h1>
                             </div>
                           )}
-                          {userCanExecute ? (
+                          {permisions?.execute ? (
                             <div
                               onClick={handleExecute}
                               className="flex justify-start items-center w-28 cursor-pointer  active:bg-blue-600 hover:bg-blue-700 bg-blue-800 rounded-full"
@@ -731,12 +760,12 @@ export default function ProposalVotingModal(props: {
                               </h1>
                             </div>
                           )}
-                          {!userCanRegister && (
+                          {!permisions?.registerVotes && (
                             <h1 className="text-red-600 text-xs font-normal py-1 px-2">
                               You don't have Register Votes permission
                             </h1>
                           )}
-                          {!userCanExecute && (
+                          {!permisions.execute && (
                             <h1 className="text-red-600 text-xs font-normal py-1 px-2">
                               You don't have Execute Votes permission
                             </h1>
@@ -752,7 +781,7 @@ export default function ProposalVotingModal(props: {
                           secondaryColor="rgba(172, 5, 55, 1)"
                         />
                       )}
-                      {!userCanVote && proposalStatus !== "Closed" && (
+                      {!permisions?.vote && proposalStatus !== "Closed" && (
                         <h1 className="text-red-600 text-xs font-normal py-1 px-2">
                           You don't have Vote permission
                         </h1>
@@ -790,6 +819,7 @@ export default function ProposalVotingModal(props: {
 
 const VotingDetails = (props: { proposalDetailsObject: any }) => {
   const { proposalDetailsObject } = props;
+  console.log("obj", proposalDetailsObject);
   const votingDelay = votingDelayItems.find(
     (element: any) => element.value === proposalDetailsObject.minVotingDelay
   ) || { value: 0, label: "instant" };

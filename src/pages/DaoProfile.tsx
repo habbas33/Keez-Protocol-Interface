@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ProfileContext } from "../context/ProfileContext";
 import {
@@ -11,6 +11,8 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
 import { MdCreate } from "react-icons/md";
 import MobileSideNav from "../components/MobileSideNav";
+import { universalProfileContract } from "../services/web3";
+import { toast } from "react-toastify";
 //@ts-ignore
 type LocationProps = {
   state: {
@@ -19,10 +21,15 @@ type LocationProps = {
 };
 
 const DaoProfile = () => {
+  const [votingParameters, setVotingParams] = useState({});
   const location = useLocation() as unknown as LocationProps;
   const { accountAddress } = useContext(ProfileContext);
   const [profileComponent, setProfileComponent] = useState<string>("Proposals");
   const daoDetail = location.state?.daoDetail;
+  const [permisions, setPermisions] = useState<any>({});
+  const universalProfile = getParsedJsonObj(
+    daoDetail.daoUpAddress
+  ).universalProfile;
 
   const navigate = useNavigate();
 
@@ -32,24 +39,66 @@ const DaoProfile = () => {
   };
   const profileImageObj = getParsedJsonObj(daoDetail.profileImage);
   const profileImageUrl = profileImageObj.url.concat(profileImageObj.hash);
-  const keyPermissionObj = getParsedJsonObj(daoDetail.keyPermissions);
-  const user = keyPermissionObj.filter(function (e: any) {
-    return (
-      e.upAddress === accountAddress && e.keyPermissions.propose === "True"
-    );
-  });
   // console.log(user.length);
-  const isMember: boolean = user.length > 0 ? true : false;
+  const isMember: boolean = permisions.vote ? true : false;
+  const getProfile = useCallback(async () => {
+    let contract = await universalProfileContract(universalProfile)
+      ["getData(bytes32[])"]([
+        // DAO Settings
+        "0xbc776f168e7b9c60bb2a7180950facd372cd90c841732d963c31a93ff9f8c127",
+        "0xf89f507ecd9cb7646ce1514ec6ab90d695dac9314c3771f451fd90148a3335a9",
+        "0x799787138cc40d7a47af8e69bdea98db14e1ead8227cef96814fa51751e25c76",
+        "0xd3cf4cd71858ea36c3f5ce43955db04cbe9e1f42a2c7795c25c1d430c9bb280a",
+        "0xb207580c05383177027a90d6c298046d3d60dfa05a32b0bb48ea9015e11a3424",
+      ])
+      .call();
+    if (accountAddress) {
+      let contract1 = await universalProfileContract(universalProfile)
+        ["getData(bytes32[])"]([
+          "0x4b80742de2bfb3cc0e490000" + accountAddress.substring(2),
+        ])
+        .call();
+      const permissionBin = parseInt(contract1[0], 16).toString(2);
+      const permision = {
+        registerVotes: permissionBin[0] === "1",
+        removePermission: permissionBin[1] === "1",
+        addPermission: permissionBin[2] === "1",
+        receiveDelegate: permissionBin[3] === "1",
+        sendDelegate: permissionBin[4] === "1",
+        execute: permissionBin[5] === "1",
+        propose: permissionBin[6] === "1",
+        vote: permissionBin[7] === "1",
+      };
+      setPermisions(permision);
+    }
+
+    const Params = {
+      votingMajority: parseInt(contract[0]),
+      participationRate: parseInt(contract[1]),
+      minVotingDelay: parseInt(contract[2]),
+      minVotingPeriod: parseInt(contract[3]) / (24 * 3600),
+      minExecutionDelay: parseInt(contract[4]) / (24 * 3600),
+    };
+    setVotingParams(Params);
+  }, [universalProfile, accountAddress]);
+  // console.log(votingParameters);
 
   const handleCreateProposal = (event: any) => {
     navigate("/Governance", {
       state: { component: "ChooseTemplate", CID: daoDetail.CID },
     });
   };
-
+  toast.configure();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    try {
+      getProfile();
+    } catch {
+      toast.error("An error ocurred, check your connection", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
+  }, [getProfile]);
 
   return (
     <div className="min-h-screen">
@@ -100,9 +149,17 @@ const DaoProfile = () => {
           </div>
           <>
             {profileComponent === "Proposals" && (
-              <Proposals daoDetail={daoDetail} />
+              <Proposals
+                daoDetail={daoDetail}
+                votingParameters={votingParameters}
+              />
             )}
-            {profileComponent === "About" && <About daoDetail={daoDetail} />}
+            {profileComponent === "About" && (
+              <About
+                daoDetail={daoDetail}
+                votingParameters={votingParameters}
+              />
+            )}
             {profileComponent === "Members" && (
               <Members daoDetail={daoDetail} />
             )}
