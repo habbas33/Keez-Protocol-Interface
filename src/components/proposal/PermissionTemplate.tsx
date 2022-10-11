@@ -12,6 +12,7 @@ import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 import InfoPopOver from "../InfoPopOver";
 import { universalProfileContract } from "../../services/web3";
 import Select from "../Select";
+import { ethers } from "ethers";
 
 const PermissionsTemplate = (props: { handleComponent: any }) => {
   // const classes = StyledPopover();
@@ -48,6 +49,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
   // const [addOrRevoke, setAddOrRevoke] = useState<string>("Add"); // true -> Add / false -> revoke
   const [daoSelected, setDaoSelected] = useState<any>([]);
   const [addNewUser, setAddNewUser] = useState(false);
+  const [membersList, setMembers] = useState<any>([]);
 
   toast.configure();
 
@@ -217,14 +219,35 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
       ? getParsedJsonObj(daoSelected.keyPermissions)
       : "";
   // console.log(JSON.stringify(permissionsObject));
-  const membersList: any = [];
-
-  Object.keys(permissionsObject).forEach(function (key, index) {
-    membersList[key] = {
-      value: permissionsObject[key].upAddress,
-      label: permissionsObject[key].upAddress,
-    };
-  });
+  const getProfile = useCallback(async () => {
+    let contract = await universalProfileContract(universalProfile)
+      ["getData(bytes32[])"]([
+        // DAO Settings
+        "0xf7f9c7410dd493d79ebdaee15bbc77fd163bd488f54107d1be6ed34b1e099004",
+      ])
+      .call();
+    let totalMembers: number = parseInt(contract[0]);
+    let members = [];
+    if (totalMembers >= 0) {
+      console.log(totalMembers);
+      for (let i = 0; i < totalMembers; i++) {
+        console.log(i);
+        let contract = await universalProfileContract(universalProfile)
+          ["getData(bytes32[])"]([
+            "0xf7f9c7410dd493d79ebdaee15bbc77fd" +
+              ethers.utils
+                .hexZeroPad(ethers.utils.hexValue(i), 16)
+                .substring(2),
+          ])
+          .call();
+        members.push({ label: contract[0], value: contract[0] });
+      }
+      setMembers(members);
+    }
+  }, [universalProfile]);
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   toast.configure();
   return (

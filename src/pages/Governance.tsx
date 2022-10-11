@@ -24,10 +24,11 @@ type LocationProps = {
 const Governance: React.FC = () => {
   const location = useLocation() as unknown as LocationProps;
   const { accountAddress } = useContext(ProfileContext);
-  const { setDaoCid } = useContext(CreateProposalContext);
-  const [formComponent, setFormComponent] = useState<string>("ChooseDao");
+  const { setDaoCid, formComponent, setFormComponent } = useContext(
+    CreateProposalContext
+  );
   const component = location.state?.component;
-  const page = location.state?.page;
+  // const page = location.state?.page;
   const CID = location.state?.CID;
 
   const handleComponent = (NextForm: string) => {
@@ -44,11 +45,11 @@ const Governance: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    if (component) {
-      setFormComponent(component);
-      setDaoCid(CID);
-    }
-  }, [component, CID, setDaoCid]);
+    // if (component) {
+    //   // setFormComponent(component);
+    //   setDaoCid(CID);
+    // }
+  }, []);
 
   return (
     <div className="min-h-screen">

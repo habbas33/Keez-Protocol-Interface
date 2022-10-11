@@ -62,6 +62,8 @@ interface CreateProposalContextInterface {
   setDaoCid: any;
   daoUpAddress: string;
   setDaoUpAddress: any;
+  formComponent: string;
+  setFormComponent?: any;
 }
 
 export const CreateProposalContext =
@@ -128,6 +130,8 @@ export const CreateProposalContext =
     setProposalType: () => {},
     daoCid: "",
     setDaoCid: () => {},
+    formComponent: "",
+    setFormComponent: () => {},
   });
 
 export const CreateProposalContextProvider = ({ children }: any) => {
@@ -151,6 +155,7 @@ export const CreateProposalContextProvider = ({ children }: any) => {
   const [receivingAddress, setReceivingAddress] = useState<string>("");
 
   const [coverImageFile, setCoverImageFile] = useState<File>();
+  const [formComponent, setFormComponent] = useState<string>("ChooseDao");
   const [votingOptions, setVotingOptions] = useState<string[]>([
     "For",
     "Against",
@@ -245,6 +250,8 @@ export const CreateProposalContextProvider = ({ children }: any) => {
         setDaoCid: setDaoCid,
         daoUpAddress: daoUpAddress,
         setDaoUpAddress: setDaoUpAddress,
+        formComponent: formComponent,
+        setFormComponent: setFormComponent,
       }}
     >
       {children}

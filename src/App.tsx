@@ -28,27 +28,27 @@ const App: React.FC = () => {
       {/* <CreateDaoContextProvider> */}
       <DaoProposalProvider>
         <BrowserRouter>
-          <div>
-            <Navbar />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <Main />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-              <Route
-                path="/Create"
-                element={
-                  <>
-                    <CreateDaoContextProvider>
+          <CreateDaoContextProvider>
+            <div>
+              <Navbar />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <>
+                      <Main />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+                <Route
+                  path="/Create"
+                  element={
+                    <>
                       <DeployDaoProvider>
                         <Create />
                         <ToastContainer
@@ -57,130 +57,130 @@ const App: React.FC = () => {
                           autoClose={10000}
                         />
                       </DeployDaoProvider>
-                    </CreateDaoContextProvider>
-                  </>
-                }
-              />
-              <Route
-                path="/Governance"
-                element={
-                  <CreateProposalContextProvider>
-                    <Governance />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </CreateProposalContextProvider>
-                }
-              />
-              <Route
-                path="/Vote"
-                element={
-                  <>
-                    <Vote />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-              <Route
-                path="/Discover"
-                element={
-                  <>
-                    <Discover />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-              <Route
-                path="/Faq"
-                element={
-                  <>
-                    <Faq />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-              <Route
-                path="/AboutUs"
-                element={
-                  <>
-                    <AboutUs />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-              <Route
-                path="/Profile"
-                element={
-                  <>
-                    <UserProfile />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-              <Route
-                path="/DaoProfile"
-                element={
-                  <>
-                    <DaoProfile />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-              <Route
-                path="/profile/:address"
-                element={
-                  <>
-                    <IndividualProfile />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-              <Route
-                path="/addmember"
-                element={
-                  <>
-                    <AddUserPermission />
-                    <ToastContainer
-                      pauseOnFocusLoss
-                      newestOnTop
-                      autoClose={10000}
-                    />
-                  </>
-                }
-              />
-            </Routes>
-            <Footer />
-          </div>
+                    </>
+                  }
+                />
+                <Route
+                  path="/Governance"
+                  element={
+                    <CreateProposalContextProvider>
+                      <Governance />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </CreateProposalContextProvider>
+                  }
+                />
+                <Route
+                  path="/Vote"
+                  element={
+                    <>
+                      <Vote />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+                <Route
+                  path="/Discover"
+                  element={
+                    <>
+                      <Discover />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+                <Route
+                  path="/Faq"
+                  element={
+                    <>
+                      <Faq />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+                <Route
+                  path="/AboutUs"
+                  element={
+                    <>
+                      <AboutUs />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+                <Route
+                  path="/Profile"
+                  element={
+                    <>
+                      <UserProfile />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+                <Route
+                  path="/DaoProfile"
+                  element={
+                    <>
+                      <DaoProfile />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+                <Route
+                  path="/profile/:address"
+                  element={
+                    <>
+                      <IndividualProfile />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+                <Route
+                  path="/addmember"
+                  element={
+                    <>
+                      <AddUserPermission />
+                      <ToastContainer
+                        pauseOnFocusLoss
+                        newestOnTop
+                        autoClose={10000}
+                      />
+                    </>
+                  }
+                />
+              </Routes>
+              <Footer />
+            </div>
+          </CreateDaoContextProvider>
         </BrowserRouter>
       </DaoProposalProvider>
       {/* </CreateDaoContextProvider> */}
