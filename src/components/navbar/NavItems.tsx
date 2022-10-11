@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Dropdown = (props: { submenus: any; dropdown: boolean }) => {
   const { submenus, dropdown } = props;
@@ -21,6 +21,7 @@ const Dropdown = (props: { submenus: any; dropdown: boolean }) => {
 const NavItems = (props: { items: any; depthLevel: number }) => {
   const { items, depthLevel } = props;
   const [dropdown, setDropdown] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   let ref = useRef<any>();
 
@@ -72,6 +73,18 @@ const NavItems = (props: { items: any; depthLevel: number }) => {
           </button>
           <Dropdown submenus={items.submenu} dropdown={dropdown} />
         </>
+      ) : items.title === "Governance" &&
+        window.location.pathname === "/Governance" ? (
+        <button
+          onClick={() =>
+            navigate("/Governance", {
+              state: { component: "ChooseDao" },
+              replace: true,
+            })
+          }
+        >
+          Governance
+        </button>
       ) : items.title !== "Docs" ? (
         <NavLink className="hover:text-[#6341ff]" to={`/${items.name}`}>
           {items.title}

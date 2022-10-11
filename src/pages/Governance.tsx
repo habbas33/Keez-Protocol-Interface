@@ -1,14 +1,23 @@
-import React, {useContext, useState,useEffect} from 'react'
-import { useNavigate, useLocation } from "react-router-dom";
-import { ConnectProfileModal } from '../modals';
-import { CreateProposalContext } from '../context/CreateProposalContext'
-import { ProfileContext } from '../context/ProfileContext'
-import { ChooseDao, ChooseTemplate, GeneralTemplate, VotingTemplate, PermissionTemplate, DaoTransferTokenTemplate, PreviewProposal } from "../components/proposal";
+import React, { useContext, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { ConnectProfileModal } from "../modals";
+import { CreateProposalContext } from "../context/CreateProposalContext";
+import { ProfileContext } from "../context/ProfileContext";
+import {
+  ChooseDao,
+  ChooseTemplate,
+  GeneralTemplate,
+  VotingTemplate,
+  PermissionTemplate,
+  DaoTransferTokenTemplate,
+  PreviewProposal,
+} from "../components/proposal";
 
 type LocationProps = {
   state: {
     component: string;
-    CID:string;
+    CID: string;
+    page: string;
   };
 };
 
@@ -16,44 +25,65 @@ const Governance: React.FC = () => {
   const location = useLocation() as unknown as LocationProps;
   const { accountAddress } = useContext(ProfileContext);
   const { setDaoCid } = useContext(CreateProposalContext);
-  const [formComponent, setFormComponent] = useState<string>('ChooseDao');
-  const [metalink, setMetalink] = useState<string>('');
+  const [formComponent, setFormComponent] = useState<string>("ChooseDao");
   const component = location.state?.component;
+  const page = location.state?.page;
   const CID = location.state?.CID;
 
-  const handleComponent = (NextForm:string) => {
+  const handleComponent = (NextForm: string) => {
     console.log(NextForm);
     setFormComponent(NextForm);
-  }
+  };
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
 
+  //   if (page) {
+  //     setFormComponent(page);
+  //   }
+  // }, []);
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+
     if (component) {
       setFormComponent(component);
       setDaoCid(CID);
     }
-  }, [])
+  }, [component, CID, setDaoCid]);
 
   return (
     <div className="min-h-screen">
-        { !accountAddress ? (
+      {!accountAddress ? (
         <div className="bg-other flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
-          <ConnectProfileModal/>
-            <h1 className="text-white">Connect your user profile</h1>
+          <ConnectProfileModal />
+          <h1 className="text-white">Connect your user profile</h1>
         </div>
-        ):(
-          <>
-          { (formComponent === "ChooseDao") && (<ChooseDao handleComponent={handleComponent}/>)}
-          { (formComponent === "ChooseTemplate") && (<ChooseTemplate handleComponent={handleComponent}/>)}
-          { (formComponent === "PermissionTemplate") && (<PermissionTemplate handleComponent={handleComponent}/>)}
-          { (formComponent === "GeneralTemplate") && (<GeneralTemplate handleComponent={handleComponent}/>)}
-          { (formComponent === "DaoTransferTokenTemplate") && (<DaoTransferTokenTemplate handleComponent={handleComponent}/>)}
-          { (formComponent === "VotingTemplate") && (<VotingTemplate handleComponent={handleComponent}/>)}
-          { (formComponent === "PreviewProposal") && (<PreviewProposal handleComponent={handleComponent}/>)}
-          </>
-        )}
+      ) : (
+        <>
+          {formComponent === "ChooseDao" && (
+            <ChooseDao handleComponent={handleComponent} />
+          )}
+          {formComponent === "ChooseTemplate" && (
+            <ChooseTemplate handleComponent={handleComponent} />
+          )}
+          {formComponent === "PermissionTemplate" && (
+            <PermissionTemplate handleComponent={handleComponent} />
+          )}
+          {formComponent === "GeneralTemplate" && (
+            <GeneralTemplate handleComponent={handleComponent} />
+          )}
+          {formComponent === "DaoTransferTokenTemplate" && (
+            <DaoTransferTokenTemplate handleComponent={handleComponent} />
+          )}
+          {formComponent === "VotingTemplate" && (
+            <VotingTemplate handleComponent={handleComponent} />
+          )}
+          {formComponent === "PreviewProposal" && (
+            <PreviewProposal handleComponent={handleComponent} />
+          )}
+        </>
+      )}
     </div>
   );
-}
+};
 
 export default Governance;

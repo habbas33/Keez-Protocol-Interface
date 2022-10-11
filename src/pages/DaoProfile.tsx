@@ -9,9 +9,9 @@ import {
 } from "../components/daoProfile";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { getParsedJsonObj } from "../utils/getParsedJsonObj";
-import { MdCreate } from "react-icons/md";
+import { MdCreate, MdOutlineAdd } from "react-icons/md";
 import MobileSideNav from "../components/MobileSideNav";
-import { universalProfileContract } from "../services/web3";
+import { permissionContract, universalProfileContract } from "../services/web3";
 import { toast } from "react-toastify";
 //@ts-ignore
 type LocationProps = {
@@ -30,6 +30,9 @@ const DaoProfile = () => {
   const universalProfile = getParsedJsonObj(
     daoDetail.daoUpAddress
   ).universalProfile;
+  const permissionProfile = getParsedJsonObj(
+    daoDetail.daoUpAddress
+  ).daoPermissions;
 
   const navigate = useNavigate();
 
@@ -41,6 +44,10 @@ const DaoProfile = () => {
   const profileImageUrl = profileImageObj.url.concat(profileImageObj.hash);
   // console.log(user.length);
   const isMember: boolean = permisions.vote ? true : false;
+  const changePermission: boolean =
+    permisions?.addPermission === true && permisions?.removePermission == true
+      ? true
+      : false;
   const getProfile = useCallback(async () => {
     let contract = await universalProfileContract(universalProfile)
       ["getData(bytes32[])"]([
@@ -52,6 +59,8 @@ const DaoProfile = () => {
         "0xb207580c05383177027a90d6c298046d3d60dfa05a32b0bb48ea9015e11a3424",
       ])
       .call();
+    // let Permision = await permissionContract(permissionProfile);
+    // console.log("perm", Permision);
     if (accountAddress) {
       let contract1 = await universalProfileContract(universalProfile)
         ["getData(bytes32[])"]([
@@ -88,6 +97,11 @@ const DaoProfile = () => {
       state: { component: "ChooseTemplate", CID: daoDetail.CID },
     });
   };
+  const handleAddPermisson = (event: any) => {
+    navigate("/addmember", {
+      state: { CID: daoDetail.CID, dao: daoDetail },
+    });
+  };
   toast.configure();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -112,7 +126,7 @@ const DaoProfile = () => {
           profileComponent={profileComponent}
         />
         <div className="lg:pt-10 pt-5 text-white min-h-[100vh] lg:w-5/6 flex-col justify-start items-start">
-          <div className="mt flex justify-start items-start">
+          <div className="mt flex flex-col md:flex-row justify-start items-start">
             {profileImageObj ? (
               <div className="md:w-32 w-20">
                 <img
@@ -131,21 +145,32 @@ const DaoProfile = () => {
                 />
               </div>
             )}
-            <div className="flex-col px-2 py-0.5 max-w-[65%]">
+            <div className="flex-row md:flex-col px-2 py-0.5 max-w-[65%]">
               <p className="h-10 w-full text-3xl md:text-4xl text-bold px-2 textShadow">
                 {daoDetail.daoName}
               </p>
-              <p className="h-20 px-2 pt-2">{daoDetail.description}</p>
+              <p className="md:h-20 px-2 pt-2">{daoDetail.description}</p>
             </div>
-            {isMember && (
-              <div
-                onClick={handleCreateProposal}
-                className="flex self-end ml-auto justify-center items-center rounded-full bg-[#6341ff] cursor-pointer hover:bg-[#8168ff] px-2 py-0.5"
-              >
-                <MdCreate className="w-4" fontSize={16} />
-                <p className="text-sm p-1">Create Proposal</p>
-              </div>
-            )}
+            <div className="flex md:flex-col self-end gap-2">
+              {isMember && (
+                <div
+                  onClick={handleCreateProposal}
+                  className="flex self-end ml-auto justify-center items-center rounded-full bg-[#6341ff] cursor-pointer hover:bg-[#8168ff] px-2 py-0.5"
+                >
+                  <MdCreate className="w-4" fontSize={16} />
+                  <p className="text-sm p-1">Create Proposal</p>
+                </div>
+              )}
+              {changePermission && (
+                <div
+                  onClick={handleAddPermisson}
+                  className="flex self-end ml-auto justify-center items-center rounded-full bg-[#6341ff] cursor-pointer hover:bg-[#8168ff] px-2 py-0.5"
+                >
+                  <MdOutlineAdd className="w-4" fontSize={16} />
+                  <p className="text-sm p-1">Add Member</p>
+                </div>
+              )}
+            </div>
           </div>
           <>
             {profileComponent === "Proposals" && (

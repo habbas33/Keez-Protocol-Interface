@@ -19,6 +19,8 @@ import {
   DaoProfile,
 } from "./pages";
 import { Navbar, Footer } from "./components";
+import IndividualProfile from "./pages/IndividualProfile";
+import AddUserPermission from "./components/proposal/AddUserPermissions";
 
 const App: React.FC = () => {
   return (
@@ -151,10 +153,23 @@ const App: React.FC = () => {
                 }
               />
               <Route
-                path="/Discover/:address"
+                path="/profile/:address"
                 element={
                   <>
-                    <DaoProfile />
+                    <IndividualProfile />
+                    <ToastContainer
+                      pauseOnFocusLoss
+                      newestOnTop
+                      autoClose={10000}
+                    />
+                  </>
+                }
+              />
+              <Route
+                path="/addmember"
+                element={
+                  <>
+                    <AddUserPermission />
                     <ToastContainer
                       pauseOnFocusLoss
                       newestOnTop

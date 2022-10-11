@@ -7,6 +7,7 @@ import { IPFS_GATEWAY } from "../../constants/globals";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { universalProfileContract } from "../../services/web3";
 import { ethers } from "ethers";
+import { useNavigate } from "react-router-dom";
 
 const Members = (props: { daoDetail: any }) => {
   const { daoDetail } = props;
@@ -84,6 +85,7 @@ const Members = (props: { daoDetail: any }) => {
 export default Members;
 
 const ProfileBox = (props: { upAddress: string }) => {
+  const navigate = useNavigate();
   const { upAddress } = props;
   const { getProfileInfo } = useContext(ProfileContext);
   const [upName, setUpName] = useState<string>("");
@@ -124,7 +126,10 @@ const ProfileBox = (props: { upAddress: string }) => {
   }, [upAddress]);
 
   return (
-    <div className="w-full m-4">
+    <div
+      className="w-full m-4 cursor-pointer"
+      onClick={() => navigate(`/profile/${upAddress}`)}
+    >
       <div className="w-full flex flex-col justify-start items-center p-1">
         {profileImageUrl != "" ? (
           <img

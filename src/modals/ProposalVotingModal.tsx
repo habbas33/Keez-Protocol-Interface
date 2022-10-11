@@ -357,7 +357,7 @@ export default function ProposalVotingModal(props: {
       const signature_array: string[] = [];
       const address_array: string[] = [];
       const choice_array: string[] = [];
-      for (var i = 0; i < votes.length; i++) {
+      for (var i =  0; i < votes.length; i++) {
         if (Number(votes[i].VoterChoice) !== 0) {
           signature_array.push(votes[i].VoterSignature);
           choice_array.push(votes[i].VoterChoice);

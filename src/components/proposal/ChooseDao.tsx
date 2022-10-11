@@ -14,7 +14,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
   const [daoSelected, setDaoSelected] = useState<number>(0);
   const [zeroMember, setZeroMember] = useState<boolean>(false);
   const [memberDaos, setMemberDaos] = useState<any>([]);
-  const { setDaoCid } = useContext(CreateProposalContext);
+  const { setDaoCid, setDaoUpAddress } = useContext(CreateProposalContext);
   const { accountAddress } = useContext(ProfileContext);
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -26,12 +26,14 @@ const ChooseDao = (props: { handleComponent: any }) => {
   const handleDaoSelection = async (
     event: React.FormEvent,
     id: number,
-    CID: string
+    CID: string,
+    upAddress: string
   ) => {
     event.preventDefault();
     setDaoSelected(id);
     // console.log("set dao cid", CID);
     setDaoCid(CID);
+    setDaoUpAddress(upAddress);
   };
 
   useEffect(() => {
@@ -42,10 +44,15 @@ const ChooseDao = (props: { handleComponent: any }) => {
     if (accountAddress) {
       const fetchData = async () => {
         const result = await getDaoByMember(accountAddress);
+        console.log(result);
         // console.log("x ->",result);
         setMemberDaos(result);
         if (result.length > 0) {
           setZeroMember(false);
+          setDaoUpAddress(
+            getParsedJsonObj(result[result.length - 1].daoUpAddress)
+              .universalProfile
+          );
           setDaoCid(result[result.length - 1].CID);
           // console.log("CID",result[result.length - 1].CID)
         } else {
@@ -151,11 +158,17 @@ const DaoCard = (props: {
   const navigate = useNavigate();
   const profileImageObj = getParsedJsonObj(daoDetail.profileImage);
   const profileImageUrl = profileImageObj.url.concat(profileImageObj.hash);
-
   return (
     <div
       className={`w-full relative`}
-      onClick={(event) => handleDaoSelection(event, id, daoDetail.CID)}
+      onClick={(event) =>
+        handleDaoSelection(
+          event,
+          id,
+          daoDetail.CID,
+          getParsedJsonObj(daoDetail.daoUpAddress).universalProfile
+        )
+      }
       onMouseLeave={handleMouseOut}
       onMouseEnter={handleMouseOver}
     >
