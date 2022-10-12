@@ -45,10 +45,10 @@ const Governance: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // if (component) {
-    //   // setFormComponent(component);
-    //   setDaoCid(CID);
-    // }
+    if (component) {
+      setFormComponent(component);
+      setDaoCid(CID);
+    }
   }, []);
 
   return (

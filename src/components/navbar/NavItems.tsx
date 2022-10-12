@@ -81,6 +81,7 @@ const NavItems = (props: { items: any; depthLevel: number }) => {
           onClick={() => {
             console.log("hello");
             setFormComponent("ChooseDao");
+            console.log(setFormComponent);
           }}
         >
           Governance
