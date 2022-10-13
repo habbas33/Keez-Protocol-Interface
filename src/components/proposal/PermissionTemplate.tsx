@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { MdNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
 import { SingleSelect, Input } from "../../components";
 import { CreateProposalContext } from "../../context/CreateProposalContext";
@@ -8,26 +8,29 @@ import { toast } from "react-toastify";
 import { VALIDATORS } from "../../constants/globals";
 import { getDaoByCID } from "../../services/keezBackend";
 import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
-import { StyledPopover } from "../../styles";
+// import { StyledPopover } from "../../styles";
 import InfoPopOver from "../InfoPopOver";
+import { universalProfileContract } from "../../services/web3";
+import Select from "../Select";
+import { ethers } from "ethers";
 
 const PermissionsTemplate = (props: { handleComponent: any }) => {
-  const classes = StyledPopover();
+  // const classes = StyledPopover();
 
   const { handleComponent } = props;
   const {
     proposalName,
     setProposalName,
     categories,
-    setCategories,
+    // setCategories,
     description,
     setDescription,
     setKeyPermissions,
-    setVaultPermissions,
+    // setVaultPermissions,
     keyPermissions,
-    vaultPermissions,
+    // vaultPermissions,
     membersOrVault,
-    setMembersOrVault,
+    // setMembersOrVault,
     daoCid,
   } = useContext(CreateProposalContext);
 
@@ -43,8 +46,10 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
   const [receiveDelegatePermission, setReceiveDelegatePermission] =
     useState<boolean>(false);
   const [memberAddress, setMemberAddress] = useState<string>("");
-  const [addOrRevoke, setAddOrRevoke] = useState<string>("Add"); // true -> Add / false -> revoke
+  // const [addOrRevoke, setAddOrRevoke] = useState<string>("Add"); // true -> Add / false -> revoke
   const [daoSelected, setDaoSelected] = useState<any>([]);
+  const [addNewUser, setAddNewUser] = useState(false);
+  const [membersList, setMembers] = useState<any>([]);
 
   toast.configure();
 
@@ -63,6 +68,33 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
 
     return "success";
   };
+  const universalProfile = getParsedJsonObj(
+    daoSelected?.daoUpAddress
+  )?.universalProfile;
+  const getPermissions = useCallback(async () => {
+    if (memberAddress) {
+      try {
+        let contract1 = await universalProfileContract(universalProfile)
+          ["getData(bytes32[])"]([
+            "0x4b80742de2bfb3cc0e490000" + memberAddress.substring(2),
+          ])
+          .call();
+        const permissionBin = parseInt(contract1[0], 16).toString(2);
+        setRegisterVotesPermission(permissionBin[0] === "1");
+        setRemovePermission(permissionBin[1] === "1");
+        setAddPermission(permissionBin[2] === "1");
+        setReceiveDelegatePermission(permissionBin[3] === "1");
+        setSendDelegatePermission(permissionBin[4] === "1");
+        setExecutePermission(permissionBin[5] === "1");
+        setProposePermission(permissionBin[6] === "1");
+        setVotePermission(permissionBin[7] === "1");
+      } catch {
+        toast.error("An error ocurred, check your connection", {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    }
+  }, [universalProfile, memberAddress]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -106,9 +138,9 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
     handleComponent("ChooseTemplate");
   };
 
-  const handleCategoriesChange = (selectedOption: any) => {
-    setCategories(selectedOption);
-  };
+  // const handleCategoriesChange = (selectedOption: any) => {
+  //   setCategories(selectedOption);
+  // };
 
   const handleMemberChange = (selectedOption: any) => {
     const selection = membersList.find(
@@ -145,53 +177,77 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
       };
       fetchData();
     }
-  }, []);
+  }, [daoCid]);
 
   useEffect(() => {
-    for (var i = 0; i < permissionsObject.length; i++) {
-      if (permissionsObject[i].upAddress == memberAddress) {
-        setVotePermission(permissionsObject[i].keyPermissions.vote === "True");
-        setProposePermission(
-          permissionsObject[i].keyPermissions.propose === "True"
-        );
-        setSendDelegatePermission(
-          permissionsObject[i].keyPermissions.sendDelegate === "True"
-        );
-        setReceiveDelegatePermission(
-          permissionsObject[i].keyPermissions.receiveDelegate === "True"
-        );
-        setRegisterVotesPermission(
-          permissionsObject[i].keyPermissions?.registerVotes === "True"
-        );
-        setAddPermission(
-          permissionsObject[i].keyPermissions?.addPermission === "True"
-        );
-        setRemovePermission(
-          permissionsObject[i].keyPermissions?.removePermission === "True"
-        );
-        setExecutePermission(
-          permissionsObject[i].keyPermissions?.execute === "True"
-        );
-      }
+    if (memberAddress) {
+      getPermissions();
     }
-    console.log("member changes");
-    console.log(permissionsObject);
-    console.log(daoSelected);
-  }, [memberAddress]);
+    // for (var i = 0; i < permissionsObject.length; i++) {
+    //   if (permissionsObject[i].upAddress == memberAddress) {
+    //     setVotePermission(permissionsObject[i].keyPermissions.vote === "True");
+    //     setProposePermission(
+    //       permissionsObject[i].keyPermissions.propose === "True"
+    //     );
+    //     setSendDelegatePermission(
+    //       permissionsObject[i].keyPermissions.sendDelegate === "True"
+    //     );
+    //     setReceiveDelegatePermission(
+    //       permissionsObject[i].keyPermissions.receiveDelegate === "True"
+    //     );
+    //     setRegisterVotesPermission(
+    //       permissionsObject[i].keyPermissions?.registerVotes === "True"
+    //     );
+    //     setAddPermission(
+    //       permissionsObject[i].keyPermissions?.addPermission === "True"
+    //     );
+    //     setRemovePermission(
+    //       permissionsObject[i].keyPermissions?.removePermission === "True"
+    //     );
+    //     setExecutePermission(
+    //       permissionsObject[i].keyPermissions?.execute === "True"
+    //     );
+    //   }
+    // }
+    // console.log("member changes");
+    // console.log(permissionsObject);
+    // console.log(daoSelected);
+  }, [memberAddress, getPermissions]);
 
   const permissionsObject =
-    daoSelected.length != ""
+    daoSelected.length !== ""
       ? getParsedJsonObj(daoSelected.keyPermissions)
       : "";
   // console.log(JSON.stringify(permissionsObject));
-  const membersList: any = [];
-
-  Object.keys(permissionsObject).forEach(function (key, index) {
-    membersList[key] = {
-      value: permissionsObject[key].upAddress,
-      label: permissionsObject[key].upAddress,
-    };
-  });
+  const getProfile = useCallback(async () => {
+    let contract = await universalProfileContract(universalProfile)
+      ["getData(bytes32[])"]([
+        // DAO Settings
+        "0xf7f9c7410dd493d79ebdaee15bbc77fd163bd488f54107d1be6ed34b1e099004",
+      ])
+      .call();
+    let totalMembers: number = parseInt(contract[0]);
+    let members = [];
+    if (totalMembers >= 0) {
+      console.log(totalMembers);
+      for (let i = 0; i < totalMembers; i++) {
+        console.log(i);
+        let contract = await universalProfileContract(universalProfile)
+          ["getData(bytes32[])"]([
+            "0xf7f9c7410dd493d79ebdaee15bbc77fd" +
+              ethers.utils
+                .hexZeroPad(ethers.utils.hexValue(i), 16)
+                .substring(2),
+          ])
+          .call();
+        members.push({ label: contract[0], value: contract[0] });
+      }
+      setMembers(members);
+    }
+  }, [universalProfile]);
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   toast.configure();
   return (
@@ -296,15 +352,67 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
                 htmlFor="minVotingPeriod"
               >
                 Choose {membersOrVault === "Members" ? "Address" : "Vault"} from
-                List
+                List or Add new member
               </label>
               <InfoPopOver info="Select or enter the Universal Profile address to which you would like to add or revoke permissions." />
             </div>
-            <SingleSelect
-              handleChange={handleMemberChange}
-              name={"address"}
-              listItems={membersList}
+            <Select
+              value={addNewUser}
+              onChange={() => {
+                setAddNewUser((value) => !value);
+                setMemberAddress("");
+              }}
+              options={[
+                {
+                  value: true,
+                  label: "Add new member",
+                },
+                {
+                  value: false,
+                  label: "Choose from list",
+                },
+              ]}
             />
+            {!addNewUser ? (
+              <>
+                <div className="flex justify-left pt-4 w-full">
+                  <label
+                    className="block  text-white text-sm font-normal"
+                    htmlFor="minVotingPeriod"
+                  >
+                    Choose {membersOrVault === "Members" ? "Address" : "Vault"}{" "}
+                    from List
+                  </label>
+                  <InfoPopOver info="Select or enter the Universal Profile address to which you would like to add or revoke permissions." />
+                </div>
+                <SingleSelect
+                  handleChange={handleMemberChange}
+                  name={"address"}
+                  listItems={membersList}
+                />
+              </>
+            ) : (
+              <>
+                <div className="flex justify-left pt-4 w-full">
+                  <label
+                    className="block  text-white text-sm font-normal"
+                    htmlFor="minVotingPeriod"
+                  >
+                    Add new {membersOrVault === "Members" ? "Address" : "Vault"}{" "}
+                  </label>
+                  <InfoPopOver info="enter the Universal Profile address to which you would like to add or revoke permissions." />
+                </div>
+
+                <Input
+                  type="text"
+                  name="member"
+                  value={memberAddress}
+                  handleChange={(e: any) => {
+                    setMemberAddress(e.target.value);
+                  }}
+                />
+              </>
+            )}
 
             {membersOrVault === "Members" && (
               <>

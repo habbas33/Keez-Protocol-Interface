@@ -172,7 +172,9 @@ const DaoCard = (props: { id: number; daoDetail: any }) => {
             <button
               type="button"
               onClick={() =>
-                navigate("/DaoProfile", { state: { daoDetail: daoDetail } })
+                navigate("/Daoprofile", {
+                  state: { daoDetail: daoDetail },
+                })
               }
               className="flex flex-row items-center w-20  justify-center text-[#6341ff] text-xs font-bold py-2 hover:text-white hover:border-white border-2 border-transparent rounded-full bg-white hover:bg-[#8168ff]"
             >
