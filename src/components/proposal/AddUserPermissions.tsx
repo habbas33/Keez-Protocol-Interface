@@ -6,8 +6,8 @@ import { CreateProposalContext } from "../../context/CreateProposalContext";
 import Switch from "@material-ui/core/Switch";
 import { toast } from "react-toastify";
 import { VALIDATORS } from "../../constants/globals";
-import { getDaoByCID } from "../../services/keezBackend";
-import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
+import { getDaoByCID, putDaoUpdate } from "../../services/keezBackend";
+import { getParsedJsonObj, getParsedJsonObj2 } from "../../utils/getParsedJsonObj";
 // import { StyledPopover } from "../../styles";
 import InfoPopOver from "../InfoPopOver";
 import {
@@ -61,9 +61,9 @@ const AddUserPermission = () => {
     if (!memberAddress || memberAddress.length === 0) {
       return "Please enter an address";
     }
-    if (memberExist) {
-      return "Member already exists";
-    }
+    // if (memberExist) {
+    //   return "Member already exists";
+    // }
 
     // if (!categories || categories.length === 0) {
     //   return "Please select atleast one category for your proposal";
@@ -140,7 +140,7 @@ const AddUserPermission = () => {
       (proposePermission << 1) +
       votePermission;
     await permissionContract(universalProfile, memberAddress, permissionbyte);
-    setKeyPermissions({
+    const _keyPermissions = {
       upAddress: memberAddress,
       keyPermissions: {
         vote: votePermission,
@@ -152,13 +152,20 @@ const AddUserPermission = () => {
         sendDelegate: sendDelegatePermission,
         receiveDelegate: receiveDelegatePermission,
       },
-    });
+    }
+    setKeyPermissions(_keyPermissions);
     // } else if (membersOrVault === "Vault"){
     //   setVaultPermissions({vaultAddress:"", action:addOrRevoke});
     // }
     // console.log(membersOrVault);
     // console.log(addOrRevoke);
-    console.log("kp= ", keyPermissions);
+
+    // putDaoUpdate
+    let _daoSelected = daoSelected
+    _daoSelected.keyPermissions = daoSelected.keyPermissions.slice(0,1)+getParsedJsonObj2(JSON.stringify(_keyPermissions))+","+daoSelected.keyPermissions.slice(1)
+    // console.log("daoSelected= ", _daoSelected.keyPermissions);
+    putDaoUpdate(_daoSelected);
+    // console.log("kp= ", getParsedJsonObj2(JSON.stringify(_keyPermissions)));
     // console.log(vaultPermissions);
   };
 
@@ -205,7 +212,7 @@ const AddUserPermission = () => {
     if (daoCid) {
       const fetchData = async () => {
         const result = await getDaoByCID(daoCid);
-        console.log("doa selected set", result);
+        // console.log("doa selected set", result);
       };
       fetchData();
     }

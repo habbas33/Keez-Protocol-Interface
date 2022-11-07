@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 interface CreateDaoContextInterface {
     daoName: string;
     setDaoName: any;
+    daoLink: string;
+    setDaoLink: any;
     logoImageFile: File|undefined;
     setLogoImageFile: any;
     categories: {value:string, label:string}[];
@@ -37,6 +39,8 @@ export const CreateDaoContext = React.createContext<CreateDaoContextInterface>(
     {
         daoName: '',
         setDaoName: () => {},
+        daoLink: '',
+        setDaoLink: () => {},
         logoImageFile: null as any,
         setLogoImageFile: () => {},
         categories: [{value: "DAO", label: "DAO"},{value: "Social", label: "Social"}],
@@ -69,6 +73,7 @@ export const CreateDaoContext = React.createContext<CreateDaoContextInterface>(
 
 export const CreateDaoContextProvider = ({children}:any) => {
     const [daoName, setDaoName] = useState<string>('');
+    const [daoLink, setDaoLink] = useState<string>('');
     const [logoImageFile, setLogoImageFile] = useState<File>();
     const [categories, setCategories] = useState<{value:string, label:string}[]>([{value: "DAO", label: "DAO"},{value: "Social", label: "Social"}]);
     const [description, setDescription] = useState<string>('');
@@ -89,10 +94,12 @@ export const CreateDaoContextProvider = ({children}:any) => {
         <CreateDaoContext.Provider 
             value={{
                 daoName: daoName, 
+                daoLink: daoLink, 
                 logoImageFile: logoImageFile, 
                 categories: categories, 
                 description: description, 
                 setDaoName: setDaoName, 
+                setDaoLink: setDaoLink, 
                 setLogoImageFile: setLogoImageFile, 
                 setCategories: setCategories ,
                 setDescription: setDescription,

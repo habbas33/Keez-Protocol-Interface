@@ -163,22 +163,24 @@ export const DaoProposalProvider = ({ children }: any) => {
         DaoProposalsJSON.abi,
         signer
       );
-      console.log(daoProposals.address);
-      console.log(proposalSignature);
+      // console.log(daoProposals.address);
+      // console.log(proposalSignature);
       const hashUser = await daoProposals.getProposalHash(
         userAddress,
         proposalSignature,
         choice
       );
-      console.log("here");
-      if (web3) {
-        const signature = await web3.eth.sign(
-          ethers.utils.arrayify(hashUser).toString(),
-          userAddress
-        );
-        return signature;
-      }
-      return "error";
+      // console.log("here");
+      const signature = await signer._legacySignMessage(ethers.utils.arrayify(hashUser));
+      return signature
+      // if (web3) {
+      //   const signature = await web3.eth.sign(
+      //     ethers.utils.arrayify(hashUser).toString(),
+      //     userAddress
+      //   );
+      //   return signature;
+      // }
+      // return "error";
     } catch (error) {
       console.log(error);
       return "Stopped";

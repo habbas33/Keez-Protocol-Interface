@@ -3,6 +3,8 @@ import React, { useState } from "react";
 interface CreateProposalContextInterface {
   proposalName: string;
   setProposalName: any;
+  addNewUser: boolean;
+  setAddNewUser: any;
   categories: { value: string; label: string }[];
   setCategories: any;
   description: string;
@@ -70,6 +72,8 @@ export const CreateProposalContext =
   React.createContext<CreateProposalContextInterface>({
     proposalName: "",
     setProposalName: () => {},
+    addNewUser: false,
+    setAddNewUser: () => {},
     categories: [
       { value: "DAO", label: "DAO" },
       { value: "Social", label: "Social" },
@@ -136,6 +140,7 @@ export const CreateProposalContext =
 
 export const CreateProposalContextProvider = ({ children }: any) => {
   const [proposalName, setProposalName] = useState<string>("");
+  const [addNewUser, setAddNewUser] = useState<boolean>(false);
   const [categories, setCategories] = useState<
     { value: string; label: string }[]
   >([
@@ -204,6 +209,8 @@ export const CreateProposalContextProvider = ({ children }: any) => {
     <CreateProposalContext.Provider
       value={{
         proposalName: proposalName,
+        addNewUser: addNewUser,
+        setAddNewUser: setAddNewUser,
         categories: categories,
         description: description,
         participationRate: participationRate,

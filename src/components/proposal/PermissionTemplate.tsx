@@ -22,6 +22,8 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
     proposalName,
     setProposalName,
     categories,
+    addNewUser,
+    setAddNewUser,
     // setCategories,
     description,
     setDescription,
@@ -48,7 +50,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
   const [memberAddress, setMemberAddress] = useState<string>("");
   // const [addOrRevoke, setAddOrRevoke] = useState<string>("Add"); // true -> Add / false -> revoke
   const [daoSelected, setDaoSelected] = useState<any>([]);
-  const [addNewUser, setAddNewUser] = useState(false);
+  // const [addNewUser, setAddNewUser] = useState(false);
   const [membersList, setMembers] = useState<any>([]);
 
   toast.configure();
@@ -359,7 +361,7 @@ const PermissionsTemplate = (props: { handleComponent: any }) => {
             <Select
               value={addNewUser}
               onChange={() => {
-                setAddNewUser((value) => !value);
+                setAddNewUser((value:boolean) => !value);
                 setMemberAddress("");
               }}
               options={[

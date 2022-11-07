@@ -37,7 +37,7 @@ const DaoProfile = () => {
   const navigate = useNavigate();
 
   const handleComponent = (Component: string) => {
-    console.log(Component);
+    // console.log(Component);
     setProfileComponent(Component);
   };
   const profileImageObj = getParsedJsonObj(daoDetail.profileImage);
@@ -113,7 +113,7 @@ const DaoProfile = () => {
       });
     }
   }, [getProfile]);
-
+// console.log(daoDetail)
   return (
     <div className="min-h-screen">
       <div className="bg-other flex-col gap-5 lg:flex-row flex min-h-[100vh] w-full justify-start items-start px-5 lg:px-40 md:px-20">
@@ -126,7 +126,7 @@ const DaoProfile = () => {
           profileComponent={profileComponent}
         />
         <div className="lg:pt-10 pt-5 text-white min-h-[100vh] lg:w-5/6 flex-col justify-start items-start">
-          <div className="mt flex flex-col md:flex-row justify-start items-start">
+          <div className="mt flex w-full flex-col md:flex-row justify-start items-start ">
             {profileImageObj ? (
               <div className="md:w-32 w-20">
                 <img
@@ -145,13 +145,14 @@ const DaoProfile = () => {
                 />
               </div>
             )}
-            <div className="flex-row md:flex-col px-2 py-0.5 max-w-[65%]">
+            <div className="flex-row md:flex-col grow px-2 py-0.5 max-w-[65%]">
               <p className="h-10 w-full text-3xl md:text-4xl text-bold px-2 textShadow">
                 {daoDetail.daoName}
               </p>
-              <p className="md:h-20 px-2 pt-2">{daoDetail.description}</p>
+              <p className="md:h-20 px-2 w-full pt-2">{daoDetail.description}</p>
+              <p className="md:h-10 px-2 pt-2"><a target="_blank" href={daoDetail.daoLink} rel="noreferrer">{daoDetail.daoLink}</a></p>
             </div>
-            <div className="flex md:flex-col self-end gap-2">
+            <div className="flex md:flex-col ml-auto self-end gap-2">
               {isMember && (
                 <div
                   onClick={handleCreateProposal}

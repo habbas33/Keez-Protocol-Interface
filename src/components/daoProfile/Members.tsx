@@ -27,7 +27,7 @@ const Members = (props: { daoDetail: any }) => {
     let totalMembers: number = parseInt(contract[0]);
     let members = [];
     if (totalMembers >= 0) {
-      console.log(totalMembers);
+      console.log("totalmembers = ",totalMembers);
       for (let i = 0; i < totalMembers; i++) {
         console.log(i);
         let contract = await universalProfileContract(universalProfile)

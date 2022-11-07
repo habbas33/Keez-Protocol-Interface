@@ -18,6 +18,23 @@ export const postDaoUp = async (jsontext: any) => {
   }
 };
 
+export const putDaoUpdate = async (jsontext: any) => {
+  try {
+    const response = await fetch(KEEZ_BACKEND_ENDPOINT.concat("daos/update"), {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jsontext),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const postProposal = async (jsontext: any) => {
   try {
     const response = await fetch(

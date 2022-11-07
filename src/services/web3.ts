@@ -39,7 +39,7 @@ export const permissionContract = async (
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   const contract = new ethers.Contract(address, permission.abi as any, signer);
-  contract.addPermissions(
+  await contract.addPermissions(
     profile,
     ethers.utils.hexZeroPad(ethers.utils.hexValue(permissionByte), 32)
   );
