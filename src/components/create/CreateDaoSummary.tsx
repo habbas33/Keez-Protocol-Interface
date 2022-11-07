@@ -25,6 +25,7 @@ const CreateDaoSummary = (props: {
   const { handleSubmitCreate, setMetalink } = props;
   const {
     daoName,
+    daoLink,
     logoImageFile,
     categories,
     description,
@@ -45,20 +46,21 @@ const CreateDaoSummary = (props: {
   const navigate = useNavigate();
 
   //@ts-ignore
-  console.log("height",logoImageFile)
+  // console.log("height",logoImageFile)
   //@ts-ignore
   // console.log("width",logoImageFile)
   const handleSubmit = async () => {
     setSubmitLoading(true);
     const timestamp = dayjs().valueOf();
-    console.log(timestamp)
+    // console.log(timestamp)
     if (logoImageFile) {
       try {
         const resultLogoMetadata = await postImageToIPFS(logoImageFile);
-        console.log("resultLogoMetadata",resultLogoMetadata)
+        // console.log("resultLogoMetadata",resultLogoMetadata)
         let DaoUpMetadata = {
           daoProfile: {
             daoName: daoName,
+            daoLink: daoLink,
             profileImage: { hash: resultLogoMetadata.cid, url: IPFS_DWEB_URL },
             categories: categories,
             description: description,
@@ -83,7 +85,7 @@ const CreateDaoSummary = (props: {
         const metalink :string = IPFS_DWEB_URL.concat(resultDaoMetadata.cid)
         
  
-        console.log(metalink);
+        // console.log(metalink);
         setMetalink(metalink);
         // window.open(metalink, "_blank");
         
@@ -109,7 +111,7 @@ const CreateDaoSummary = (props: {
         };
 
         const result = await postDaoUp(DaoUpMetadata);
-        console.log(DaoUpMetadata)
+        // console.log(DaoUpMetadata)
         toast.success("Dao Profile Created", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });

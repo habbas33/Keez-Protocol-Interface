@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect, useRef, useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { CreateProposalContext } from "../../context/CreateProposalContext";
 
 const Dropdown = (props: { submenus: any; dropdown: boolean }) => {
   const { submenus, dropdown } = props;
@@ -21,6 +22,8 @@ const Dropdown = (props: { submenus: any; dropdown: boolean }) => {
 const NavItems = (props: { items: any; depthLevel: number }) => {
   const { items, depthLevel } = props;
   const [dropdown, setDropdown] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const { setFormComponent } = useContext(CreateProposalContext);
 
   let ref = useRef<any>();
 
@@ -72,6 +75,17 @@ const NavItems = (props: { items: any; depthLevel: number }) => {
           </button>
           <Dropdown submenus={items.submenu} dropdown={dropdown} />
         </>
+      ) : items.title === "Governance" &&
+        window.location.pathname === "/Governance" ? (
+        <button
+          onClick={() => {
+            console.log("hello");
+            setFormComponent("ChooseDao");
+            console.log(setFormComponent);
+          }}
+        >
+          Governance
+        </button>
       ) : items.title !== "Docs" ? (
         <NavLink className="hover:text-[#6341ff]" to={`/${items.name}`}>
           {items.title}

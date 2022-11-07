@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { IPFS_GATEWAY } from "../../constants/globals";
@@ -11,10 +11,11 @@ import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
 import Skeleton from "@material-ui/lab/Skeleton";
 import ReactCardFlip from "react-card-flip";
 import { useNavigate } from "react-router-dom";
+import { fetchErc725Data } from "../../services/erc725";
 
 const ProfileDetails = (props: { accountAddress: string }) => {
   const { accountAddress } = props;
-  const { profileData } = useContext(ProfileContext);
+  const [profileData, setProfileData] = useState<any>({});
   const [upName, setUpName] = useState<string>("");
   const [upDescription, setUpDescription] = useState<string>("");
   const [upLinks, setUpLinks] = useState<{ title: string; url: string }[]>([]);
@@ -29,11 +30,22 @@ const ProfileDetails = (props: { accountAddress: string }) => {
   const [daoSelected, setDaoSelected] = useState<number>(0);
   const [memberDaos, setMemberDaos] = useState<any>([]);
   const [filterString, setFilter] = useState<string>("");
+  const fetchProfile = async (account: string) => {
+    try {
+      const data = await fetchErc725Data(account);
+      setProfileData(data);
+      console.log("erc725profile = ", data);
+    } catch (error) {
+      console.log("This is not an ERC725 Contract");
+    }
+  };
 
   const getUserProfile = async (upAddress: string) => {
     try {
-      if (profileData.value.LSP3Profile) {
-        const profile = profileData?.value?.LSP3Profile;
+      const data: any = await fetchErc725Data(upAddress);
+      setProfileData(data);
+      if (data.value.LSP3Profile) {
+        const profile = data?.value?.LSP3Profile;
         const profileImgUrl = IPFS_GATEWAY.concat(
           profile?.profileImage[4]?.url.slice(7)
         );
@@ -50,25 +62,24 @@ const ProfileDetails = (props: { accountAddress: string }) => {
         setUpLinks(profile?.links);
         setUpTags(profile?.tags);
       }
+      const result = await getDaoByMember(accountAddress);
+      console.log(result);
+      setMemberDaos(result);
     } catch (error) {
       setUpName(shortenAddress(upAddress));
       console.log(upAddress, "This is not an ERC725 Contract");
     }
   };
   // const location = useLocation().pathname;
-  useEffect(() => {
+  const aggregate = useCallback(async () => {
     if (accountAddress) {
-      getUserProfile(accountAddress);
-      const fetchData = async () => {
-        if (accountAddress) {
-          const result = await getDaoByMember(accountAddress);
-          setMemberDaos(result);
-        }
-      };
-      fetchData();
+      await getUserProfile(accountAddress);
     }
-    window.scrollTo(0, 0);
   }, [accountAddress]);
+  useEffect(() => {
+    aggregate();
+    window.scrollTo(0, 0);
+  }, [aggregate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -118,7 +129,7 @@ const ProfileDetails = (props: { accountAddress: string }) => {
           <p className="h-20 p-2">{upDescription}</p>
           <div className="flex justify-start items-center my-1">
             <AiOutlineLink className="w-6" fontSize={20} />
-            {upLinks.map((links: any, index: number) => (
+            {upLinks?.map((links: any, index: number) => (
               <a
                 className="px-2 text-normal text-sm"
                 href={links.url}
@@ -130,7 +141,7 @@ const ProfileDetails = (props: { accountAddress: string }) => {
           </div>
           <div className="flex justify-start items-center my-1">
             {/* <AiOutlineLink className="w-6" fontSize={20}  /> */}
-            {upTags.map((tags: string, index: number) => (
+            {upTags?.map((tags: string, index: number) => (
               <div key={index} className="rounded-md mx-1 bg-[#8681ff]">
                 <a className="px-2 py-1 text-normal text-sm">{tags}</a>
               </div>
@@ -149,7 +160,7 @@ const ProfileDetails = (props: { accountAddress: string }) => {
         </div>
         <div className="flex flex-wrap justify-between m-5 items-center pb-4 my-1 rounded-lg">
           <div className="flex flex-wrap items-center border-solid rounded-lg  border-[#999999] border-2 bg-white  text-[#7f7f81] px-2 text-sm font-bold">
-            {filterParam.map((item, index) => (
+            {filterParam?.map((item, index) => (
               <p
                 key={index}
                 className={`hover:border-[#1A1A1D] border-b-2 cursor-pointer px-2 hover:text-[#1A1A1D] py-2 ${

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { MdNavigateNext } from "react-icons/md";
 import {
   AiOutlineUserAdd,
@@ -32,7 +32,20 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
     useState<boolean>(false);
   const [addPermission, setAddPermission] = useState<boolean>(false);
   const [removePermission, setRemovePermission] = useState<boolean>(false);
-
+  const [formValue, setForm] = useState({
+    vote: false,
+    propose: false,
+    execute: false,
+    add: false,
+    remove: false,
+    registerVotes: false,
+    sendDeligate: false,
+    recieveDelegate: false,
+  });
+  const onChange = useCallback((e: any) => {
+    const { name, checked }: { name: any; checked: any } = e.target;
+    setForm((prev) => ({ ...prev, [name]: checked }));
+  }, []);
   const handleAddKeyPermission = (event: any) => {
     event.preventDefault();
     const validationResult = addKeyPermissionValidations();
@@ -57,6 +70,17 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
         },
       },
     ]);
+    setForm({
+      vote: false,
+      propose: false,
+      execute: false,
+      add: false,
+      remove: false,
+      registerVotes: false,
+      sendDeligate: false,
+      recieveDelegate: false,
+    });
+    setUpAddress("");
     console.log(JSON.stringify(keyPermissions));
   };
 
@@ -158,7 +182,10 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   placeholder=""
                   name="up_address"
                   type="text"
-                  handleChange={(e: any) => setUpAddress(e.target.value)}
+                  handleChange={(e: any) => {
+                    setUpAddress(e.target.value);
+                  }}
+                  value={upAddress}
                 />
 
                 <button
@@ -193,6 +220,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                   type="checkbox"
                   name="vote"
                   onClick={(e: any) => setVotePermission(e.target.checked)}
+                  onChange={(e) => onChange(e)}
+                  checked={formValue.vote}
                   className="accent-[#6341ff] focus:accent-[#6341ff]"
                 />
                 <div className="flex justify-left  w-full">
@@ -212,6 +241,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 <input
                   type="checkbox"
                   name="propose"
+                  onChange={(e) => onChange(e)}
+                  checked={formValue.propose}
                   onClick={(e: any) => setProposePermission(e.target.checked)}
                   className="accent-[#6341ff] focus:accent-[#6341ff]"
                 />
@@ -233,6 +264,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 <input
                   type="checkbox"
                   name="execute"
+                  onChange={(e) => onChange(e)}
+                  checked={formValue.execute}
                   onClick={(e: any) => setExecutePermission(e.target.checked)}
                   className="accent-[#6341ff] focus:accent-[#6341ff]"
                 />
@@ -256,6 +289,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 <input
                   type="checkbox"
                   name="registerVotes"
+                  onChange={(e) => onChange(e)}
+                  checked={formValue.registerVotes}
                   onClick={(e: any) =>
                     setRegisterVotesPermission(e.target.checked)
                   }
@@ -281,6 +316,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 <input
                   type="checkbox"
                   name="add"
+                  onChange={(e) => onChange(e)}
+                  checked={formValue.add}
                   onClick={(e: any) => setAddPermission(e.target.checked)}
                   className="accent-[#6341ff] focus:accent-[#6341ff]"
                 />
@@ -301,6 +338,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 <input
                   type="checkbox"
                   name="remove"
+                  onChange={(e) => onChange(e)}
+                  checked={formValue.remove}
                   onClick={(e: any) => setRemovePermission(e.target.checked)}
                   className="accent-[#6341ff] focus:accent-[#6341ff]"
                 />
@@ -322,6 +361,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
                 <input
                   type="checkbox"
                   name="sendDeligate"
+                  onChange={(e) => onChange(e)}
+                  checked={formValue.sendDeligate}
                   onClick={(e: any) =>
                     setSendDelegatePermission(e.target.checked)
                   }
@@ -344,6 +385,8 @@ const CreateKeyPermissions = (props: { handleSubmitCreate: any }) => {
               <div className="flex items-center my-3">
                 <input
                   type="checkbox"
+                  onChange={(e) => onChange(e)}
+                  checked={formValue.recieveDelegate}
                   name="receiveDelegate"
                   onClick={(e: any) =>
                     setReceiveDelegatePermission(e.target.checked)

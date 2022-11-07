@@ -16,6 +16,8 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
   const {
     daoName,
     setDaoName,
+    daoLink,
+    setDaoLink,
     logoImageFile,
     setLogoImageFile,
     categories,
@@ -28,12 +30,16 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
 
   const handleCategoriesChange = (selectedOption: any) => {
     setCategories([selectedOption]);
-    console.log(selectedOption);
+    // console.log(selectedOption);
   };
 
   const formSubmitValidations = () => {
     if (!daoName || daoName.length === 0) {
       return "Please enter a DAO Name";
+    }
+
+    if (!daoLink || daoLink.length === 0) {
+      return "Please enter a DAO Link";
     }
 
     if (!logoImageFile || logoImageFile.size === 0) {
@@ -145,6 +151,25 @@ const CreateDao = (props: { handleSubmitCreate: any }) => {
             {/* Maximum three categories in following order [Primary, Secondary,
             Tertiary] */}
           </p>
+          <div className="flex justify-left pt-4 w-full">
+            <label
+              className="block text-white text-sm font-normal"
+              htmlFor="link"
+            >
+              Link
+            </label>
+            <InfoPopOver
+              info="A link to your DAO webpage of social accounts."
+            />
+          </div>
+          <Input
+            value={daoLink}
+            name="dao_link"
+            type="text"
+            placeholder="http://www.myprotocol.com"
+            maxLength={50}
+            handleChange={(e: any) => setDaoLink(e.target.value)}
+          />
           <div className="flex justify-left pt-4 w-full">
             <label
               className="block  text-white text-sm font-normal"

@@ -14,7 +14,7 @@ const ChooseDao = (props: { handleComponent: any }) => {
   const [daoSelected, setDaoSelected] = useState<number>(0);
   const [zeroMember, setZeroMember] = useState<boolean>(false);
   const [memberDaos, setMemberDaos] = useState<any>([]);
-  const { setDaoCid } = useContext(CreateProposalContext);
+  const { setDaoCid, setDaoUpAddress } = useContext(CreateProposalContext);
   const { accountAddress } = useContext(ProfileContext);
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -26,12 +26,14 @@ const ChooseDao = (props: { handleComponent: any }) => {
   const handleDaoSelection = async (
     event: React.FormEvent,
     id: number,
-    CID: string
+    CID: string,
+    upAddress: string
   ) => {
     event.preventDefault();
     setDaoSelected(id);
     // console.log("set dao cid", CID);
     setDaoCid(CID);
+    setDaoUpAddress(upAddress);
   };
 
   useEffect(() => {
@@ -42,10 +44,15 @@ const ChooseDao = (props: { handleComponent: any }) => {
     if (accountAddress) {
       const fetchData = async () => {
         const result = await getDaoByMember(accountAddress);
+        console.log(result);
         // console.log("x ->",result);
         setMemberDaos(result);
-        if (result.length >0) {
+        if (result.length > 0) {
           setZeroMember(false);
+          setDaoUpAddress(
+            getParsedJsonObj(result[result.length - 1].daoUpAddress)
+              .universalProfile
+          );
           setDaoCid(result[result.length - 1].CID);
           // console.log("CID",result[result.length - 1].CID)
         } else {
@@ -58,69 +65,71 @@ const ChooseDao = (props: { handleComponent: any }) => {
 
   return (
     <div className="bg-other pt-10  min-h-[100vh] w-full px-5 md:px-[15%]">
-      {zeroMember && 
-        // <div className="bg-other flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
-        <ZeroMemberModal/>
-          
-      // </div>
+      {
+        zeroMember && (
+          // <div className="bg-other flex min-h-[100vh] w-full justify-center items-center px-5 lg:px-40 md:px-20">
+          <ZeroMemberModal />
+        )
+
+        // </div>
       }
-        <h1 className="text-white text-3xl py-2">Step 1</h1>
-        <h1 className="text-white text-4xl ">
-          Choose a DAO to create a proposal for
-        </h1>
-        <form onSubmit={handleSubmit}>
-          <div className="py-4 ">
-            <label
-              className="block text-white text-lg font-normal"
-              htmlFor="daoName"
-            >
-              You have permission to create proposals for the following DAOs
-            </label>
+      {/* <h1 className="text-white text-3xl py-2">Step 1</h1> */}
+      <h1 className="text-white text-4xl ">
+        Choose a DAO to create a proposal for
+      </h1>
+      <form onSubmit={handleSubmit}>
+        <div className="py-4 ">
+          <label
+            className="block text-white text-lg font-normal"
+            htmlFor="daoName"
+          >
+            You have permission to create proposals for the following DAOs
+          </label>
 
-            {memberDaos.length >0 ? (
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
-                {[...memberDaos].reverse().map((daoDetail, i) => (
-                  <DaoCard
-                    key={i}
-                    id={i}
-                    daoSelected={daoSelected}
-                    handleDaoSelection={handleDaoSelection}
-                    daoDetail={daoDetail}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
-                {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
-                  <Skeleton
-                    key={i}
-                    animation="wave"
-                    className="w-full rounded-md"
-                    variant="rect"
-                    height={240}
-                  />
-                ))}
-              </div>
-            )}
+          {memberDaos.length > 0 ? (
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
+              {[...memberDaos].reverse().map((daoDetail, i) => (
+                <DaoCard
+                  key={i}
+                  id={i}
+                  daoSelected={daoSelected}
+                  handleDaoSelection={handleDaoSelection}
+                  daoDetail={daoDetail}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 m-5 gap-4 grid-cols-1">
+              {[1, 1, 1, 1].reverse().map((daoDetail, i) => (
+                <Skeleton
+                  key={i}
+                  animation="wave"
+                  className="w-full rounded-md"
+                  variant="rect"
+                  height={240}
+                />
+              ))}
+            </div>
+          )}
 
-            <div className="flex justify-end items-center">
-              <button
-                type="submit"
-                className="flex justify-center rounded-full item-center mt-[12px]
+          <div className="flex justify-end items-center">
+            <button
+              type="submit"
+              className="flex justify-center rounded-full item-center mt-[12px]
                           border border-transparent shadow-sm px-4 py-2 bg-[#6341ff]
                           text-base font-medium text-white hover:bg-[#8168ff] 
                           sm:w-auto sm:text-sm"
-              >
-                <p className="translate-x-1.5">Propose</p>
-                <MdNavigateNext
-                  className="translate-x-1.5 w-6"
-                  color="#fff"
-                  fontSize={20}
-                />
-              </button>
-            </div>
+            >
+              <p className="translate-x-1.5">Propose</p>
+              <MdNavigateNext
+                className="translate-x-1.5 w-6"
+                color="#fff"
+                fontSize={20}
+              />
+            </button>
           </div>
-        </form>
+        </div>
+      </form>
     </div>
   );
 };
@@ -149,11 +158,17 @@ const DaoCard = (props: {
   const navigate = useNavigate();
   const profileImageObj = getParsedJsonObj(daoDetail.profileImage);
   const profileImageUrl = profileImageObj.url.concat(profileImageObj.hash);
-
   return (
     <div
       className={`w-full relative`}
-      onClick={(event) => handleDaoSelection(event, id, daoDetail.CID)}
+      onClick={(event) =>
+        handleDaoSelection(
+          event,
+          id,
+          daoDetail.CID,
+          getParsedJsonObj(daoDetail.daoUpAddress).universalProfile
+        )
+      }
       onMouseLeave={handleMouseOut}
       onMouseEnter={handleMouseOver}
     >
@@ -167,21 +182,18 @@ const DaoCard = (props: {
         >
           {" "}
           <div className="w-[180px] h-[150px] absolute overflow-none rounded-lg p-5 ">
-            <img 
-                className="object-cover w-[180px] h-[150px] text-center rounded-full bg-[#1A1A1D]"
-                src={profileImageUrl}
-                alt=""
-              >
-              </img>
+            <img
+              className="object-cover w-[180px] h-[150px] text-center rounded-full bg-[#1A1A1D]"
+              src={profileImageUrl}
+              alt=""
+            ></img>
           </div>
-          
           <div className="p-1 min-w-[35%] rounded-full bg-black self-end z-10 m-5">
             {" "}
             <h1 className="text-white text-xs text-center px-1">
               {categoriesObject[0].label}
             </h1>{" "}
           </div>{" "}
-
           <div className="flex w-full flex-col justify-end items-start h-full z-10 m-5">
             {" "}
             <h1 className="text-black text-lg font-bold py-1">

@@ -8,15 +8,16 @@ import { toast } from "react-toastify";
 import { shortenAddress } from "../../utils/shortenAddress";
 import { SpinnerCircular } from "spinners-react";
 import { postJsonToIPFS, postImageToIPFS } from "../../services/web3Storage";
-import { getDaoByCID } from "../../services/keezBackend";
+import { getDaoByCID, putDaoUpdate } from "../../services/keezBackend";
 import { votingDelayItems } from "../../constants/votingPeriodItems";
 import dayjs from "dayjs";
-import { getParsedJsonObj } from "../../utils/getParsedJsonObj";
+import { getParsedJsonObj, getParsedJsonObj2 } from "../../utils/getParsedJsonObj";
 import { ethers } from "ethers";
 
 const GeneralTemplate = (props: { handleComponent: any }) => {
   const { handleComponent } = props;
   const {
+    addNewUser,
     proposalName,
     categories,
     coverImageFile,
@@ -201,8 +202,8 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
               ethers.utils.hexValue(permissionbyte),
               32
             );
-            console.log(permissionbyte);
-            console.log(permissionHex);
+            // console.log(permissionbyte);
+            // console.log(permissionHex);
             payloads = [
               setDataInterface.encodeFunctionData("setData", [
                 "0x4b80742de2bfb3cc0e490000" +
@@ -210,6 +211,13 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
                 permissionHex,
               ]),
             ];
+
+            if(addNewUser){
+              let _daoSelected = daoSelected
+              _daoSelected.keyPermissions = daoSelected.keyPermissions.slice(0,1)+getParsedJsonObj2(JSON.stringify(keyPermissions))+","+daoSelected.keyPermissions.slice(1)
+              // console.log(JSON.stringify(_daoSelected))
+              putDaoUpdate(_daoSelected);
+            }
           }
           break;
         case "General":
@@ -308,7 +316,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
         payloads,
         ProposalMetadata
       );
-      console.log("proposalSignatures = ", proposalSignatures);
+      // console.log("proposalSignatures = ", proposalSignatures);
       //@ts-ignore
       ProposalMetadata.proposalProfile["identifier"] = proposalSignatures;
       //************************ */
@@ -318,7 +326,7 @@ const GeneralTemplate = (props: { handleComponent: any }) => {
         });
         setSubmitLoading(false);
       } else {
-        console.log(ProposalMetadata);
+        // console.log(ProposalMetadata);
         // setMetalink(metalink);
         // window.open(metalink, "_blank");
         // const result = await postProposal(ProposalMetadata);
